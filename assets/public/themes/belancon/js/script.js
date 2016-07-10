@@ -184,28 +184,40 @@ Icon = {
        }
      },
      error: function(){      
-      alert('Error while request..');
+      sweetAlert("Oops...", "Terjadi kesalahan pada sistem", "error");
      }
     });
   },
   removeFromCart: function(id) {
     var token = sessionStorage.getItem('userNotRegistered');
-    //Ajax method
-    $.ajax({
-     type: "post",
-     url: BASE_URL + "icon/remove_from_cart",
-     cache: false,    
-     data: {id: id, token: token},
-     success: function(response){        
-       response  = JSON.parse(response);
-       // console.log(response);
-       Icon.getCart();
-       Cart.getAll();
-     },
-     error: function(){      
-      alert('Error while request..');
-     }
-    });
+
+    swal({
+      title: "Hapus Icon",
+      text: "Ingin menghapus icon ini dari cart?",
+      type: "warning",
+      showCancelButton: true,
+      closeOnConfirm: false,
+      showLoaderOnConfirm: true
+    }, function () {
+        $.ajax({
+         type: "post",
+         url: BASE_URL + "icon/remove_from_cart",
+         cache: false,    
+         data: {id: id, token: token},
+         success: function(response){        
+           response  = JSON.parse(response);
+           // console.log(response);
+           swal("Deleted!", 
+            "Icons telah dihapus dari keranjang.", 
+            "success");
+           Icon.getCart();
+           Cart.getAll();
+         },
+         error: function(){      
+          sweetAlert("Oops...", "Terjadi kesalahan pada sistem", "error");
+         }
+        }); 
+    });   
   },
   setSingleItemOnCart: function(icon) {
     var liCart = document.createElement("li");
@@ -378,7 +390,7 @@ Cart = {
         
      },
      error: function(){      
-      alert('Error while request..');
+      sweetAlert("Oops...", "Terjadi kesalahan pada sistem", "error");
      }
     });
   },
@@ -454,7 +466,10 @@ $(document).ready(function () {
 
         setTimeout(function(){ window.location = BASE_URL; }, 3000);
       } else {
-        alert("Please select file type");
+        swal("Warning!", 
+        "Silahkan pilih tipe file yang akan didownload", 
+        "error");
+        $('.btn-download-icon').button('reset');
       }
     });        
           
