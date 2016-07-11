@@ -15,7 +15,6 @@ window.onload = function() {
   Icon.getAll(1, by, search);
 
   Icon.getCart();
-
   Cart.getAll();
 
   //if param ready, redirect url with params
@@ -46,7 +45,8 @@ function getUrlParameter(sParam) {
 User = {
   setToken: function() {
     this.checkTokenIsExist(function(result) {
-      if(result === false) {
+      if(result === false) {      
+        Cart.setDefaultCart();
         //Ajax method
         $.ajax({
            type: "post",
@@ -67,7 +67,7 @@ User = {
   checkTokenIsExist: function(callback) {
     if(sessionStorage.getItem('userNotRegistered')) {
       callback(true);
-    } else {
+    } else {      
       callback(false);
     }
 
@@ -146,17 +146,20 @@ Icon = {
         //console.log(response);
         var items=[]; 
         var data = response.data;
+        var limit = data.length < 3 ? data.length : 3;
 
         //populate data
         if(data.length > 0) {
-          for(var i=0; i < data.length; i++) {
+          for(var i=0; i < limit; i++) {
             //push data to content html
             var item = self.setSingleItemOnCart(data[i]);
             items.push(item);
           }
 
           items.push(liDownload);
+          $('.total-icons-keranjang').show();
         } else {
+          $('.total-icons-keranjang').hide();
           items.push(liEmpty);
         }
 
@@ -168,7 +171,7 @@ Icon = {
      }
     });
   },
-  addToCart: function(id) {
+  addToCart: function(id, name) {
     var self = this;
     var token = sessionStorage.getItem('userNotRegistered');
     //Ajax method
@@ -181,6 +184,9 @@ Icon = {
        response  = JSON.parse(response);
        if(response.status === true) {
          self.getCart();
+          $('.btn-add-cart[data-id="'+ id +'"]').remove();
+          var btnRemove = self.getBtnRemoveIcon(id, name);
+          $('.download-icon[data-id="'+ id +'"]').append(btnRemove);
        }
      },
      error: function(){      
@@ -188,12 +194,13 @@ Icon = {
      }
     });
   },
-  removeFromCart: function(id) {
+  removeFromCart: function(id, name) {
+    var self = this;
     var token = sessionStorage.getItem('userNotRegistered');
 
     swal({
       title: "Hapus Icon",
-      text: "Ingin menghapus icon ini dari cart?",
+      text: "Ingin menghapus icon " + name + " dari cart?",
       type: "warning",
       showCancelButton: true,
       closeOnConfirm: false,
@@ -212,6 +219,10 @@ Icon = {
             "success");
            Icon.getCart();
            Cart.getAll();
+           //toggle button action on icon item.
+           $('.btn-remove-cart[data-id="'+ id +'"]').remove();
+           var btnAdd = self.getBtnAddIcon(id, name);
+           $('.download-icon[data-id="'+ id +'"]').append(btnAdd);
          },
          error: function(){      
           sweetAlert("Oops...", "Terjadi kesalahan pada sistem", "error");
@@ -229,6 +240,7 @@ Icon = {
 
     btnRemove.setAttribute("class", "black-color btn-remove-cart");
     btnRemove.setAttribute("data-id", icon.id);
+    btnRemove.setAttribute("data-name", icon.name);
     btnRemove.setAttribute("href", "javascript:void(0)");
     iconRemove.setAttribute("class", "green-color fa fa-trash");
     btnRemove.appendChild(iconRemove);
@@ -251,22 +263,23 @@ Icon = {
   setSingleContent: function(icon) {
      var divIconItem = document.createElement("div");
      var spanDownloadIcon = document.createElement("span");
-     var divImgIcon = document.createElement("div");
-     var btnAction = document.createElement("a");
-     var iconAdd = document.createElement("i");
+     var spanViewIcon = document.createElement("span");
+     var divImgIcon = document.createElement("div");     
      var imgIcon = document.createElement("img");
-
+     var btnView = document.createElement("a");
 
      divIconItem.setAttribute("class", "col-md-2 col-xs-4 col-sm-3 icon-item");
      spanDownloadIcon.setAttribute("class", "download-icon");
-     btnAction.setAttribute("class", "btn-add-cart");
-     btnAction.setAttribute("data-id", icon.id);
-     btnAction.setAttribute("data-name", icon.name);
-     btnAction.setAttribute("data-path", icon.path);
-     btnAction.setAttribute("href", "javascript:void(0)");
-     iconAdd.setAttribute("class", "fa fa-shopping-basket");
-     btnAction.appendChild(iconAdd);
-     spanDownloadIcon.appendChild(btnAction);
+     spanDownloadIcon.setAttribute("data-id", icon.id);
+     spanViewIcon.setAttribute("class", "view-icon");
+     
+     if(icon.onCart === true) {
+        var btnRemove = this.getBtnRemoveIcon(icon.id, icon.name);
+        spanDownloadIcon.appendChild(btnRemove); 
+     } else {
+        var btnAdd = this.getBtnAddIcon(icon.id, icon.name);
+        spanDownloadIcon.appendChild(btnAdd); 
+     }
 
      divImgIcon.setAttribute("class", "text-center img-icon");
      imgIcon.setAttribute("src", icon.path);
@@ -275,10 +288,40 @@ Icon = {
      imgIcon.setAttribute("id", icon.id);
      divImgIcon.appendChild(imgIcon);
 
+     btnView.setAttribute("data-id", icon.id);
+     btnView.setAttribute("href", "javascript:void(0)");
+     btnView.setAttribute("class", "fa fa-eye fa-lg btn-view-icon");
+     spanViewIcon.appendChild(btnView);
+
      divIconItem.appendChild(spanDownloadIcon);
+     divIconItem.appendChild(spanViewIcon);
      divIconItem.appendChild(divImgIcon);
 
      return divIconItem;
+  },
+  getBtnAddIcon: function(id, name) {
+    var btnAdd = document.createElement("a");     
+    var iconAdd = document.createElement("i");
+    btnAdd.setAttribute("class", "btn-add-cart");
+    btnAdd.setAttribute("data-id", id);
+    btnAdd.setAttribute("data-name", name);   
+    btnAdd.setAttribute("href", "javascript:void(0)");
+    iconAdd.setAttribute("class", "fa fa-shopping-basket");
+    btnAdd.appendChild(iconAdd);
+
+    return btnAdd;
+  },
+  getBtnRemoveIcon: function(id, name) {
+    var btnRemove = document.createElement("a");
+    var iconRemove = document.createElement("i");
+    btnRemove.setAttribute("class", "btn-remove-cart");
+    btnRemove.setAttribute("data-id", id);
+    btnRemove.setAttribute("data-name", name);     
+    btnRemove.setAttribute("href", "javascript:void(0)");
+    iconRemove.setAttribute("class", "fa fa-trash");
+    btnRemove.appendChild(iconRemove);
+
+    return btnRemove;     
   },
   /**
    * Set button loadmore, and show it to page or not
@@ -352,6 +395,26 @@ Icon = {
   clearList: function() {
     $('#icon-list').html("");
   },  
+  view: function(id, callback) {
+    $('#modal-content-large-icon').html("");
+    //Ajax method
+    $.ajax({
+     type: "post",
+     url: BASE_URL + "icon/get_one",
+     cache: false,    
+     data: {id: id},
+     success: function(response){        
+        response = JSON.parse(response);
+        var data = response.data;
+        var imgIcon = '<img src="'+ data.path +'" />';
+        $('#modal-content-large-icon').append(imgIcon);
+        callback(response.status);
+     },
+     error: function(){      
+      sweetAlert("Oops...", "Terjadi kesalahan pada sistem", "error");
+     }
+    });
+  }
 };
 
 Cart = {
@@ -359,7 +422,7 @@ Cart = {
     var self = this;
     $('#table-body-cart').html("");
 
-    var rowEmpty = '<tr><td colspan="4">No Item</td></tr>';
+    var rowEmpty = '<tr><td colspan="5">No Item</td></tr>';
 
     //Ajax method
     $.ajax({
@@ -400,10 +463,42 @@ Cart = {
     row += '<td>' + icon.name + '</td>';
     row += '<td><a href="result.html?=Zonk">'+ icon.category +'</a></td>';
     row += '<td> Rp. '+ icon.price +'</td>';
+    row += '<td> <button class="btn-remove-cart btn btn-xs btn-danger" data-id="'+icon.id+'" data-name="'+ icon.name +'"><i class="fa fa-times"></i></button>';
     row += '</tr>';
 
     return row;
   },
+  setDefaultCart: function() {
+    //Ajax method
+    $.ajax({
+     type: "post",
+     url: BASE_URL + "icon/set_default_cart",
+     cache: false,    
+     data:'',
+     success: function(response){        
+        
+     },
+     error: function(){      
+      sweetAlert("Oops...", "Terjadi kesalahan pada sistem", "error");
+     }
+    });
+  },
+  clearAll: function() {
+    
+    //Ajax method
+    $.ajax({
+     type: "post",
+     url: BASE_URL + "icon/clear_cart",
+     cache: false,    
+     data: {},
+     success: function(response){        
+        
+     },
+     error: function(){      
+      sweetAlert("Oops...", "Terjadi kesalahan pada sistem", "error");
+     }
+    });
+  }
 };
 
 
@@ -445,14 +540,16 @@ $(document).ready(function () {
 
     $(document).on('click', '.btn-add-cart', function(){ 
       var id = $(this).attr('data-id');
+      var name = $(this).attr('data-name');
 
-      Icon.addToCart(id);
+      Icon.addToCart(id, name);
     });    
 
     $(document).on('click', '.btn-remove-cart', function(){ 
       var id = $(this).attr('data-id');
+      var name = $(this).attr('data-name');
 
-      Icon.removeFromCart(id);
+      Icon.removeFromCart(id, name);
     });        
 
     $(document).on('click', '.btn-download-icon', function(){ 
@@ -472,9 +569,18 @@ $(document).ready(function () {
         $('.btn-download-icon').button('reset');
       }
     });        
+
+    $(document).on('click', '.btn-view-icon', function() {      
+      var id = $(this).attr('data-id');
+      Icon.view(id, function(result) {
+        if(result) {
+          $('.modal-view-icon').modal('show');
+        }
+      })      
+    });
           
 });
 
-window.onbeforeunload = function(e) {
-  
+window.unload = function(e) {
+  //Cart.clearAll();
 };

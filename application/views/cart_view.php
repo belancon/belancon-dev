@@ -37,6 +37,9 @@
                   <td>
                     Price
                   </td>
+                  <td>
+                    Aksi
+                  </td>
                 </tr>
               </thead>
               <tbody id="table-body-cart">

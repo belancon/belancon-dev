@@ -65,6 +65,18 @@
                     
                   </div>
                 </div>
+
+                <!-- MODAL VIEW LARGE ICON -->
+                <div class="modal fade modal-view-icon" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel">
+                  <div class="modal-dialog modal-lg">
+                    <div class="modal-content">
+                      <div class="text-center" id="modal-content-large-icon">
+                          
+                      </div>
+                    </div>
+                  </div>
+                </div>
+
               </div>
 
             </div>

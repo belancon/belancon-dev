@@ -86,4 +86,16 @@ class Icon_model extends CI_Model {
 
         return $query->row();
     } 
+
+    public function get_random($limit = 5) {
+        $query = $this->db->order_by('id', 'RANDOM')
+                  ->limit($limit)
+                  ->get($this->table);
+
+        if($query->num_rows() > 0) {
+            return $query->result();
+        } else {
+            return FALSE;
+        }
+    }
 }

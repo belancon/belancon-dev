@@ -24,28 +24,50 @@ class Icon extends CI_Controller {
 	 */
 	public function get_all()
 	{
-		$page = (int)$this->input->post('page');
-		$by = $this->input->post('by');
-		$search = $this->input->post('search') ? $this->input->post('search') : "";
+		if( $this->input->is_ajax_request() ) {
+			$page = (int)$this->input->post('page');
+			$by = $this->input->post('by');
+			$search = $this->input->post('search') ? $this->input->post('search') : "";
 
-		$img_icon_folder = $this->_path_img;
+			$img_icon_folder = $this->_path_img;
 
-		$icons = array();
-		$data = $this->get_data($page, $by, $search);
-		$more = count($data) < $this->limit ? false : true;
+			$icons = array();
+			$data = $this->get_data($page, $by, $search);
+			$cart = $this->cart_belancon->contents();
+			$more = count($data) < $this->limit ? false : true;
 
-		if(count($data) > 0) {
-			
-			foreach ($data as $icon) {
-				$icons[] = array(
-					'id' => $icon['id'],
-					'name' => $icon['name'],
-					'path' => $img_icon_folder."/".$icon['default_image']
-				);
+			if(count($data) > 0) {
+				
+				foreach ($data as $icon) {
+					$id = $icon['id'];
+					$icons[] = array(
+						'id' => $icon['id'],
+						'name' => $icon['name'],
+						'path' => $img_icon_folder."/".$icon['default_image'],
+						'onCart' => isset($cart[$id]) ? true : false
+					);
+				}
+			}
+
+			echo json_encode(array('data' => $icons, 'page' => $page + 1, 'more' => $more, 'by'=> $by, 'search'=> $search));
+		} else {
+			redirect('/');
+		}
+	}
+
+	public function get_one() {
+		if($this->input->is_ajax_request()) {
+			$id = $this->input->post('id');
+
+			if($id) {
+				$icon = $this->icon_model->get_one($id);
+				$data = array('path' => $this->_path_img."/".$icon->default_image);
+				echo json_encode(array('status'=> TRUE, 'data' => $data));
+			} else {
+
+				echo json_encode(array('status'=> FALSE, 'error'=> 'icon not found'));
 			}
 		}
-
-		echo json_encode(array('data' => $icons, 'page' => $page + 1, 'more' => $more, 'by'=> $by, 'search'=> $search));
 	}
 
 	/**
@@ -103,6 +125,7 @@ class Icon extends CI_Controller {
 	}
 
 	public function add_to_cart() {		
+		if( $this->input->is_ajax_request() ) {
 		$id = $this->input->post('id');
 		$token = $this->input->post('token');
 		$img_icon_folder = $this->_path_img;
@@ -140,45 +163,56 @@ class Icon extends CI_Controller {
 		}
 
 		echo json_encode($result);
+		} else {
+			redirect('/');
+		}
 	}
 
-	public function remove_from_cart() {		
-		$id = $this->input->post('id');
-		$token = $this->input->post('token');
+	public function remove_from_cart() {	
+		if( $this->input->is_ajax_request() ) {	
+			$id = $this->input->post('id');
+			$token = $this->input->post('token');
 
-		if($token === $this->user_belancon->get_token()) {
-			$deleted = $this->cart_belancon->remove($id);
+			if($token === $this->user_belancon->get_token()) {
+				$deleted = $this->cart_belancon->remove($id);
 
-			if($deleted) {
-				$result = array('status'=> true);	
+				if($deleted) {
+					$result = array('status'=> true);	
+				} else {
+					$result = array('status'=> false, 'error' => 'failed deleted item from cart');
+				}
 			} else {
-				$result = array('status'=> false, 'error' => 'failed deleted item from cart');
+				$result = array('status'=> false, 'error' => 'not authorized');
 			}
-		} else {
-			$result = array('status'=> false, 'error' => 'not authorized');
-		}
 
-		echo json_encode($result);
+			echo json_encode($result);
+		} else {
+			redirect('/');
+		}
 	}
 
 	public function get_cart() {
-		$data = array();
-		$cart = $this->cart_belancon->contents();
+		if( $this->input->is_ajax_request() ) {
+			$data = array();
+			$cart = $this->cart_belancon->contents();
 
-		if(is_array($cart) && count($cart) > 0) {
-			foreach($cart as $item) {
-				$data[] = array(
-					'id' => $item['id'],
-					'name' => $item['name'],
-					'category' => $item['category'],
-					'price' => $item['price'],
-					'type' => $item['type'],
-					'path' => $item['path_img']
-				);
+			if(is_array($cart) && count($cart) > 0) {
+				foreach($cart as $item) {
+					$data[] = array(
+						'id' => $item['id'],
+						'name' => $item['name'],
+						'category' => $item['category'],
+						'price' => $item['price'],
+						'type' => $item['type'],
+						'path' => $item['path_img']
+					);
+				}
 			}
-		}
 
-		echo json_encode(array('data' => $data));
+			echo json_encode(array('data' => $data));
+		} else {
+			redirect('/');
+		}
 	}
 
 	public function download_all($type, $token) {
@@ -217,6 +251,35 @@ class Icon extends CI_Controller {
 				}
 		} else {
 			echo "no";
+		}
+	}
+
+	public function clear_cart() {		
+		if($this->input->is_ajax_request()) {
+			$this->cart_belancon->clear();
+		} 
+	}
+
+	public function set_default_cart() {
+		if($this->input->is_ajax_request()) {
+			$result = $this->icon_model->get_random(2);
+			$cart = $this->cart_belancon->contents();
+
+			if($result && count($cart) < 1) {
+				foreach($result as $item) {
+					$data = array(
+				        'id'      => $item->id,
+				        'qty'     => 1,
+				        'price'   => $item->price,
+				        'name'    => $item->name,
+				        'category' => $item->category,
+				        'path_img' => $this->_path_img."/".$item->default_image,
+				        'type' => $item->type
+					);
+
+					$this->cart_belancon->insert($data);
+				}
+			}
 		}
 	}
 
