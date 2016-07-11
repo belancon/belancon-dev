@@ -119,6 +119,7 @@ Icon = {
         $('#icon-list').append.apply($('#icon-list'), items);
         //set button loadmore
         self.setLoadMore(response.more, response.page);
+        self.setheader();
      },
      error: function(){      
       alert('Error while request..');
@@ -183,10 +184,12 @@ Icon = {
      success: function(response){        
        response  = JSON.parse(response);
        if(response.status === true) {
-         self.getCart();
+          self.getCart();
+          //toggle button action to icon item
           $('.btn-add-cart[data-id="'+ id +'"]').remove();
           var btnRemove = self.getBtnRemoveIcon(id, name);
           $('.download-icon[data-id="'+ id +'"]').append(btnRemove);
+          swal(name, "ditambahkan ke keranjang", "success")
        }
      },
      error: function(){      
@@ -414,6 +417,23 @@ Icon = {
       sweetAlert("Oops...", "Terjadi kesalahan pada sistem", "error");
      }
     });
+  },
+  setheader: function() {
+    $('#header-search-page').html('');
+    var paramSearch = getUrlParameter('search') ? getUrlParameter('search') : null;
+    
+    if(paramSearch === null) {
+      $('#header-home-page').show();      
+      $('#header-search-page').show();
+    } else {
+      var header = '<h2 class="text-center green-color" style="margin-bottom: 20px;">';
+      header += 'Hasil Pencarian : ' + paramSearch + '</h2>';
+
+      $('#header-search-page').append(header);
+            
+      $('#header-home-page').hide();
+      $('#header-search-page').show();
+    }
   }
 };
 
@@ -528,13 +548,20 @@ $(document).ready(function () {
     $(document).on('click', '#btn-load-more', function(){ 
       //Icon.getAll();
       var paramBy = getUrlParameter('by') ? getUrlParameter('by'): null;
+      var paramSearch = getUrlParameter('search') ? getUrlParameter('search') : null;
       var by = paramBy ? paramBy : "newest";
+      var search = paramSearch ? paramSearch : "";
       var page = $(this).attr('data-page');
 
-      Icon.getAll(page, by);
+      Icon.getAll(page, by, search);
       
-      if(paramBy)
-        window.history.pushState("", "", BASE_URL + "?by=" +by);
+      if(paramBy) {
+        if(paramSearch) {
+          window.history.pushState("", "", BASE_URL + "?by=" +by + "&search=" + search);
+        } else {
+          window.history.pushState("", "", BASE_URL + "?by=" +by);
+        }
+      }
 
     });
 

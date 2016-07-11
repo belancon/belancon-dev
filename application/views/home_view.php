@@ -19,13 +19,20 @@
           </div>
         </div>
               
-        <div class="row">
+        <div class="row" id="header-home-page">
           <div class="col-md-12">
             <h2 class="text-center green-color" style="margin-bottom: 20px;">
               Icons untuk Kebutuhan Desain Anda
             </h2>
           </div>
         </div>
+
+        <div class="row" id="header-search-page" style="display:none">
+          <div class="col-md-12">
+            
+          </div>
+        </div>
+
         <div class="row">
           <div class="col-md-6 col-md-offset-3">
             <p class="text-center black-color">
@@ -34,6 +41,8 @@
             </p>
           </div>
         </div>
+
+
         <div class="row" style="margin-top: 30px;">
           <div class="col-md-12">
             <div>
