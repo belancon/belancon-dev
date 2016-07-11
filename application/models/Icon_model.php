@@ -98,4 +98,8 @@ class Icon_model extends CI_Model {
             return FALSE;
         }
     }
+
+    public function get_total() {
+        return $this->db->count_all($this->table);
+    }
 }
