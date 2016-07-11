@@ -463,7 +463,7 @@ Cart = {
     row += '<td>' + icon.name + '</td>';
     row += '<td><a href="result.html?=Zonk">'+ icon.category +'</a></td>';
     row += '<td> Rp. '+ icon.price +'</td>';
-    row += '<td> <button class="btn-remove-cart btn btn-xs btn-danger" data-id="'+icon.id+'" data-name="'+ icon.name +'"><i class="fa fa-times"></i></button>';
+    row += '<td> <button class="btn-remove-cart btn btn-xs btn-danger" data-id="'+icon.id+'" data-name="'+ icon.name +'"><i class="fa fa-trash"></i></button>';
     row += '</tr>';
 
     return row;
