@@ -21,6 +21,11 @@ class Contributor extends CI_Controller {
         $this->form_validation->set_rules('skill', 'Keahlian', 'required');
         $this->form_validation->set_rules('message', 'Pesan', 'required|min_length[10]');
 
+        $this->form_validation->set_message('required', '{field} harus diisi');
+        $this->form_validation->set_message('valid_email', 'Alamat {field} tidak valid');
+        $this->form_validation->set_message('min_length', '{field} tidak boleh kurang dari {param} karakter.');
+
+
         if ($this->form_validation->run() == FALSE) {
             $this->_load_view('contributor_join_view');
         } else {
@@ -51,10 +56,9 @@ class Contributor extends CI_Controller {
             
             $this->load->model('contributor_model');
             $this->load->library('email', $config);
-            $this->email->from($this->email_belancon);
-            $this->email->to('sakukode@gmail.com');
-            //$this->email->to('anggariskysetiawan@gmail.com');
-            //$this->email->cc('rizqimaulana.1988@gmail.com');
+            $this->email->from($this->email_belancon);            
+            $this->email->to('anggariskysetiawan@gmail.com');
+            $this->email->cc('rizqimaulana.1988@gmail.com');
             $this->email->subject($subject);
             $data = array( 'fullname' => $fullname, 'email' => $email, 'skill' => $skill, 'message' => $message);
 
@@ -63,7 +67,7 @@ class Contributor extends CI_Controller {
             $this->email->message( $body );
 
             if ($this->email->send()) {
-                $this->session->set_flashdata('success_message', 'Terima kasih telah mengirimkan permintaan gabung sebagai kontributor');
+                
                 $data = array(
                     'fullname' => $fullname,
                     'email' => $email,
@@ -71,9 +75,17 @@ class Contributor extends CI_Controller {
                     'message' => $message,                    
                 );
 
-                $this->contributor_model->insert($data);             
+                $id = $this->contributor_model->insert($data);             
+
+                if($id) {
+                    $this->session->set_flashdata('success_message', 'Terima kasih telah mengirimkan permintaan gabung sebagai kontributor');
+                } else {
+                    $this->session->set_flashdata('error_message', 'Error System');
+                }
+
                 redirect('/');
             } else {
+                $this->session->set_flashdata('error_message', 'Failed send email');
                 redirect('/');
                 //show_error($this->email->print_debugger(), true);
             }
@@ -89,7 +101,7 @@ class Contributor extends CI_Controller {
         $this->template->set_css('sweetalert.css');  
         $this->template->set_css('style.css');            
         $this->template->set_css('font-awesome.css');
-        $this->template->set_js('https://code.jquery.com/jquery-1.12.1.min.js','footer','remote');
+        $this->template->set_js('https://code.jquery.com/jquery-1.12.1.min.js','header','remote');
         $this->template->set_js('bootstrap.js','footer');
         $this->template->set_js('sweetalert.min.js','footer');
         

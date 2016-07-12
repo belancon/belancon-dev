@@ -31,6 +31,12 @@
 
 	<script type="text/javascript">
 	    BASE_URL = "<?php echo base_url();?>";
+	    var csrfData = {};
+	    	csrfData['<?php echo (string) $this->security->get_csrf_token_name()?>'] = '<?php echo (string) $this->security->get_csrf_hash()?>';
+	    	$.ajaxSetup({
+	    		data: csrfData
+	    	});
+	    csrf_token_name = '<?php echo (string) $this->security->get_csrf_token_name()?>';
 	</script>
 </head>
 <body>

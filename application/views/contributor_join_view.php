@@ -33,6 +33,10 @@
         <div class="row" style="margin-top: 30px;">
           <div class="col-md-6 col-md-offset-3">
             <form method="POST" action="<?php echo site_url('contributor/join');?>">
+            <?php
+              $attributes = array('id' => 'form-join-contributor');
+              echo form_open('contributor/join()', $attributes)
+              ?>
               <div class="form-group">
                 <label for="fullname">Nama Lengkap</label>
                 <input type="text" class="form-control" name="fullname" id="fullname" placeholder="Nama Lengkap" value="<?php echo set_value('fullname'); ?>">
@@ -46,13 +50,13 @@
               <div class="form-group">
                 <label for="email">Keahlian</label> <br />
                 <label class="radio-inline">
-                  <input type="radio" name="skill" id="designer" value="designer"> Social Media Manager
+                  <input type="radio" name="skill" id="socia-media-manager" value="Social Media Manager" <?php echo set_radio('skill', 'Social Media Manager'); ?>> Social Media Manager
                 </label>
                 <label class="radio-inline">
-                  <input type="radio" name="skill" id="designer" value="designer"> Designer
+                  <input type="radio" name="skill" id="designer" value="Designer" <?php echo set_radio('skill', 'Designer'); ?>> Designer
                 </label>
                 <label class="radio-inline">
-                  <input type="radio" name="skill" id="programmer" value="programmer"> Programmer
+                  <input type="radio" name="skill" id="programmer" value="Programmer" <?php echo set_radio('skill', 'Programmer'); ?>> Programmer
                 </label>
                 <span class="text-danger"><?php echo form_error('skill'); ?></span>
               </div>
@@ -62,7 +66,7 @@
                 <span class="text-danger"><?php echo form_error('message'); ?></span>
               </div>
               <button type="submit" class="btn btn-default">Submit</button>
-            </form>
+            <?php echo form_close(); ?>
           </div>
         </div>
 

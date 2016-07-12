@@ -115,7 +115,7 @@ class Icon extends CI_Controller {
         $this->template->set_css('sweetalert.css');  
         $this->template->set_css('style.css');
         $this->template->set_css('font-awesome.css');
-        $this->template->set_js('https://code.jquery.com/jquery-1.12.1.min.js','footer','remote');
+        $this->template->set_js('https://code.jquery.com/jquery-1.12.1.min.js','header','remote');
         $this->template->set_js('bootstrap.js','footer');
         $this->template->set_js('sweetalert.min.js','footer');
         
@@ -241,7 +241,7 @@ class Icon extends CI_Controller {
 					}
 
 					$this->cart_belancon->clear();	
-					$this->session->set_flashdata('success_message', 'thanks for downloading.');
+					$this->session->set_flashdata('success_message', 'Berhasil mendowload icon.');
 					
 					$this->zip->add_data($files);
 					$this->zip->download('download.zip');		

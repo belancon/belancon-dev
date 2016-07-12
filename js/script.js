@@ -82,6 +82,9 @@ $(document).ready(function () {
 
     });
 
+    /**
+     * Action when button add cart clicked    
+     */
     $(document).on('click', '.btn-add-cart', function(){ 
       var id = $(this).attr('data-id');
       var name = $(this).attr('data-name');
@@ -89,6 +92,9 @@ $(document).ready(function () {
       Icon.addToCart(id, name);
     });    
 
+    /**
+     * Action when button remove cart clicked    
+     */
     $(document).on('click', '.btn-remove-cart', function(){ 
       var id = $(this).attr('data-id');
       var name = $(this).attr('data-name');
@@ -96,6 +102,9 @@ $(document).ready(function () {
       Icon.removeFromCart(id, name);
     });        
 
+    /**
+     * Action when button download icon clicked
+     */
     $(document).on('click', '.btn-download-icon', function(){ 
       $('.btn-download-icon').button('loading');
       var type = $('input[name=format-file-options]:checked').val();
@@ -105,7 +114,7 @@ $(document).ready(function () {
         var url = BASE_URL + "icon/download_all/" + type + "/" + token;
         window.location = url;
 
-        setTimeout(function(){ window.location = BASE_URL; }, 3000);
+        setTimeout(function(){ window.location = BASE_URL; }, 2000);
       } else {
         swal("Warning!", 
         "Silahkan pilih tipe file yang akan didownload", 
@@ -114,6 +123,9 @@ $(document).ready(function () {
       }
     });        
 
+    /**
+     * Action when button view icon clicked     
+     */
     $(document).on('click', '.btn-view-icon', function() {      
       var id = $(this).attr('data-id');
       Icon.view(id, function(result) {

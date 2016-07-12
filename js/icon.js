@@ -19,7 +19,8 @@ Icon = {
      type: "post",
      url: BASE_URL + "icon/get_all",
      cache: false,    
-     data:'page=' + page + "&by=" + by + "&search=" + search,
+     data: {page: page, by: by, search: search},
+      // 'page=' + page + "&by=" + by + "&search=" + search,
      success: function(response){        
         response = JSON.parse(response);
         //console.log(response);
@@ -47,14 +48,22 @@ Icon = {
      }
     });
   },
+  /**
+   * get all icon on cart
+   * @return {[type]} [description]
+   */
   getCart: function() {
     var self = this;
+    //clear list cart on page
     $('.dropdown-keranjang').html("");
+
+    //set button download element
     var liDownload = '<li class="divider"></li>';
     liDownload += '<li style="padding-top: 20px; padding-bottom: 30px;" id="btn-download-cart">';
     liDownload += '<a href="'+ BASE_URL +'cart">';
     liDownload += '<span class="green-color glyphicon glyphicon-save" aria-hidden="true"></span> Download all Icons </a> </li>';
-                                    
+                                  
+    //set list element if cart empty  
     var liEmpty = '<li style="padding-top: 20px; padding-bottom: 30px;" id="li-cart-empty">Cart Empty</li>';
 
     //Ajax method
@@ -62,13 +71,13 @@ Icon = {
      type: "post",
      url: BASE_URL + "icon/get_cart",
      cache: false,    
-     data:'',
+     data: {},
      success: function(response){        
         response = JSON.parse(response);
         //console.log(response);
         var items=[]; 
         var data = response.data;
-        var limit = data.length < 3 ? data.length : 3;
+        var limit = data.length < 3 ? data.length : 3; //limit only 3 icon show on cart
 
         //populate data
         if(data.length > 0) {
@@ -85,7 +94,7 @@ Icon = {
           items.push(liEmpty);
         }
 
-        //and append all icons to display in page html
+        //and append all icons to display in cart list
         $('.dropdown-keranjang').append.apply($('.dropdown-keranjang'), items);
      },
      error: function(){      
@@ -93,8 +102,14 @@ Icon = {
      }
     });
   },
+  /**
+   * add icon to cart
+   * @param {[type]} id   [description]
+   * @param {[type]} name [description]
+   */
   addToCart: function(id, name) {
     var self = this;
+    //get token
     var token = sessionStorage.getItem('userNotRegistered');
     //Ajax method
     $.ajax({
@@ -105,10 +120,11 @@ Icon = {
      success: function(response){        
        response  = JSON.parse(response);
        if(response.status === true) {
+          //refresh cart
           self.getCart();
           //toggle button action to icon item
           $('.btn-add-cart[data-id="'+ id +'"]').remove();
-          var btnRemove = self.getBtnRemoveIcon(id, name);
+          var btnRemove = self.setBtnRemoveIcon(id, name);
           $('.download-icon[data-id="'+ id +'"]').append(btnRemove);
           swal(name, "ditambahkan ke keranjang", "success")
        }
@@ -118,10 +134,18 @@ Icon = {
      }
     });
   },
+  /**
+   * remove icon selected from cart
+   * @param  {[type]} id   [description]
+   * @param  {[type]} name [description]
+   * @return {[type]}      [description]
+   */
   removeFromCart: function(id, name) {
     var self = this;
+    //get token
     var token = sessionStorage.getItem('userNotRegistered');
 
+    //show alert warning before remove icon from cart
     swal({
       title: "Hapus Icon",
       text: "Ingin menghapus icon " + name + " dari cart?",
@@ -130,6 +154,7 @@ Icon = {
       closeOnConfirm: false,
       showLoaderOnConfirm: true
     }, function () {
+        //if clicked confirmation, call method to remove icon from cart
         $.ajax({
          type: "post",
          url: BASE_URL + "icon/remove_from_cart",
@@ -141,11 +166,12 @@ Icon = {
            swal("Deleted!", 
             "Icons telah dihapus dari keranjang.", 
             "success");
+           //refresh cart
            Icon.getCart();
            Cart.getAll();
            //toggle button action on icon item.
            $('.btn-remove-cart[data-id="'+ id +'"]').remove();
-           var btnAdd = self.getBtnAddIcon(id, name);
+           var btnAdd = self.setBtnAddIcon(id, name);
            $('.download-icon[data-id="'+ id +'"]').append(btnAdd);
          },
          error: function(){      
@@ -154,6 +180,10 @@ Icon = {
         }); 
     });   
   },
+  /**
+   * set element html for single item on cart list
+   * @param {[type]} icon [description]
+   */
   setSingleItemOnCart: function(icon) {
     var liCart = document.createElement("li");
     var imgCart = document.createElement("img");
@@ -181,7 +211,7 @@ Icon = {
     return liCart;
   },
   /**
-   * Generate Element Html to display single icon
+   * set Element Html to display single icon on page
    * @param {[type]} icon [description]
    */
   setSingleContent: function(icon) {
@@ -198,10 +228,10 @@ Icon = {
      spanViewIcon.setAttribute("class", "view-icon");
      
      if(icon.onCart === true) {
-        var btnRemove = this.getBtnRemoveIcon(icon.id, icon.name);
+        var btnRemove = this.setBtnRemoveIcon(icon.id, icon.name);
         spanDownloadIcon.appendChild(btnRemove); 
      } else {
-        var btnAdd = this.getBtnAddIcon(icon.id, icon.name);
+        var btnAdd = this.setBtnAddIcon(icon.id, icon.name);
         spanDownloadIcon.appendChild(btnAdd); 
      }
 
@@ -223,7 +253,13 @@ Icon = {
 
      return divIconItem;
   },
-  getBtnAddIcon: function(id, name) {
+  /**
+   * set button action add to cart on single content icon on page
+   * @param  {[type]} id   [description]
+   * @param  {[type]} name [description]
+   * @return {[type]}      [description]
+   */
+  setBtnAddIcon: function(id, name) {
     var btnAdd = document.createElement("a");     
     var iconAdd = document.createElement("i");
     btnAdd.setAttribute("class", "btn-add-cart");
@@ -235,7 +271,13 @@ Icon = {
 
     return btnAdd;
   },
-  getBtnRemoveIcon: function(id, name) {
+  /**
+   * set button action remove from cart on single content icon on page
+   * @param  {[type]} id   [description]
+   * @param  {[type]} name [description]
+   * @return {[type]}      [description]
+   */
+  setBtnRemoveIcon: function(id, name) {
     var btnRemove = document.createElement("a");
     var iconRemove = document.createElement("i");
     btnRemove.setAttribute("class", "btn-remove-cart");
@@ -319,9 +361,15 @@ Icon = {
   clearList: function() {
     $('#icon-list').html("");
   },  
+  /**
+   * view detail/large icon using modal element
+   * @param  {[type]}   id       [description]
+   * @param  {Function} callback [description]
+   * @return {[type]}            [description]
+   */
   view: function(id, callback) {
     $('#modal-content-large-icon').html("");
-    //Ajax method
+    //Ajax method to get icon detail
     $.ajax({
      type: "post",
      url: BASE_URL + "icon/get_one",

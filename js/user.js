@@ -1,4 +1,7 @@
 User = {
+  /**
+   * Set token first user open or visit belancon site
+   */
   setToken: function() {
     this.checkTokenIsExist(function(result) {
       if(result === false) {      
@@ -8,7 +11,7 @@ User = {
            type: "post",
            url: BASE_URL + "user/set_token",
            cache: false,    
-           data:'',
+           data: {},
            success: function(response){        
               response = JSON.parse(response);
               sessionStorage.setItem('userNotRegistered', response.token);          
@@ -20,6 +23,11 @@ User = {
       }
     });
   },
+  /**
+   * check whether the token has the generated
+   * @param  {Function} callback [description]
+   * @return {[type]}            [description]
+   */
   checkTokenIsExist: function(callback) {
     if(sessionStorage.getItem('userNotRegistered')) {
       callback(true);
