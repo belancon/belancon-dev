@@ -26,7 +26,6 @@ class Home extends CI_Controller
         $this->template->set_js('https://code.jquery.com/jquery-1.12.1.min.js','footer','remote');
         $this->template->set_js('bootstrap.js','footer');
         $this->template->set_js('sweetalert.min.js','footer');
-        $this->template->set_js('script.js','footer');
         
         $this->template->set_layout('home_view');
         $this->template->render();
