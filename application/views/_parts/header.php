@@ -2,7 +2,7 @@
         <div class="row">
           <div class="col-md-12" style="margin-bottom: 30px; margin-top: 50px;">
             <h1 class="text-center">
-              Tersedia lebih dari <?php echo icon_total(); ?>
+              Tersedia lebih dari <?php echo icon_total(); ?> Icons
             </h1>
           </div>
           <div class="col-md-6 col-md-offset-3">

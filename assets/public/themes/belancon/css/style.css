@@ -16,6 +16,10 @@ a {
 }
 /*GLOBAL COLOR*/
 
+#li-cart-empty {
+	margin-left: 20px;
+}
+
 .table-cart-icon td {
 	vertical-align: middle !important;
 }

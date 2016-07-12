@@ -3,7 +3,7 @@
   <?php $this->load->view('_parts/navbar'); ?>  
 </div>
     
-    <div id="home-icons" style="padding-top: 50px;">
+    <div id="home-icons" style="min-height: 768px; padding-top: 50px;">
       <div class="container">
         <div class="row">
           <div class="col-md-12">
@@ -15,8 +15,7 @@
         <div class="row">
           <div class="col-md-6 col-md-offset-3">
             <p class="text-center black-color">
-              Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod
-              tempor incididunt ut labore et dolore magna aliqua.
+              Silahkan unduh semua Icons yang sudah anda tambahkan pada Keranjang anda, jangan lupa untuk pilih jenis file yang anda ingin unduh.
             </p>
           </div>
         </div>
@@ -43,7 +42,6 @@
                 </tr>
               </thead>
               <tbody id="table-body-cart">
-                
               </tbody>              
             </table>
           </div>
