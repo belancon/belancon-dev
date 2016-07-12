@@ -2,39 +2,20 @@
 
 <div id="header">
   <?php $this->load->view('_parts/navbar'); ?>
-  <?php $this->load->view('_parts/header'); ?>  
+  <?php $this->load->view('_parts/header_result'); ?>  
 </div>
 
     
     <div id="home-icons" style="padding-top: 50px;">
-      <div class="container">
-        <div class="row">
-          <div class="col-md-12">
-            <?php if($this->session->flashdata('success_message')): ?>
-            <div class="alert alert-success">
-              <span><?php echo $this->session->flashdata('success_message'); ?></span>
-              <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-            </div>
-            <?php endif; ?>
-          </div>
-        </div>
-              
-        <div class="row" id="header-home-page">
-          <div class="col-md-12">
-            <h2 class="text-center green-color" style="margin-bottom: 20px;">
-              Icons untuk Kebutuhan Desain Anda
-            </h2>
-          </div>
-        </div>
+      <div class="container">              
 
-        <div class="row">
-          <div class="col-md-6 col-md-offset-3">
-            <p class="text-center black-color">
-              Anda bebas unduh semua Icons yang tersedia pada Belancon.com, anda juga bisa memilih antara jenis file yang akan anda unduh nantinya pada halaman Keranjang.       
-            </p>
+        <div class="row" id="header-search-page">
+          <div class="col-md-12">
+              <h2 class="text-center green-color" style="margin-bottom: 20px;">
+                Hasil Pencarian : "<?php echo $searchText; ?>"
+              </h2>
           </div>
         </div>
-
 
         <div class="row" style="margin-top: 30px;">
           <div class="col-md-12">
@@ -99,7 +80,7 @@
               Sebuah website yang menyediakan icon-icon untuk kebutuhan desain website, aplikasi, print-out, dan lain-lain. Icon-icon pada Belancon ini memiliki kategori yang berbeda-beda, yakni Gratis dan juga ada yang berbayar.
             </p>
             <p style="margin-top: 30px;">
-              <a href="<?php echo site_url('contributor/join');?>" class="btn btn-primary btn-contributor">Join as Contributor</a>
+              <a href="mailto:anggariskysetiawan@gmail.com" class="btn btn-primary btn-contributor">Join as Contributor</a>
             </p>
           </div>
         </div>

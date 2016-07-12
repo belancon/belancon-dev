@@ -16,6 +16,7 @@ class Icon_model extends CI_Model {
     	$query = $this->db->select('id, name, default_image, category')    					  
     			 		  ->order_by('created_at', 'DESC')    
     			 		  ->like('name', $search)			 		  
+                          ->or_like('tags', $search)
     			 		  ->or_like('category', $search)
     			 		  ->get($this->table, $limit, $offset);
 
@@ -32,7 +33,8 @@ class Icon_model extends CI_Model {
     public function get_popular($limit, $offset, $search) {
     	$query = $this->db->select('id, name, default_image, category')    					  
     			 		  ->order_by('views', 'DESC')    
-    			 		  ->like('name', $search)			 		  
+    			 		  ->like('name', $search)	
+                          ->or_like('tags', $search)		 		  
     			 		  ->or_like('category', $search)
     			 		  ->get($this->table, $limit, $offset);
 
@@ -47,7 +49,7 @@ class Icon_model extends CI_Model {
      * @return [type]         [description]
      */
     public function get_free($limit, $offset, $search) {
-    	$where = "(type = 'free') AND ((name LIKE '%".$search."%') OR (category LIKE '%".$search."%'))";
+    	$where = "(type = 'free') AND ((name LIKE '%".$search."%') OR (category LIKE '%".$search."%') OR (tags LIKE '%".$search."%'))";
 	    $query = $this->db->select('id, name, default_image, type, category')    					  
 	    			 		->order_by('created_at', 'DESC')    	    			 		 
 	    			 		->where($where)    			 		 
@@ -66,7 +68,7 @@ class Icon_model extends CI_Model {
      */
     public function get_paid($limit, $offset, $search) {
     	
-    	$where = "(type = 'paid') AND ((name LIKE '%".$search."%') OR (category LIKE '%".$search."%'))";
+    	$where = "(type = 'paid') AND ((name LIKE '%".$search."%') OR (category LIKE '%".$search."%') OR (tags LIKE '%".$search."%'))";
 	    $query = $this->db->select('id, name, default_image, type, category')    					  
 	    			 	->order_by('created_at', 'DESC')    	    			 	
 	    			 	->where($where)    			 		 

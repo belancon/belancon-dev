@@ -50,11 +50,13 @@ class Template
 		if($source == 'remote') {
 			$url = $css_file;
 		} else {
-			$url = 'assets/' . $this->get_platform() . '/themes/' . $this->get_theme() . '/css/' . $css_file;
+			$url = base_url().'assets/' . $this->get_platform() . '/themes/' . $this->get_theme() . '/css/' . $css_file;
 
 			// Check is file exists
-			if(!file_exists($url))
-				show_error("Cannot locate stylesheet file: {$url}.");
+			if(!file_exists($url)) {
+				//echo $url;
+				//show_error("Cannot locate stylesheet file: {$url}");
+			}
 		}
 
 		$this->asset['header']['css'][]	= '<link rel="stylesheet" type="text/css" href="' . $url . '">';
@@ -77,11 +79,12 @@ class Template
 		if($source == 'remote') {
 			$url = $js_file;
 		} else {
-			$url = 'assets/' . $this->get_platform() . '/themes/' . $this->get_theme() . '/js/' . $js_file;
+			$url = base_url().'assets/' . $this->get_platform() . '/themes/' . $this->get_theme() . '/js/' . $js_file;
 
 			// Check is file exists
-			if(!file_exists($url))
-				show_error("Cannot locate javascript file: {$url}.");
+			if(!file_exists($url)) {
+				//show_error("Cannot locate javascript file: {$url}.");
+			}
 		}
 
 		$this->asset[$location]['js'][]	= '<script type="text/javascript" src="' . $url . '"></script>';

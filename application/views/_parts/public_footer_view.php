@@ -9,6 +9,10 @@
 ?>
 
 <!-- CUSTOM SCRIPT JS -->
+<script  src="<?php echo base_url();?>/js/general.js"></script>
+<script  src="<?php echo base_url();?>/js/user.js"></script>
+<script  src="<?php echo base_url();?>/js/icon.js"></script>
+<script  src="<?php echo base_url();?>/js/cart.js"></script>
 <script  src="<?php echo base_url();?>/js/script.js"></script>
 </body>
 </html>
