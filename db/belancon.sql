@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Host: localhost
--- Generation Time: Jul 12, 2016 at 08:26 AM
+-- Generation Time: Jul 12, 2016 at 02:20 PM
 -- Server version: 5.6.26
 -- PHP Version: 5.6.12
 
@@ -32,7 +32,7 @@ CREATE TABLE IF NOT EXISTS `contributors` (
   `email` varchar(255) NOT NULL,
   `skill` varchar(255) NOT NULL,
   `message` text NOT NULL,
-  `send_at` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP
+  `send_at` datetime DEFAULT CURRENT_TIMESTAMP
 ) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=latin1;
 
 -- --------------------------------------------------------
