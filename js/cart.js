@@ -3,7 +3,7 @@ Cart = {
     var self = this;
     $('#table-body-cart').html("");
 
-    var rowEmpty = '<tr><td colspan="5">No Item</td></tr>';
+    var rowEmpty = '<tr><td colspan="5">No Items. Silahkan <a href="http://www.belancon.com">tambahkan Icon</a> pada Keranjang.</td></tr>';
 
     //Ajax method
     $.ajax({

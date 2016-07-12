@@ -1,6 +1,6 @@
 <?php $this->load->view('_parts/public_header_view'); ?>
 
-<div id="header">
+<div id="header" style="height: 180px;">
   <?php $this->load->view('_parts/navbar'); ?>
   <?php $this->load->view('_parts/header_result'); ?>  
 </div>
@@ -12,7 +12,7 @@
         <div class="row" id="header-search-page">
           <div class="col-md-12">
               <h2 class="text-center green-color" style="margin-bottom: 20px;">
-                Hasil Pencarian : "<?php echo $searchText; ?>"
+                Hasil Pencarian Untuk : <span style="color: #3d3938;">" <?php echo $searchText; ?> "</span>
               </h2>
           </div>
         </div>
@@ -61,27 +61,6 @@
               </div>
 
             </div>
-          </div>
-        </div>
-      </div>
-    </div>
-
-    <div id="about">
-      <div class="container">
-        <div class="row">
-          <div class="col-md-6">
-            <img src="<?php echo base_url('assets/public/themes/belancon');?>/img/about.png" class="img-responsive" alt="">
-          </div>
-          <div class="col-md-6">
-            <h2 class="green-color" style="margin-top: 150px; margin-bottom: 30px;">
-              Apa itu Belancon.com ?
-            </h2>
-            <p style="line-height: 1.6;">
-              Sebuah website yang menyediakan icon-icon untuk kebutuhan desain website, aplikasi, print-out, dan lain-lain. Icon-icon pada Belancon ini memiliki kategori yang berbeda-beda, yakni Gratis dan juga ada yang berbayar.
-            </p>
-            <p style="margin-top: 30px;">
-              <a href="mailto:anggariskysetiawan@gmail.com" class="btn btn-primary btn-contributor">Join as Contributor</a>
-            </p>
           </div>
         </div>
       </div>

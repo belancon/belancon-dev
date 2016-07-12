@@ -1,6 +1,16 @@
 <?php $this->load->view('_parts/public_header_view'); ?>
-<div id="header">
-  <?php $this->load->view('_parts/navbar'); ?>  
+<div id="header" style="height: 150px;">
+  <?php $this->load->view('_parts/navbar'); ?>
+  <div class="container" style="margin-top: 30px;">
+    <div class="row">
+      <div class="col-md-2">
+        <ol class="breadcrumb">
+          <li><a href="<?php echo site_url('/');?>">Home</a></li>
+          <li class="active">Kontributor</li>
+        </ol>
+      </div>
+    </div>
+  </div>  
 </div>
     
     <div id="home-icons" style="min-height: 768px; padding-top: 50px;">
@@ -8,19 +18,19 @@
         <div class="row">
           <div class="col-md-12">
             <h2 class="text-center green-color" style="margin-bottom: 20px;">
-              Join sebagai Kontributor
+              Gabung sebagai Kontributor
             </h2>
           </div>
         </div>
         <div class="row">
           <div class="col-md-6 col-md-offset-3">
             <p class="text-center black-color">
-              Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book.
+              Untuk Anda yang ingin berkontribusi dalam pengembangan website Belancon.com ini, silahkan daftarkan diri Anda segera mungkin.
             </p>
           </div>
         </div>
 
-        <div class="row">
+        <div class="row" style="margin-top: 30px;">
           <div class="col-md-6 col-md-offset-3">
             <form method="POST" action="<?php echo site_url('contributor/join');?>">
               <div class="form-group">
@@ -36,10 +46,13 @@
               <div class="form-group">
                 <label for="email">Keahlian</label> <br />
                 <label class="radio-inline">
-                  <input type="radio" name="skill" id="designer" value="designer"> desainer
+                  <input type="radio" name="skill" id="designer" value="designer"> Social Media Manager
                 </label>
                 <label class="radio-inline">
-                  <input type="radio" name="skill" id="programmer" value="programmer"> programmer
+                  <input type="radio" name="skill" id="designer" value="designer"> Designer
+                </label>
+                <label class="radio-inline">
+                  <input type="radio" name="skill" id="programmer" value="programmer"> Programmer
                 </label>
                 <span class="text-danger"><?php echo form_error('skill'); ?></span>
               </div>

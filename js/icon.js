@@ -34,7 +34,7 @@ Icon = {
             items.push(item);
           }
         } else {
-          items.push('<h2 class="text-center">Maaf, Icon tidak ditemukan</h2>');
+          items.push('<h2 class="text-center" style="color: #3d3938;">Maaf, Icon tidak ditemukan</h2>');
         }
 
         //and append all icons to display in page html

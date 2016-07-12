@@ -1,6 +1,16 @@
 <?php $this->load->view('_parts/public_header_view'); ?>
-<div id="header">
+<div id="header" style="height: 150px;">
   <?php $this->load->view('_parts/navbar'); ?>  
+  <div class="container" style="margin-top: 30px;">
+    <div class="row">
+      <div class="col-md-2">
+        <ol class="breadcrumb">
+          <li><a href="<?php echo site_url('/');?>">Home</a></li>
+          <li class="active">Keranjang</li>
+        </ol>
+      </div>
+    </div>
+  </div>
 </div>
     
     <div id="home-icons" style="min-height: 768px; padding-top: 50px;">
