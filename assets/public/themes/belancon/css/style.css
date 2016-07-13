@@ -16,6 +16,14 @@ a {
 }
 /*GLOBAL COLOR*/
 
+.btn-persyaratan {
+	background: none;
+	color: #66Ae53;
+	border: 0;
+	text-decoration: underline;
+	margin-left: -10px;
+}
+
 #li-cart-empty {
 	margin-left: 20px;
 }
@@ -156,6 +164,7 @@ a {
 #home-icons .download-icon a,
 #home-icons .view-icon a{
 	color: white;
+	text-decoration: none;
 }
 
 #home-icons .icon-item {

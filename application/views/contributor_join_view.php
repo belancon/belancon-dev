@@ -38,17 +38,23 @@
               echo form_open('contributor/join()', $attributes)
               ?>
               <div class="form-group">
-                <label for="fullname">Nama Lengkap</label>
+                <label for="fullname">
+                  <span style="border-left: 3px solid #66AE53;"> &nbsp; Nama Lengkap</span>
+                  </label>
                 <input type="text" class="form-control" name="fullname" id="fullname" placeholder="Nama Lengkap" value="<?php echo set_value('fullname'); ?>">
                 <span class="text-danger"><?php echo form_error('fullname'); ?></span>
               </div>
               <div class="form-group">
-                <label for="email">Email</label>
+                <label for="email">
+                  <span style="border-left: 3px solid #66AE53;"> &nbsp; Email Valid</span>
+                </label>
                 <input type="email" class="form-control" name="email" id="email" placeholder="Email" value="<?php echo set_value('email'); ?>">
                 <span class="text-danger"><?php echo form_error('email'); ?></span>
               </div>
               <div class="form-group">
-                <label for="email">Keahlian</label> <br />
+                <label for="email">
+                  <span style="border-left: 3px solid #66AE53;"> &nbsp; Keahlian Dasar</span>
+                  </label> <br />
                 <label class="radio-inline">
                   <input type="radio" name="skill" id="socia-media-manager" value="Social Media Manager" <?php echo set_radio('skill', 'Social Media Manager'); ?>> Social Media Manager
                 </label>
@@ -61,15 +67,38 @@
                 <span class="text-danger"><?php echo form_error('skill'); ?></span>
               </div>
               <div class="form-group">
-                <label for="message">Pesan</label>
-                <textarea class="form-control" name="message" rows="3" id="message"><?php echo set_value('message'); ?></textarea>
+                <label for="message">
+                  <span style="border-left: 3px solid #66AE53;"> &nbsp; Pesan Khusus</span>
+                </label>
+                <textarea style="resize: none;" class="form-control" name="message" rows="3" id="message"><?php echo set_value('message'); ?></textarea>
                 <span class="text-danger"><?php echo form_error('message'); ?></span>
               </div>
+<<<<<<< HEAD
+              
+              <a role="button" data-toggle="collapse" href="#divPersyaratan" aria-expanded="false" aria-controls="collapseExample">
+                Baca syarat & ketentuan*
+              </a>
+              <div class="collapse" id="divPersyaratan" style="margin-top: 20px;">
+                <div class="well">
+                  <a href="">Belancon.com</a> saat ini masih tahap non-profit, dan ke depannya juga masih belum terlihat apakah akan menjadi website yang bisa mendapatkan profit atau tidak. Namun jika Anda ingin belajar bersama di <a href="">Belancon.com</a> ini sebagai Kontributor, kami sangat senang akan kehadiran Anda.
+                </div>
+              </div>
+
+              <div class="form-group">
+                <div class="checkbox">
+                  <label>
+                    <input type="checkbox"> Saya setuju dengan persyaratan
+                  </label>
+                </div>    
+              </div>
+              <button type="submit" class="btn btn-default btn-contributor">Submit</button>
+=======
               <div class="form-group">
                 <?php echo $recaptcha_html;?>
                 <span class="text-danger"><?php echo form_error('g-recaptcha-response');?></span>
               </div>
               <button type="submit" class="btn btn-default">Submit</button>
+>>>>>>> b11078399272ab1c4de6c0cc6a52d231ed2346b7
             <?php echo form_close(); ?>
           </div>
         </div>
