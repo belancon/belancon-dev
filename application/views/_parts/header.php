@@ -1,7 +1,7 @@
       <div class="container form-search-icon">
         <div class="row">
           <div class="col-md-12" style="margin-bottom: 30px; margin-top: 50px;">
-            <h1 class="text-center">
+            <h1 class="text-center" style="text-shadow: 2px 2px #202020;">
               Tersedia lebih dari <?php echo icon_total(); ?> Icons
             </h1>
           </div>
