@@ -111,6 +111,7 @@ Icon = {
     var self = this;
     //get token
     var token = sessionStorage.getItem('userNotRegistered');
+    $('.download-icon[data-id="'+ id +'"]').html("");
     //Ajax method
     $.ajax({
      type: "post",
@@ -122,14 +123,15 @@ Icon = {
        if(response.status === true) {
           //refresh cart
           self.getCart();
-          //toggle button action to icon item
-          $('.btn-add-cart[data-id="'+ id +'"]').remove();
+          //toggle button action to icon item         
           var btnRemove = self.setBtnRemoveIcon(id, name);
           $('.download-icon[data-id="'+ id +'"]').append(btnRemove);
           swal(name, "ditambahkan ke keranjang", "success")
        }
      },
-     error: function(){      
+     error: function(){    
+      var btnAdd = self.setBtnAddIcon(id, name);
+      $('.download-icon[data-id="'+ id +'"]').append(btnAdd);  
       sweetAlert("Oops...", "Terjadi kesalahan pada sistem", "error");
      }
     });
@@ -154,6 +156,7 @@ Icon = {
       closeOnConfirm: false,
       showLoaderOnConfirm: true
     }, function () {
+         $('.download-icon[data-id="'+ id +'"]').html("");
         //if clicked confirmation, call method to remove icon from cart
         $.ajax({
          type: "post",
@@ -163,18 +166,30 @@ Icon = {
          success: function(response){        
            response  = JSON.parse(response);
            // console.log(response);
-           swal("Deleted!", 
-            "Icons telah dihapus dari keranjang.", 
-            "success");
-           //refresh cart
-           Icon.getCart();
-           Cart.getAll();
-           //toggle button action on icon item.
-           $('.btn-remove-cart[data-id="'+ id +'"]').remove();
-           var btnAdd = self.setBtnAddIcon(id, name);
-           $('.download-icon[data-id="'+ id +'"]').append(btnAdd);
+           
+           if(response.status === true) {
+             swal("Deleted!", 
+              "Icons telah dihapus dari keranjang.", 
+              "success");             
+             //toggle button action on icon item.           
+             var btnAdd = self.setBtnAddIcon(id, name);
+             $('.download-icon[data-id="'+ id +'"]').append(btnAdd);
+          } else {
+             swal("Error!", 
+              "Icons gagal dihapus dari keranjang.", 
+              "error");             
+             //toggle button action on icon item.           
+             var btnRemove = self.setBtnRemoveIcon(id, name);
+             $('.download-icon[data-id="'+ id +'"]').append(btnRemove);
+          }
+
+          //refresh cart
+          Icon.getCart();
+          Cart.getAll();
          },
          error: function(){      
+          var btnRemove = self.setBtnRemoveIcon(id, name);
+          $('.download-icon[data-id="'+ id +'"]').append(btnRemove);
           sweetAlert("Oops...", "Terjadi kesalahan pada sistem", "error");
          }
         }); 
