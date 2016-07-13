@@ -65,6 +65,10 @@
                 <textarea class="form-control" name="message" rows="3" id="message"><?php echo set_value('message'); ?></textarea>
                 <span class="text-danger"><?php echo form_error('message'); ?></span>
               </div>
+              <div class="form-group">
+                <?php echo $recaptcha_html;?>
+                <span class="text-danger"><?php echo form_error('g-recaptcha-response');?></span>
+              </div>
               <button type="submit" class="btn btn-default">Submit</button>
             <?php echo form_close(); ?>
           </div>
