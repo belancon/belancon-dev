@@ -2,6 +2,7 @@
 <html lang="en">
 <head>
 	<meta charset="UTF-8">
+	<link rel="icon" type="image/x-icon" href="<?php echo base_url();?>assets/public/themes/belancon/img/favicon.ico">
 	<?php
 		// Page Title
 		if(isset($theme['assets']['header']['title']))
