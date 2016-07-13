@@ -72,15 +72,13 @@
                 </label>
                 <textarea style="resize: none;" class="form-control" name="message" rows="3" id="message"><?php echo set_value('message'); ?></textarea>
                 <span class="text-danger"><?php echo form_error('message'); ?></span>
-              </div>
-<<<<<<< HEAD
-              
+              </div>                    
               <a role="button" data-toggle="collapse" href="#divPersyaratan" aria-expanded="false" aria-controls="collapseExample">
                 Baca syarat & ketentuan*
               </a>
               <div class="collapse" id="divPersyaratan" style="margin-top: 20px;">
                 <div class="well">
-                  <a href="">Belancon.com</a> saat ini masih tahap non-profit, dan ke depannya juga masih belum terlihat apakah akan menjadi website yang bisa mendapatkan profit atau tidak. Namun jika Anda ingin belajar bersama di <a href="">Belancon.com</a> ini sebagai Kontributor, kami sangat senang akan kehadiran Anda.
+                  <a href="<?php echo site_url();?>">Belancon.com</a> saat ini masih tahap non-profit, dan ke depannya juga masih belum terlihat apakah akan menjadi website yang bisa mendapatkan profit atau tidak. Namun jika Anda ingin belajar bersama di <a href="<?php echo site_url();?>">Belancon.com</a> ini sebagai Kontributor, kami sangat senang akan kehadiran Anda.
                 </div>
               </div>
 
@@ -91,14 +89,11 @@
                   </label>
                 </div>    
               </div>
-              <button type="submit" class="btn btn-default btn-contributor">Submit</button>
-=======
               <div class="form-group">
                 <?php echo $recaptcha_html;?>
                 <span class="text-danger"><?php echo form_error('g-recaptcha-response');?></span>
               </div>
-              <button type="submit" class="btn btn-default">Submit</button>
->>>>>>> b11078399272ab1c4de6c0cc6a52d231ed2346b7
+              <button type="submit" class="btn btn-default btn-contributor">Submit</button>
             <?php echo form_close(); ?>
           </div>
         </div>
