@@ -73,6 +73,7 @@
                 <textarea style="resize: none;" class="form-control" name="message" rows="3" id="message"><?php echo set_value('message'); ?></textarea>
                 <span class="text-danger"><?php echo form_error('message'); ?></span>
               </div>
+<<<<<<< HEAD
               
               <a role="button" data-toggle="collapse" href="#divPersyaratan" aria-expanded="false" aria-controls="collapseExample">
                 Baca syarat & ketentuan*
@@ -91,6 +92,13 @@
                 </div>    
               </div>
               <button type="submit" class="btn btn-default btn-contributor">Submit</button>
+=======
+              <div class="form-group">
+                <?php echo $recaptcha_html;?>
+                <span class="text-danger"><?php echo form_error('g-recaptcha-response');?></span>
+              </div>
+              <button type="submit" class="btn btn-default">Submit</button>
+>>>>>>> b11078399272ab1c4de6c0cc6a52d231ed2346b7
             <?php echo form_close(); ?>
           </div>
         </div>

@@ -20,6 +20,7 @@ class Contributor extends CI_Controller {
         $this->form_validation->set_rules('email', 'Email', 'trim|required|valid_email');
         $this->form_validation->set_rules('skill', 'Keahlian', 'required');
         $this->form_validation->set_rules('message', 'Pesan', 'required|min_length[10]');
+        $this->form_validation->set_rules('g-recaptcha-response', '<b>Captcha</b>', 'callback_getResponseCaptcha');
 
         $this->form_validation->set_message('required', '{field} harus diisi');
         $this->form_validation->set_message('valid_email', 'Alamat {field} tidak valid');
@@ -56,9 +57,10 @@ class Contributor extends CI_Controller {
             
             $this->load->model('contributor_model');
             $this->load->library('email', $config);
-            $this->email->from($this->email_belancon);            
+            $this->email->from($this->email_belancon);                        
             $this->email->to('anggariskysetiawan@gmail.com');
             $this->email->cc('rizqimaulana.1988@gmail.com');
+            $this->email->cc('belancon.dev@gmail.com');
             $this->email->subject($subject);
             $data = array( 'fullname' => $fullname, 'email' => $email, 'skill' => $skill, 'message' => $message);
 
@@ -92,6 +94,8 @@ class Contributor extends CI_Controller {
     }
 
     protected function _load_view($layout, $data= null) {
+        $this->load->library('recaptcha');
+
         $this->template->set_title('Belancon | Belanja Icon untuk Kebutuhan Desainmu');
         $this->template->set_meta('author','Angga Risky');
         $this->template->set_meta('keyword','Download free Icons, Download Icon Gratis, Flat Icon Gratis');
@@ -102,10 +106,26 @@ class Contributor extends CI_Controller {
         $this->template->set_css('style.css');            
         $this->template->set_css('font-awesome.css');
         $this->template->set_js('https://code.jquery.com/jquery-1.12.1.min.js','header','remote');
+        $this->template->set_js('https://www.google.com/recaptcha/api.js','header','remote');
         $this->template->set_js('bootstrap.js','footer');
         $this->template->set_js('sweetalert.min.js','footer');
         
+        $data['recaptcha_html'] = $this->recaptcha->render();
         $this->template->set_layout($layout);
         $this->template->render($data);
+    }
+
+    public function getResponseCaptcha($str){
+        $this->load->library('recaptcha');
+        $response = $this->recaptcha->verifyResponse($str);
+        if ($response['success'])
+        {     
+            return true;
+        }     
+        else
+        {
+            $this->form_validation->set_message('getResponseCaptcha', '%s harus diisi' );
+            return false;
+        }
     }
 }
