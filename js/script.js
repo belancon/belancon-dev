@@ -39,9 +39,24 @@ $(document).ready(function () {
       var search = $('#search-icon').val().trim();
 
       if(search.length < 3) {
-        swal("Warning!", 
-        "Gunakan minimal 3 karakter dalam pencarian Icon", 
-        "warning");
+        
+        /** Message Error */
+        
+        var opts = {
+          "debug": false,
+          "positionClass": "toast-top-right",
+          "onclick": null,
+          "showDuration": "300",
+          "hideDuration": "1000",
+          "timeOut": "5000",
+          "extendedTimeOut": "1000",
+          "showEasing": "swing",
+          "hideEasing": "linear",
+          "showMethod": "fadeIn",
+          "hideMethod": "fadeOut"
+        };
+        toastr.error("Gunakan minimal 3 karakter dalam pencarian Icon.", "Warning !", opts);
+        
       } else {
         var url = BASE_URL + "result?search=" + search;
         window.location = url;
