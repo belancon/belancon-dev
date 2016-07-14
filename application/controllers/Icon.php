@@ -234,16 +234,33 @@ class Icon extends CI_Controller {
 						foreach($result as $item) {
 							$name_string = strtolower($cart[$item->icon_id]['name']);
 							$name = str_replace(" ","-",$name_string).".".$type;					
-							$path = base_url().$this->_get_folder($type).$item->filename;
-							$data = file_get_contents($path);
-							$files[$name] = $data;
+							$path = $this->_get_folder($type).$item->filename;							
+							//$data = file_get_contents($path);
+							//$files[$name] = $data;
+
+							$checkFileIsExist = $this->zip->read_file($path, $name);	
+
+							if($checkFileIsExist === false) {
+								$this->cart_belancon->clear();
+								$this->session->set_flashdata('error_message', 'Terdapat File yang tidak ditemukan. download gagal');
+
+								redirect('/cart', 'refresh');
+								die();
+							}
 						}
 					}
+
 
 					$this->cart_belancon->clear();	
 					$this->session->set_flashdata('success_message', 'Berhasil mendowload icon.');
 					
-					$this->zip->add_data($files);
+					//$this->zip->add_data($files);
+					// $test = $this->zip->archive('/download/myarchive.zip');
+					// if($test) {
+					// 	echo "success archive";
+					// } else {
+					// 	echo "failed archive";
+					// }
 					$this->zip->download('download.zip');		
 				} else {
 					redirect('/cart', 'refresh');
