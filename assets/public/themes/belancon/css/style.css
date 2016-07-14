@@ -93,6 +93,20 @@ a {
 
 #home-icons {
   padding-bottom: 50px; }
+  #home-icons .overlay-loader {
+    background: rgba(255, 255, 123, 0.5);
+    width: 100%;
+    height: auto;
+    z-index: 999;
+    position: absolute;
+    display: none;
+    top: 0;
+    left: 0;
+    color: black; }
+  #home-icons .loader-animation {
+    width: 100px;
+    height: 60px;
+    background: red; }
   #home-icons .download-icon {
     padding: 6px;
     width: 20%;
