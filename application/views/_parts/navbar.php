@@ -8,7 +8,9 @@
               <span class="icon-bar"></span>
               <span class="icon-bar"></span>
             </button>
-            <a class="navbar-brand" href="<?php echo site_url('/');?>">Belancon</a>
+            <a class="" href="<?php echo site_url('/');?>">
+              <img class="belancon-logo" src="<?php echo base_url();?>assets/public/themes/belancon/img/belancon_logo_rev.png" alt="logo belancon.com" />
+            </a>
           </div>
 
           <!-- Collect the nav links, forms, and other content for toggling -->
