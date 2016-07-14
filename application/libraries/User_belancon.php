@@ -51,6 +51,10 @@ class User_belancon {
 		return $this->ci->session->userdata('token');
 	}
 
+	public function random_string($action, $string) {
+		return $this->_encrypt_decrypt($action, $string);
+	}
+
 	protected function _encrypt_decrypt($action, $string) {
 	    $output = false;
 

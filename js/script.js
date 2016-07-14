@@ -75,7 +75,7 @@ $(document).ready(function () {
     /**
      * Action When Button Loadmore clicked
      */
-    $(document).on('click', '#btn-load-more', function(){       
+    $(document).on('click', '#btn-load-more', function(){    
       var currentUrlString = window.location.href;
       var currentUrlArr = currentUrlString.split("?");
       var currentUrl = currentUrlArr[0];
@@ -131,10 +131,22 @@ $(document).ready(function () {
         window.location = url;
 
         setTimeout(function(){ window.location = BASE_URL; }, 2000);
-      } else {
-        swal("Warning!", 
-        "Silahkan pilih tipe file yang akan didownload", 
-        "error");
+      } else {        
+        /** Message Error */
+        var opts = {
+          "debug": false,
+          "positionClass": "toast-top-right",
+          "onclick": null,
+          "showDuration": "300",
+          "hideDuration": "1000",
+          "timeOut": "5000",
+          "extendedTimeOut": "1000",
+          "showEasing": "swing",
+          "hideEasing": "linear",
+          "showMethod": "fadeIn",
+          "hideMethod": "fadeOut"
+        };
+        toastr.error("Silahkan pilih tipe file yang akan didownload.", "Warning !", opts);
         $('.btn-download-icon').button('reset');
       }
     });        

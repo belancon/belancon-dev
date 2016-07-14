@@ -44,11 +44,11 @@
 	    $.ajaxSetup({
 		  beforeSend: function() {
 		     $('#loader').show();
-		     $('.overlay-loader').show();
+		     //$('.overlay-loader').show();
 		  },
 		  complete: function(){
 		    $('#loader').hide();
-		    $('.overlay-loader').hide();
+		    //$('.overlay-loader').hide();
 		  },
 		  success: function() {}
 		});
