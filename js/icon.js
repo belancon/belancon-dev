@@ -13,7 +13,7 @@ Icon = {
   getAll: function(page, by, search) {
     var self = this;
     var search = search ? search : "";
-
+    
     //Ajax method
     $.ajax({
      type: "post",
@@ -31,8 +31,9 @@ Icon = {
         if(data.length > 0) {
           for(var i=0; i < data.length; i++) {
             //push data to content html
-            var item = self.setSingleContent(data[i]);
-            items.push(item);
+            self.setSingleContent(data[i], function(result) {
+              items.push(result);
+            });            
           }
         } else {
           items.push('<h2 class="text-center" style="color: #3d3938;">Maaf, Icon tidak ditemukan</h2>');
@@ -83,8 +84,10 @@ Icon = {
         if(data.length > 0) {
           for(var i=0; i < limit; i++) {
             //push data to content html
-            var item = self.setSingleItemOnCart(data[i]);
-            items.push(item);
+            var item = self.setSingleItemOnCart(data[i], function(result) {
+              items.push(result);  
+            });
+            
           }
 
           items.push(liDownload);
@@ -124,14 +127,16 @@ Icon = {
           //refresh cart
           self.getCart();
           //toggle button action to icon item         
-          var btnRemove = self.setBtnRemoveIcon(id, name);
-          $('.download-icon[data-id="'+ id +'"]').append(btnRemove);
+          self.setBtnRemoveIcon(id, name, function(result) {
+            $('.download-icon[data-id="'+ id +'"]').append(result);
+          });          
           swal(name, "ditambahkan ke keranjang", "success")
        }
      },
      error: function(){    
-      var btnAdd = self.setBtnAddIcon(id, name);
-      $('.download-icon[data-id="'+ id +'"]').append(btnAdd);  
+      self.setBtnAddIcon(id, name, function(result) {
+        $('.download-icon[data-id="'+ id +'"]').append(result);    
+      });      
       sweetAlert("Oops...", "Terjadi kesalahan pada sistem", "error");
      }
     });
@@ -172,15 +177,17 @@ Icon = {
               "Icons telah dihapus dari keranjang.", 
               "success");             
              //toggle button action on icon item.           
-             var btnAdd = self.setBtnAddIcon(id, name);
-             $('.download-icon[data-id="'+ id +'"]').append(btnAdd);
+             self.setBtnAddIcon(id, name, function(result) {
+                $('.download-icon[data-id="'+ id +'"]').append(result);    
+             });             
           } else {
              swal("Error!", 
               "Icons gagal dihapus dari keranjang.", 
               "error");             
              //toggle button action on icon item.           
-             var btnRemove = self.setBtnRemoveIcon(id, name);
-             $('.download-icon[data-id="'+ id +'"]').append(btnRemove);
+             self.setBtnRemoveIcon(id, name, function(result) {
+                $('.download-icon[data-id="'+ id +'"]').append(result);             
+             });             
           }
 
           //refresh cart
@@ -188,8 +195,9 @@ Icon = {
           Cart.getAll();
          },
          error: function(){      
-          var btnRemove = self.setBtnRemoveIcon(id, name);
-          $('.download-icon[data-id="'+ id +'"]').append(btnRemove);
+          self.setBtnRemoveIcon(id, name, function(result) {
+            $('.download-icon[data-id="'+ id +'"]').append(result);
+          });          
           sweetAlert("Oops...", "Terjadi kesalahan pada sistem", "error");
          }
         }); 
@@ -199,7 +207,7 @@ Icon = {
    * set element html for single item on cart list
    * @param {[type]} icon [description]
    */
-  setSingleItemOnCart: function(icon) {
+  setSingleItemOnCart: function(icon, callback) {
     var liCart = document.createElement("li");
     var imgCart = document.createElement("img");
     var spanCart = document.createElement("span");
@@ -223,13 +231,14 @@ Icon = {
     liCart.appendChild(imgCart);
     liCart.appendChild(spanCart);
 
-    return liCart;
+    callback(liCart);
+    return true;
   },
   /**
    * set Element Html to display single icon on page
    * @param {[type]} icon [description]
    */
-  setSingleContent: function(icon) {
+  setSingleContent: function(icon, callback) {
      var divIconItem = document.createElement("div");
      var spanDownloadIcon = document.createElement("span");
      var spanViewIcon = document.createElement("span");
@@ -243,11 +252,14 @@ Icon = {
      spanViewIcon.setAttribute("class", "view-icon");
      
      if(icon.onCart === true) {
-        var btnRemove = this.setBtnRemoveIcon(icon.id, icon.name);
-        spanDownloadIcon.appendChild(btnRemove); 
+        this.setBtnRemoveIcon(icon.id, icon.name, function(result) {
+          spanDownloadIcon.appendChild(result);   
+        });
+        
      } else {
-        var btnAdd = this.setBtnAddIcon(icon.id, icon.name);
-        spanDownloadIcon.appendChild(btnAdd); 
+        this.setBtnAddIcon(icon.id, icon.name, function(result) {
+          spanDownloadIcon.appendChild(result); 
+        });        
      }
 
      divImgIcon.setAttribute("class", "text-center img-icon");
@@ -266,7 +278,8 @@ Icon = {
      divIconItem.appendChild(spanViewIcon);
      divIconItem.appendChild(divImgIcon);
 
-     return divIconItem;
+     callback(divIconItem);
+     return true;
   },
   /**
    * set button action add to cart on single content icon on page
@@ -274,7 +287,7 @@ Icon = {
    * @param  {[type]} name [description]
    * @return {[type]}      [description]
    */
-  setBtnAddIcon: function(id, name) {
+  setBtnAddIcon: function(id, name, callback) {
     var btnAdd = document.createElement("a");     
     var iconAdd = document.createElement("i");
     btnAdd.setAttribute("class", "btn-add-cart");
@@ -284,7 +297,8 @@ Icon = {
     iconAdd.setAttribute("class", "fa fa-shopping-basket");
     btnAdd.appendChild(iconAdd);
 
-    return btnAdd;
+    callback(btnAdd);
+    return true;
   },
   /**
    * set button action remove from cart on single content icon on page
@@ -292,7 +306,7 @@ Icon = {
    * @param  {[type]} name [description]
    * @return {[type]}      [description]
    */
-  setBtnRemoveIcon: function(id, name) {
+  setBtnRemoveIcon: function(id, name, callback) {
     var btnRemove = document.createElement("a");
     var iconRemove = document.createElement("i");
     btnRemove.setAttribute("class", "btn-remove-cart");
@@ -302,7 +316,8 @@ Icon = {
     iconRemove.setAttribute("class", "fa fa-trash");
     btnRemove.appendChild(iconRemove);
 
-    return btnRemove;     
+    callback(btnRemove);     
+    return true;
   },
   /**
    * Set button loadmore, and show it to page or not

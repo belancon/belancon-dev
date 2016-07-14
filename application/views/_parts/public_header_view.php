@@ -38,6 +38,16 @@
 	    		data: csrfData
 	    	});
 	    csrf_token_name = '<?php echo (string) $this->security->get_csrf_token_name()?>';
+
+	    $.ajaxSetup({
+		  beforeSend: function() {
+		     $('#loader').show();
+		  },
+		  complete: function(){
+		     $('#loader').hide();
+		  },
+		  success: function() {}
+		});
 	</script>
 </head>
 <body>

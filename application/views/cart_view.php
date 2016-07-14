@@ -12,6 +12,8 @@
     </div>
   </div>
 </div>
+
+  <?php $this->load->view('_parts/loader'); ?>
     
     <div id="home-icons" style="min-height: 768px; padding-top: 50px;">
       <div class="container">

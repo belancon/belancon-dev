@@ -5,6 +5,7 @@
   <?php $this->load->view('_parts/header_result'); ?>  
 </div>
 
+    <?php $this->load->view('_parts/loader'); ?>
     
     <div id="home-icons" style="padding-top: 50px;">
       <div class="container">              

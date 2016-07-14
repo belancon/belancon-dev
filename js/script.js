@@ -30,6 +30,7 @@ window.onload = function() {
 
 
 $(document).ready(function () {
+
     /**
      * Action When Search Form Submitted
      */
@@ -59,7 +60,7 @@ $(document).ready(function () {
     /**
      * Action When Button Loadmore clicked
      */
-    $(document).on('click', '#btn-load-more', function(){ 
+    $(document).on('click', '#btn-load-more', function(){       
       var currentUrlString = window.location.href;
       var currentUrlArr = currentUrlString.split("?");
       var currentUrl = currentUrlArr[0];
