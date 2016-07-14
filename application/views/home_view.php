@@ -11,7 +11,7 @@
 
       <div class="overlay-loader">
         <div class="loader-animation">
-          <p>Tunggu sebentar ....</p>
+          <!-- <p>Tunggu sebentar ....</p> -->
         </div>
       </div>
 

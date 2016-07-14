@@ -44,9 +44,11 @@
 	    $.ajaxSetup({
 		  beforeSend: function() {
 		     $('#loader').show();
+		     $('.overlay-loader').show();
 		  },
 		  complete: function(){
-		     $('#loader').hide();
+		    $('#loader').hide();
+		    $('.overlay-loader').hide();
 		  },
 		  success: function() {}
 		});
