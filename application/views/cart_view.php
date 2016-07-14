@@ -61,7 +61,7 @@
 
         <div class="row" id="row-download-icon">
           <div class="col-md-12">
-            <a href="javascript:void(0)" class="pull-right btn btn-primary btn-contributor btn-download-icon" data-loading-text="<i class='fa fa-circle-o-notch fa-spin'></i> Loading...">Download Icons</a>
+            <a href="javascript:void(0)" class="pull-right btn btn-primary btn-green-primary btn-download-icon" data-loading-text="<i class='fa fa-circle-o-notch fa-spin'></i> Loading...">Download Icons</a>
             <div class="pull-right" style="margin-right: 20px; margin-top: 5px;">
               <label class="radio-inline">
                 <input type="radio" name="format-file-options" class="format-file-options" id="radio-psd" value="psd"> .PSD

@@ -107,7 +107,7 @@
               Sebuah website yang menyediakan icon-icon untuk kebutuhan desain website, aplikasi, print-out, dan lain-lain. Icon-icon pada Belancon ini memiliki kategori yang berbeda-beda, yakni Gratis dan juga ada yang berbayar.
             </p>
             <p style="margin-top: 30px;">
-              <a href="<?php echo site_url('contributor/join');?>" class="btn btn-primary btn-contributor">Join as Contributor</a>
+              <a href="<?php echo site_url('contributor/join');?>" class="btn btn-primary btn-green-primary">Join as Contributor</a>
             </p>
           </div>
         </div>
