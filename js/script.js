@@ -75,7 +75,7 @@ $(document).ready(function () {
     /**
      * Action When Button Loadmore clicked
      */
-    $(document).on('click', '#btn-load-more', function(){       
+    $(document).on('click', '#btn-load-more', function(){    
       var currentUrlString = window.location.href;
       var currentUrlArr = currentUrlString.split("?");
       var currentUrl = currentUrlArr[0];
@@ -132,13 +132,8 @@ $(document).ready(function () {
 
         setTimeout(function(){ window.location = BASE_URL; }, 2000);
       } else {
-        /*
-        swal("Warning!", 
-        "Silahkan pilih tipe file yang akan didownload", 
-        "error");
-        */
+               
         /** Message Error */
-        
         var opts = {
           "debug": false,
           "positionClass": "toast-top-right",

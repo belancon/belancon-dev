@@ -51,49 +51,9 @@
         </div>
         <div class="row" style="margin-top: 50px;">
           <div class="col-md-12">
-            <table class="table-cart-icon table table-bordered text-center">
-              <thead>
-                <tr>
-                  <td>
-                    Picture
-                  </td>
-                  <td>
-                    Name
-                  </td>
-                  <td>
-                    Kategori
-                  </td>
-                  <td>
-                    Price
-                  </td>
-                  <td>
-                    Aksi
-                  </td>
-                </tr>
-              </thead>
-              <tbody id="table-body-cart">
-              </tbody>              
-            </table>
+              Download Page
           </div>
         </div>
-
-        <div class="row" id="row-download-icon">
-          <div class="col-md-12">
-            <a href="javascript:void(0)" class="pull-right btn btn-primary btn-green-primary btn-download-icon" data-loading-text="<i class='fa fa-circle-o-notch fa-spin'></i> Loading...">Download Icons</a>
-            <div class="pull-right" style="margin-right: 20px; margin-top: 5px;">
-              <label class="radio-inline">
-                <input type="radio" name="format-file-options" class="format-file-options" id="radio-psd" value="psd"> .PSD
-              </label>
-              <label class="radio-inline">
-                <input type="radio" name="format-file-options" class="format-file-options" id="radio-psd" value="ai"> .AI
-              </label>
-              <label class="radio-inline">
-                <input type="radio" name="format-file-options" class="format-file-options" id="radio-psd" value="png"> .PNG
-              </label>
-            </div>
-          </div>
-        </div>
-
       </div>
     </div>
 

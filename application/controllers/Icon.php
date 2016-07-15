@@ -114,12 +114,14 @@ class Icon extends CI_Controller {
         $this->template->set_css('bootstrap.css');
         $this->template->set_css('toastr.css');
         $this->template->set_css('sweetalert.css');  
+        $this->template->set_css('toastr.css');  
         $this->template->set_css('style.css');
         $this->template->set_css('font-awesome.css');
         $this->template->set_js('jquery-1.12.1.min.js','header');
         $this->template->set_js('bootstrap.js','footer');
         $this->template->set_js('toastr.js','footer');
         $this->template->set_js('sweetalert.min.js','footer');
+        $this->template->set_js('toastr.js','footer');
         
         $this->template->set_layout('cart_view');
         $this->template->render();
@@ -217,6 +219,7 @@ class Icon extends CI_Controller {
 	}
 
 	public function download_all($type, $token) {
+		$this->load->helper(array('file', 'download'));
 
 		if($token == $this->user_belancon->get_token()) {
 			$cart = $this->cart_belancon->contents();
@@ -236,17 +239,41 @@ class Icon extends CI_Controller {
 						foreach($result as $item) {
 							$name_string = strtolower($cart[$item->icon_id]['name']);
 							$name = str_replace(" ","-",$name_string).".".$type;					
-							$path = base_url().$this->_get_folder($type).$item->filename;
-							$data = file_get_contents($path);
-							$files[$name] = $data;
+							$path = $this->_get_folder($type).$item->filename;						
+							$checkFileIsExist = $this->zip->read_file($path, $name);	
+							//$data = file_get_contents($path);
+							//$files[$name] = $data;
+
+							if($checkFileIsExist === false) {
+								$this->cart_belancon->clear();
+								$this->session->set_flashdata('error_message', 'Terdapat File yang tidak ditemukan. download gagal');
+
+								redirect('/cart', 'refresh');
+								die();
+							}
 						}
+					}					
+							
+					$zip_content = $this->zip->get_zip();
+					$random_num = rand();
+					$text = $this->user_belancon->random_string('encrypt', $random_num);
+					$pagename = "belancon-".strtolower($text);
+
+					$newFileName = './download/'.$pagename.".zip";
+
+					echo $newFileName;
+			
+					if(file_put_contents($newFileName,$zip_content)!=false){
+					    $this->session->set_flashdata('success_message', 'Berhasil mendowload icon.');
+					    $this->cart_belancon->clear();
+					    force_download($newFileName, NULL);
+					    redirect('/', 'refresh');
+					} else{						
+						$this->cart_belancon->clear();
+					    $this->session->set_flashdata('error_message', 'Terjadi kesalahan pada saat proses download.');
+					    redirect('/cart', 'refresh');
 					}
 
-					$this->cart_belancon->clear();	
-					$this->session->set_flashdata('success_message', 'Berhasil mendowload icon.');
-					
-					$this->zip->add_data($files);
-					$this->zip->download('download.zip');		
 				} else {
 					redirect('/cart', 'refresh');
 				}

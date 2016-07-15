@@ -7,7 +7,14 @@
 
     <?php $this->load->view('_parts/loader'); ?>
 
-    <div id="home-icons" style="padding-top: 50px;">
+    <div id="home-icons" class="home-icons-loaded" style="padding-top: 50px;">
+
+      <div class="overlay-loader">
+        <div class="loader-animation">
+          <p>Tunggu sebentar ....</p>
+        </div>
+      </div>
+
       <div class="container">
         <div class="row">
           <div class="col-md-12">
@@ -107,7 +114,7 @@
               Sebuah website yang menyediakan icon-icon untuk kebutuhan desain website, aplikasi, print-out, dan lain-lain. Icon-icon pada Belancon ini memiliki kategori yang berbeda-beda, yakni Gratis dan juga ada yang berbayar.
             </p>
             <p style="margin-top: 30px;">
-              <a href="<?php echo site_url('contributor/join');?>" class="btn btn-primary btn-contributor">Join as Contributor</a>
+              <a href="<?php echo site_url('contributor/join');?>" class="btn btn-primary btn-green-primary">Join as Contributor</a>
             </p>
           </div>
         </div>
