@@ -131,7 +131,8 @@ $(document).ready(function () {
         window.location = url;
 
         setTimeout(function(){ window.location = BASE_URL; }, 2000);
-      } else {        
+      } else {
+               
         /** Message Error */
         var opts = {
           "debug": false,
@@ -146,7 +147,7 @@ $(document).ready(function () {
           "showMethod": "fadeIn",
           "hideMethod": "fadeOut"
         };
-        toastr.error("Silahkan pilih tipe file yang akan didownload.", "Warning !", opts);
+        toastr.error("Silahkan pilih tipe file yang akan didownload.", "Warning !", opts);        
         $('.btn-download-icon').button('reset');
       }
     });        

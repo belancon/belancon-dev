@@ -130,14 +130,42 @@ Icon = {
           self.setBtnRemoveIcon(id, name, function(result) {
             $('.download-icon[data-id="'+ id +'"]').append(result);
           });          
-          swal(name, "ditambahkan ke keranjang", "success")
+          /*swal(name, "ditambahkan ke keranjang", "success");*/
+          var opts = {
+            "debug": false,
+            "positionClass": "toast-bottom-right",
+            "onclick": null,
+            "showDuration": "300",
+            "hideDuration": "1000",
+            "timeOut": "5000",
+            "extendedTimeOut": "1000",
+            "showEasing": "swing",
+            "hideEasing": "linear",
+            "showMethod": "fadeIn",
+            "hideMethod": "fadeOut"
+          };
+          toastr.success("Success ditambahkan ke keranjang.", name, "Warning !", opts);           
        }
      },
      error: function(){    
       self.setBtnAddIcon(id, name, function(result) {
         $('.download-icon[data-id="'+ id +'"]').append(result);    
       });      
-      sweetAlert("Oops...", "Terjadi kesalahan pada sistem", "error");
+      /*sweetAlert("Oops...", "Terjadi kesalahan pada sistem", "error");*/
+          var opts = {
+            "debug": false,
+            "positionClass": "toast-bottom-right",
+            "onclick": null,
+            "showDuration": "300",
+            "hideDuration": "1000",
+            "timeOut": "5000",
+            "extendedTimeOut": "1000",
+            "showEasing": "swing",
+            "hideEasing": "linear",
+            "showMethod": "fadeIn",
+            "hideMethod": "fadeOut"
+          };
+          toastr.success("Terjadi kesalahan pada sistem.", "Oops...", opts);       
      }
     });
   },
@@ -173,9 +201,25 @@ Icon = {
            // console.log(response);
            
            if(response.status === true) {
+            /*
              swal("Deleted!", 
               "Icons telah dihapus dari keranjang.", 
-              "success");             
+              "success"); 
+            */ 
+            var opts = {
+              "debug": false,
+              "positionClass": "toast-bottom-right",
+              "onclick": null,
+              "showDuration": "300",
+              "hideDuration": "1000",
+              "timeOut": "5000",
+              "extendedTimeOut": "1000",
+              "showEasing": "swing",
+              "hideEasing": "linear",
+              "showMethod": "fadeIn",
+              "hideMethod": "fadeOut"
+            };
+            toastr.success("Success dihapus dari keranjang.", "Icons" + name,  "Deleted !", opts);                        
              //toggle button action on icon item.           
              self.setBtnAddIcon(id, name, function(result) {
                 $('.download-icon[data-id="'+ id +'"]').append(result);    
