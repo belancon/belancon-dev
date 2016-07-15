@@ -186,7 +186,7 @@ Icon = {
       text: "Ingin menghapus icon " + name + " dari cart?",
       type: "warning",
       showCancelButton: true,
-      closeOnConfirm: false,
+      closeOnConfirm: true,
       showLoaderOnConfirm: true
     }, function () {
          $('.download-icon[data-id="'+ id +'"]').html("");
