@@ -9,11 +9,7 @@
 
     <div id="home-icons" class="home-icons-loaded" style="padding-top: 50px;">
 
-      <div class="overlay-loader">
-        <div class="loader-animation">
-          <p>Tunggu sebentar ....</p>
-        </div>
-      </div>
+      
 
       <div class="container">
         <div class="row">
@@ -65,6 +61,10 @@
               </div>              
 
               <div class="row">
+                <div class="overlay-loader">
+                  
+                </div>
+
                 <div class="col-md-12">
                   <!-- Tab panes -->
                   <div class="tab-content">
