@@ -218,68 +218,59 @@ class Icon extends CI_Controller {
 		}
 	}
 
-	public function download_all($type, $token) {
+	public function download_all() {
+		$type = $this->input->post('type');
 		$this->load->helper(array('file', 'download'));
+		$this->load->library('zip');
 
-		//if($token == $this->user_belancon->get_token()) {
-			$cart = $this->cart_belancon->contents();
-			$this->load->library('zip');
-
-				if(count($cart) > 0) {
-					$files = array();
-					$ids = array();
-
-					foreach($cart as $item) {
-						$ids[] = $item['id'];
-					}
-
-					$result = $this->file_model->get_files($ids, 'icon_id', $type);
-
-					if($result) {
-						foreach($result as $item) {
-							$name_string = strtolower($cart[$item->icon_id]['name']);
-							$name = str_replace(" ","-",$name_string).".".$type;					
-							$path = $this->_get_folder($type).$item->filename;						
-							$checkFileIsExist = $this->zip->read_file($path, $name);	
-							//$data = file_get_contents($path);
-							//$files[$name] = $data;
-
-							if($checkFileIsExist === false) {
-								$this->cart_belancon->clear();
-								$this->session->set_flashdata('error_message', 'Terdapat File yang tidak ditemukan. download gagal');
-
-								redirect('/cart', 'refresh');
-								die();
-							}
-						}
-					}					
-							
-					$zip_content = $this->zip->get_zip();
-					$random_num = rand();
-					$text = $this->user_belancon->random_string('encrypt', $random_num);
-					$pagename = "belancon-".strtolower($text);
-
-					$newFileName = './download/'.$pagename.".zip";
-
-					echo $newFileName;
+		$cart = $this->cart_belancon->contents();
+		
+		if(count($cart) > 0) {
+			$files = array();
+			$ids = array();
 			
-					if(file_put_contents($newFileName,$zip_content)!=false){
-					    $this->session->set_flashdata('success_message', 'Berhasil mendowload icon.');
-					    $this->cart_belancon->clear();
-					    force_download($newFileName, NULL);
-					    redirect('/', 'refresh');
-					} else{						
-						$this->cart_belancon->clear();
-					    $this->session->set_flashdata('error_message', 'Terjadi kesalahan pada saat proses download.');
-					    redirect('/cart', 'refresh');
-					}
+			foreach($cart as $item) {
+				$ids[] = $item['id'];
+			}
 
-				} else {
-					redirect('/cart', 'refresh');
+			$result = $this->file_model->get_files($ids, 'icon_id', $type);
+			
+			if($result) {
+				foreach($result as $item) {
+					$name_string = strtolower($cart[$item->icon_id]['name']);
+					$name = str_replace(" ","-",$name_string).".".$type;
+					$path = $this->_get_folder($type).$item->filename;
+					$checkFileIsExist = $this->zip->read_file($path, $name);
+					//$data = file_get_contents($path);
+					//$files[$name] = $data;
+					if($checkFileIsExist === false) {
+						$this->cart_belancon->clear();
+						$this->session->set_flashdata('error_message', 'File '.$icon['name'].' tidak ditemukan. download gagal');
+						redirect('/cart', 'refresh');
+					}
 				}
-		// } else {
-		// 	echo "no";
-		// }
+			}
+
+			$zip_content = $this->zip->get_zip();
+			$random_num = rand();
+			$text = $this->user_belancon->random_string('encrypt', $random_num);
+			$pagename = "belancon-".strtolower($text);
+			$newFileName = './download/'.$pagename.".zip";
+
+			if(file_put_contents($newFileName,$zip_content)!=false){
+				$this->session->set_flashdata('success_message', 'Berhasil mendowload icon.');
+				//$this->cart_belancon->clear();
+				//force_download($newFileName, NULL);
+				//redirect('/', 'refresh');
+				echo json_encode(array('status' => true, 'path' => base_url().'download/'.$pagename.'.zip'));
+			} else {
+				$this->cart_belancon->clear();
+				$this->session->set_flashdata('error_message', 'Terjadi kesalahan pada saat proses download.');
+				redirect('/cart', 'refresh');
+			}
+		} else {
+			redirect('/cart', 'refresh');
+		}
 	}
 
 	public function clear_cart() {		

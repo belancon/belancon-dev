@@ -127,10 +127,25 @@ $(document).ready(function () {
       var token = sessionStorage.getItem('userNotRegistered');
 
       if(type) {
-        var url = BASE_URL + "icon/download_all/" + type + "/" + token;
-        window.location = url;
+        //var url = BASE_URL + "icon/download_all/" + type + "/" + token;
+        //window.location = url;
+        //setTimeout(function(){ window.location = BASE_URL; }, 2000);
+        //Ajax method
+        $.ajax({
+         type: "post",
+         url: BASE_URL + "icon/download_all",
+         cache: false,    
+         data: {type: type},
+         success: function(response){        
+            response = JSON.parse(response);
+            console.log(response.path);            
 
-        setTimeout(function(){ window.location = BASE_URL; }, 2000);
+            window.location = response.path;
+         },
+         error: function(){      
+          alert('Error while request..');
+         }
+        });
       } else {
                
         /** Message Error */
