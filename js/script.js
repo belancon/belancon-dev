@@ -2,31 +2,6 @@
  * Get Icon Lists from ajax function, and append into element html
  * @return {[type]} [description]
  */
-window.onload = function() {
-  // //get params
-  // var paramBy = Belancon.getUrlParameter('by') ? Belancon.getUrlParameter('by') : null;
-  // var by = paramBy ? paramBy : "newest";
-  // var paramSearch = Belancon.getUrlParameter('search') ? Belancon.getUrlParameter('search') : null;
-  // var search = paramSearch ? paramSearch : "";
-  
-  // //call method to get icon lists
-  // Icon.getAll(1, by, search);
-
-  // Icon.getCart();
-  // Cart.getAll();
-
-  // //if param ready, redirect url with params
-  // if(paramBy !== null) {
-  //   if(paramSearch !== null) {
-  //     window.history.pushState("", "", BASE_URL + "?by=" + paramBy + "&search=" + search);
-  //   } else {
-  //     window.history.pushState("", "", BASE_URL + "?by=" + paramBy);
-  //   }
-  // }
-}
-
-
-
 $(document).ready(function () {
     //get params
     var paramBy = Belancon.getUrlParameter('by') ? Belancon.getUrlParameter('by') : null;
