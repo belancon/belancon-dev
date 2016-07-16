@@ -129,11 +129,11 @@ class Icon extends CI_Controller {
 
 	public function add_to_cart() {		
 		if( $this->input->is_ajax_request() ) {
-		$id = $this->input->post('id');
-		$token = $this->input->post('token');
-		$img_icon_folder = $this->_path_img;
+			$id = $this->input->post('id');
+			$token = $this->input->post('token');
+			$img_icon_folder = $this->_path_img;
 
-		if($token === $this->user_belancon->get_token()) {		
+		//if($token === $this->user_belancon->get_token()) {		
 			$icon = $this->icon_model->get_one($id);
 
 			if(isset($icon)) {
@@ -161,11 +161,11 @@ class Icon extends CI_Controller {
 			} else {
 				$result = array('status'=> false, 'error' => 'icon not found');
 			}
-		} else {
-			$result = array('status'=> false, 'error' => 'not authorized');
-		}
+		// } else {
+		// 	$result = array('status'=> false, 'error' => 'not authorized');
+		// }
 
-		echo json_encode($result);
+			echo json_encode($result);
 		} else {
 			redirect('/');
 		}
@@ -176,7 +176,7 @@ class Icon extends CI_Controller {
 			$id = $this->input->post('id');
 			$token = $this->input->post('token');
 
-			if($token === $this->user_belancon->get_token()) {
+			//if($token === $this->user_belancon->get_token()) {
 				$deleted = $this->cart_belancon->remove($id);
 
 				if($deleted) {
@@ -184,9 +184,9 @@ class Icon extends CI_Controller {
 				} else {
 					$result = array('status'=> false, 'error' => 'failed deleted item from cart');
 				}
-			} else {
-				$result = array('status'=> false, 'error' => 'not authorized');
-			}
+			// } else {
+			// 	$result = array('status'=> false, 'error' => 'not authorized');
+			// }
 
 			echo json_encode($result);
 		} else {
@@ -221,7 +221,7 @@ class Icon extends CI_Controller {
 	public function download_all($type, $token) {
 		$this->load->helper(array('file', 'download'));
 
-		if($token == $this->user_belancon->get_token()) {
+		//if($token == $this->user_belancon->get_token()) {
 			$cart = $this->cart_belancon->contents();
 			$this->load->library('zip');
 
@@ -277,9 +277,9 @@ class Icon extends CI_Controller {
 				} else {
 					redirect('/cart', 'refresh');
 				}
-		} else {
-			echo "no";
-		}
+		// } else {
+		// 	echo "no";
+		// }
 	}
 
 	public function clear_cart() {		
