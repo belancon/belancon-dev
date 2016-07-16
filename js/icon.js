@@ -212,7 +212,7 @@ Icon = {
               "showMethod": "fadeIn",
               "hideMethod": "fadeOut"
             };
-            toastr.success("Success dihapus dari keranjang.", "Icons" + name,  "Deleted !", opts);                        
+            toastr.success("Success dihapus dari keranjang.", name,  "Terhapus !", opts);                        
              //toggle button action on icon item.           
              self.setBtnAddIcon(id, name, function(result) {
                 $('.download-icon[data-id="'+ id +'"]').append(result);    
