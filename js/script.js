@@ -129,7 +129,7 @@ $(document).ready(function () {
       if(type) {
         //var url = BASE_URL + "icon/download_all/" + type + "/" + token;
         //window.location = url;
-        //setTimeout(function(){ window.location = BASE_URL; }, 2000);
+       
         //Ajax method
         $.ajax({
          type: "post",
@@ -138,9 +138,13 @@ $(document).ready(function () {
          data: {type: type},
          success: function(response){        
             response = JSON.parse(response);
-            console.log(response.path);            
-
-            window.location = response.path;
+            //console.log(response.path);        
+            if(response.status === true) {
+             window.location = response.path;                            
+            }
+            
+            $('.btn-download-icon').button('reset');
+            setTimeout(function(){ window.location = BASE_URL; }, 2000);
          },
          error: function(){      
           alert('Error while request..');

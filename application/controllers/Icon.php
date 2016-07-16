@@ -246,7 +246,9 @@ class Icon extends CI_Controller {
 					if($checkFileIsExist === false) {
 						$this->cart_belancon->clear();
 						$this->session->set_flashdata('error_message', 'File '.$icon['name'].' tidak ditemukan. download gagal');
-						redirect('/cart', 'refresh');
+						//redirect('/cart', 'refresh');
+						echo json_encode(array('status' => false));
+						break;
 					}
 				}
 			}
@@ -259,17 +261,19 @@ class Icon extends CI_Controller {
 
 			if(file_put_contents($newFileName,$zip_content)!=false){
 				$this->session->set_flashdata('success_message', 'Berhasil mendowload icon.');
-				//$this->cart_belancon->clear();
+				$this->cart_belancon->clear();
 				//force_download($newFileName, NULL);
 				//redirect('/', 'refresh');
 				echo json_encode(array('status' => true, 'path' => base_url().'download/'.$pagename.'.zip'));
 			} else {
 				$this->cart_belancon->clear();
 				$this->session->set_flashdata('error_message', 'Terjadi kesalahan pada saat proses download.');
-				redirect('/cart', 'refresh');
+				echo json_encode(array('status' => false));				
+				//redirect('/cart', 'refresh');
 			}
 		} else {
-			redirect('/cart', 'refresh');
+			$this->session->set_flashdata('error_message', 'Cart kosong.');
+			echo json_encode(array('status' => false));
 		}
 	}
 

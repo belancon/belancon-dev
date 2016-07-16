@@ -143,7 +143,7 @@ Icon = {
             "showMethod": "fadeIn",
             "hideMethod": "fadeOut"
           };
-          toastr.success("Success ditambahkan ke keranjang.", name, "Warning !", opts);           
+          toastr.success("Success ditambahkan ke keranjang.", name, "Success !", opts);           
        }
      },
      error: function(){    
