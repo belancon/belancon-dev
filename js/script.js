@@ -3,34 +3,52 @@
  * @return {[type]} [description]
  */
 window.onload = function() {
-  User.setToken();
-
-  //get params
-  var paramBy = Belancon.getUrlParameter('by') ? Belancon.getUrlParameter('by') : null;
-  var by = paramBy ? paramBy : "newest";
-  var paramSearch = Belancon.getUrlParameter('search') ? Belancon.getUrlParameter('search') : null;
-  var search = paramSearch ? paramSearch : "";
+  // //get params
+  // var paramBy = Belancon.getUrlParameter('by') ? Belancon.getUrlParameter('by') : null;
+  // var by = paramBy ? paramBy : "newest";
+  // var paramSearch = Belancon.getUrlParameter('search') ? Belancon.getUrlParameter('search') : null;
+  // var search = paramSearch ? paramSearch : "";
   
-  //call method to get icon lists
-  Icon.getAll(1, by, search);
+  // //call method to get icon lists
+  // Icon.getAll(1, by, search);
 
-  Icon.getCart();
-  Cart.getAll();
+  // Icon.getCart();
+  // Cart.getAll();
 
-  //if param ready, redirect url with params
-  if(paramBy !== null) {
-    if(paramSearch !== null) {
-      window.history.pushState("", "", BASE_URL + "?by=" + paramBy + "&search=" + search);
-    } else {
-      window.history.pushState("", "", BASE_URL + "?by=" + paramBy);
-    }
-  }
+  // //if param ready, redirect url with params
+  // if(paramBy !== null) {
+  //   if(paramSearch !== null) {
+  //     window.history.pushState("", "", BASE_URL + "?by=" + paramBy + "&search=" + search);
+  //   } else {
+  //     window.history.pushState("", "", BASE_URL + "?by=" + paramBy);
+  //   }
+  // }
 }
 
 
 
 $(document).ready(function () {
+    //get params
+    var paramBy = Belancon.getUrlParameter('by') ? Belancon.getUrlParameter('by') : null;
+    var by = paramBy ? paramBy : "newest";
+    var paramSearch = Belancon.getUrlParameter('search') ? Belancon.getUrlParameter('search') : null;
+    var search = paramSearch ? paramSearch : "";
+    
+    //call method to get icon lists
+    Icon.getAll(1, by, search);
 
+    Icon.getCart();
+    Cart.getAll();
+
+    //if param ready, redirect url with params
+    if(paramBy !== null) {
+      if(paramSearch !== null) {
+        window.history.pushState("", "", BASE_URL + "?by=" + paramBy + "&search=" + search);
+      } else {
+        window.history.pushState("", "", BASE_URL + "?by=" + paramBy);
+      }
+    }
+  
     /**
      * Action When Search Form Submitted
      */
@@ -124,12 +142,8 @@ $(document).ready(function () {
     $(document).on('click', '.btn-download-icon', function(){ 
       $('.btn-download-icon').button('loading');
       var type = $('input[name=format-file-options]:checked').val();
-      var token = sessionStorage.getItem('userNotRegistered');
 
-      if(type) {
-        //var url = BASE_URL + "icon/download_all/" + type + "/" + token;
-        //window.location = url;
-       
+      if(type) {       
         //Ajax method
         $.ajax({
          type: "post",
@@ -186,7 +200,7 @@ $(document).ready(function () {
 });
 
 window.unload = function(e) {
-  //Cart.clearAll();
+  
 };
 
 "console" in window && console.log("%cHi Developer\nIf you find an error please report  on this page %chttps://dev.belancon.com/bug/\n%cGive your feedback on this page %chttps://dev.belancon.com/feedback/",

@@ -46,7 +46,8 @@ a {
   position: absolute;
   z-index: 12;
   right: 10px;
-  top: 20px; }
+  top: 20px;
+  display: none; }
 
 .icon-keranjang {
   float: left;

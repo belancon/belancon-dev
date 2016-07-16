@@ -112,15 +112,13 @@ Icon = {
    */
   addToCart: function(id, name) {
     var self = this;
-    //get token
-    var token = sessionStorage.getItem('userNotRegistered');
     $('.download-icon[data-id="'+ id +'"]').html("");
     //Ajax method
     $.ajax({
      type: "post",
      url: BASE_URL + "icon/add_to_cart",
      cache: false,    
-     data: {id: id, token: token},
+     data: {id: id},
      success: function(response){        
        response  = JSON.parse(response);
        if(response.status === true) {
@@ -175,9 +173,7 @@ Icon = {
    */
   removeFromCart: function(id, name) {
     var self = this;
-    //get token
-    var token = sessionStorage.getItem('userNotRegistered');
-
+  
     //show alert warning before remove icon from cart
     swal({
       title: "Hapus Icon",
@@ -193,7 +189,7 @@ Icon = {
          type: "post",
          url: BASE_URL + "icon/remove_from_cart",
          cache: false,    
-         data: {id: id, token: token},
+         data: {id: id},
          success: function(response){        
            response  = JSON.parse(response);
            // console.log(response);

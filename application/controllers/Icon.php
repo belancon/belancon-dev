@@ -129,11 +129,9 @@ class Icon extends CI_Controller {
 
 	public function add_to_cart() {		
 		if( $this->input->is_ajax_request() ) {
-			$id = $this->input->post('id');
-			$token = $this->input->post('token');
+			$id = $this->input->post('id');		
 			$img_icon_folder = $this->_path_img;
-
-		//if($token === $this->user_belancon->get_token()) {		
+				
 			$icon = $this->icon_model->get_one($id);
 
 			if(isset($icon)) {
@@ -161,9 +159,6 @@ class Icon extends CI_Controller {
 			} else {
 				$result = array('status'=> false, 'error' => 'icon not found');
 			}
-		// } else {
-		// 	$result = array('status'=> false, 'error' => 'not authorized');
-		// }
 
 			echo json_encode($result);
 		} else {
@@ -174,19 +169,14 @@ class Icon extends CI_Controller {
 	public function remove_from_cart() {	
 		if( $this->input->is_ajax_request() ) {	
 			$id = $this->input->post('id');
-			$token = $this->input->post('token');
-
-			//if($token === $this->user_belancon->get_token()) {
+			
 				$deleted = $this->cart_belancon->remove($id);
 
 				if($deleted) {
 					$result = array('status'=> true);	
 				} else {
 					$result = array('status'=> false, 'error' => 'failed deleted item from cart');
-				}
-			// } else {
-			// 	$result = array('status'=> false, 'error' => 'not authorized');
-			// }
+				}			
 
 			echo json_encode($result);
 		} else {
@@ -240,13 +230,10 @@ class Icon extends CI_Controller {
 					$name_string = strtolower($cart[$item->icon_id]['name']);
 					$name = str_replace(" ","-",$name_string).".".$type;
 					$path = $this->_get_folder($type).$item->filename;
-					$checkFileIsExist = $this->zip->read_file($path, $name);
-					//$data = file_get_contents($path);
-					//$files[$name] = $data;
+					$checkFileIsExist = $this->zip->read_file($path, $name);					
 					if($checkFileIsExist === false) {
 						$this->cart_belancon->clear();
-						$this->session->set_flashdata('error_message', 'File '.$icon['name'].' tidak ditemukan. download gagal');
-						//redirect('/cart', 'refresh');
+						$this->session->set_flashdata('error_message', 'File '.$icon['name'].' tidak ditemukan. download gagal');						
 						echo json_encode(array('status' => false));
 						break;
 					}
@@ -262,14 +249,11 @@ class Icon extends CI_Controller {
 			if(file_put_contents($newFileName,$zip_content)!=false){
 				$this->session->set_flashdata('success_message', 'Terimakasih sudah mendowload icon di belancon.');
 				$this->cart_belancon->clear();
-				//force_download($newFileName, NULL);
-				//redirect('/', 'refresh');
 				echo json_encode(array('status' => true, 'path' => base_url().'download/'.$pagename.'.zip'));
 			} else {
 				$this->cart_belancon->clear();
 				$this->session->set_flashdata('error_message', 'Terjadi kesalahan pada saat proses download.');
 				echo json_encode(array('status' => false));				
-				//redirect('/cart', 'refresh');
 			}
 		} else {
 			$this->session->set_flashdata('error_message', 'Cart kosong.');
