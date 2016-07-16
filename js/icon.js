@@ -129,8 +129,7 @@ Icon = {
           //toggle button action to icon item         
           self.setBtnRemoveIcon(id, name, function(result) {
             $('.download-icon[data-id="'+ id +'"]').append(result);
-          });          
-          /*swal(name, "ditambahkan ke keranjang", "success");*/
+          });                 
           var opts = {
             "debug": false,
             "positionClass": "toast-bottom-right",
@@ -150,22 +149,21 @@ Icon = {
      error: function(){    
       self.setBtnAddIcon(id, name, function(result) {
         $('.download-icon[data-id="'+ id +'"]').append(result);    
-      });      
-      /*sweetAlert("Oops...", "Terjadi kesalahan pada sistem", "error");*/
-          var opts = {
-            "debug": false,
-            "positionClass": "toast-bottom-right",
-            "onclick": null,
-            "showDuration": "300",
-            "hideDuration": "1000",
-            "timeOut": "5000",
-            "extendedTimeOut": "1000",
-            "showEasing": "swing",
-            "hideEasing": "linear",
-            "showMethod": "fadeIn",
-            "hideMethod": "fadeOut"
-          };
-          toastr.success("Terjadi kesalahan pada sistem.", "Oops...", opts);       
+      });        
+        var opts = {
+          "debug": false,
+          "positionClass": "toast-bottom-right",
+          "onclick": null,
+          "showDuration": "300",
+          "hideDuration": "1000",
+          "timeOut": "5000",
+          "extendedTimeOut": "1000",
+          "showEasing": "swing",
+          "hideEasing": "linear",
+          "showMethod": "fadeIn",
+          "hideMethod": "fadeOut"
+        };
+        toastr.success("Terjadi kesalahan pada sistem.", "Oops...", opts);
      }
     });
   },
@@ -200,12 +198,7 @@ Icon = {
            response  = JSON.parse(response);
            // console.log(response);
            
-           if(response.status === true) {
-            /*
-             swal("Deleted!", 
-              "Icons telah dihapus dari keranjang.", 
-              "success"); 
-            */ 
+           if(response.status === true) {          
             var opts = {
               "debug": false,
               "positionClass": "toast-bottom-right",
@@ -224,10 +217,22 @@ Icon = {
              self.setBtnAddIcon(id, name, function(result) {
                 $('.download-icon[data-id="'+ id +'"]').append(result);    
              });             
-          } else {
-             swal("Error!", 
-              "Icons gagal dihapus dari keranjang.", 
-              "error");             
+          } else {             
+              /** Message Error */        
+              var opts = {
+                "debug": false,
+                "positionClass": "toast-top-right",
+                "onclick": null,
+                "showDuration": "300",
+                "hideDuration": "1000",
+                "timeOut": "5000",
+                "extendedTimeOut": "1000",
+                "showEasing": "swing",
+                "hideEasing": "linear",
+                "showMethod": "fadeIn",
+                "hideMethod": "fadeOut"
+              };
+              toastr.error("Icons gagal dihapus dari keranjang..", "Warning !", opts);          
              //toggle button action on icon item.           
              self.setBtnRemoveIcon(id, name, function(result) {
                 $('.download-icon[data-id="'+ id +'"]').append(result);             
@@ -242,7 +247,21 @@ Icon = {
           self.setBtnRemoveIcon(id, name, function(result) {
             $('.download-icon[data-id="'+ id +'"]').append(result);
           });          
-          sweetAlert("Oops...", "Terjadi kesalahan pada sistem", "error");
+            /** Message Error */        
+            var opts = {
+              "debug": false,
+              "positionClass": "toast-top-right",
+              "onclick": null,
+              "showDuration": "300",
+              "hideDuration": "1000",
+              "timeOut": "5000",
+              "extendedTimeOut": "1000",
+              "showEasing": "swing",
+              "hideEasing": "linear",
+              "showMethod": "fadeIn",
+              "hideMethod": "fadeOut"
+            };
+            toastr.error("Terjadi kesalahan pada sistem.", "Warning !", opts);
          }
         }); 
     });   
@@ -457,7 +476,21 @@ Icon = {
         callback(response.status);
      },
      error: function(){      
-      sweetAlert("Oops...", "Terjadi kesalahan pada sistem", "error");
+        /** Message Error */        
+        var opts = {
+          "debug": false,
+          "positionClass": "toast-top-right",
+          "onclick": null,
+          "showDuration": "300",
+          "hideDuration": "1000",
+          "timeOut": "5000",
+          "extendedTimeOut": "1000",
+          "showEasing": "swing",
+          "hideEasing": "linear",
+          "showMethod": "fadeIn",
+          "hideMethod": "fadeOut"
+        };
+        toastr.error("Terjadi kesalahan pada sistem.", "Warning !", opts);
      }
     });
   },

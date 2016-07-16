@@ -40,7 +40,20 @@ Cart = {
         
      },
      error: function(){      
-      sweetAlert("Oops...", "Terjadi kesalahan pada sistem", "error");
+        var opts = {
+          "debug": false,
+          "positionClass": "toast-bottom-right",
+          "onclick": null,
+          "showDuration": "300",
+          "hideDuration": "1000",
+          "timeOut": "5000",
+          "extendedTimeOut": "1000",
+          "showEasing": "swing",
+          "hideEasing": "linear",
+          "showMethod": "fadeIn",
+          "hideMethod": "fadeOut"
+        };
+        toastr.success("Terjadi kesalahan pada sistem.", "Oops...", opts);
      }
     });
   },
@@ -73,7 +86,20 @@ Cart = {
         
      },
      error: function(){      
-      sweetAlert("Oops...", "Terjadi kesalahan pada sistem", "error");
+        var opts = {
+          "debug": false,
+          "positionClass": "toast-bottom-right",
+          "onclick": null,
+          "showDuration": "300",
+          "hideDuration": "1000",
+          "timeOut": "5000",
+          "extendedTimeOut": "1000",
+          "showEasing": "swing",
+          "hideEasing": "linear",
+          "showMethod": "fadeIn",
+          "hideMethod": "fadeOut"
+        };
+        toastr.success("Terjadi kesalahan pada sistem.", "Oops...", opts);
      }
     });
   },
@@ -93,7 +119,20 @@ Cart = {
         
      },
      error: function(){      
-      sweetAlert("Oops...", "Terjadi kesalahan pada sistem", "error");
+        var opts = {
+          "debug": false,
+          "positionClass": "toast-bottom-right",
+          "onclick": null,
+          "showDuration": "300",
+          "hideDuration": "1000",
+          "timeOut": "5000",
+          "extendedTimeOut": "1000",
+          "showEasing": "swing",
+          "hideEasing": "linear",
+          "showMethod": "fadeIn",
+          "hideMethod": "fadeOut"
+        };
+        toastr.success("Terjadi kesalahan pada sistem.", "Oops...", opts);
      }
     });
   }
