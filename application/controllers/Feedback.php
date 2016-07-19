@@ -3,6 +3,8 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 
 class Feedback extends CI_Controller
 {
+    protected $email_belancon = "hello@belancon.com";
+
     function __construct()
     {
         parent::__construct();
@@ -31,20 +33,52 @@ class Feedback extends CI_Controller
             $email = $this->input->post('email');            
             $message = $this->input->post('message');
 
-            $data = array(
-                'name' => $fullname,
-                'email' => $email,
-                'message' => $message
+            $config = array(
+                'protocol'  => 'smtp',
+                'smtp_host' => 'ssl://poseidon.hideserver.net',
+                'smtp_user' => $this->email_belancon,
+                'smtp_pass' => 'belancon123a',
+                'smtp_port' => 465,      
+                'mailtype'  => 'html',        
+                'charset'   => 'iso-8859-1',
+                'starttls'  => true,
+                'newline'   => "\r\n"
             );
 
-            $result = $this->feedback_model->insert($data);
+            $subject = "Feedback on Belancon";
+            
+            $this->load->library('email', $config);
+            $this->email->from($this->email_belancon);                        
+            $this->email->to($email);
+            $this->email->cc('belancon.dev@gmail.com');
+            $this->email->subject($subject);
+            $data = array( 'fullname' => $fullname, 'email' => $email, 'message' => $message);
 
-            if($result) {
-                $this->session->set_flashdata('success_message', 'Feedback berhasil dikirim');
+            $body = $this->load->view('_templates/feedback_email', $data, TRUE);
+
+            $this->email->message( $body );
+
+            if ($this->email->send()) {
+                
+                $data = array(
+                    'name' => $fullname,
+                    'email' => $email,
+                    'message' => $message,                    
+                );
+
+                $id = $this->feedback_model->insert($data);             
+
+                if($id) {
+                    $this->session->set_flashdata('success_message', 'Terima kasih feedback anda berhasil terkirim.');
+                } else {
+                    $this->session->set_flashdata('error_message', 'Error System');
+                }
+
                 redirect('/');
             } else {
-                $this->session->set_flashdata('error_message', 'Feedback gagal dikirim');
-                redirect('feedback');
+                $this->session->set_flashdata('error_message', 'Failed send email');
+                redirect('/');
+                //show_error($this->email->print_debugger(), true);
             }
         }
     }
