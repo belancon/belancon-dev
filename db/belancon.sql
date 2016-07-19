@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Host: localhost
--- Generation Time: Jul 12, 2016 at 02:22 PM
+-- Generation Time: Jul 19, 2016 at 03:34 PM
 -- Server version: 5.6.26
 -- PHP Version: 5.6.12
 
@@ -33,7 +33,28 @@ CREATE TABLE IF NOT EXISTS `contributors` (
   `skill` varchar(255) NOT NULL,
   `message` text NOT NULL,
   `send_at` datetime DEFAULT NULL
-) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `feedbacks`
+--
+
+CREATE TABLE IF NOT EXISTS `feedbacks` (
+  `id` int(11) NOT NULL,
+  `name` varchar(100) NOT NULL,
+  `email` varchar(100) NOT NULL,
+  `message` text NOT NULL,
+  `created_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data for table `feedbacks`
+--
+
+INSERT INTO `feedbacks` (`id`, `name`, `email`, `message`, `created_at`) VALUES
+(1, 'Rizqi Maulana', 'sakukode@gmail.com', 'perbanyak koleksi ikon nya', '2016-07-19 07:10:14');
 
 -- --------------------------------------------------------
 
@@ -170,7 +191,6 @@ CREATE TABLE IF NOT EXISTS `icons` (
 --
 
 INSERT INTO `icons` (`id`, `name`, `category`, `tags`, `type`, `price`, `created_at`, `created_by`, `default_image`, `views`) VALUES
-(0, 'Beatiful woman 8', 'Woman', 'people, woman, flat', 'free', '0', '2016-07-07 12:48:31', 1, 'user-1.png', 0),
 (1, 'Beatiful woman 1', 'Woman', 'people, woman, flat', 'paid', '0', '2016-07-07 12:48:30', 1, 'user-1.png', 0),
 (2, 'Farmer Man 1', 'Man', 'people, man, flat, farm', 'free', '0', '2016-07-07 12:49:30', 1, 'user-4.png', 0),
 (3, 'Business man 1', 'Man', 'people, man, flat, business', 'paid', '0', '2016-07-07 12:50:31', 1, 'user-3.png', 10),
@@ -212,6 +232,12 @@ ALTER TABLE `contributors`
   ADD PRIMARY KEY (`id`);
 
 --
+-- Indexes for table `feedbacks`
+--
+ALTER TABLE `feedbacks`
+  ADD PRIMARY KEY (`id`);
+
+--
 -- Indexes for table `files`
 --
 ALTER TABLE `files`
@@ -231,7 +257,12 @@ ALTER TABLE `icons`
 -- AUTO_INCREMENT for table `contributors`
 --
 ALTER TABLE `contributors`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=5;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+--
+-- AUTO_INCREMENT for table `feedbacks`
+--
+ALTER TABLE `feedbacks`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=2;
 --
 -- AUTO_INCREMENT for table `files`
 --
