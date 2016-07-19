@@ -23,6 +23,13 @@ $(document).ready(function () {
         window.history.pushState("", "", BASE_URL + "?by=" + paramBy);
       }
     }
+
+    //set active tab panel
+    if(by === "newest") {
+      $('#tab-newest').addClass('active');
+    } else {
+      $('#tab-popular').addClass('active');
+    }
   
     /**
      * Action When Search Form Submitted
@@ -133,7 +140,8 @@ $(document).ready(function () {
             }
             
             $('.btn-download-icon').button('reset');
-            setTimeout(function(){ window.location = BASE_URL; }, 2000);
+
+            setTimeout(function(){ window.location = BASE_URL + "feedback"; }, 2000);
          },
          error: function(){      
           alert('Error while request..');

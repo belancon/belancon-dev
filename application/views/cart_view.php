@@ -17,24 +17,8 @@
     
     <div id="home-icons" style="min-height: 768px; padding-top: 50px;">
       <div class="container">
-        <div class="row">
-          <div class="col-md-12">
-            <?php if($this->session->flashdata('success_message')): ?>
-            <div class="alert alert-success">
-              <span><?php echo $this->session->flashdata('success_message'); ?></span>
-              <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-            </div>
-            <?php endif; ?>
+        <?php $this->load->view('_parts/notification'); ?>
 
-            <?php if($this->session->flashdata('error_message')): ?>
-            <div class="alert alert-danger">
-              <span><?php echo $this->session->flashdata('error_message'); ?></span>
-              <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-            </div>
-            <?php endif; ?>
-          </div>
-        </div>
-        
         <div class="row">
           <div class="col-md-12">
             <h2 class="text-center green-color" style="margin-bottom: 20px;">

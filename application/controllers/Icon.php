@@ -247,7 +247,7 @@ class Icon extends CI_Controller {
 			$newFileName = './download/'.$pagename.".zip";
 
 			if(file_put_contents($newFileName,$zip_content)!=false){
-				$this->session->set_flashdata('success_message', 'Terimakasih sudah mendowload icon di belancon.');
+				$this->session->set_flashdata('success_message', 'Icon berhasil didownload.');
 				$this->cart_belancon->clear();
 				echo json_encode(array('status' => true, 'path' => base_url().'download/'.$pagename.'.zip'));
 			} else {
