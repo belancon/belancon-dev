@@ -121,8 +121,8 @@ $config['subclass_prefix'] = 'MY_';
 | Other virtual host
 |--------------------------------------------------------------------------
 */
-$config['cdn'] = ((ENVIRONMENT != 'production')?'//cdn.localhost/belancon/':'//cdn.localhost/belancon/');
-$config['cloud'] = ((ENVIRONMENT != 'production')?'//cloud.localhost/belancon/':'//cloud.localhost/belancon/');
+$config['cdn'] = ((ENVIRONMENT != 'production')?'//cdn.localhost/belancon/':'//cdn.belancon.com/belancon/');
+$config['cloud'] = ((ENVIRONMENT != 'production')?'//cloud.localhost/belancon/':'//cloud.belancon.com/belancon/');
 
 /*
 |--------------------------------------------------------------------------
