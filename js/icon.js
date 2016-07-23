@@ -129,17 +129,17 @@ Icon = {
             $('.download-icon[data-id="'+ id +'"]').append(result);
           });                 
           var opts = {
-            "debug": false,
-            "positionClass": "toast-bottom-right",
-            "onclick": null,
-            "showDuration": "300",
-            "hideDuration": "1000",
-            "timeOut": "5000",
-            "extendedTimeOut": "1000",
-            "showEasing": "swing",
-            "hideEasing": "linear",
-            "showMethod": "fadeIn",
-            "hideMethod": "fadeOut"
+          "debug": false,
+          "positionClass": "toast-top-right",
+          "onclick": null,
+          "showDuration": "100",
+          "hideDuration": "500",
+          "timeOut": "1000",
+          "extendedTimeOut": "1000",
+          "showEasing": "swing",
+          "hideEasing": "linear",
+          "showMethod": "fadeIn",
+          "hideMethod": "fadeOut"
           };
           toastr.success("Success ditambahkan ke keranjang.", name, "Success !", opts);           
        }
@@ -150,11 +150,11 @@ Icon = {
       });        
         var opts = {
           "debug": false,
-          "positionClass": "toast-bottom-right",
+          "positionClass": "toast-top-right",
           "onclick": null,
-          "showDuration": "300",
-          "hideDuration": "1000",
-          "timeOut": "5000",
+          "showDuration": "100",
+          "hideDuration": "500",
+          "timeOut": "1000",
           "extendedTimeOut": "1000",
           "showEasing": "swing",
           "hideEasing": "linear",
@@ -197,11 +197,11 @@ Icon = {
            if(response.status === true) {          
             var opts = {
               "debug": false,
-              "positionClass": "toast-bottom-right",
+              "positionClass": "toast-top-right",
               "onclick": null,
-              "showDuration": "300",
-              "hideDuration": "1000",
-              "timeOut": "5000",
+              "showDuration": "100",
+              "hideDuration": "500",
+              "timeOut": "1000",
               "extendedTimeOut": "1000",
               "showEasing": "swing",
               "hideEasing": "linear",
@@ -219,9 +219,9 @@ Icon = {
                 "debug": false,
                 "positionClass": "toast-top-right",
                 "onclick": null,
-                "showDuration": "300",
-                "hideDuration": "1000",
-                "timeOut": "5000",
+                "showDuration": "100",
+                "hideDuration": "500",
+                "timeOut": "1000",
                 "extendedTimeOut": "1000",
                 "showEasing": "swing",
                 "hideEasing": "linear",
@@ -248,9 +248,9 @@ Icon = {
               "debug": false,
               "positionClass": "toast-top-right",
               "onclick": null,
-              "showDuration": "300",
-              "hideDuration": "1000",
-              "timeOut": "5000",
+              "showDuration": "100",
+              "hideDuration": "500",
+              "timeOut": "1000",
               "extendedTimeOut": "1000",
               "showEasing": "swing",
               "hideEasing": "linear",
