@@ -125,6 +125,8 @@ $config['cdn'] = ((ENVIRONMENT != 'production')?'//cdn.localhost/belancon/':'//c
 // $config['cloud'] = ((ENVIRONMENT != 'production')?'//cloud.localhost/belancon/':'//cloud.belancon.com/belancon/');
 $config['cloud'] = ((ENVIRONMENT != 'production') ? 'http://localhost/cloud-belancon/': '//cloud.belancon.com/belancon/');
 
+$config['cloud_path'] = ((ENVIRONMENT != 'production') ? 'http://localhost/cloud-belancon/': 'cloud.belancon.com/');
+
 /*
 |--------------------------------------------------------------------------
 | Path upload cloud
