@@ -27,10 +27,10 @@
             Help
           </h4>
           <ul class="secondary-menus">
-             <li><a href="#">
+             <li><a href="<?php echo site_url('feedback');?>">
                Berikan Saran
              </a></li>
-             <li><a href="#">
+             <li><a href="<?php echo site_url('contributor/join');?>">
                Jadi Kontributor
              </a></li>
              <li><a href="#">
@@ -43,7 +43,7 @@
             Contact
           </h4>
           <ul class="secondary-menus">
-             <li><a href="#">
+             <li><a href="https://www.facebook.com/Belancon-1129220243767861/" target="_blank">
                Facebook
              </a></li>
              <li><a href="#">
