@@ -53,6 +53,9 @@ a {
 	box-shadow: 0 !important;
 	-webkit-box-shadow: 0 !important;
 	border: 0;
+	.modal-content {
+		padding: 30px;
+	}
 }
 
 .total-icons-keranjang {
@@ -137,7 +140,7 @@ a {
 #home-icons {
 	padding-bottom: 50px;
 	.overlay-loader {
-		background: rgba(432,412,123,0.5);
+		// background: rgba(432,412,123,0.5);
 		width: 100%;
 		height: auto;
 		z-index: 999;
@@ -154,28 +157,28 @@ a {
 		background: red;
 	}
 	.download-icon {
-		padding: 6px;
-		width: 20%;
+		padding: 7px;
+		width: 30%;
 		background: $black-primary;
 		border-radius: 10px 10px 0 0;
 		position: absolute;
 		z-index: 2;
 		top: 5px;
-		left: 76px;
+		left: 66px;
 		cursor: pointer;
 		transition: all 1s;
 		opacity: 0;
 		text-align: center;
 	}
 	.view-icon {
-		padding: 6px;
-		width: 20%;
+		padding: 7px;
+		width: 30%;
 		background: $black-primary;
 		border-radius: 0 0 10px 10px;
 		position: absolute;
 		z-index: 3;
 		bottom: 5px;
-		left: 76px;
+		left: 66px;
 		cursor: pointer;
 		transition: all 1s;
 		opacity: 0;
