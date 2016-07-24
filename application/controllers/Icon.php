@@ -253,7 +253,7 @@ class Icon extends CI_Controller {
 
 					if($data === false) {
 						//if file not found
-						echo json_encode(array('status' => false, 'message' => 'file '.$name_string.'.'.$type.' tidak ditemukan', 'path' => $path));
+						echo json_encode(array('status' => false, 'message' => 'file '.$name_string.'.'.$type.' tidak ditemukan'));
 						break;
 					} else {
 						//if file found
@@ -264,7 +264,7 @@ class Icon extends CI_Controller {
 
 				if($check === count($result)) {
 					//add file license into zip
-					$license= read_file(cloud('text/LICENSE.txt'));
+					$license= read_file(cloud_path('text/LICENSE.txt'));
 					$this->zip->add_data('LICENSE.txt', $license);
 
 					//get file zip
