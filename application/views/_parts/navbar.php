@@ -9,7 +9,7 @@
               <span class="icon-bar"></span>
             </button>
             <a class="" href="<?php echo site_url('/');?>">
-              <img class="belancon-logo" src="<?php echo base_url();?>assets/public/themes/belancon/img/belancon_logo_rev.png" alt="logo belancon.com" />
+              <img class="belancon-logo" src="<?php echo base_url();?>assets/public/themes/belancon/img/logo-belancon.png" height="30" alt="logo belancon.com" />
             </a>
           </div>
 

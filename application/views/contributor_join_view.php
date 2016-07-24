@@ -94,7 +94,7 @@
                 <?php echo $recaptcha_html;?>
                 <span class="text-danger"><?php echo form_error('g-recaptcha-response');?></span>
               </div>
-              <button type="submit" class="btn btn-default btn-contributor">Submit</button>
+              <button type="submit" class="btn btn-green-primary btn-default btn-contributor">Submit</button>
             <?php echo form_close(); ?>
           </div>
         </div>
