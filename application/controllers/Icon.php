@@ -253,7 +253,7 @@ class Icon extends CI_Controller {
 
 					if($data === false) {
 						//if file not found
-						echo json_encode(array('status' => false, 'message' => 'file '.$name_string.' tidak ditemukan'));
+						echo json_encode(array('status' => false, 'message' => 'file '.$name_string.'.'.$type.' tidak ditemukan', 'path' => $path));
 						break;
 					} else {
 						//if file found
