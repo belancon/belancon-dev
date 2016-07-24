@@ -116,7 +116,22 @@ $config['enable_hooks'] = FALSE;
 |
 */
 $config['subclass_prefix'] = 'MY_';
+/*
+|--------------------------------------------------------------------------
+| Other virtual host
+|--------------------------------------------------------------------------
+*/
+$config['cdn'] = ((ENVIRONMENT != 'production')?'//cdn.localhost/belancon/':'//cdn.belancon.com/belancon/');
+$config['cloud'] = ((ENVIRONMENT != 'production')?'//cloud.localhost/belancon/':'//cloud.belancon.com/belancon/');
 
+/*
+|--------------------------------------------------------------------------
+| Path upload cloud
+|--------------------------------------------------------------------------
+*/
+$config['path'] = '../cloud/belancon/';
+
+/*
 /*
 |--------------------------------------------------------------------------
 | Composer auto-loading
