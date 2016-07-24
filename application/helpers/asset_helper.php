@@ -29,7 +29,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
  //function CLOUD - Server Management storage
  if(!function_exists('cloud_path'))
  {
- 	function cloud($str = NULL)
+ 	function cloud_path($str = NULL)
  	{
  		return get_instance()->config->item('cloud_path') . $str;
  	}
