@@ -7,6 +7,9 @@
 .black-color {
   color: #3d3938; }
 
+.dark-black-color {
+  color: #1f1e1d; }
+
 .yellow-color {
   color: #fdaa3e; }
 
@@ -46,8 +49,7 @@ a {
   position: absolute;
   z-index: 12;
   right: 10px;
-  top: 20px;
-  display: none; }
+  top: 20px; }
 
 .icon-keranjang {
   float: left;
@@ -95,12 +97,14 @@ a {
 #home-icons {
   padding-bottom: 50px; }
   #home-icons .overlay-loader {
-    background: rgba(0,0,0,0.5);
+    background: rgba(255, 255, 123, 0.5);
     width: 100%;
-    height: 100%;
-    z-index: 10;
-    display: none;
+    height: auto;
+    z-index: 999;
     position: absolute;
+    display: none;
+    top: 0;
+    left: 0;
     color: black; }
   #home-icons .loader-animation {
     width: 100px;
@@ -201,17 +205,46 @@ a {
 
 #about {
   margin-top: 50px;
-  margin-bottom: 100px;
   padding-top: 50px;
   padding-bottom: 50px;
-  border-bottom: 2px #fdaa3e dashed;
-  border-top: 2px #fdaa3e dashed; }
+  background: #f4f4f4; }
 
 #footer {
-  padding-top: 20px;
-  padding-bottom: 10px;
-  background: #3d3938;
+  padding-top: 80px;
+  padding-bottom: 70px;
+  background: #1f1e1d;
   color: white; }
+  #footer .secondary-menus {
+    margin: 0;
+    padding: 0; }
+    #footer .secondary-menus li {
+      display: block;
+      padding-bottom: 10px; }
+  #footer .primary-menus {
+    margin: 0 auto;
+    display: inline-block;
+    margin-top: 10px;
+    padding: 0; }
+    #footer .primary-menus li {
+      float: left;
+      margin-left: 25px; }
+      #footer .primary-menus li:nth-child(1) {
+        list-style-type: none; }
+  #footer a {
+    cursor: pointer; }
+    #footer a:hover {
+      color: white; }
+  #footer .belancon-logo {
+    margin: 0 auto;
+    display: inline-block; }
+
+#small-footer {
+  background: #131211;
+  padding-top: 20px;
+  padding-bottom: 20px; }
+  #small-footer p {
+    margin: 0;
+    color: white; }
 
 #loader {
   position: fixed;

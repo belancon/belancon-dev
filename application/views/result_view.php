@@ -7,7 +7,7 @@
 
     <?php $this->load->view('_parts/loader'); ?>
     
-    <div id="home-icons" style="padding-top: 50px;">
+    <div id="home-icons" style="min-height: 700px; padding-top: 50px;">
       <div class="container">              
 
         <div class="row" id="header-search-page">
