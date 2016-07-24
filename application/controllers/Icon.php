@@ -333,16 +333,16 @@ class Icon extends CI_Controller {
 	protected function _get_folder($type) {
 		switch ($type) {
 			case 'png':
-				return $this->_folder_png;
+				return cloud_path('png');
 				break;
 			case 'psd':
-				return $this->_folder_psd;
+				return cloud_path('psd');
 				break;
 			case 'ai':
-				return $this->_folder_ai;
+				return cloud_path('ai');
 				break;
 			default:
-				return $this->_folder_png;
+				return cloud_path('png');
 				break;
 		}
 	}
