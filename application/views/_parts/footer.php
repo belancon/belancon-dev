@@ -44,8 +44,7 @@
           </h4>
           <ul class="secondary-menus">
              <li><a href="https://www.facebook.com/belancondotcom/" target="_blank">
-               Facebook
-             </a></li>
+             Facebook</a></li>
            </ul> 
         </div>
         <div class="col-md-4 text-center">
