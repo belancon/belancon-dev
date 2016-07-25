@@ -132,7 +132,7 @@ $config['cloud_path'] = ((ENVIRONMENT != 'production') ? 'http://localhost/cloud
 | Path upload cloud
 |--------------------------------------------------------------------------
 */
-$config['path'] = '../cloud/belancon/';
+$config['path'] = '../cloud/';
 
 /*
 /*
@@ -462,7 +462,7 @@ $config['csrf_token_name'] = 'csrf_belancon';
 $config['csrf_cookie_name'] = 'csrf_belancon';
 $config['csrf_expire'] = 7200;
 $config['csrf_regenerate'] = FALSE;
-$config['csrf_exclude_uris'] = array();
+$config['csrf_exclude_uris'] = array('welcome/upload');
 
 /*
 |--------------------------------------------------------------------------
