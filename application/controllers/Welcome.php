@@ -22,4 +22,34 @@ class Welcome extends CI_Controller {
 	{
 		$this->load->view('welcome_message');
 	}
+
+	public function upload()
+	{
+		//config upload
+		$config = array(
+			'upload_path' 	=>''.$this->config->item('path').'/png/',
+			'allowed_types'	=>'jpg|png|jpeg',
+			'encrypt_name'	=>TRUE,
+			'remove_spaces'	=>TRUE,
+			'overwrite'		=>TRUE,
+			'max_size'		=>'5000',
+			'max_width'		=>'5000',
+			'max_height'	=>'5000'
+		);
+
+		$this->load->library('upload', $config);
+
+		if ( ! $this->upload->do_upload())
+		{
+			$error = array('error' => $this->upload->display_errors());
+
+			$this->load->view('welcome_message', $error);
+		}
+		else
+		{
+			$data = array('upload_data' => $this->upload->data());
+
+			$this->load->view('welcome_message', $data);
+		}
+	}
 }
