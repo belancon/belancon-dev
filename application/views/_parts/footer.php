@@ -7,10 +7,10 @@
         </div>
         <div class="text-center">
           <ul class="primary-menus">
-            <li><a href="<?php echo site_url('hukum/syarat_ketentuan');?>" target="_blank">
+            <li><a href="<?php echo site_url('term-of-service');?>">
               Syarat & Ketentuan
             </a></li>
-            <li><a href="<?php echo site_url('hukum/kebijakan_privasi');?>" target="_blank">
+            <li><a href="<?php echo site_url('privacy-policy');?>">
               Kebijakan Privasi
             </a></li>
             <li><a href="<?php echo base_url('assets/public/themes/belancon');?>/about/LICENSE.txt" target="_blank">
@@ -52,7 +52,7 @@
             Guide
           </h4>
           <ul class="secondary-menus">
-             <li><a href="<?php echo site_url('tatadownload');?>">
+             <li><a href="<?php echo site_url('how-to-download');?>">
                Cara Mendownload
              </a></li>
            </ul> 
