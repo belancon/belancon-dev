@@ -7,10 +7,10 @@
         </div>
         <div class="text-center">
           <ul class="primary-menus">
-            <li><a href="#">
+            <li><a href="<?php echo site_url('hukum/syarat_ketentuan');?>" target="_blank">
               Syarat & Ketentuan
             </a></li>
-            <li><a href="#">
+            <li><a href="<?php echo site_url('hukum/kebijakan_privasi');?>" target="_blank">
               Kebijakan Privasi
             </a></li>
             <li><a href="<?php echo base_url('assets/public/themes/belancon');?>/about/LICENSE.txt" target="_blank">
