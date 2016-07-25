@@ -75,6 +75,9 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 			<input type="file" name="userfile" />
 			<input type="submit" value="upload" />	
 		</form>
+		</p>
+
+		<hr>
 		<p>The page you are looking at is being generated dynamically by CodeIgniter.</p>
 
 		<p>If you would like to edit this page you'll find it located at:</p>
