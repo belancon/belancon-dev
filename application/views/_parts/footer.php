@@ -33,7 +33,7 @@
              <li><a href="<?php echo site_url('contributor/join');?>">
                Jadi Kontributor
              </a></li>
-             <li><a href="#">
+             <li><a href="<?php echo site_url('bug');?>">
                Laporkan Bug
              </a></li>
            </ul> 

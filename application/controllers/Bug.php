@@ -1,11 +1,10 @@
 <?php
 defined('BASEPATH') OR exit('No direct script access allowed');
 
-class Feedback extends CI_Controller
+class Bug extends CI_Controller
 {
     protected $email_belancon = "hello@belancon.com";
 
-    protected $id_list_feedback = "57956e0a4ffb5215447f3318";
     protected $id_list_bug = "5784fe7dcc52b65894fdb9a8";
 
     function __construct()
@@ -14,7 +13,7 @@ class Feedback extends CI_Controller
         $this->load->library(array('template', 'form_validation', 'trello_api'));
         $this->template->set_platform('public');
         $this->template->set_theme('belancon');        
-        $this->load->model('feedback_model');
+        $this->load->model('bug_model');
     }
 
     public function index()
@@ -48,7 +47,7 @@ class Feedback extends CI_Controller
                 'newline'   => "\r\n"
             );
 
-            $subject = "Feedback on Belancon";
+            $subject = "Bug on Belancon";
             
             $this->load->library('email', $config);
             $this->email->from($this->email_belancon);                        
@@ -62,19 +61,19 @@ class Feedback extends CI_Controller
             $this->email->message( $body );
 
             if ($this->email->send()) {
-                //send feedback to trello card
-                $feedback = array(
+                //send bug to trello card
+                $bug = array(
                     'name' => substr($message, 0, 30).'..',
                     'desc' => '###from : '.$fullname.'.
 ###email : '.$email.'.
 ----
-feedback : '.$message,           
+bug : '.$message,           
                     'top' => 'bottom',
                     'due' => null
                 );
 
-                $list_id = $this->id_list_feedback;
-                $this->trello_api->insert_card($list_id, $feedback);
+                $list_id = $this->id_list_bug;
+                $this->trello_api->insert_card($list_id, $bug);
                 
                 $data = array(
                     'name' => $fullname,
@@ -82,10 +81,10 @@ feedback : '.$message,
                     'message' => $message,                    
                 );
 
-                $id = $this->feedback_model->insert($data);             
+                $id = $this->bug_model->insert($data);             
 
                 if($id) {
-                    $this->session->set_flashdata('success_message', 'Terima kasih feedback anda berhasil terkirim.');
+                    $this->session->set_flashdata('success_message', 'Terimakasih telah melaporkan bug yang ada di web kami.');
                 } else {
                     $this->session->set_flashdata('error_message', 'Error System');
                 }
@@ -119,7 +118,7 @@ feedback : '.$message,
         $this->template->set_js('sweetalert.min.js','footer');
         $this->template->set_js('toastr.js','footer');
         
-        $this->template->set_layout('give_feedback_view.php');
+        $this->template->set_layout('report_bug_view.php');
         $this->template->render($data);
     }
 
