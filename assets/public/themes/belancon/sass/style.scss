@@ -11,6 +11,9 @@
 .black-color {
 	color: $black-primary;
 }
+.dark-black-color {
+	color: $dark-black-primary;
+}
 .yellow-color {
 	color: $yellow-primary;
 }
@@ -50,6 +53,9 @@ a {
 	box-shadow: 0 !important;
 	-webkit-box-shadow: 0 !important;
 	border: 0;
+	.modal-content {
+		padding: 30px;
+	}
 }
 
 .total-icons-keranjang {
@@ -134,7 +140,7 @@ a {
 #home-icons {
 	padding-bottom: 50px;
 	.overlay-loader {
-		background: rgba(432,412,123,0.5);
+		// background: rgba(432,412,123,0.5);
 		width: 100%;
 		height: auto;
 		z-index: 999;
@@ -151,28 +157,28 @@ a {
 		background: red;
 	}
 	.download-icon {
-		padding: 6px;
-		width: 20%;
+		padding: 7px;
+		width: 30%;
 		background: $black-primary;
 		border-radius: 10px 10px 0 0;
 		position: absolute;
 		z-index: 2;
 		top: 5px;
-		left: 76px;
+		left: 66px;
 		cursor: pointer;
 		transition: all 1s;
 		opacity: 0;
 		text-align: center;
 	}
 	.view-icon {
-		padding: 6px;
-		width: 20%;
+		padding: 7px;
+		width: 30%;
 		background: $black-primary;
 		border-radius: 0 0 10px 10px;
 		position: absolute;
 		z-index: 3;
 		bottom: 5px;
-		left: 76px;
+		left: 66px;
 		cursor: pointer;
 		transition: all 1s;
 		opacity: 0;
@@ -265,18 +271,57 @@ a {
 
 #about {
 	margin-top: 50px;
-	margin-bottom: 100px;
 	padding-top: 50px;
 	padding-bottom: 50px;
-	border-bottom: 2px $yellow-primary dashed;
-	border-top: 2px $yellow-primary dashed;
+	background: #f4f4f4;
 }
 
 #footer {
-	padding-top: 20px;
-	padding-bottom: 10px;
-	background: $black-primary;
+	padding-top: 80px;
+	padding-bottom: 70px;
+	background: $dark-black-primary;
 	color: white;
+	.secondary-menus {
+		margin: 0;
+		padding: 0;
+		li {
+			display: block;
+			padding-bottom: 10px;
+		}
+	}
+	.primary-menus {
+		margin: 0 auto;
+		display: inline-block;
+		margin-top: 10px;
+		padding: 0;
+		li {
+			float: left;
+			margin-left: 25px;
+			&:nth-child(1) {
+				list-style-type: none;
+			}
+		}
+	}
+	a {
+		cursor: pointer;
+		&:hover {
+			color: white;
+		}
+	}
+	.belancon-logo {
+		margin: 0 auto;
+		display: inline-block;
+	}
+}
+
+#small-footer {
+	background: #131211;
+	padding-top: 20px;
+	padding-bottom: 20px;
+	p {
+		margin: 0;
+		color: white;
+	}
 }
 
 #loader {    
