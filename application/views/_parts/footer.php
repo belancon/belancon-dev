@@ -56,7 +56,7 @@
             Guide
           </h4>
           <ul class="secondary-menus">
-             <li><a href="#">
+             <li><a href="<?php echo site_url('tatadownload/index');?>">
                Cara Mendownload
              </a></li>
            </ul> 

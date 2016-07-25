@@ -52,5 +52,6 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 $route['default_controller'] = 'home';
 $route['result'] = "home/result";
 $route['cart'] = "icon/cart";
+$route['tatadownload'] = "tatadownload/index";
 $route['404_override'] = '';
 $route['translate_uri_dashes'] = FALSE;
