@@ -63,7 +63,7 @@ class Feedback extends CI_Controller
 
             if ($this->email->send()) {
                 //send feedback to trello card
-                $data = array(
+                $feedback = array(
                     'name' => substr($message, 0, 30).'..',
                     'desc' => '###from : '.$fullname.'.
 ###email : '.$email.'.
@@ -74,7 +74,7 @@ bug : '.$message,
                 );
 
                 $list_id = $this->id_list_feedback;
-                $this->trello_api->insert_card($list_id, $data);
+                $this->trello_api->insert_card($list_id, $feedback);
                 
                 $data = array(
                     'name' => $fullname,
