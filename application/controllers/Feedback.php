@@ -5,10 +5,13 @@ class Feedback extends CI_Controller
 {
     protected $email_belancon = "hello@belancon.com";
 
+    protected $id_list_feedback = "57956e0a4ffb5215447f3318";
+    protected $id_list_bug = "5784fe7dcc52b65894fdb9a8";
+
     function __construct()
     {
         parent::__construct();
-        $this->load->library(array('template', 'form_validation'));
+        $this->load->library(array('template', 'form_validation', 'trello_api'));
         $this->template->set_platform('public');
         $this->template->set_theme('belancon');        
         $this->load->model('feedback_model');
@@ -59,6 +62,19 @@ class Feedback extends CI_Controller
             $this->email->message( $body );
 
             if ($this->email->send()) {
+                //send feedback to trello card
+                $data = array(
+                    'name' => substr($message, 0, 30).'..',
+                    'desc' => '###from : '.$fullname.'.
+###email : '.$email.'.
+----
+bug : '.$message,           
+                    'top' => 'bottom',
+                    'due' => null
+                );
+
+                $list_id = $this->id_list_feedback;
+                $this->trello_api->insert_card($list_id, $data);
                 
                 $data = array(
                     'name' => $fullname,
