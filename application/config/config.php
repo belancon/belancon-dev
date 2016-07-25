@@ -122,14 +122,17 @@ $config['subclass_prefix'] = 'MY_';
 |--------------------------------------------------------------------------
 */
 $config['cdn'] = ((ENVIRONMENT != 'production')?'//cdn.localhost/belancon/':'//cdn.belancon.com/belancon/');
-$config['cloud'] = ((ENVIRONMENT != 'production')?'//cloud.localhost/belancon/':'//cloud.belancon.com/belancon/');
+// $config['cloud'] = ((ENVIRONMENT != 'production')?'//cloud.localhost/belancon/':'//cloud.belancon.com/belancon/');
+$config['cloud'] = ((ENVIRONMENT != 'production') ? 'http://localhost/cloud-belancon/': '//cloud.belancon.com/belancon/');
+
+$config['cloud_path'] = ((ENVIRONMENT != 'production') ? 'http://localhost/cloud-belancon/': 'http://cloud.belancon.com/');
 
 /*
 |--------------------------------------------------------------------------
 | Path upload cloud
 |--------------------------------------------------------------------------
 */
-$config['path'] = '../cloud/belancon/';
+$config['path'] = '../cloud/';
 
 /*
 /*
@@ -459,7 +462,7 @@ $config['csrf_token_name'] = 'csrf_belancon';
 $config['csrf_cookie_name'] = 'csrf_belancon';
 $config['csrf_expire'] = 7200;
 $config['csrf_regenerate'] = FALSE;
-$config['csrf_exclude_uris'] = array();
+$config['csrf_exclude_uris'] = array('welcome/upload');
 
 /*
 |--------------------------------------------------------------------------

@@ -133,15 +133,31 @@ $(document).ready(function () {
          cache: false,    
          data: {type: type},
          success: function(response){        
-            response = JSON.parse(response);
+            result = JSON.parse(response);
             //console.log(response.path);        
-            if(response.status === true) {
-             window.location = response.path;                            
+            if(result.status === true) {
+             window.location = result.path;                            
+             setTimeout(function(){ window.location = BASE_URL + "feedback"; }, 2000);
+            } else {
+              //console.log(result.message);
+              /** Message Error */
+              var opts = {
+                "debug": false,
+                "positionClass": "toast-top-right",
+                "onclick": null,
+                "showDuration": "100",
+                "hideDuration": "300",
+                "timeOut": "1000",
+                "extendedTimeOut": "300",
+                "showEasing": "swing",
+                "hideEasing": "linear",
+                "showMethod": "fadeIn",
+                "hideMethod": "fadeOut"
+              };
+              toastr.error(result.message, "Warning !", opts);        
             }
             
-            $('.btn-download-icon').button('reset');
-
-            setTimeout(function(){ window.location = BASE_URL + "feedback"; }, 2000);
+            $('.btn-download-icon').button('reset');            
          },
          error: function(){      
           alert('Error while request..');

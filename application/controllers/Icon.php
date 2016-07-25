@@ -5,17 +5,20 @@ class Icon extends CI_Controller {
 
 	private $limit = 12;
 
-	protected $_path_img = "";
-	protected $_folder_png = "upload/png/";
-	protected $_folder_psd = "upload/psd/";
-	protected $_folder_ai = "upload/ai/";
+	protected $_path_thumbnail = "";
+	protected $_folder_png = "";
+	protected $_folder_psd = "";
+	protected $_folder_ai = "";
 
 	function __construct()
     {
         parent::__construct();
         $this->load->library('user_belancon');
         $this->load->model(array('icon_model', 'file_model'));
-        $this->_path_img = base_url('assets/public/themes/belancon/img/');
+        $this->_path_thumbnail = cloud('thumbnail');
+        $this->_folder_png = cloud('png');
+        $this->_folder_psd = cloud('psd');
+        $this->_folder_ai = cloud('ai');
     }
 
 	/**
@@ -29,7 +32,7 @@ class Icon extends CI_Controller {
 			$by = $this->input->post('by');
 			$search = $this->input->post('search') ? $this->input->post('search') : "";
 
-			$img_icon_folder = $this->_path_img;
+			$img_icon_folder = $this->_path_thumbnail;
 
 			$icons = array();
 			$data = $this->get_data($page, $by, $search);
@@ -61,7 +64,7 @@ class Icon extends CI_Controller {
 
 			if($id) {
 				$icon = $this->icon_model->get_one($id);
-				$data = array('path' => $this->_path_img."/".$icon->default_image);
+				$data = array('path' => $this->_folder_png."/".$icon->default_image);
 				echo json_encode(array('status'=> TRUE, 'data' => $data));
 			} else {
 
@@ -130,7 +133,7 @@ class Icon extends CI_Controller {
 	public function add_to_cart() {		
 		if( $this->input->is_ajax_request() ) {
 			$id = $this->input->post('id');		
-			$img_icon_folder = $this->_path_img;
+			$img_icon_folder = $this->_path_thumbnail;
 				
 			$icon = $this->icon_model->get_one($id);
 
@@ -213,47 +216,84 @@ class Icon extends CI_Controller {
 		$this->load->helper(array('file', 'download'));
 		$this->load->library('zip');
 
+		$dir = './download';
+		$leave_files = array('index.html');
+
+		foreach( glob("$dir/*") as $file ) {
+		    if( !in_array(basename($file), $leave_files) )
+		        unlink($file);
+		}
+
 		$cart = $this->cart_belancon->contents();
 		
+		//if cart not empty
 		if(count($cart) > 0) {
 			$files = array();
 			$ids = array();
 			
+			//get ids icon
 			foreach($cart as $item) {
 				$ids[] = $item['id'];
 			}
 
+			//get filename & path file icon from database
 			$result = $this->file_model->get_files($ids, 'icon_id', $type);
 			
 			if($result) {
+				$check = 0;
+
+
 				foreach($result as $item) {
+					//set filename
 					$name_string = strtolower($cart[$item->icon_id]['name']);
 					$name = str_replace(" ","-",$name_string).".".$type;
-					$path = $this->_get_folder($type).$item->filename;
-					$checkFileIsExist = $this->zip->read_file($path, $name);					
-					if($checkFileIsExist === false) {
-						$this->cart_belancon->clear();
-						$this->session->set_flashdata('error_message', 'File '.$icon['name'].' tidak ditemukan. download gagal');						
-						echo json_encode(array('status' => false));
+					//get file
+					$path = $this->_get_folder($type)."/".$item->filename;		
+					$data = read_file($path);			
+
+					if($data === false) {
+						//if file not found
+						echo json_encode(array('status' => false, 'message' => 'file '.$name_string.'.'.$type.' tidak ditemukan'));
 						break;
+					} else {
+						//if file found
+						$this->zip->add_data($name, $data);
+						$check++;
 					}
 				}
-			}
 
-			$zip_content = $this->zip->get_zip();
-			$random_num = rand();
-			$text = $this->user_belancon->random_string('encrypt', $random_num);
-			$pagename = "belancon-".strtolower($text);
-			$newFileName = './download/'.$pagename.".zip";
+				if($check === count($result)) {
+					//add file license into zip
+					$license= read_file(cloud_path('text/LICENSE.txt'));
+					$this->zip->add_data('LICENSE.txt', $license);
 
-			if(file_put_contents($newFileName,$zip_content)!=false){
-				$this->session->set_flashdata('success_message', 'Icon berhasil didownload.');
-				$this->cart_belancon->clear();
-				echo json_encode(array('status' => true, 'path' => base_url().'download/'.$pagename.'.zip'));
-			} else {
-				$this->cart_belancon->clear();
-				$this->session->set_flashdata('error_message', 'Terjadi kesalahan pada saat proses download.');
-				echo json_encode(array('status' => false));				
+					//get file zip
+					$zip_content = $this->zip->get_zip();
+					//generate random filename
+					$random_num = rand();
+					$text = $this->user_belancon->random_string('encrypt', $random_num);
+					$pagename = "belancon-".strtolower($text);
+					//get path file zip
+					$newFileName = './download/'.$pagename.".zip";
+
+					//check file zip exist or not
+					if(file_put_contents($newFileName,$zip_content)!=false){
+						//if exist
+						//set message success
+						$this->session->set_flashdata('success_message', 'Icon berhasil didownload.');
+						//clear cart
+						$this->cart_belancon->clear();
+						//return callback success
+						echo json_encode(array('status' => true, 'path' => base_url().'download/'.$pagename.'.zip'));
+					} else {
+						//clear cart
+						$this->cart_belancon->clear();
+						//set message error
+						$this->session->set_flashdata('error_message', 'Terjadi kesalahan pada saat proses download.');
+						//return callback error
+						echo json_encode(array('status' => false));				
+					}
+				}
 			}
 		} else {
 			$this->session->set_flashdata('error_message', 'Cart kosong.');
@@ -280,7 +320,7 @@ class Icon extends CI_Controller {
 				        'price'   => $item->price,
 				        'name'    => $item->name,
 				        'category' => $item->category,
-				        'path_img' => $this->_path_img."/".$item->default_image,
+				        'path_img' => $this->_path_thumbnail."/".$item->default_image,
 				        'type' => $item->type
 					);
 
@@ -293,16 +333,16 @@ class Icon extends CI_Controller {
 	protected function _get_folder($type) {
 		switch ($type) {
 			case 'png':
-				return $this->_folder_png;
+				return cloud_path('png');
 				break;
 			case 'psd':
-				return $this->_folder_psd;
+				return cloud_path('psd');
 				break;
 			case 'ai':
-				return $this->_folder_ai;
+				return cloud_path('ai');
 				break;
 			default:
-				return $this->_folder_png;
+				return cloud_path('png');
 				break;
 		}
 	}

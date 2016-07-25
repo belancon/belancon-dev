@@ -13,7 +13,7 @@
             <li><a href="#">
               Kebijakan Privasi
             </a></li>
-            <li><a href="#">
+            <li><a href="<?php echo base_url('assets/public/themes/belancon');?>/about/LICENSE.txt" target="_blank">
               Lisensi
             </a></li>
           </ul>
@@ -27,13 +27,13 @@
             Help
           </h4>
           <ul class="secondary-menus">
-             <li><a href="#">
+             <li><a href="<?php echo site_url('feedback');?>">
                Berikan Saran
              </a></li>
-             <li><a href="#">
+             <li><a href="<?php echo site_url('contributor/join');?>">
                Jadi Kontributor
              </a></li>
-             <li><a href="#">
+             <li><a href="<?php echo site_url('bug');?>">
                Laporkan Bug
              </a></li>
            </ul> 
@@ -43,11 +43,8 @@
             Contact
           </h4>
           <ul class="secondary-menus">
-             <li><a href="#">
+             <li><a href="https://www.facebook.com/belancondotcom/" target="_blank">
                Facebook
-             </a></li>
-             <li><a href="#">
-               e-Mail
              </a></li>
            </ul> 
         </div>
@@ -56,7 +53,7 @@
             Guide
           </h4>
           <ul class="secondary-menus">
-             <li><a href="<?php echo site_url('tatadownload/index');?>">
+             <li><a href="<?php echo site_url('tatadownload');?>">
                Cara Mendownload
              </a></li>
            </ul> 
