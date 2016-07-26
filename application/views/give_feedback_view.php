@@ -76,5 +76,4 @@
     </div>
 
 <?php $this->load->view('_parts/footer'); ?>
-
 <?php $this->load->view('_parts/public_footer_view'); ?>
