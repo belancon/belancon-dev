@@ -139,6 +139,13 @@ a {
 
 #home-icons {
 	padding-bottom: 50px;
+	.hukum-list {
+		margin: 0;
+		li {
+			padding-bottom: 10px;
+			line-height: 1.5;
+		}
+	}
 	.overlay-loader {
 		// background: rgba(432,412,123,0.5);
 		width: 100%;

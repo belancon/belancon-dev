@@ -7,13 +7,13 @@
         </div>
         <div class="text-center">
           <ul class="primary-menus">
-            <li><a href="#">
+            <li><a href="<?php echo site_url('term-of-service');?>">
               Syarat & Ketentuan
             </a></li>
-            <li><a href="#">
+            <li><a href="<?php echo site_url('privacy-policy');?>">
               Kebijakan Privasi
             </a></li>
-            <li><a href="#">
+            <li><a href="<?php echo base_url('assets/public/themes/belancon');?>/about/LICENSE.txt" target="_blank">
               Lisensi
             </a></li>
           </ul>
@@ -33,7 +33,7 @@
              <li><a href="<?php echo site_url('contributor/join');?>">
                Jadi Kontributor
              </a></li>
-             <li><a href="#">
+             <li><a href="<?php echo site_url('bug');?>">
                Laporkan Bug
              </a></li>
            </ul> 
@@ -43,12 +43,8 @@
             Contact
           </h4>
           <ul class="secondary-menus">
-             <li><a href="https://www.facebook.com/Belancon-1129220243767861/" target="_blank">
-               Facebook
-             </a></li>
-             <li><a href="#">
-               e-Mail
-             </a></li>
+             <li><a href="https://www.facebook.com/belancondotcom/" target="_blank">
+             Facebook</a></li>
            </ul> 
         </div>
         <div class="col-md-4 text-center">
@@ -56,7 +52,7 @@
             Guide
           </h4>
           <ul class="secondary-menus">
-             <li><a href="#">
+             <li><a href="<?php echo site_url('how-to-download');?>">
                Cara Mendownload
              </a></li>
            </ul> 

@@ -98,6 +98,11 @@ a {
 
 #home-icons {
   padding-bottom: 50px; }
+  #home-icons .hukum-list {
+    margin: 0; }
+    #home-icons .hukum-list li {
+      padding-bottom: 10px;
+      line-height: 1.5; }
   #home-icons .overlay-loader {
     width: 100%;
     height: auto;
