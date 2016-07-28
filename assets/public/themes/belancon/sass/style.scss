@@ -332,6 +332,54 @@ a {
 }
 
 .details-icon {
+	.info-icon {
+		border: 1px solid #ddd;
+		border-radius: 3px;
+		padding: 15px;
+		font-weight: bold;
+		background: #fafafa;
+		color: #666;
+		margin-top: 10px;
+	}
+	.btn-icon {
+		margin-top: 10px;
+		padding: 10px;
+		text-align: center;
+		border-radius: 3px;
+		background: $green-primary;
+		color: white;
+		transition: all 1s;
+		&:hover {
+			-webkit-box-shadow: -1px 0px 20px -4px rgba(0,0,0,0.75);
+			-moz-box-shadow: -1px 0px 20px -4px rgba(0,0,0,0.75);
+			box-shadow: -1px 0px 20px -4px rgba(0,0,0,0.75);	
+			transition: all 1s;
+		}
+	}
+	.btn-cart {
+		background: $black-primary;
+		@extend .btn-icon;
+	}
+	.author-icon {
+		border: 1px solid #ddd;
+		border-radius: 3px;
+		padding-bottom: 15px;
+		.img-profile {
+			height: 60px;
+			width: 60px;
+			float: left;
+			margin-top: 12px;
+			margin-right: 12px;
+		}
+		.author-name {
+			margin-top: 22px;
+			font-size: 14px;
+			font-weight: bold;
+		}
+		.author-follower {
+			color: #d4d4d4;
+		}
+	}
 	.img-detail {
 		height: 400px;
 		margin: 0 auto;
@@ -361,8 +409,8 @@ a {
 		border-radius: 3px;
 		position: absolute;
 		z-index: 88;
-		left: 28px;
-		top: 11px;
+		left: 45px;
+		top: 28px;
 		transition: all 1s;
 		opacity: 0;
 		&:hover {
