@@ -328,8 +328,7 @@ Icon = {
      imgIcon.setAttribute("id", icon.id);
      divImgIcon.appendChild(imgIcon);
 
-     btnView.setAttribute("data-id", icon.id);
-     btnView.setAttribute("href", "javascript:void(0)");
+     btnView.setAttribute("href", BASE_URL + "icons/" + icon.url);
      btnView.setAttribute("class", "fa fa-eye fa-lg btn-view-icon");
      spanViewIcon.appendChild(btnView);
 

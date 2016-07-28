@@ -47,6 +47,8 @@ class Icon extends MY_Controller {
 						'id' => $icon['id'],
 						'name' => $icon['name'],
 						'path' => $img_icon_folder."/".$icon['default_image'],
+						'type' => $icon['type'],
+						'url' => $icon['url'],
 						'onCart' => isset($cart[$id]) ? true : false
 					);
 				}
@@ -201,6 +203,8 @@ class Icon extends MY_Controller {
 
                     //===== INSERT ICON INTO TABLE =====//
                     $name = $this->input->post('name', true);
+                    $random_number = mt_rand();
+                    $url = url_title($name)."_".$random_number;
                     $category = $this->input->post('category', true);
                     $tags = $this->input->post('tags', true);
                     $type = $this->input->post('type', true);
@@ -212,6 +216,7 @@ class Icon extends MY_Controller {
                         'tags' =>  str_replace(" ","",$tags),
                         'type' => $type,
                         'price' => $price,
+                        'url' => strtolower($url),
                         'created_by' => user_login('id'),
                         'created_at' => date("Y-m-d H:i:s"),
                         'default_image' => $result_png['filename']

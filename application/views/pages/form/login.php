@@ -3,7 +3,7 @@
     <div class="col-md-4 col-md-offset-4">
       <div class="card card-user">
         <div class="image">
-          <h4 class="text-center" style="color:#66ae53">BELANCON</h4>
+          <a href="<?php echo site_url();?>"><h4 class="text-center" style="color:#66ae53">BELANCON</h4></a>
           <hr>
         </div>
         <div class="content">        

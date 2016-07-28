@@ -182,20 +182,7 @@ $(document).ready(function () {
         toastr.error("Silahkan pilih tipe file yang akan didownload.", "Warning !", opts);        
         $('.btn-download-icon').button('reset');
       }
-    });        
-
-    /**
-     * Action when button view icon clicked     
-     */
-    $(document).on('click', '.btn-view-icon', function() {      
-      var id = $(this).attr('data-id');
-      Icon.view(id, function(result) {
-        if(result) {
-          $('.modal-view-icon').modal('show');
-        }
-      })      
-    });
-          
+    });              
 });
 
 window.unload = function(e) {

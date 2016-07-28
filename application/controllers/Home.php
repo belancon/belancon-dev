@@ -29,6 +29,38 @@ class Home extends CI_Controller
         $this->template->render();
     }
 
+    public function icons($icon_url) {
+        $this->load->helper('dateindo');
+        $this->load->model('icon_model');
+
+        if($icon_url == null) {
+            redirect('/', 'refresh');
+        }
+
+        $result = $this->icon_model->get_one_with_detail($icon_url, 'url');
+
+        if($result) {
+            $data['icon'] = $result['icon'];
+            $data['other_icons'] = $result['other_icons'];
+        
+            $this->template->set_title('Belancon | Belanja Icon untuk Kebutuhan Desainmu');
+            $this->template->set_meta('author','Angga Risky');
+            $this->template->set_meta('keyword','Download free Icons, Download Icon Gratis, Flat Icon Gratis');
+            $this->template->set_meta('description','Download gratis Icon untuk kebutuhan design website, design flyer, design print-out');
+
+            $this->_loadcss();
+            $this->_loadjs();
+            $this->_loadpart();
+            $this->_load_script();
+            
+            $this->template->set_layout('layouts/custom');
+            $this->template->set_content('pages/site/detail-icon', $data);
+            $this->template->render();
+        } else {
+            redirect('/');
+        }
+    }
+
     public function result()
     {       
         $data['searchText'] = $this->input->get('search', true);

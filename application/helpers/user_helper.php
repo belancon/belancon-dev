@@ -20,6 +20,24 @@ if ( ! function_exists('user_login'))
 	}
 }
 
+if ( ! function_exists('user'))
+{
+	function user($id, $field= NULL) {
+		$ci =& get_instance();
+
+		$user = $ci->ion_auth->user($id);
+
+		if($user) {
+			if($field === NULL) {
+				return $user->row();
+			} else {
+				$userRow = $user->row();
+				return $userRow->$field;
+			}
+		}
+	}
+}
+
 
 if ( ! function_exists('get_user_group'))
 {
