@@ -13,6 +13,9 @@
 .yellow-color {
   color: #fdaa3e; }
 
+.red-color {
+  color: #e74c3c; }
+
 a {
   color: #66ae53; }
 
@@ -196,7 +199,7 @@ a {
     -moz-box-shadow: -1px 0px 20px -4px rgba(0, 0, 0, 0.75);
     box-shadow: -1px 0px 20px -4px rgba(0, 0, 0, 0.75); }
 
-.btn-green-primary {
+.btn-green-primary, .btn-red-primary {
   background: #66ae53;
   color: white;
   transition: all 1s;
@@ -204,10 +207,13 @@ a {
   -webkit-box-shadow: -1px 0px 20px -4px rgba(0, 0, 0, 0.75);
   -moz-box-shadow: -1px 0px 20px -4px rgba(0, 0, 0, 0.75);
   box-shadow: -1px 0px 20px -4px rgba(0, 0, 0, 0.75); }
-  .btn-green-primary:hover {
+  .btn-green-primary:hover, .btn-red-primary:hover {
     background: #3d3938;
     color: white;
     transition: all 1s; }
+
+.btn-red-primary {
+  background: #e74c3c; }
 
 #about {
   margin-top: 50px;
@@ -252,6 +258,24 @@ a {
     margin: 0;
     color: white; }
 
+.details-icon #komentar .comment-post {
+  margin-top: 15px;
+  padding: 10px;
+  border-radius: 3px;
+  border: 1px solid #eee; }
+  .details-icon #komentar .comment-post .wrap-comment {
+    margin-top: 20px;
+    margin-bottom: 20px; }
+  .details-icon #komentar .comment-post .comment-content {
+    margin-top: 20px; }
+  .details-icon #komentar .comment-post .img-profile-komentar {
+    height: 50px;
+    margin-right: 10px; }
+  .details-icon #komentar .comment-post .comment-name {
+    margin-top: 7px; }
+  .details-icon #komentar .comment-post .comment-date {
+    margin-top: 15px;
+    font-size: 12px; }
 .details-icon .info-icon {
   border: 1px solid #ddd;
   border-radius: 3px;
@@ -292,10 +316,11 @@ a {
   .details-icon .author-icon .author-follower {
     color: #d4d4d4; }
 .details-icon .img-detail {
-  height: 400px;
+  height: 250px;
   margin: 0 auto;
   display: inline-block;
-  margin-top: 10px; }
+  margin-top: 30px;
+  margin-bottom: 15px; }
 .details-icon .share-to {
   border-top: 1px solid #ddd;
   padding-top: 20px;
@@ -328,8 +353,5 @@ a {
   left: 50%;
   top: 50%;
   z-index: 100; }
-
-/* CSS used here will be applied after bootstrap.css */
-
 
 /*# sourceMappingURL=style.css.map */
