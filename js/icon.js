@@ -110,7 +110,7 @@ Icon = {
    * @param {[type]} id   [description]
    * @param {[type]} name [description]
    */
-  addToCart: function(id, name) {
+  addToCart: function(id, name, callback) {
     var self = this;
     $('.download-icon[data-id="'+ id +'"]').html("");
     //Ajax method
@@ -142,6 +142,10 @@ Icon = {
           "hideMethod": "fadeOut"
           };
           toastr.success("Success ditambahkan ke keranjang.", name, "Success !", opts);           
+
+          if(callback) {
+            callback(response.status);
+          }
        }
      },
      error: function(){    
@@ -162,6 +166,10 @@ Icon = {
           "hideMethod": "fadeOut"
         };
         toastr.success("Terjadi kesalahan pada sistem.", "Oops...", opts);
+
+        if(callback) {
+          callback(response.status);
+        }
      }
     });
   },
@@ -213,6 +221,12 @@ Icon = {
              self.setBtnAddIcon(id, name, function(result) {
                 $('.download-icon[data-id="'+ id +'"]').append(result);    
              });             
+
+             Belancon.isPageDetailIcon(function(result) {
+                if(result === true) {                 
+                  window.location = window.location.href;
+                }
+             });
           } else {             
               /** Message Error */        
               var opts = {

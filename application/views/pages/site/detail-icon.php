@@ -80,11 +80,19 @@
           Download Now
         </div>
       </a>
+      <?php if($on_cart === false): ?>
       <a href="#" class="btn-detail-add-cart" data-id="<?php echo $icon->id;?>" data-name="<?php echo $icon->name;?>">
         <div class="col-md-12 btn-cart">
           Add to Cart
         </div>
       </a>
+      <?php else: ?>
+      <a href="#" class="btn-detail-remove-cart" data-id="<?php echo $icon->id;?>" data-name="<?php echo $icon->name;?>">
+        <div class="col-md-12 btn-cart">
+          Remove from Cart
+        </div>
+      </a>
+      <?php endif; ?>
       <div class="col-md-12 info-icon">
         <i class="fa fa-download"></i> <?php echo $icon->downloads;?> Diunduh
       </div>
@@ -124,7 +132,8 @@
 </div>
 
 <script type="text/javascript">
-  /**
+$(document).ready(function() {
+    /**
      * Action when button add cart clicked    
      */
     $('.btn-detail-add-cart').click(function(e){ 
@@ -132,7 +141,20 @@
       var id = $(this).attr('data-id');
       var name = $(this).attr('data-name');
 
-      console.log(id + " " + name)
-      //Icon.addToCart(id, name);
-    });   
+      Icon.addToCart(id, name, function(result) {
+        if(result === true) {
+          location.reload();
+        }
+      });
+
+    });
+
+    $('.btn-detail-remove-cart').click(function(e){ 
+      e.preventDefault();
+      var id = $(this).attr('data-id');
+      var name = $(this).attr('data-name');
+
+      Icon.removeFromCart(id, name);
+    });    
+});
 </script>

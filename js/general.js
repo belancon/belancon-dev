@@ -12,5 +12,15 @@ Belancon = {
 	      return sParameterName[1];
 	    }
 	  }
+	},
+	isPageDetailIcon: function(callback) {
+		var path = window.location.pathname;
+    	var test = path.split("/");
+
+    	if(test[2] === "icons") {
+    		callback(true);
+    	} else {
+    		callback(false);
+    	}
 	}
 }

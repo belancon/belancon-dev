@@ -31,6 +31,7 @@ class Home extends CI_Controller
 
     public function icons($icon_url) {
         $this->load->helper('dateindo');
+        $this->load->library('cart_belancon');
         $this->load->model('icon_model');
 
         if($icon_url == null) {
@@ -38,9 +39,12 @@ class Home extends CI_Controller
         }
 
         $result = $this->icon_model->get_one_with_detail($icon_url, 'url');
+        $cart = $this->cart_belancon->contents();
 
         if($result) {
-            $data['icon'] = $result['icon'];
+            $icon = $result['icon'];
+            $data['icon'] = $icon;
+            $data['on_cart'] = isset($cart[$icon->id]) ? true : false;
             $data['other_icons'] = $result['other_icons'];
         
             $this->template->set_title('Belancon | Belanja Icon untuk Kebutuhan Desainmu');
