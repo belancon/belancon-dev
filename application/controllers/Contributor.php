@@ -28,12 +28,12 @@ class Contributor extends CI_Controller {
 
 
         if ($this->form_validation->run() == FALSE) {
-            $this->_load_view('contributor_join_view');
+            $this->_load_view();
         } else {
             $fullname = $this->input->post('fullname');
             $email = $this->input->post('email');
             $skill = $this->input->post('skill');
-            $message = $this->input->post('message');
+            $message = strip_tags($this->input->post('message'));
 
             $this->_send_email($fullname, $email, $skill, $message);
             //$this->_load_view('contributor_join_view');
@@ -93,7 +93,7 @@ class Contributor extends CI_Controller {
             }
     }
 
-    protected function _load_view($layout, $data= null) {
+    protected function _load_view() {
         $this->load->library('recaptcha');
 
         $this->template->set_title('Belancon | Belanja Icon untuk Kebutuhan Desainmu');
@@ -101,18 +101,60 @@ class Contributor extends CI_Controller {
         $this->template->set_meta('keyword','Download free Icons, Download Icon Gratis, Flat Icon Gratis');
         $this->template->set_meta('description','Download gratis Icon untuk kebutuhan design website, design flyer, design print-out');
 
-        $this->template->set_css('bootstrap.css');
-        $this->template->set_css('sweetalert.css');  
-        $this->template->set_css('style.css');            
-        $this->template->set_css('font-awesome.css');
-        $this->template->set_js('jquery-1.12.1.min.js','header');
-        $this->template->set_js('https://www.google.com/recaptcha/api.js','header','remote');
-        $this->template->set_js('bootstrap.js','footer');
-        $this->template->set_js('sweetalert.min.js','footer');
+        
+        $breadcrumb = array(
+            array(
+                'name' => 'Home',
+                'path' => site_url()
+            ),
+            array(
+                'name' => 'Kontributor',
+                'path' => null
+            )
+        );
+        $this->template->set_props('breadcrumb', $breadcrumb);
+
+        $this->_loadcss();
+        $this->_loadjs();
+        $this->_loadpart();
+        $this->_loadscript();
+        $this->template->set_layout('layouts/custom');
         
         $data['recaptcha_html'] = $this->recaptcha->render();
-        $this->template->set_layout($layout);
-        $this->template->render($data);
+        $this->template->set_content('pages/form/join_contributor', $data);
+        $this->template->render();
+    }
+
+    protected function _loadcss() {
+        $this->template->set_css('bootstrap.css');
+        $this->template->set_css('sweetalert.css'); 
+        $this->template->set_css('toastr.css');  
+        $this->template->set_css('style.css');            
+        $this->template->set_css('font-awesome.css');
+    }
+
+    protected function _loadjs() {
+        $this->template->set_js('jquery-1.12.1.min.js','header');
+        $this->template->set_js('bootstrap.js','footer');
+        $this->template->set_js('sweetalert.min.js','footer');    
+        $this->template->set_js('toastr.js','footer');
+    }
+
+    protected function _loadpart() {       
+        $this->template->set_part('navbar', '_parts/navbar'); 
+        $this->template->set_part('loader', '_parts/loader');
+        $this->template->set_part('notification', '_parts/notification');
+        $this->template->set_part('footer', '_parts/footer');
+    }
+
+    public function _loadscript() {
+        $path = base_url().'js/';
+
+        $this->template->set_js($path.'general.js','footer', 'remote');
+        $this->template->set_js($path.'user.js','footer', 'remote');
+        $this->template->set_js($path.'icon.js','footer', 'remote');
+        $this->template->set_js($path.'cart.js','footer', 'remote');
+        $this->template->set_js($path.'page-statis.js','footer', 'remote');
     }
 
     public function getResponseCaptcha($str){

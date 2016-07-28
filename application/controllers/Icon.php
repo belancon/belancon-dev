@@ -1,7 +1,7 @@
 <?php
 defined('BASEPATH') OR exit('No direct script access allowed');
 
-class Icon extends CI_Controller {
+class Icon extends MY_Controller {
 
 	private $limit = 12;
 
@@ -13,7 +13,7 @@ class Icon extends CI_Controller {
 	function __construct()
     {
         parent::__construct();
-        $this->load->library('user_belancon');
+        $this->load->library(array('user_belancon', 'form_validation'));
         $this->load->model(array('icon_model', 'file_model'));
         $this->_path_thumbnail = cloud('thumbnail');
         $this->_folder_png = cloud('png');
@@ -74,6 +74,41 @@ class Icon extends CI_Controller {
 	}
 
 	/**
+	 * Get Icon members from model, and populate to array json and return from called ajax function
+	 * @return [type] [description]
+	 */
+	public function get_by_user()
+	{
+		if( $this->input->is_ajax_request() ) {
+			$icons = array();
+			$user_id = user_login('id');
+			$page = (int)$this->input->post('page');			
+			$search = $this->input->post('search') ? $this->input->post('search') : "";
+			$offset = ($this->limit * $page) - $this->limit;
+
+			$img_icon_folder = $this->_path_thumbnail;			
+			$data = $this->icon_model->get_by_user($user_id, $this->limit, $offset, $search);			
+			$more = count($data) < $this->limit ? false : true;
+
+			if(count($data) > 0) {
+				
+				foreach ($data as $icon) {
+					$id = $icon['id'];
+					$icons[] = array(
+						'id' => $icon['id'],
+						'name' => $icon['name'],
+						'path' => $img_icon_folder."/".$icon['default_image'],						
+					);
+				}
+			}
+
+			echo json_encode(array('data' => $icons, 'page' => $page + 1, 'more' => $more, 'search'=> $search));
+		} else {
+			redirect('/');
+		}
+	}
+
+	/**
 	 * Filter Newest Icon, Popular Icon, Free Icon or Paid Icon
 	 * @param  [type] $page   [description]
 	 * @param  [type] $by     [description]
@@ -103,6 +138,171 @@ class Icon extends CI_Controller {
 
 		return $data;
 	}
+
+	public function add() {         
+		if( !$this->input->is_ajax_request() ) {
+			redirect('/');
+		}
+
+        $this->form_validation->set_rules('name', 'Nama', 'required|min_length[3]');
+        $this->form_validation->set_rules('category', 'Kategori', 'required|min_length[3]');
+        $this->form_validation->set_rules('type', 'Tipe', 'required');
+        $this->form_validation->set_rules('price', 'Harga', 'integer');
+
+        $this->form_validation->set_message('required', '{field} harap diisi');
+        $this->form_validation->set_message('integer', '{field} harus berupa angka desimal');
+        $this->form_validation->set_message('min_length', '{field} tidak boleh kurang dari {param} karakter.');
+
+        if($this->form_validation->run() === true) {
+            //check file
+            $png = 'filepng';
+            $psd = 'filepsd';
+            $ai = 'fileai';
+            $file_png = $_FILES[$png];
+            $file_psd = $_FILES[$psd];
+            $file_ai = $_FILES[$ai];
+
+            if($file_png['name'] == '' || $file_psd['name'] == '' || $file_ai['name'] == '') {
+                echo json_encode(array('status'=> false, 'message' => 'File PNG, PSD, and AI is required'));
+            } else {
+                //====== UPLOAD FILE =====//
+                //insert file png
+                $config_png = array(
+                    'upload_path' => $this->config->item('upload_path')."png/",
+                    'allowed_types' => 'png',
+                    'max_size' => '2000',
+                    'encrypt_name' => true
+                );
+
+                $result_png = $this->_upload_file($png, $file_png, $config_png);
+                //insert file psd
+                $config_psd = array(
+                    'upload_path' => $this->config->item('upload_path')."psd/",
+                    'allowed_types' => 'psd',
+                    'max_size' => '2000',
+                    'encrypt_name' => true
+                );
+                $result_psd = $this->_upload_file($psd, $file_psd, $config_psd);
+                //insert file ai
+                $config_ai = array(
+                    'upload_path' => $this->config->item('upload_path')."ai/",
+                    'allowed_types' => 'ai|eps',
+                    'max_size' => '2000',
+                    'encrypt_name' => true
+                );
+                $result_ai = $this->_upload_file($ai, $file_ai, $config_ai);
+                //====== END UPLOAD FILE =====//
+                
+                //check upload file 
+                if($result_png['status'] === true && $result_psd['status'] === true && $result_ai['status'] === true) {
+                    //if upload files success
+                    //get filenames
+                    $files = array($result_png['filename'], $result_psd['filename'], $result_ai['filename']);
+
+                    //===== INSERT ICON INTO TABLE =====//
+                    $name = $this->input->post('name', true);
+                    $category = $this->input->post('category', true);
+                    $tags = $this->input->post('tags', true);
+                    $type = $this->input->post('type', true);
+                    $price = $this->input->post('price', true);
+
+                    $data = array(
+                        'name' => $name,
+                        'category' => $category,
+                        'tags' =>  str_replace(" ","",$tags),
+                        'type' => $type,
+                        'price' => $price,
+                        'created_by' => user_login('id'),
+                        'created_at' => date("Y-m-d H:i:s"),
+                        'default_image' => $result_png['filename']
+                    );
+
+                    //call method model
+                    $result = $this->icon_model->insert($data, $files);
+
+                    if($result) {
+                        $this->session->set_flashdata('success_message', 'Berhasil menambah icon');
+                        $response = array('status' => true);
+                    } else {
+                        $response = array('status' => false , 'message' => 'Gagal Menambah icon');
+                    }
+
+                    echo json_encode($response);
+                    //===== END INSERT ICON INTO TABLE =====//
+
+                } else {
+                    //if upload files failed or error
+                    $message = $result_png['error']."<br />".$result_psd['error']."<br />".$result_ai['error'];
+
+                    echo json_encode(array('status' => false, 'message' => $message));
+                }
+            }   
+        } else {
+            echo json_encode(array('status' => false, 'message' => validation_errors()));
+        }
+    }
+
+
+    public function delete() {
+    	$id = $this->input->post('id');
+    	$name = $this->input->post('name');
+
+    	if($id) {
+	    	$result = $this->icon_model->delete($id);
+
+	    	if($result) {
+	    		$this->session->set_flashdata('success_message', "Sukses Menghapus Icon ".$name);
+	    		$response = array('status' => true);
+	    	} else {
+	    		$response = array('status' => false, 'message' => 'Gagal Menghapus Icon' );
+	    	}
+    	} else {
+    		$response = array('status' => false, 'message' => 'Terjadi Kesalahan sistem' );
+    	}
+
+    	echo json_encode($response);
+    }
+
+    protected function _upload_file($name, $file, $config) {
+        //process upload picture
+        $this->load->library('upload');
+        $this->upload->initialize($config);
+        //validation upload false
+        if(!$this->upload->do_upload($name))
+        {
+            $response = array(
+                'status'  => false,
+                'error' => $this->upload->display_errors()
+            );
+            
+            return $response;
+        }
+        else//validation upload true/success
+        {
+            $upload    = $this->upload->data();
+            $filename  = $upload['file_name'];
+
+            $response = array(
+                'status' => true,
+                'filename' => $filename,
+                'error' => ''
+            );
+
+            if($upload['file_ext'] === '.png') {
+                $config = array(
+                    'width'     => 80,
+                    'height'    => 80,
+                    'x_axis'    => '0',
+                    'y_axis'    => '0',
+                    'new_path'  => $this->config->item('upload_path')."thumbnail/"
+                );
+
+                $result = $this->_resize_image($config, $upload);
+            }
+        
+            return $response;
+        }
+    }
 
 	public function add_to_cart() {		
 		if( $this->input->is_ajax_request() ) {
