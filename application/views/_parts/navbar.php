@@ -34,7 +34,7 @@
                 </ul>
               </li>
               <?php if($this->ion_auth->logged_in()):?>
-              <li><a href="<?php echo site_url('member/icon');?>">Iconku</a></li>
+              <li><a href="<?php echo site_url('member/icon');?>"><strong>Iconku</strong></a></li>
               <li class="dropdown">
                   <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">
                     <strong><?php echo user_login('username');?></strong>

@@ -83,10 +83,12 @@ $(document).ready(function() {
         },
         messages: {
 			name: {
-				required: 'Nama icon harap diisi'
+				required: 'Nama icon harap diisi',
+				minlength: 'Nama icon tidak boleh kurang dari 3 karakter'
 			},
 			category: {
-				required: 'Kategori icon harap diisi'
+				required: 'Kategori icon harap diisi',
+				minlength: 'Kategori icon tidak boleh kurang dari 3 karakter'
 			},
 			type: {
 				required: 'Tipe icon harap diisi'
@@ -95,13 +97,16 @@ $(document).ready(function() {
 				required: 'Harga harus berupa angka desimal'
 			},
 			filepng: {
-				required: 'File Png harap dipilih'
+				required: 'File Png harap dipilih',
+				extension: 'Tipe File tidak sesuai'
 			},
 			filepsd: {
-				required: 'File Psd harap dipilih'
+				required: 'File Psd harap dipilih',
+				extension: 'Tipe File tidak sesuai'
 			},
 			fileai: {
-				required: 'File Ai harap diisi'
+				required: 'File Ai harap diisi',
+				extension: 'Tipe File tidak sesuai'
 			},
 		},
         highlight: function(element) {

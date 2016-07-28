@@ -3,10 +3,19 @@
 		<?php $this->load->view('_parts/sidebar'); ?>
 	</div>
 	<div class="col-md-10">
-		<a href="<?php echo site_url('member/add-icon');?>" class="btn btn-primary"><i class="fa fa-plus"></i> Tambah icon</a>
+		<a href="<?php echo site_url('member/add-icon');?>" class="btn btn-green-primary"><i class="fa fa-plus"></i> Tambah icon</a>
 		
 		<br />
 		<hr>
+
+		<div class="row" style="margin-bottom:50px;">
+			<div class="col-md-4 pull-right">
+			<div class="input-group">			 
+			  <input type="text" class="form-control" id="search" />
+			  <span class="input-group-addon"><i class="fa fa-search"></i></span>
+			</div>
+			</div>
+		</div>
 
 		<div class="row">
 			<div class="col-md-12">
@@ -28,7 +37,11 @@
 
 <script type="text/javascript">
 	$(document).ready(function() {
-		Member.getIcon(1, "");
+
+		var paramSearch = Belancon.getUrlParameter('search') ? Belancon.getUrlParameter('search') : null;
+		var search = paramSearch ? paramSearch : "";
+
+		Member.getIcon(1, search);
 
 		/**
 	     * Action when button remove icon clicked    
@@ -62,6 +75,25 @@
 	      var page = $(this).attr('data-page');
 
 	      Member.getIcon(page, search);	      	   
+	    });
+
+	    /**
+	     * Action When Search Form Submitted
+	     */
+	    $('#search').keyup(function(e){
+	      e.preventDefault();
+	      if(e.keyCode == 13) {
+		    var search = $('#search').val().trim();
+		    
+		    if(search.length > 0) {
+		    	window.history.pushState("", "", BASE_URL + "member/icon?search=" + search);
+		    } else {
+		    	window.history.pushState("", "", BASE_URL + "member/icon");
+		    }
+
+		    Member.clearList();
+		    Member.getIcon(1, search);
+	  	  }
 	    });
 	});
 </script>

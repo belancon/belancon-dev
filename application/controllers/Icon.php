@@ -149,6 +149,10 @@ class Icon extends MY_Controller {
         $this->form_validation->set_rules('type', 'Tipe', 'required');
         $this->form_validation->set_rules('price', 'Harga', 'integer');
 
+        $this->form_validation->set_message('required', '{field} harap diisi');
+        $this->form_validation->set_message('integer', '{field} harus berupa angka desimal');
+        $this->form_validation->set_message('min_length', '{field} tidak boleh kurang dari {param} karakter.');
+
         if($this->form_validation->run() === true) {
             //check file
             $png = 'filepng';

@@ -3,6 +3,9 @@
  * @type {Object}
  */
 Member = {
+  clearList: function() {
+    $('#my-icon-list').html('');
+  },
 	/**
    * Get list icon via ajax and get back return array json from server
    * @param  {[type]} page   [description]
