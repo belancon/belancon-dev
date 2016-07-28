@@ -15,7 +15,7 @@
         <!-- Nav tabs -->
         <ul class="nav nav-tabs" role="tablist">
           <li role="presentation" class="active"><a href="#icon-detail" aria-controls="icon-detail" role="tab" data-toggle="tab">Icon Preview</a></li>
-          <li role="presentation"><a href="#komentar" aria-controls="komentar" role="tab" data-toggle="tab">Komentar</a></li>
+          <li role="presentation" class=""><a href="#komentar" aria-controls="komentar" role="tab" data-toggle="tab">Komentar</a></li>
         </ul>
         <!-- Tab panes -->
         <div class="tab-content">
@@ -47,9 +47,115 @@
             </div>
           </div>
           <div role="tabpanel" class="tab-pane" id="komentar">
-            <p>
-              Tempat komentar di sini ...
-            </p>
+            <div class="row">
+
+              <div class="col-md-12 comment-post">
+                <div class="wrap-comment">
+                  <img src="<?php echo base_url('assets/public/themes/belancon');?>/img/user-4.png" alt="" class="pull-left img-profile-komentar" />
+                  <div class="comment-name">
+                    <a href="#">
+                      <h4 class="pull-left">
+                        Tshering Yangzom
+                      </h4>
+                    </a>
+                  </div>
+                  <div class="pull-right comment-date">
+                    12 Hari lalu
+                  </div>
+                  <div class="clearfix">
+                  </div>
+                  <div class="comment-content">
+                    Laboris nisi ut aliquip ex ea commodo
+                    consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse
+                    cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non
+                    proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
+                  </div>
+                  
+                  <form>
+                    <div class="form-group" style="margin-top: 15px;">
+                      <input type="email" class="form-control" id="" placeholder="Tuliskan komentarmu">
+                    </div>
+                    <button type="submit" style="box-shadow: none;" class="btn btn-green-primary btn-default"><i class="fa fa-send-o"></i></button>
+                  </form>
+
+                </div>
+                <div class="wrap-comment">
+                  <img src="<?php echo base_url('assets/public/themes/belancon');?>/img/author-1.jpg" alt="" class="pull-left img-profile-komentar" />
+                  <div class="comment-name">
+                    <a href="#">
+                      <h4 class="pull-left">
+                        Belancon Team
+                      </h4>
+                    </a>
+                  </div>
+                  <div class="pull-right comment-date">
+                    12 Hari lalu
+                  </div>
+                  <div class="clearfix">
+                  </div>
+                  <div class="comment-content">
+                    Thank you
+                  </div>
+                </div>
+              </div>
+
+              <div class="col-md-12 comment-post">
+                <div class="wrap-comment">
+                  <img src="<?php echo base_url('assets/public/themes/belancon');?>/img/user-2.png" alt="" class="pull-left img-profile-komentar" />
+                  <div class="comment-name">
+                    <a href="#">
+                      <h4 class="pull-left">
+                        Naruto Simaru
+                      </h4>
+                    </a>
+                  </div>
+                  <div class="pull-right comment-date">
+                    12 Hari lalu
+                  </div>
+                  <div class="clearfix">
+                  </div>
+                  <div class="comment-content">
+                    Laxcepteur sint occaecat cupidatat non
+                    proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
+                  </div>
+
+                  <form>
+                    <div class="form-group" style="margin-top: 15px;">
+                      <input type="email" class="form-control" id="" placeholder="Tuliskan komentarmu">
+                    </div>
+                    <button type="submit" style="box-shadow: none;" class="btn btn-green-primary btn-default"><i class="fa fa-send-o"></i></button>
+                  </form>
+                </div>
+              </div>
+
+              <div class="col-md-12 comment-post">
+                <div class="wrap-comment">
+                  <img src="<?php echo base_url('assets/public/themes/belancon');?>/img/author-1.jpg" alt="" class="pull-left img-profile-komentar" />
+                  <div class="comment-name">
+                    <a href="#">
+                      <h4 class="pull-left">
+                        Katarak Sasuke
+                      </h4>
+                    </a>
+                  </div>
+                  <div class="pull-right comment-date">
+                    2 Tahun lalu
+                  </div>
+                  <div class="clearfix">
+                  </div>
+                  <div class="comment-content">
+                    Laxcea qui officia deserunt mollit anim id est laborum.
+                  </div>
+                  <form>
+                    <div class="form-group" style="margin-top: 15px;">
+                      <input type="email" class="form-control" id="" placeholder="Tuliskan komentarmu">
+                    </div>
+                    <button type="submit" style="box-shadow: none;" class="btn btn-green-primary btn-default"><i class="fa fa-send-o"></i></button>
+                  </form>
+                </div>
+              </div>
+
+            </div>
           </div>
         </div>
       </div>

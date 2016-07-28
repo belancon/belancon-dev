@@ -17,6 +17,9 @@
 .yellow-color {
 	color: $yellow-primary;
 }
+.red-color {
+	color: $red-primary;
+}
 
 a {
 	color: $green-primary;
@@ -276,6 +279,11 @@ a {
 	}
 }
 
+.btn-red-primary {
+	background: $red-primary;
+	@extend .btn-green-primary;
+}
+
 #about {
 	margin-top: 50px;
 	padding-top: 50px;
@@ -332,6 +340,32 @@ a {
 }
 
 .details-icon {
+	#komentar {
+		.comment-post {
+			margin-top: 15px;
+			padding: 10px;
+			border-radius: 3px;
+			border: 1px solid #eee;
+			.wrap-comment {
+				margin-top: 20px;
+				margin-bottom: 20px;
+			}
+			.comment-content {
+				margin-top: 20px;
+			}
+			.img-profile-komentar {
+				height: 50px;
+				margin-right: 10px;
+			}
+			.comment-name {
+				margin-top: 7px;
+			}
+			.comment-date {
+				margin-top: 15px;
+				font-size: 12px;
+			}
+		}
+	}
 	.info-icon {
 		border: 1px solid #ddd;
 		border-radius: 3px;
@@ -381,10 +415,11 @@ a {
 		}
 	}
 	.img-detail {
-		height: 400px;
+		height: 250px;
 		margin: 0 auto;
 		display: inline-block;
-		margin-top: 10px;
+		margin-top: 30px;
+		margin-bottom: 15px;
 	}
 	.share-to {
 		border-top: 1px solid #ddd;
