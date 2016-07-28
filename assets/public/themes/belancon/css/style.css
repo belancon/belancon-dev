@@ -258,4 +258,7 @@ a {
   top: 50%;
   z-index: 100; }
 
+/* CSS used here will be applied after bootstrap.css */
+
+
 /*# sourceMappingURL=style.css.map */

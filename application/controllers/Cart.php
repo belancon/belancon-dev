@@ -17,24 +17,50 @@ class Cart extends CI_Controller
         $this->template->set_meta('author','Angga Risky');
         $this->template->set_meta('keyword','Download free Icons, Download Icon Gratis, Flat Icon Gratis');
         $this->template->set_meta('description','Download gratis Icon untuk kebutuhan design website, design flyer, design print-out');
+       
+        $breadcrumb = array(
+            array(
+                'name' => 'Home',
+                'path' => site_url()
+            ),
+            array(
+                'name' => 'Keranjang',
+                'path' => null
+            )
+        );
+        $this->template->set_props('breadcrumb', $breadcrumb);
 
-        $this->template->set_css('bootstrap.css');
-        $this->template->set_css('toastr.css');
-        $this->template->set_css('sweetalert.css');  
-        $this->template->set_css('toastr.css');  
-        $this->template->set_css('style.css');
-        $this->template->set_css('font-awesome.css');
-        $this->template->set_js('jquery-1.12.1.min.js','header');
-        $this->template->set_js('bootstrap.js','footer');
-        $this->template->set_js('toastr.js','footer');
-        $this->template->set_js('sweetalert.min.js','footer');
-        $this->template->set_js('toastr.js','footer');
-
-        $this->_load_script();
-        
-        $this->template->set_layout('cart_view');
+        $this->_loadcss();
+        $this->_loadjs();
+        $this->_loadpart();
+        $this->_load_script();   
+  
+        $this->template->set_layout('layouts/custom');
+        $this->template->set_content('pages/site/cart');
         $this->template->render();
 	}
+
+    protected function _loadpart() {       
+        $this->template->set_part('navbar', '_parts/navbar'); 
+        $this->template->set_part('loader', '_parts/loader');
+        $this->template->set_part('notification', '_parts/notification');
+        $this->template->set_part('footer', '_parts/footer');
+    }
+
+    protected function _loadcss() {
+        $this->template->set_css('bootstrap.css');
+        $this->template->set_css('sweetalert.css'); 
+        $this->template->set_css('toastr.css');  
+        $this->template->set_css('style.css');            
+        $this->template->set_css('font-awesome.css');
+    }
+
+    protected function _loadjs() {
+        $this->template->set_js('jquery-1.12.1.min.js','header');
+        $this->template->set_js('bootstrap.js','footer');
+        $this->template->set_js('sweetalert.min.js','footer');    
+        $this->template->set_js('toastr.js','footer');
+    }
 
 	public function _load_script() {
         $path = base_url().'js/';
@@ -43,6 +69,6 @@ class Cart extends CI_Controller
         $this->template->set_js($path.'user.js','footer', 'remote');
         $this->template->set_js($path.'icon.js','footer', 'remote');
         $this->template->set_js($path.'cart.js','footer', 'remote');
-        $this->template->set_js($path.'script.js','footer', 'remote');
+        $this->template->set_js($path.'page-cart.js','footer', 'remote');
     }
 }

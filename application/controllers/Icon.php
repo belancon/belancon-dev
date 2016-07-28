@@ -74,6 +74,40 @@ class Icon extends CI_Controller {
 	}
 
 	/**
+	 * Get Icon members from model, and populate to array json and return from called ajax function
+	 * @return [type] [description]
+	 */
+	public function get_by_user()
+	{
+		if( $this->input->is_ajax_request() ) {
+			$icons = array();
+			$user_id = user_login('id');
+			$page = (int)$this->input->post('page');			
+			$search = $this->input->post('search') ? $this->input->post('search') : "";
+
+			$img_icon_folder = $this->_path_thumbnail;			
+			$data = $this->icon_model->get_by_user($user_id, $this->limit, $offset, $search);			
+			$more = count($data) < $this->limit ? false : true;
+
+			if(count($data) > 0) {
+				
+				foreach ($data as $icon) {
+					$id = $icon['id'];
+					$icons[] = array(
+						'id' => $icon['id'],
+						'name' => $icon['name'],
+						'path' => $img_icon_folder."/".$icon['default_image'],						
+					);
+				}
+			}
+
+			echo json_encode(array('data' => $icons, 'page' => $page + 1, 'more' => $more, 'search'=> $search));
+		} else {
+			redirect('/');
+		}
+	}
+
+	/**
 	 * Filter Newest Icon, Popular Icon, Free Icon or Paid Icon
 	 * @param  [type] $page   [description]
 	 * @param  [type] $by     [description]

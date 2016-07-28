@@ -18,19 +18,14 @@ class Home extends CI_Controller
         $this->template->set_meta('author','Angga Risky');
         $this->template->set_meta('keyword','Download free Icons, Download Icon Gratis, Flat Icon Gratis');
         $this->template->set_meta('description','Download gratis Icon untuk kebutuhan design website, design flyer, design print-out');
-
-        $this->template->set_css('bootstrap.css');
-        $this->template->set_css('sweetalert.css'); 
-        $this->template->set_css('toastr.css');  
-        $this->template->set_css('style.css');            
-        $this->template->set_css('font-awesome.css');
-        $this->template->set_js('jquery-1.12.1.min.js','header');
-        $this->template->set_js('bootstrap.js','footer');
-        $this->template->set_js('sweetalert.min.js','footer');    
-        $this->template->set_js('toastr.js','footer');
-
+            
+        $this->_loadcss();
+        $this->_loadjs();
+        $this->_loadpart();
         $this->_load_script();
-        $this->template->set_layout('home_view');
+
+        $this->template->set_layout('layouts/main');
+        $this->template->set_content('pages/site/home');
         $this->template->render();
     }
 
@@ -43,23 +38,40 @@ class Home extends CI_Controller
         $this->template->set_meta('keyword','Download free Icons, Download Icon Gratis, Flat Icon Gratis');
         $this->template->set_meta('description','Download gratis Icon untuk kebutuhan design website, design flyer, design print-out');
 
+        $this->_loadcss();
+        $this->_loadjs();
+        $this->_loadpart();
+        $this->_load_script();
+        
+        $this->template->set_layout('layouts/main');
+        $this->template->set_content('pages/site/result', $data);
+        $this->template->render();
+    }
+
+    protected function _loadpart() {
+        $this->template->set_part('header', '_parts/header');  
+        $this->template->set_part('navbar', '_parts/navbar'); 
+        $this->template->set_part('loader', '_parts/loader');
+        $this->template->set_part('notification', '_parts/notification');
+        $this->template->set_part('footer', '_parts/footer');
+    }
+
+    protected function _loadcss() {
         $this->template->set_css('bootstrap.css');
-        $this->template->set_css('sweetalert.css');  
+        $this->template->set_css('sweetalert.css'); 
         $this->template->set_css('toastr.css');  
         $this->template->set_css('style.css');            
         $this->template->set_css('font-awesome.css');
-        $this->template->set_js('jquery-1.12.1.min.js','header');
-        $this->template->set_js('bootstrap.js','footer');
-        $this->template->set_js('sweetalert.min.js','footer');
-        $this->template->set_js('toastr.js','footer');
-
-        $this->_load_script();
-        
-        $this->template->set_layout('result_view');
-        $this->template->render($data);
     }
 
-    public function _load_script() {
+    protected function _loadjs() {
+        $this->template->set_js('jquery-1.12.1.min.js','header');
+        $this->template->set_js('bootstrap.js','footer');
+        $this->template->set_js('sweetalert.min.js','footer');    
+        $this->template->set_js('toastr.js','footer');
+    }
+
+    protected function _load_script() {
         $path = base_url().'js/';
 
         $this->template->set_js($path.'general.js','footer', 'remote');
