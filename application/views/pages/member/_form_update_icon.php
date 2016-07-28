@@ -4,6 +4,8 @@
 	</div>
 	<div class="col-md-6">
 
+		<h1>Update Icon</h1>
+
 		<legend>Data Icon</legend>
 		<!-- Notif Error -->
         <div class="alert alert-danger" role="alert" style="display:none">
@@ -12,15 +14,15 @@
 		<?php echo form_open('icon/add', array('id' => 'form-add-icon'));?>
 		<div class="form-group">
 			<label>Nama <span class="text-danger">*</span></label>
-			<input type="text" name="name" class="form-control" value="" />
+			<input type="text" name="name" class="form-control" value="<?php echo $icon->name;?>" />
 		</div>
 		<div class="form-group">
 			<label>Kategori <span class="text-danger">*</span></label>
-			<input type="text" name="category" class="form-control" value="" />
+			<input type="text" name="category" class="form-control" value="<?php echo $icon->category;?>" />
 		</div>
 		<div class="form-group">
 			<label>Tags</label>
-			<input type="text" name="tags" class="form-control" value="" />
+			<input type="text" name="tags" class="form-control" value="<?php echo $icon->tags;?>" />
 		</div>
 		<div class="form-group">
 			<label>Tipe</label> <br />
@@ -33,7 +35,7 @@
 		</div>
 		<div class="form-group">
 			<label>Price</label>
-			<input type="text" name="price" class="form-control" value="0" />
+			<input type="text" name="price" class="form-control" value="<?php echo $icon->price;?>" />
 		</div>		
 		
 		<legend>File Icon</legend>
@@ -81,29 +83,6 @@ $(document).ready(function() {
             	extension: 'ai|eps'
             }
         },
-        messages: {
-			name: {
-				required: 'Nama icon harap diisi'
-			},
-			category: {
-				required: 'Kategori icon harap diisi'
-			},
-			type: {
-				required: 'Tipe icon harap diisi'
-			},
-			price: {
-				required: 'Harga harus berupa angka desimal'
-			},
-			filepng: {
-				required: 'File Png harap dipilih'
-			},
-			filepsd: {
-				required: 'File Psd harap dipilih'
-			},
-			fileai: {
-				required: 'File Ai harap diisi'
-			},
-		},
         highlight: function(element) {
             $(element).closest('.form-group').addClass('has-error');
         },

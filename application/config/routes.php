@@ -58,5 +58,6 @@ $route['login'] = "user/login";
 $route['member/change-profile'] = "member/change_profile";
 $route['member/change-password'] = "member/change_password";
 $route['member/add-icon'] = "member/add_icon";
+$route['member/update-icon/(:num)'] = "member/update_icon/$1";
 $route['404_override'] = '';
 $route['translate_uri_dashes'] = FALSE;

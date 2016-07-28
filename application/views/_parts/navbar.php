@@ -42,7 +42,7 @@
                   </a>
                   <ul class="dropdown-menu scrollable-menu">
                       <li><a href="<?php echo site_url('member/profile');?>">Profile</a></li> 
-                      <li><a href="">Ubah Password</a></li>
+                      <li><a href="<?php echo site_url('member/change-password');?>">Ubah Password</a></li>
                       <li><a href="<?php echo site_url('user/logout');?>">Logout</a></li>
                   </ul>
               </li>
