@@ -46,6 +46,8 @@ class Home extends CI_Controller
             $data['icon'] = $icon;
             $data['on_cart'] = isset($cart[$icon->id]) ? true : false;
             $data['other_icons'] = $result['other_icons'];
+            $data['page_url'] = site_url().'icons/'.$icon->url;
+            $data['page_identifier'] = $icon->url;
         
             $this->template->set_title('Belancon | Belanja Icon untuk Kebutuhan Desainmu');
             $this->template->set_meta('author','Angga Risky');

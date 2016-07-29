@@ -2,16 +2,19 @@
 	<div class="col-md-2">
 		<?php $this->load->view('_parts/sidebar'); ?>
 	</div>
-	<div class="col-md-6">
+	<div class="col-md-10">
 
-		<h1>Update Icon</h1>
+		<h2>Update Icon</h2>
+		<hr>
 
 		<legend>Data Icon</legend>
 		<!-- Notif Error -->
         <div class="alert alert-danger" role="alert" style="display:none">
         </div>
         <!-- end Notif Error -->
-		<?php echo form_open('icon/add', array('id' => 'form-add-icon'));?>
+		<?php echo form_open('icon/update', array('id' => 'form-update-icon'));?>
+		<input type="hidden" name="id" value="<?php echo $icon->id;?>" />
+		<input type="hidden" name="default-image" value="<?php echo $icon->default_image;?>" />
 		<div class="form-group">
 			<label>Nama <span class="text-danger">*</span></label>
 			<input type="text" name="name" class="form-control" value="<?php echo $icon->name;?>" />
@@ -25,12 +28,14 @@
 			<input type="text" name="tags" class="form-control" value="<?php echo $icon->tags;?>" />
 		</div>
 		<div class="form-group">
-			<label>Tipe</label> <br />
+			<label>Tipe <span class="text-danger">*</span></label> <br />
 			<label class="radio-inline">
-			 <input type="radio" name="type" id="free" value="free" checked> Free
+			 <?php $checked_free = $icon->type === 'free' ? 'checked' : '' ; ?>
+			 <input type="radio" name="type" id="free" value="free" <?php echo $checked_free;?>> Free
 			</label>
 			<label class="radio-inline">
-			  <input type="radio" name="type" id="paid" value="paid"> Paid
+			  <?php $checked_paid = $icon->type === 'paid' ? 'checked' : '' ; ?>
+			  <input type="radio" name="type" id="paid" value="paid" <?php echo $checked_paid;?>> Paid
 			</label>
 		</div>
 		<div class="form-group">
@@ -38,7 +43,10 @@
 			<input type="text" name="price" class="form-control" value="<?php echo $icon->price;?>" />
 		</div>		
 		
-		<legend>File Icon</legend>
+		<legend>File Icon </legend> 
+		<small>(Jika tidak ada perubahan pada file, tidak perlu mengupload file-filenya)</small>
+		<br />
+		<br />
 		<div class="form-group">
 			<input type="file" class="filestyle" data-buttonText="File PNG" data-buttonName="btn-info" data-buttonBefore="true" name="filepng">			
 		</div>
@@ -57,7 +65,7 @@
 
 <script type="text/javascript">
 $(document).ready(function() {
-	$('#form-add-icon').validate({
+	$('#form-update-icon').validate({
         rules: {
             name: {
                 minlength: 3,       
@@ -70,19 +78,41 @@ $(document).ready(function() {
             price: {                
                 number: true
             },     
-            filepng: {
-            	required: true,
+            filepng: {            	
             	extension: 'png'
             },
-            filepsd: {
-            	required: true,
+            filepsd: {            	
             	extension: 'psd'
             },
-            fileai: {
-            	required: true,
+            fileai: {            	
             	extension: 'ai|eps'
             }
         },
+        messages: {
+			name: {
+				required: 'Nama icon harap diisi',
+				minlength: 'Nama icon tidak boleh kurang dari 3 karakter'
+			},
+			category: {
+				required: 'Kategori icon harap diisi',
+				minlength: 'Kategori icon tidak boleh kurang dari 3 karakter'
+			},
+			type: {
+				required: 'Tipe icon harap diisi'
+			},
+			price: {
+				required: 'Harga harus berupa angka desimal'
+			},
+			filepng: {				
+				extension: 'Tipe File tidak sesuai'
+			},
+			filepsd: {				
+				extension: 'Tipe File tidak sesuai'
+			},
+			fileai: {				
+				extension: 'Tipe File tidak sesuai'
+			},
+		},
         highlight: function(element) {
             $(element).closest('.form-group').addClass('has-error');
         },

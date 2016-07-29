@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Host: localhost
--- Generation Time: Jul 28, 2016 at 03:54 PM
+-- Generation Time: Jul 29, 2016 at 03:33 PM
 -- Server version: 5.6.26
 -- PHP Version: 5.6.12
 
@@ -83,7 +83,7 @@ CREATE TABLE IF NOT EXISTS `files` (
   `filename` varchar(255) NOT NULL,
   `created_at` datetime NOT NULL,
   `created_by` int(11) NOT NULL
-) ENGINE=InnoDB AUTO_INCREMENT=364 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=367 DEFAULT CHARSET=latin1;
 
 --
 -- Dumping data for table `files`
@@ -389,10 +389,7 @@ INSERT INTO `files` (`id`, `icon_id`, `type`, `filename`, `created_at`, `created
 (297, 99, 'ai', 'wrench.eps', '2016-07-24 10:09:31', 1),
 (298, 100, 'png', 'wristwatch.png', '2016-07-24 10:09:31', 1),
 (299, 100, 'psd', 'wristwatch.psd', '2016-07-24 10:09:31', 1),
-(300, 100, 'ai', 'wristwatch.eps', '2016-07-24 10:09:31', 1),
-(361, 123, 'png', 'd49b33bf58e03b9e51358be1bec9e0da.png', '2016-07-28 11:14:10', 10),
-(362, 123, 'psd', 'c7caed3744d0a7bf2aa743fb85e768f0.psd', '2016-07-28 11:14:10', 10),
-(363, 123, 'ai', 'f2c41d67dfd54a5ca5c5d9174717c8df.eps', '2016-07-28 11:14:10', 10);
+(300, 100, 'ai', 'wristwatch.eps', '2016-07-24 10:09:31', 1);
 
 -- --------------------------------------------------------
 
@@ -434,7 +431,7 @@ CREATE TABLE IF NOT EXISTS `icons` (
   `views` int(11) NOT NULL DEFAULT '0',
   `downloads` int(11) NOT NULL,
   `deleted` tinyint(1) NOT NULL DEFAULT '0'
-) ENGINE=InnoDB AUTO_INCREMENT=124 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=125 DEFAULT CHARSET=latin1;
 
 --
 -- Dumping data for table `icons`
@@ -540,8 +537,7 @@ INSERT INTO `icons` (`id`, `name`, `category`, `tags`, `type`, `price`, `url`, `
 (97, 'Worldwide 2 ', 'Business', 'worldwide, www, web, internet', 'free', '0', 'worldwide-2 ', '2016-07-24 10:09:31', 1, 'worldwide-2.png', 0, 0, 0),
 (98, 'Worldwide ', 'Business', 'worldwide, www, web, internet', 'free', '0', 'worldwide ', '2016-07-24 10:09:31', 1, 'worldwide.png', 0, 0, 0),
 (99, 'Wrench ', 'Business', 'wrench, setting, tools', 'free', '0', 'wrench ', '2016-07-24 10:09:31', 1, 'wrench.png', 0, 0, 0),
-(100, 'Wristwatch ', 'Business', 'wristwatch, watch', 'free', '0', 'wristwatch ', '2016-07-24 10:09:31', 1, 'wristwatch.png', 0, 0, 0),
-(123, 'Add User', 'Line', 'add,user,people', 'free', '0', 'add-user_1783194721', '2016-07-28 11:14:10', 10, 'd49b33bf58e03b9e51358be1bec9e0da.png', 0, 0, 0);
+(100, 'Wristwatch ', 'Business', 'wristwatch, watch', 'free', '0', 'wristwatch ', '2016-07-24 10:09:31', 1, 'wristwatch.png', 0, 0, 0);
 
 -- --------------------------------------------------------
 
@@ -579,17 +575,18 @@ CREATE TABLE IF NOT EXISTS `users` (
   `first_name` varchar(50) DEFAULT NULL,
   `last_name` varchar(50) DEFAULT NULL,
   `company` varchar(100) DEFAULT NULL,
-  `phone` varchar(20) DEFAULT NULL
+  `phone` varchar(20) DEFAULT NULL,
+  `profile_picture` varchar(255) NOT NULL
 ) ENGINE=InnoDB AUTO_INCREMENT=13 DEFAULT CHARSET=utf8;
 
 --
 -- Dumping data for table `users`
 --
 
-INSERT INTO `users` (`id`, `ip_address`, `username`, `password`, `salt`, `email`, `activation_code`, `forgotten_password_code`, `forgotten_password_time`, `remember_code`, `created_on`, `last_login`, `active`, `first_name`, `last_name`, `company`, `phone`) VALUES
-(1, '127.0.0.1', 'administrator', '$2a$07$SeBknntpZror9uyftVopmu61qg0ms8Qv1yV6FG.kQOSM.9QhmTo36', '', 'admin@admin.com', '', NULL, NULL, NULL, 1268889823, 1469150750, 1, 'Admin', 'Belancon', 'ADMIN', '0'),
-(10, '127.0.0.1', 'belancon', '$2y$08$41ZBLf55dduFcEeafBukRO3Te7.aqhR2gos9ugUlYBFwoZVCk7YQm', NULL, 'belancon.dev@gmail.com', NULL, NULL, NULL, NULL, 1469079323, 1469693791, 1, 'Belancon', 'Team', NULL, ''),
-(12, '127.0.0.1', 'testmember', '$2y$08$RqAHJAKnICzMhi5.jOXy3OS58QOo87t4oor9FAjMkxxPhosW1S0bW', NULL, 'testmember@belancon.com', NULL, NULL, NULL, NULL, 1469090996, 1469091009, 1, 'Test', 'Member', NULL, '');
+INSERT INTO `users` (`id`, `ip_address`, `username`, `password`, `salt`, `email`, `activation_code`, `forgotten_password_code`, `forgotten_password_time`, `remember_code`, `created_on`, `last_login`, `active`, `first_name`, `last_name`, `company`, `phone`, `profile_picture`) VALUES
+(1, '127.0.0.1', 'administrator', '$2a$07$SeBknntpZror9uyftVopmu61qg0ms8Qv1yV6FG.kQOSM.9QhmTo36', '', 'admin@admin.com', '', NULL, NULL, NULL, 1268889823, 1469150750, 1, 'Admin', 'Belancon', 'ADMIN', '0', ''),
+(10, '127.0.0.1', 'belancon', '$2y$08$41ZBLf55dduFcEeafBukRO3Te7.aqhR2gos9ugUlYBFwoZVCk7YQm', NULL, 'belancon.dev@gmail.com', NULL, NULL, NULL, NULL, 1469079323, 1469788373, 1, 'Belancon', 'Team', NULL, '', ''),
+(12, '127.0.0.1', 'testmember', '$2y$08$RqAHJAKnICzMhi5.jOXy3OS58QOo87t4oor9FAjMkxxPhosW1S0bW', NULL, 'testmember@belancon.com', NULL, NULL, NULL, NULL, 1469090996, 1469091009, 1, 'Test', 'Member', NULL, '', '');
 
 -- --------------------------------------------------------
 
@@ -698,7 +695,7 @@ ALTER TABLE `feedbacks`
 -- AUTO_INCREMENT for table `files`
 --
 ALTER TABLE `files`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=364;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=367;
 --
 -- AUTO_INCREMENT for table `groups`
 --
@@ -708,7 +705,7 @@ ALTER TABLE `groups`
 -- AUTO_INCREMENT for table `icons`
 --
 ALTER TABLE `icons`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=124;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=125;
 --
 -- AUTO_INCREMENT for table `login_attempts`
 --

@@ -48,7 +48,113 @@
           </div>
           <div role="tabpanel" class="tab-pane" id="komentar">
             <div class="row">
-                <div id="disqus_thread"></div>
+
+              <div class="col-md-12 comment-post">
+                <div class="wrap-comment">
+                  <img src="<?php echo base_url('assets/public/themes/belancon');?>/img/user-4.png" alt="" class="pull-left img-profile-komentar" />
+                  <div class="comment-name">
+                    <a href="#">
+                      <h4 class="pull-left">
+                        Tshering Yangzom
+                      </h4>
+                    </a>
+                  </div>
+                  <div class="pull-right comment-date">
+                    12 Hari lalu
+                  </div>
+                  <div class="clearfix">
+                  </div>
+                  <div class="comment-content">
+                    Laboris nisi ut aliquip ex ea commodo
+                    consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse
+                    cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non
+                    proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
+                  </div>
+                  
+                  <form>
+                    <div class="form-group" style="margin-top: 15px;">
+                      <input type="email" class="form-control" id="" placeholder="Tuliskan komentarmu">
+                    </div>
+                    <button type="submit" style="box-shadow: none;" class="btn btn-green-primary btn-default"><i class="fa fa-send-o"></i></button>
+                  </form>
+
+                </div>
+                <div class="wrap-comment">
+                  <img src="<?php echo base_url('assets/public/themes/belancon');?>/img/author-1.jpg" alt="" class="pull-left img-profile-komentar" />
+                  <div class="comment-name">
+                    <a href="#">
+                      <h4 class="pull-left">
+                        Belancon Team
+                      </h4>
+                    </a>
+                  </div>
+                  <div class="pull-right comment-date">
+                    12 Hari lalu
+                  </div>
+                  <div class="clearfix">
+                  </div>
+                  <div class="comment-content">
+                    Thank you
+                  </div>
+                </div>
+              </div>
+
+              <div class="col-md-12 comment-post">
+                <div class="wrap-comment">
+                  <img src="<?php echo base_url('assets/public/themes/belancon');?>/img/user-2.png" alt="" class="pull-left img-profile-komentar" />
+                  <div class="comment-name">
+                    <a href="#">
+                      <h4 class="pull-left">
+                        Naruto Simaru
+                      </h4>
+                    </a>
+                  </div>
+                  <div class="pull-right comment-date">
+                    12 Hari lalu
+                  </div>
+                  <div class="clearfix">
+                  </div>
+                  <div class="comment-content">
+                    Laxcepteur sint occaecat cupidatat non
+                    proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
+                  </div>
+
+                  <form>
+                    <div class="form-group" style="margin-top: 15px;">
+                      <input type="email" class="form-control" id="" placeholder="Tuliskan komentarmu">
+                    </div>
+                    <button type="submit" style="box-shadow: none;" class="btn btn-green-primary btn-default"><i class="fa fa-send-o"></i></button>
+                  </form>
+                </div>
+              </div>
+
+              <div class="col-md-12 comment-post">
+                <div class="wrap-comment">
+                  <img src="<?php echo base_url('assets/public/themes/belancon');?>/img/author-1.jpg" alt="" class="pull-left img-profile-komentar" />
+                  <div class="comment-name">
+                    <a href="#">
+                      <h4 class="pull-left">
+                        Katarak Sasuke
+                      </h4>
+                    </a>
+                  </div>
+                  <div class="pull-right comment-date">
+                    2 Tahun lalu
+                  </div>
+                  <div class="clearfix">
+                  </div>
+                  <div class="comment-content">
+                    Laxcea qui officia deserunt mollit anim id est laborum.
+                  </div>
+                  <form>
+                    <div class="form-group" style="margin-top: 15px;">
+                      <input type="email" class="form-control" id="" placeholder="Tuliskan komentarmu">
+                    </div>
+                    <button type="submit" style="box-shadow: none;" class="btn btn-green-primary btn-default"><i class="fa fa-send-o"></i></button>
+                  </form>
+                </div>
+              </div>
+
             </div>
           </div>
         </div>
@@ -72,7 +178,7 @@
         <div class="clearfix">
         </div>
         <div style="margin-top: 10px;">
-          <!-- <a href="<?php echo site_url('contributor/join');?>" style="box-shadow: none; width: 100%;" class="btn btn-primary btn-green-primary">Visit Profile</a> -->
+          <a href="<?php echo site_url('contributor/join');?>" style="box-shadow: none; width: 100%;" class="btn btn-primary btn-green-primary">Visit Profile</a>
         </div>
       </div>
       <a href="#">
@@ -100,9 +206,8 @@
         <i class="fa fa-eye"></i> 1,132 Dilihat
       </div>
       <div class="col-md-12 info-icon">
-        <a href="">
-          <i class="fa fa-comments"></i> 
-          <span class="disqus-comment-count" data-disqus-identifier="<?php echo $page_identifier;?>"></span>
+        <a href="#">
+          <i class="fa fa-comments"></i> 0 Komentar
         </a>
       </div>
       <div class="col-md-12 info-icon" style="font-weight: normal;">
@@ -159,22 +264,3 @@ $(document).ready(function() {
     });    
 });
 </script>
-<script>
-/**
- *  RECOMMENDED CONFIGURATION VARIABLES: EDIT AND UNCOMMENT THE SECTION BELOW TO INSERT DYNAMIC VALUES FROM YOUR PLATFORM OR CMS.
- *  LEARN WHY DEFINING THESE VARIABLES IS IMPORTANT: https://disqus.com/admin/universalcode/#configuration-variables */
-
-// var disqus_config = function () {
-//     this.page.url = '<?php echo $page_url;?>';  // Replace PAGE_URL with your page's canonical URL variable
-//     this.page.identifier = '<?php echo $page_identifier;?>'; // Replace PAGE_IDENTIFIER with your page's unique identifier variable
-// };
-
-// (function() { // DON'T EDIT BELOW THIS LINE
-//     var d = document, s = d.createElement('script');
-//     s.src = '//belancon.disqus.com/embed.js';
-//     s.setAttribute('data-timestamp', +new Date());
-//     (d.head || d.body).appendChild(s);
-// })();
-</script>
-<script id="dsq-count-scr" src="//belancon.disqus.com/count.js" async></script>
-<noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>

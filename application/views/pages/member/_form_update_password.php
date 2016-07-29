@@ -2,9 +2,10 @@
 	<div class="col-md-2">
 		<?php $this->load->view('_parts/sidebar'); ?>
 	</div>
-	<div class="col-md-6">
+	<div class="col-md-10">
 
 		<h2>Ubah Password</h2>
+    <hr>
 		    <!-- Notif Error -->
         <div class="alert alert-danger" role="alert" style="display:none">
         </div>

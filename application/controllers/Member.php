@@ -64,8 +64,9 @@ class Member extends MY_Controller
         $this->template->set_meta('keyword','Download free Icons, Download Icon Gratis, Flat Icon Gratis');
         $this->template->set_meta('description','Download gratis Icon untuk kebutuhan design website, design flyer, design print-out');
 
-        $this->_loadcss();
-        $this->_loadjs();
+        $this->_loadcss();       
+        $this->template->set_css('custom.css');
+        $this->_loadjs();     
         $this->_loadpart();
         $this->_loadscript();
         //set layout
@@ -198,6 +199,79 @@ class Member extends MY_Controller
             $message = validation_errors();
             echo json_encode(array('status' => false, 'message' => $message)); 
         }            
+    }
+
+    public function change_picture() {
+        $this->load->model('user_model');
+        //insert file png
+        $photo = 'photo';
+        $file = $_FILES[$photo];
+        $config = array(
+            'upload_path' => $this->config->item('upload_path')."member/",
+            'allowed_types' => 'png|jpeg|jpg',
+            'max_size' => '2000',
+            'encrypt_name' => TRUE
+        );
+
+        $upload = $this->_upload_file($photo, $file, $config);
+
+        if($upload['status'] === TRUE) {
+            $id = user_login('id');
+            $old_filename = $this->input->post('filename');
+            $data = array(
+                'profile_picture' => $upload['filename']
+            );
+
+            $where = array('id' => $id);
+            $result = $this->user_model->update($where, $data);
+            if($result) {
+                if($old_filename != null) {
+                    unlink($this->config->item('upload_path').'/member/'.$old_filename);
+                }
+
+                $response = array('status' => TRUE, 'path' => cloud('member/'.$upload['filename']));
+            } else {
+                $response = array('status' => FALSE, 'message' => 'Gagal Mengganti Foto Profil');
+            }
+
+            echo json_encode($response);
+        } else {
+            $response = array('status' => FALSE, 'message' => 'Gagal Upload Foto Profil');
+
+            echo json_encode($response);
+        }
+    }
+
+    protected function _upload_file($name, $file, $config) {
+        //process upload picture
+        $this->load->library('upload');
+        $this->upload->initialize($config);
+        //validation upload FALSE
+        if(!$this->upload->do_upload($name))
+        {
+            $response = array(
+                'status'  => FALSE,
+                'error' => $this->upload->display_errors()
+            );
+            
+            echo json_encode($response);
+        }
+        else//validation upload TRUE/success
+        {
+            $upload    = $this->upload->data();
+
+            $config = array(
+                'width'     => 210,
+                'height'    => 210,
+                'x_axis'    => '0',
+                'y_axis'    => '0',
+                'new_path'  => $this->config->item('upload_path')."member/"
+            );
+
+            $response = $this->_resize_image($config, $upload);
+
+            return $response;
+        }
     }
 
     protected function _loadpart() {

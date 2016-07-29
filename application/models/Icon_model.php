@@ -181,9 +181,76 @@ class Icon_model extends CI_Model {
         return $icon_id;
     }
 
+    public function update($where, $data, $files = array()) {
+      $icon = $this->db->get_where($this->table, $where)->row();
+
+      $this->db->trans_start(); # Starting Transaction
+      $this->db->trans_strict(FALSE); # See Note 01. If you wish can remove as well 
+      $this->db->update($this->table, $data, $where);
+
+      if(count($files) > 0) {
+        for ($i=0; $i < count($files); $i++) { 
+          $ext = pathinfo($files[$i], PATHINFO_EXTENSION);
+          $type = $ext === 'eps' ? 'ai' : $ext;
+
+          $data_files[] = array(            
+            'filename' => $files[$i],            
+          );
+
+          $this->db->where('icon_id', $icon->id);
+          $this->db->where('type', $type);
+          $this->db->update($this->table_file, array('filename' => $files[$i]));
+        }
+      }
+
+      $this->db->trans_complete(); # Completing transaction
+
+      if ($this->db->trans_status() === FALSE) {
+          # Something went wrong.
+          $this->db->trans_rollback();
+          return FALSE;
+      } else {
+          # Everything is Perfect. 
+          # Committing data to the database.
+          $this->db->trans_commit();
+          return TRUE;
+      }
+    }
+
     public function delete($id) {
       $result = $this->db->update($this->table, array('deleted' => 1), array('id' => $id));
 
       return $result;
+    }
+
+    public function increase_download($ids) {
+      if(is_array($ids)) {
+        $this->db->where_in('id', $ids);
+        $query = $this->db->get($this->table);
+        $icons = $query->result();
+
+        $this->db->trans_start();
+        $this->db->trans_strict(FALSE);
+        foreach($icons as $icon) {
+          $total = $icon->downloads;
+          $this->db->update($this->table, array('downloads' => $total + 1), array('id' => $icon->id));
+        }
+        $this->db->trans_complete();
+        if ($this->db->trans_status() === TRUE) {
+          $this->db->trans_commit();
+          return TRUE;
+        } else {
+          return FALSE;
+        }
+      } else {
+        $this->db->where('id', $ids);
+        $query = $this->db->get($this->table);
+        $icons = $query->row();
+
+        $total = $icon->downloads;
+          $this->db->update($this->table, array('downloads' => $total + 1), array('id' => $icon->id));
+
+        return TRUE;
+      }
     }
 }
