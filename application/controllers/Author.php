@@ -1,6 +1,6 @@
 <?php
 
-class Single extends CI_Controller 
+class Author extends CI_Controller 
 {
 	function __construct() {
 		parent::__construct();
@@ -30,7 +30,7 @@ class Single extends CI_Controller
         $this->template->set_js('toastr.js','footer');
         
         //set layout
-        $this->template->set_layout('single_icon_view'); // nama file page nya, tanpa extension php
+        $this->template->set_layout('author_view'); // nama file page nya, tanpa extension php
         $this->template->render(); // terakhir render
 	}
 }
