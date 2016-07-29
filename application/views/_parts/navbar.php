@@ -21,7 +21,7 @@
               </div>
               <button type="submit" class="btn btn-default">Find</button>
             </form> -->
-            <ul class="nav navbar-nav navbar-right">
+            <ul class="nav navbar-nav navbar-right">              
               <li class="dropdown">
                 <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">
                   <span class="total-icons-keranjang">
@@ -33,6 +33,20 @@
                                  
                 </ul>
               </li>
+              <?php if($this->ion_auth->logged_in()):?>
+              <li><a href="<?php echo site_url('member/icon');?>"><strong>Iconku</strong></a></li>
+              <li class="dropdown">
+                  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">
+                    <strong><?php echo user_login('username');?></strong>
+                    <span class="fa fa-user fa-lg"></span>
+                  </a>
+                  <ul class="dropdown-menu scrollable-menu">
+                      <li><a href="<?php echo site_url('member/profile');?>">Profile</a></li> 
+                      <li><a href="<?php echo site_url('member/change-password');?>">Ubah Password</a></li>
+                      <li><a href="<?php echo site_url('user/logout');?>">Logout</a></li>
+                  </ul>
+              </li>
+              <?php endif; ?>
             </ul>
           </div><!-- /.navbar-collapse -->
         </div><!-- /.container-fluid -->

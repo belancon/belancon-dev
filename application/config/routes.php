@@ -51,9 +51,15 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 */
 $route['default_controller'] = 'home';
 $route['result'] = "home/result";
-$route['cart'] = "icon/cart";
 $route['how-to-download'] = "site/how_to_download";
 $route['privacy-policy'] = "site/privacy_policy";
 $route['term-of-service'] = "site/term_of_service";
+$route['login'] = "user/login";
+$route['icons'] = "home/icons";
+$route['icons/(:any)'] = "home/icons/$1";
+$route['member/change-profile'] = "member/change_profile";
+$route['member/change-password'] = "member/change_password";
+$route['member/add-icon'] = "member/add_icon";
+$route['member/update-icon/(:num)'] = "member/update_icon/$1";
 $route['404_override'] = '';
 $route['translate_uri_dashes'] = FALSE;

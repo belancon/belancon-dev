@@ -1,7 +1,7 @@
 <?php
 defined('BASEPATH') OR exit('No direct script access allowed');
 
-class Icon extends CI_Controller {
+class Icon extends MY_Controller {
 
 	private $limit = 12;
 
@@ -13,7 +13,7 @@ class Icon extends CI_Controller {
 	function __construct()
     {
         parent::__construct();
-        $this->load->library('user_belancon');
+        $this->load->library(array('user_belancon', 'form_validation'));
         $this->load->model(array('icon_model', 'file_model'));
         $this->_path_thumbnail = cloud('thumbnail');
         $this->_folder_png = cloud('png');
@@ -37,7 +37,7 @@ class Icon extends CI_Controller {
 			$icons = array();
 			$data = $this->get_data($page, $by, $search);
 			$cart = $this->cart_belancon->contents();
-			$more = count($data) < $this->limit ? false : true;
+			$more = count($data) < $this->limit ? FALSE : TRUE;
 
 			if(count($data) > 0) {
 				
@@ -47,7 +47,9 @@ class Icon extends CI_Controller {
 						'id' => $icon['id'],
 						'name' => $icon['name'],
 						'path' => $img_icon_folder."/".$icon['default_image'],
-						'onCart' => isset($cart[$id]) ? true : false
+						'type' => $icon['type'],
+						'url' => $icon['url'],
+						'onCart' => isset($cart[$id]) ? TRUE : FALSE
 					);
 				}
 			}
@@ -70,6 +72,41 @@ class Icon extends CI_Controller {
 
 				echo json_encode(array('status'=> FALSE, 'error'=> 'icon not found'));
 			}
+		}
+	}
+
+	/**
+	 * Get Icon members from model, and populate to array json and return from called ajax function
+	 * @return [type] [description]
+	 */
+	public function get_by_user()
+	{
+		if( $this->input->is_ajax_request() ) {
+			$icons = array();
+			$user_id = user_login('id');
+			$page = (int)$this->input->post('page');			
+			$search = $this->input->post('search') ? $this->input->post('search') : "";
+			$offset = ($this->limit * $page) - $this->limit;
+
+			$img_icon_folder = $this->_path_thumbnail;			
+			$data = $this->icon_model->get_by_user($user_id, $this->limit, $offset, $search);			
+			$more = count($data) < $this->limit ? FALSE : TRUE;
+
+			if(count($data) > 0) {
+				
+				foreach ($data as $icon) {
+					$id = $icon['id'];
+					$icons[] = array(
+						'id' => $icon['id'],
+						'name' => $icon['name'],
+						'path' => $img_icon_folder."/".$icon['default_image'],						
+					);
+				}
+			}
+
+			echo json_encode(array('data' => $icons, 'page' => $page + 1, 'more' => $more, 'search'=> $search));
+		} else {
+			redirect('/');
 		}
 	}
 
@@ -104,31 +141,292 @@ class Icon extends CI_Controller {
 		return $data;
 	}
 
-	public function cart() {
-		$this->load->library('template');
-        $this->template->set_platform('public');
-        $this->template->set_theme('belancon');  
+	public function add() {         
+		if( !$this->input->is_ajax_request() ) {
+			redirect('/');
+		}
 
-        $this->template->set_title('Belancon | Belanja Icon untuk Kebutuhan Desainmu');
-        $this->template->set_meta('author','Angga Risky');
-        $this->template->set_meta('keyword','Download free Icons, Download Icon Gratis, Flat Icon Gratis');
-        $this->template->set_meta('description','Download gratis Icon untuk kebutuhan design website, design flyer, design print-out');
+        $this->form_validation->set_rules('name', 'Nama', 'required|min_length[3]');
+        $this->form_validation->set_rules('category', 'Kategori', 'required|min_length[3]');
+        $this->form_validation->set_rules('type', 'Tipe', 'required');
+        $this->form_validation->set_rules('price', 'Harga', 'integer');
 
-        $this->template->set_css('bootstrap.css');
-        $this->template->set_css('toastr.css');
-        $this->template->set_css('sweetalert.css');  
-        $this->template->set_css('toastr.css');  
-        $this->template->set_css('style.css');
-        $this->template->set_css('font-awesome.css');
-        $this->template->set_js('jquery-1.12.1.min.js','header');
-        $this->template->set_js('bootstrap.js','footer');
-        $this->template->set_js('toastr.js','footer');
-        $this->template->set_js('sweetalert.min.js','footer');
-        $this->template->set_js('toastr.js','footer');
+        $this->form_validation->set_message('required', '{field} harap diisi');
+        $this->form_validation->set_message('integer', '{field} harus berupa angka desimal');
+        $this->form_validation->set_message('min_length', '{field} tidak boleh kurang dari {param} karakter.');
+
+        if($this->form_validation->run() === TRUE) {
+            //check file
+            $png = 'filepng';
+            $psd = 'filepsd';
+            $ai = 'fileai';
+            $file_png = $_FILES[$png];
+            $file_psd = $_FILES[$psd];
+            $file_ai = $_FILES[$ai];
+
+            if($file_png['name'] == '' || $file_psd['name'] == '' || $file_ai['name'] == '') {
+                echo json_encode(array('status'=> FALSE, 'message' => 'File PNG, PSD, and AI is required'));
+            } else {
+                //====== UPLOAD FILE =====//
+                //insert file png
+                $config_png = array(
+                    'upload_path' => $this->config->item('upload_path')."png/",
+                    'allowed_types' => 'png',
+                    'max_size' => '2000',
+                    'encrypt_name' => TRUE
+                );
+
+                $result_png = $this->_upload_file($png, $file_png, $config_png);
+                //insert file psd
+                $config_psd = array(
+                    'upload_path' => $this->config->item('upload_path')."psd/",
+                    'allowed_types' => 'psd',
+                    'max_size' => '2000',
+                    'encrypt_name' => TRUE
+                );
+                $result_psd = $this->_upload_file($psd, $file_psd, $config_psd);
+                //insert file ai
+                $config_ai = array(
+                    'upload_path' => $this->config->item('upload_path')."ai/",
+                    'allowed_types' => 'ai|eps',
+                    'max_size' => '2000',
+                    'encrypt_name' => TRUE
+                );
+                $result_ai = $this->_upload_file($ai, $file_ai, $config_ai);
+                //====== END UPLOAD FILE =====//
+                
+                //check upload file 
+                if($result_png['status'] === TRUE && $result_psd['status'] === TRUE && $result_ai['status'] === TRUE) {
+                    //if upload files success
+                    //get filenames
+                    $files = array($result_png['filename'], $result_psd['filename'], $result_ai['filename']);
+
+                    //===== INSERT ICON INTO TABLE =====//
+                    $name = $this->input->post('name', TRUE);
+                    $random_number = mt_rand();
+                    $url = url_title($name)."_".$random_number;
+                    $category = $this->input->post('category', TRUE);
+                    $tags = $this->input->post('tags', TRUE);
+                    $type = $this->input->post('type', TRUE);
+                    $price = $this->input->post('price', TRUE);
+
+                    $data = array(
+                        'name' => $name,
+                        'category' => $category,
+                        'tags' =>  str_replace(" ","",$tags),
+                        'type' => $type,
+                        'price' => $price,
+                        'url' => strtolower($url),
+                        'created_by' => user_login('id'),
+                        'created_at' => date("Y-m-d H:i:s"),
+                        'default_image' => $result_png['filename']
+                    );
+
+                    //call method model
+                    $result = $this->icon_model->insert($data, $files);
+
+                    if($result) {
+                        $this->session->set_flashdata('success_message', 'Berhasil menambah icon');
+                        $response = array('status' => TRUE);
+                    } else {
+                        $response = array('status' => FALSE , 'message' => 'Gagal Menambah icon');
+                    }
+
+                    echo json_encode($response);
+                    //===== END INSERT ICON INTO TABLE =====//
+
+                } else {
+                    //if upload files failed or error
+                    $message = $result_png['error']."<br />".$result_psd['error']."<br />".$result_ai['error'];
+
+                    echo json_encode(array('status' => FALSE, 'message' => $message));
+                }
+            }   
+        } else {
+            echo json_encode(array('status' => FALSE, 'message' => validation_errors()));
+        }
+    }
+
+    public function update() {
+    	if(!$this->input->is_ajax_request()) {
+    		redirect('/');
+    	}
+
+    	//Form Validation rules
+    	$this->form_validation->set_rules('name', 'Nama', 'required|min_length[3]');
+        $this->form_validation->set_rules('category', 'Kategori', 'required|min_length[3]');
+        $this->form_validation->set_rules('type', 'Tipe', 'required');
+        $this->form_validation->set_rules('price', 'Harga', 'integer');
+        //set custom error validation
+        $this->form_validation->set_message('required', '{field} harap diisi');
+        $this->form_validation->set_message('integer', '{field} harus berupa angka desimal');
+        $this->form_validation->set_message('min_length', '{field} tidak boleh kurang dari {param} karakter.');
+
+        if($this->form_validation->run() === TRUE) {
+        	//check file
+            $png = 'filepng';
+            $psd = 'filepsd';
+            $ai = 'fileai';
+            $file_png = $_FILES[$png];
+            $file_psd = $_FILES[$psd];
+            $file_ai = $_FILES[$ai];
+			
+			if($file_png['name'] != '') {
+				//insert file png
+                $config_png = array(
+                    'upload_path' => $this->config->item('upload_path')."png/",
+                    'allowed_types' => 'png',
+                    'max_size' => '2000',
+                    'encrypt_name' => TRUE
+                );
+
+                $result_png = $this->_upload_file($png, $file_png, $config_png);
+			} else {
+				$result_png = array('status' => TRUE, 'filename' => NULL);
+			}
+
+
+			if($file_psd['name'] != '') {
+				//insert file psd
+                $config_psd = array(
+                    'upload_path' => $this->config->item('upload_path')."psd/",
+                    'allowed_types' => 'psd',
+                    'max_size' => '2000',
+                    'encrypt_name' => TRUE
+                );
+                $result_psd = $this->_upload_file($psd, $file_psd, $config_psd);
+			} else {
+				$result_psd = array('status' => TRUE, 'filename' => NULL);
+			}
+
+			if($file_ai['name'] !='') {
+				//insert file ai
+                $config_ai = array(
+                    'upload_path' => $this->config->item('upload_path')."ai/",
+                    'allowed_types' => 'ai|eps',
+                    'max_size' => '2000',
+                    'encrypt_name' => TRUE
+                );
+                $result_ai = $this->_upload_file($ai, $file_ai, $config_ai);
+			} else {
+				$result_ai = array('status' => TRUE, 'filename' => NULL);
+			}
+
+			//check upload file 
+            if($result_png['status'] === TRUE && $result_psd['status'] === TRUE && $result_ai['status'] === TRUE) {
+            	$files = array();
+            	//get filenames
+               	if($result_png['filename'] !== NULL) {
+               		$files[] = $result_png['filename'];
+               	}
+
+               	if($result_psd['filename'] !== NULL) {
+               		$files[] = $result_psd['filename'];
+               	}
+
+               	if($result_ai['filename'] !== NULL) {
+               		$files[] = $result_ai['filename'];
+               	}
+
+	        	//===== UPDATE ICON INTO TABLE =====//
+	        	$id = $this->input->post('id', TRUE);
+				$name = $this->input->post('name', TRUE);
+				$random_number = mt_rand();
+				$url = url_title($name)."_".$random_number;
+				$category = $this->input->post('category', TRUE);
+				$tags = $this->input->post('tags', TRUE);
+				$type = $this->input->post('type', TRUE);
+				$price = $this->input->post('price', TRUE);	
+				$default_image = $result_png['filename'] !== NULL ? $result_png['filename'] : $this->input->post('default-image', TRUE);
+
+				$data = array(
+					'name' => $name,
+					'category' => $category,
+					'tags' =>  str_replace(" ","",$tags),
+					'type' => $type,
+					'price' => $price,
+					'url' => strtolower($url),				
+					'default_image' => $default_image
+				);
+
+				//call method model
+				$where = array('id' => $id);
+				$result = $this->icon_model->update($where, $data, $files);
+
+				if($result) {
+					$this->session->set_flashdata('success_message', 'Berhasil mengubah icon');
+					$response = array('status' => TRUE);
+				} else {
+					$response = array('status' => FALSE , 'message' => 'Gagal mengubah icon');
+				}
+
+				echo json_encode($response);
+				//===== END INSERT ICON INTO TABLE =====//
+			}
+        }
+    }
+
+
+    public function delete() {
+    	$id = $this->input->post('id');
+    	$name = $this->input->post('name');
+
+    	if($id) {
+	    	$result = $this->icon_model->delete($id);
+
+	    	if($result) {
+	    		$this->session->set_flashdata('success_message', "Sukses Menghapus Icon ".$name);
+	    		$response = array('status' => TRUE);
+	    	} else {
+	    		$response = array('status' => FALSE, 'message' => 'Gagal Menghapus Icon' );
+	    	}
+    	} else {
+    		$response = array('status' => FALSE, 'message' => 'Terjadi Kesalahan sistem' );
+    	}
+
+    	echo json_encode($response);
+    }
+
+    protected function _upload_file($name, $file, $config) {
+        //process upload picture
+        $this->load->library('upload');
+        $this->upload->initialize($config);
+        //validation upload FALSE
+        if(!$this->upload->do_upload($name))
+        {
+            $response = array(
+                'status'  => FALSE,
+                'error' => $this->upload->display_errors()
+            );
+            
+            return $response;
+        }
+        else//validation upload TRUE/success
+        {
+            $upload    = $this->upload->data();
+            $filename  = $upload['file_name'];
+
+            $response = array(
+                'status' => TRUE,
+                'filename' => $filename,
+                'error' => ''
+            );
+
+            if($upload['file_ext'] === '.png') {
+                $config = array(
+                    'width'     => 80,
+                    'height'    => 80,
+                    'x_axis'    => '0',
+                    'y_axis'    => '0',
+                    'new_path'  => $this->config->item('upload_path')."thumbnail/"
+                );
+
+                $result = $this->_resize_image($config, $upload);
+            }
         
-        $this->template->set_layout('cart_view');
-        $this->template->render();
-	}
+            return $response;
+        }
+    }
 
 	public function add_to_cart() {		
 		if( $this->input->is_ajax_request() ) {
@@ -154,13 +452,13 @@ class Icon extends CI_Controller {
 				if($row_id) {
 					$icon->path = $img_icon_folder."/".$icon->default_image;
 					$result = array(
-						'status' => true,						
+						'status' => TRUE,						
 					);
 				} else {
-					$result = array('status'=> false, 'error' => 'failed added item to cart');	
+					$result = array('status'=> FALSE, 'error' => 'failed added item to cart');	
 				}
 			} else {
-				$result = array('status'=> false, 'error' => 'icon not found');
+				$result = array('status'=> FALSE, 'error' => 'icon not found');
 			}
 
 			echo json_encode($result);
@@ -176,9 +474,9 @@ class Icon extends CI_Controller {
 				$deleted = $this->cart_belancon->remove($id);
 
 				if($deleted) {
-					$result = array('status'=> true);	
+					$result = array('status'=> TRUE);	
 				} else {
-					$result = array('status'=> false, 'error' => 'failed deleted item from cart');
+					$result = array('status'=> FALSE, 'error' => 'failed deleted item from cart');
 				}			
 
 			echo json_encode($result);
@@ -246,14 +544,14 @@ class Icon extends CI_Controller {
 				foreach($result as $item) {
 					//set filename
 					$name_string = strtolower($cart[$item->icon_id]['name']);
-					$name = str_replace(" ","-",$name_string).".".$type;
+					$name = str_replace(" ","-",$name_string)."_".$item->filename;
 					//get file
 					$path = $this->_get_folder($type)."/".$item->filename;		
 					$data = read_file($path);			
 
-					if($data === false) {
+					if($data === FALSE) {
 						//if file not found
-						echo json_encode(array('status' => false, 'message' => 'file '.$name_string.'.'.$type.' tidak ditemukan'));
+						echo json_encode(array('status' => FALSE, 'message' => 'file '.$name_string.'.'.$type.' tidak ditemukan'));
 						break;
 					} else {
 						//if file found
@@ -277,27 +575,29 @@ class Icon extends CI_Controller {
 					$newFileName = './download/'.$pagename.".zip";
 
 					//check file zip exist or not
-					if(file_put_contents($newFileName,$zip_content)!=false){
+					if(file_put_contents($newFileName,$zip_content)!=FALSE){
 						//if exist
 						//set message success
 						$this->session->set_flashdata('success_message', 'Icon berhasil didownload.');
 						//clear cart
 						$this->cart_belancon->clear();
+						//increase total download
+						$this->icon_model->increase_download($ids);
 						//return callback success
-						echo json_encode(array('status' => true, 'path' => base_url().'download/'.$pagename.'.zip'));
+						echo json_encode(array('status' => TRUE, 'path' => base_url().'download/'.$pagename.'.zip'));
 					} else {
 						//clear cart
 						$this->cart_belancon->clear();
 						//set message error
 						$this->session->set_flashdata('error_message', 'Terjadi kesalahan pada saat proses download.');
 						//return callback error
-						echo json_encode(array('status' => false));				
+						echo json_encode(array('status' => FALSE));				
 					}
 				}
 			}
 		} else {
 			$this->session->set_flashdata('error_message', 'Cart kosong.');
-			echo json_encode(array('status' => false));
+			echo json_encode(array('status' => FALSE));
 		}
 	}
 
