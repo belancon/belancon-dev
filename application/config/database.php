@@ -77,8 +77,8 @@ if(ENVIRONMENT === 'production') {
 	$db['default'] = array(
 		'dsn'	=> '',
 		'hostname' => 'localhost',
-		'username' => 'root',
-		'password' => '',
+		'username' => 'belancon_admin',
+		'password' => 'anggarizqi123',
 		'database' => 'belancon_dev',
 		'dbdriver' => 'mysqli',
 		'dbprefix' => '',
