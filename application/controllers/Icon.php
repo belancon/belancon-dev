@@ -141,21 +141,27 @@ class Icon extends MY_Controller {
 		return $data;
 	}
 
-	public function add() {         
+    /**
+     * Create New Icon
+     */
+	public function add() {     
+        //check request is ajax    
 		if( !$this->input->is_ajax_request() ) {
 			redirect('/');
 		}
 
+        //set form validation rules
         $this->form_validation->set_rules('name', 'Nama', 'required|min_length[3]');
         $this->form_validation->set_rules('category', 'Kategori', 'required|min_length[3]');
         $this->form_validation->set_rules('type', 'Tipe', 'required');
         $this->form_validation->set_rules('price', 'Harga', 'integer');
-
+        //set custom error validation
         $this->form_validation->set_message('required', '{field} harap diisi');
         $this->form_validation->set_message('integer', '{field} harus berupa angka desimal');
         $this->form_validation->set_message('min_length', '{field} tidak boleh kurang dari {param} karakter.');
 
         if($this->form_validation->run() === TRUE) {
+            //if validation true
             //check file
             $png = 'filepng';
             $psd = 'filepsd';
@@ -165,6 +171,7 @@ class Icon extends MY_Controller {
             $file_ai = $_FILES[$ai];
 
             if($file_png['name'] == '' || $file_psd['name'] == '' || $file_ai['name'] == '') {
+                //if file not selected
                 echo json_encode(array('status'=> FALSE, 'message' => 'File PNG, PSD, and AI is required'));
             } else {
                 //====== UPLOAD FILE =====//
@@ -237,8 +244,8 @@ class Icon extends MY_Controller {
 
                 } else {
                     //if upload files failed or error
+                    //set message rror
                     $message = "";
-
                     if($result_png['error'] != null) {
                     	$message .= "File PNG Error : ".$result_png['error']."<br />";
                     }
@@ -255,11 +262,16 @@ class Icon extends MY_Controller {
                 }
             }   
         } else {
+            //if upload file failed
             echo json_encode(array('status' => FALSE, 'message' => validation_errors()));
         }
     }
 
+    /**
+     * Update Exist Icon     
+     */
     public function update() {
+        //check request is ajax
     	if(!$this->input->is_ajax_request()) {
     		redirect('/');
     	}
@@ -283,6 +295,8 @@ class Icon extends MY_Controller {
             $file_psd = $_FILES[$psd];
             $file_ai = $_FILES[$ai];
 			
+
+            //check validation upload file PNG
 			if($file_png['name'] != '') {
 				//insert file png
                 $config_png = array(
@@ -297,7 +311,7 @@ class Icon extends MY_Controller {
 				$result_png = array('status' => TRUE, 'filename' => NULL);
 			}
 
-
+            //check validation upload file PSD
 			if($file_psd['name'] != '') {
 				//insert file psd
                 $config_psd = array(
@@ -311,6 +325,7 @@ class Icon extends MY_Controller {
 				$result_psd = array('status' => TRUE, 'filename' => NULL);
 			}
 
+            //check validation upload file AI
 			if($file_ai['name'] !='') {
 				//insert file ai
                 $config_ai = array(
@@ -378,27 +393,47 @@ class Icon extends MY_Controller {
         }
     }
 
-
+    /**
+     * Delete Icon (Soft Delete)
+     */
     public function delete() {
+        //check request is ajax
+        if(!$this->input->is_ajax_request()) {
+            redirect('/');
+        }  
+        
+        //get id & name icon from form input
     	$id = $this->input->post('id');
     	$name = $this->input->post('name');
 
+        //if id found
     	if($id) {
+            //call method on model to delete icon from table
 	    	$result = $this->icon_model->delete($id);
 
 	    	if($result) {
+                //if success delete
 	    		$this->session->set_flashdata('success_message', "Sukses Menghapus Icon ".$name);
 	    		$response = array('status' => TRUE);
 	    	} else {
+                //failed deleted
 	    		$response = array('status' => FALSE, 'message' => 'Gagal Menghapus Icon' );
 	    	}
     	} else {
+            //id not found
     		$response = array('status' => FALSE, 'message' => 'Terjadi Kesalahan sistem' );
     	}
 
     	echo json_encode($response);
     }
 
+    /**
+     * Upload File Icon
+     * @param  String $name   input[type file] name
+     * @param  Object $file   file
+     * @param  Object $config config library upload
+     * @return Object         
+     */
     protected function _upload_file($name, $file, $config) {
         //process upload picture
         $this->load->library('upload');
@@ -424,6 +459,7 @@ class Icon extends MY_Controller {
                 'error' => ''
             );
 
+            //create thumbnail for file PNG uploaded
             if($upload['file_ext'] === '.png') {
                 $config = array(
                     'width'     => 80,
@@ -440,11 +476,17 @@ class Icon extends MY_Controller {
         }
     }
 
+    /**
+     * Add Icon to Cart
+     */
 	public function add_to_cart() {		
+        //check request is ajax
 		if( $this->input->is_ajax_request() ) {
+            //get id from form input
 			$id = $this->input->post('id');		
+            //set path icon folder
 			$img_icon_folder = $this->_path_thumbnail;
-				
+			//get icon detail
 			$icon = $this->icon_model->get_one($id);
 
 			if(isset($icon)) {
@@ -459,17 +501,21 @@ class Icon extends MY_Controller {
 			        'type' => $icon->type
 				);
 
+                //insert to cart
 				$row_id = $this->cart_belancon->insert($data);
 
 				if($row_id) {
+                    //if success added to cart
 					$icon->path = $img_icon_folder."/".$icon->default_image;
 					$result = array(
 						'status' => TRUE,						
 					);
 				} else {
+                    //failed added to cart
 					$result = array('status'=> FALSE, 'error' => 'failed added item to cart');	
 				}
 			} else {
+                //icon not found
 				$result = array('status'=> FALSE, 'error' => 'icon not found');
 			}
 
@@ -479,17 +525,25 @@ class Icon extends MY_Controller {
 		}
 	}
 
+    /**
+     * Remove Icon from Cart
+     * @return Object response
+     */
 	public function remove_from_cart() {	
+        //check ajax request
 		if( $this->input->is_ajax_request() ) {	
+            //get id from form input
 			$id = $this->input->post('id');
-			
-				$deleted = $this->cart_belancon->remove($id);
+			//action delete from cart
+			$deleted = $this->cart_belancon->remove($id);
 
-				if($deleted) {
-					$result = array('status'=> TRUE);	
-				} else {
-					$result = array('status'=> FALSE, 'error' => 'failed deleted item from cart');
-				}			
+			if($deleted) {
+                //if success deleted from cart
+				$result = array('status'=> TRUE);	
+			} else {
+                //failed deleted from cart
+				$result = array('status'=> FALSE, 'error' => 'failed deleted item from cart');
+			}			
 
 			echo json_encode($result);
 		} else {
@@ -497,12 +551,22 @@ class Icon extends MY_Controller {
 		}
 	}
 
+    /**
+     * Get All Icon on Cart
+     * @return [type] [description]
+     */
 	public function get_cart() {
+        //check is ajax request
 		if( $this->input->is_ajax_request() ) {
+            //define variabel data
 			$data = array();
+            //get icons on cart
 			$cart = $this->cart_belancon->contents();
 
+            //check cart is empty or not
 			if(is_array($cart) && count($cart) > 0) {
+                //if not empty
+                //append icons on cart to data
 				foreach($cart as $item) {
 					$data[] = array(
 						'id' => $item['id'],
@@ -515,25 +579,37 @@ class Icon extends MY_Controller {
 				}
 			}
 
+            //return data
 			echo json_encode(array('data' => $data));
 		} else {
 			redirect('/');
 		}
 	}
 
+    /**
+     * Download all/selected icon on cart
+     * @return Object response
+     */
 	public function download_all() {
+        //get file type selected
 		$type = $this->input->post('type');
+        //load helper file & download
 		$this->load->helper(array('file', 'download'));
+        //load library zip
 		$this->load->library('zip');
 
+        //init folder download
 		$dir = './download';
+        //init file except not deleted
 		$leave_files = array('index.html');
 
+        //delete older file temp download
 		foreach( glob("$dir/*") as $file ) {
 		    if( !in_array(basename($file), $leave_files) )
 		        unlink($file);
 		}
 
+        //get icons on cart
 		$cart = $this->cart_belancon->contents();
 		
 		//if cart not empty
@@ -551,7 +627,6 @@ class Icon extends MY_Controller {
 			
 			if($result) {
 				$check = 0;
-
 
 				foreach($result as $item) {
 					//set filename
@@ -613,12 +688,119 @@ class Icon extends MY_Controller {
 		}
 	}
 
-	public function clear_cart() {		
+    /**
+     * Download Single Icon
+     * @return Object response
+     */
+    public function download_single() {
+        //get icon id & file type selected
+        $id = $this->input->post('id');
+        $type = $this->input->post('type');
+        //load helper file & download
+        $this->load->helper(array('file', 'download'));
+        //load library zip
+        $this->load->library('zip');
+
+        //init folder download
+        $dir = './download';
+        //init file except not deleted
+        $leave_files = array('index.html');
+
+        //delete older file temp download
+        foreach( glob("$dir/*") as $file ) {
+            if( !in_array(basename($file), $leave_files) )
+                unlink($file);
+        }
+
+        //get icons on cart
+        $icon = $this->icon_model->get_one($id);
+        
+        //if icon found
+        if($icon) {
+            $files = array();
+            $ids = array();
+            
+            //get ids icon
+            $ids[] = $icon->id;
+
+            //get filename & path file icon from database
+            $result = $this->file_model->get_files($ids, 'icon_id', $type);
+            
+            if($result) {
+                $check = 0;
+
+                foreach($result as $item) {
+                    //set filename
+                    $name_string = $icon->name;
+                    $name = str_replace(" ","-",$name_string)."_".$item->filename;
+                    //get file
+                    $path = $this->_get_folder($type)."/".$item->filename;      
+                    $data = read_file($path);           
+
+                    if($data === FALSE) {
+                        //if file not found
+                        echo json_encode(array('status' => FALSE, 'message' => 'file '.$name_string.'.'.$type.' tidak ditemukan'));
+                        break;
+                    } else {
+                        //if file found
+                        $this->zip->add_data($name, $data);
+                        $check++;
+                    }
+                }
+
+                if($check === count($result)) {
+                    //add file license into zip
+                    $license= read_file(cloud_path('text/LICENSE.txt'));
+                    $this->zip->add_data('LICENSE.txt', $license);
+
+                    //get file zip
+                    $zip_content = $this->zip->get_zip();
+                    //generate random filename
+                    $random_num = rand();
+                    $text = $this->user_belancon->random_string('encrypt', $random_num);
+                    $pagename = "belancon-".strtolower($text);
+                    //get path file zip
+                    $newFileName = './download/'.$pagename.".zip";
+
+                    //check file zip exist or not
+                    if(file_put_contents($newFileName,$zip_content)!=FALSE){
+                        //if exist
+                        //set message success
+                        $this->session->set_flashdata('success_message', 'Icon berhasil didownload.');                        
+                        //increase total download
+                        $this->icon_model->increase_download($ids);
+                        //return callback success
+                        echo json_encode(array('status' => TRUE, 'path' => base_url().'download/'.$pagename.'.zip'));
+                    } else {                      
+                        //set message error
+                        $this->session->set_flashdata('error_message', 'Terjadi kesalahan pada saat proses download.');
+                        //return callback error
+                        echo json_encode(array('status' => FALSE));             
+                    }
+                }
+            }
+        } else {
+            $this->session->set_flashdata('error_message', 'Icon tidak ditemukan.');
+            echo json_encode(array('status' => FALSE));
+        }
+    }
+
+
+    /**
+     * Remove All icon from cart
+     * @return Object response
+     */
+	public function clear_cart() {	
+        //check is ajax request	
 		if($this->input->is_ajax_request()) {
+            //call action to remove all icon on cart
 			$this->cart_belancon->clear();
 		} 
 	}
 
+    /**
+     * Set Default Cart (for Demo)
+     */
 	public function set_default_cart() {
 		if($this->input->is_ajax_request()) {
 			$result = $this->icon_model->get_random(2);
@@ -642,6 +824,11 @@ class Icon extends MY_Controller {
 		}
 	}
 
+    /**
+     * Get Folder Uploaded file icon
+     * @param  String $type file type
+     * @return Object       path folder icon
+     */
 	protected function _get_folder($type) {
 		switch ($type) {
 			case 'png':

@@ -4,7 +4,7 @@
 	</div>
 	<div class="col-md-10">
 
-		<h2>Update Icon</h2>
+		<h2>Ubah Icon</h2>
 		<hr>
 
 		<legend>Data Icon</legend>

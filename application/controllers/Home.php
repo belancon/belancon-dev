@@ -30,7 +30,7 @@ class Home extends CI_Controller
     }
 
     public function icons($icon_url) {
-        $this->load->helper('dateindo');
+        $this->load->helper(array('dateindo','form'));
         $this->load->library('cart_belancon');
         $this->load->model('icon_model');
 
@@ -44,15 +44,32 @@ class Home extends CI_Controller
         if($result) {
             $icon = $result['icon'];
             $data['icon'] = $icon;
-            $data['on_cart'] = isset($cart[$icon->id]) ? true : false;
+            $data['on_cart'] = isset($cart[$icon->id]) ? "true" : "false";
             $data['other_icons'] = $result['other_icons'];
             $data['page_url'] = site_url().'icons/'.$icon->url;
             $data['page_identifier'] = $icon->url;
+            $data['show_disqus'] = (ENVIRONMENT == 'production') ? TRUE : FALSE;
         
             $this->template->set_title('Belancon | Belanja Icon untuk Kebutuhan Desainmu');
             $this->template->set_meta('author','Angga Risky');
             $this->template->set_meta('keyword','Download free Icons, Download Icon Gratis, Flat Icon Gratis');
             $this->template->set_meta('description','Download gratis Icon untuk kebutuhan design website, design flyer, design print-out');
+
+            $breadcrumb = array(
+                array(
+                    'name' => 'Home',
+                    'path' => site_url()
+                ),
+                array(
+                    'name' => 'Icons',
+                    'path' => site_url()
+                ),
+                array(
+                    'name' => $icon->name,
+                    'path' => null
+                ),
+            );
+            $this->template->set_props('breadcrumb', $breadcrumb);
 
             $this->_loadcss();
             $this->_loadjs();
@@ -69,7 +86,7 @@ class Home extends CI_Controller
 
     public function result()
     {       
-        $data['searchText'] = $this->input->get('search', true);
+        $data['searchText'] = $this->input->get('search', TRUE);
         
         $this->template->set_title('Belancon | Belanja Icon untuk Kebutuhan Desainmu');
         $this->template->set_meta('author','Angga Risky');

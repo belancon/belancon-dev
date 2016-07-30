@@ -12,7 +12,7 @@
 							<img id="img-profile" src="<?php echo cloud('member/'.$picture);?>" width="210px"> 
 							<br />		
 							<?php echo form_open('member/change_picture', array('id'=>'form-change-picture'));?>
-							<input type="hidden" name="filename" value="<?php echo user_login('profile_picture');?>">
+							<input type="hidden" name="filename" value="<?php echo user_login('profile_picture');?>" id="filename">
 							<span class="btn btn-green-primary btn-file btn-block">
 							    Ubah Foto <input type="file" name="photo" id="photo" />
 							</span>
@@ -64,6 +64,7 @@ $(document).ready(function() {
 			success: function(data) {
 				if (data.status === true) {
 					$('#img-profile').attr("src", data.path);
+					$('#filename').val(data.filename);
 				} else {
 					alert(data.message);
 				}

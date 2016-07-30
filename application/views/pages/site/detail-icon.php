@@ -75,24 +75,14 @@
           <!-- <a href="<?php echo site_url('contributor/join');?>" style="box-shadow: none; width: 100%;" class="btn btn-primary btn-green-primary">Visit Profile</a> -->
         </div>
       </div>
-      <a href="#">
+      <a href="#" id="btn-detail-download" data-id="<?php echo $icon->id;?>">
         <div class="col-md-12 btn-icon">
           Download Now
         </div>
       </a>
-      <?php if($on_cart === false): ?>
-      <a href="#" class="btn-detail-add-cart" data-id="<?php echo $icon->id;?>" data-name="<?php echo $icon->name;?>">
-        <div class="col-md-12 btn-cart">
-          Add to Cart
-        </div>
-      </a>
-      <?php else: ?>
-      <a href="#" class="btn-detail-remove-cart" data-id="<?php echo $icon->id;?>" data-name="<?php echo $icon->name;?>">
-        <div class="col-md-12 btn-cart">
-          Remove from Cart
-        </div>
-      </a>
-      <?php endif; ?>
+      <div id="div-action-cart" data-oncart="<?php echo $on_cart;?>">
+      
+      </div>
       <div class="col-md-12 info-icon">
         <i class="fa fa-download"></i> <?php echo $icon->downloads;?> Diunduh
       </div>
@@ -132,49 +122,187 @@
   </div>
 </div>
 
+<!-- Modal Download -->
+<div class="modal fade" tabindex="-1" role="dialog" id="modal-download">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+        <h4 class="modal-title">Download Icon Gratis</h4>
+      </div>
+      <?php echo form_open('icon/download_single', array('id'=> 'form-download'));?>
+      <input type="hidden" name="id" value="<?php echo $icon->id;?>" />
+      <div class="modal-body">        
+        <div class="form-group">
+          <label>Pilih Tipe File</label>
+        </div>
+        <div class="radio">
+          <label class="radio-inline">
+            <input type="radio" name="type" value="png"> PNG
+          </label>
+          <label class="radio-inline">
+            <input type="radio" name="type" value="psd"> PSD
+          </label>
+          <label class="radio-inline">
+            <input type="radio" name="type" value="ai"> AI
+          </label>
+        </div> 
+        <span class="text-danger" id="span-error-download" style="display:none;">Silahkan Pilih salah satu tipe file terlebih dahulu</span>         
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-default" id="btn-cancel-download">Batal</button>
+        <button type="submit" class="btn btn-green-primary" id="btn-download" data-loading-text="<i class='fa fa-circle-o-notch fa-spin'></i> Loading...">Download</button>
+      </div>
+      <?php echo form_close();?>
+    </div><!-- /.modal-content -->
+  </div><!-- /.modal-dialog -->
+</div><!-- /.modal -->
+<!-- End Modal Download -->
+
 <script type="text/javascript">
 $(document).ready(function() {
+
+    var onCart = $('#div-action-cart').attr('data-oncart');
+    var iconId = '<?php echo $icon->id;?>';
+    var iconName = '<?php echo $icon->name;?>';
+
+    loadButtonDefault(onCart, iconId, iconName);
+
     /**
      * Action when button add cart clicked    
      */
-    $('.btn-detail-add-cart').click(function(e){ 
+    $(document).on('click', '.btn-detail-add-cart', function(e){ 
       e.preventDefault();
       var id = $(this).attr('data-id');
       var name = $(this).attr('data-name');
 
       Icon.addToCart(id, name, function(result) {
         if(result === true) {
-          location.reload();
+          loadButtonRemoveCart(id, name);
         }
       });
 
     });
 
-    $('.btn-detail-remove-cart').click(function(e){ 
+    $(document).on('click', '.btn-detail-remove-cart', function(e){ 
       e.preventDefault();
       var id = $(this).attr('data-id');
       var name = $(this).attr('data-name');
 
-      Icon.removeFromCart(id, name);
-    });    
+      Icon.removeFromCart(id, name, function(result) {
+        if(result.status === true) {
+          loadButtonAddCart(id, name);
+        }
+      });
+    });  
+
+    $('#btn-detail-download').click(function(e) {
+      e.preventDefault();
+      $('#modal-download').modal('show');
+    });
+
+    $('#btn-cancel-download').click(function(e) {
+      $('#span-error-download').fadeOut();
+      $('#modal-download').modal('hide');
+    });
+
+    $('#form-download').submit(function(e) {
+      e.preventDefault();
+      $('#btn-download').button('loading');            
+      var id = $('input[name=id]').val();      
+      var type = $('input[type=radio]:checked').val();
+      
+      if(typeof type == 'undefined') {
+        $('#span-error-download').fadeIn();
+      } else {
+        //Ajax method
+        $.ajax({
+         type: "post",
+         url: $(this).attr('action'),
+         cache: false,    
+         data: {id: id, type: type},
+         success: function(response){        
+            result = JSON.parse(response);
+            //console.log(response.path);        
+            if(result.status === true) {
+             $('#modal-download').modal('hide'); 
+             window.location = result.path;                            
+             setTimeout(function(){ window.location = BASE_URL + "feedback"; }, 2000);
+            } else {
+              //console.log(result.message);
+              /** Message Error */
+              var opts = {
+                "debug": false,
+                "positionClass": "toast-top-right",
+                "onclick": null,
+                "showDuration": "100",
+                "hideDuration": "300",
+                "timeOut": "1000",
+                "extendedTimeOut": "300",
+                "showEasing": "swing",
+                "hideEasing": "linear",
+                "showMethod": "fadeIn",
+                "hideMethod": "fadeOut"
+              };
+              toastr.error(result.message, "Warning !", opts);        
+            }
+            
+            $('#btn-download').button('reset');            
+         },
+         error: function(){      
+          alert('Error while request..');
+         }
+        });
+      }
+    });
 });
+
+
+var loadButtonDefault = function(onCart, iconId, iconName) {
+  if(onCart == 'true') {
+    loadButtonRemoveCart(iconId, iconName);    
+  } else {
+    loadButtonAddCart(iconId, iconName);    
+  }
+};
+
+var loadButtonAddCart = function(id, name) {
+  $('#div-action-cart').html('');
+  var btnAdd = '<a href="#" class="btn-detail-add-cart" data-id="' + id + '" data-name="' + name + '">';
+  btnAdd += '<div class="col-md-12 btn-cart">Add to Cart</div>';
+  btnAdd += '</a>';
+
+  $('#div-action-cart').append(btnAdd);
+};
+
+var loadButtonRemoveCart = function(id, name) {
+  $('#div-action-cart').html('');
+  var btnRemove = '<a href="#" class="btn-detail-remove-cart" data-id="' + id + '" data-name="' + name + '">';
+  btnRemove += '<div class="col-md-12 btn-cart">Remove from Cart</div>';
+  btnRemove += '</a>';
+  $('#div-action-cart').append(btnRemove);
+};
+
 </script>
+
+<?php if($show_disqus): ?>
 <script>
 /**
  *  RECOMMENDED CONFIGURATION VARIABLES: EDIT AND UNCOMMENT THE SECTION BELOW TO INSERT DYNAMIC VALUES FROM YOUR PLATFORM OR CMS.
  *  LEARN WHY DEFINING THESE VARIABLES IS IMPORTANT: https://disqus.com/admin/universalcode/#configuration-variables */
 
-// var disqus_config = function () {
-//     this.page.url = '<?php echo $page_url;?>';  // Replace PAGE_URL with your page's canonical URL variable
-//     this.page.identifier = '<?php echo $page_identifier;?>'; // Replace PAGE_IDENTIFIER with your page's unique identifier variable
-// };
+var disqus_config = function () {
+    this.page.url = '<?php echo $page_url;?>';  // Replace PAGE_URL with your page's canonical URL variable
+    this.page.identifier = '<?php echo $page_identifier;?>'; // Replace PAGE_IDENTIFIER with your page's unique identifier variable
+};
 
-// (function() { // DON'T EDIT BELOW THIS LINE
-//     var d = document, s = d.createElement('script');
-//     s.src = '//belancon.disqus.com/embed.js';
-//     s.setAttribute('data-timestamp', +new Date());
-//     (d.head || d.body).appendChild(s);
-// })();
+(function() { // DON'T EDIT BELOW THIS LINE
+    var d = document, s = d.createElement('script');
+    s.src = '//belancon.disqus.com/embed.js';
+    s.setAttribute('data-timestamp', +new Date());
+    (d.head || d.body).appendChild(s);
+})();
 </script>
 <script id="dsq-count-scr" src="//belancon.disqus.com/count.js" async></script>
 <noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+<?php endif; ?>
