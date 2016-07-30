@@ -119,7 +119,7 @@
 	        Apa itu Belancon.com ?
 	        </h2>
 	        <p style="line-height: 1.6;">
-	          Sebuah website yang menyediakan icon-icon untuk kebutuhan desain website, aplikasi, print-out, dan lain-lain. Icon-icon pada Belancon ini memiliki kategori yang berbeda-beda, yakni Gratis dan juga ada yang berbayar.
+	          Belancon.com adalah sebuah website yang menyediakan icon-icon untuk kebutuhan desain website, aplikasi, print-out, dan lain-lain.
 	        </p>
 	        <p style="margin-top: 30px;">
 	          <a href="<?php echo site_url('contributor/join');?>" class="btn btn-primary btn-green-primary">Join as Contributor</a>

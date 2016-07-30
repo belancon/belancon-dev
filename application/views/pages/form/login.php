@@ -1,5 +1,5 @@
 <div class="container-fluid">
-  <div class="row">
+  <div class="row" style="margin-top: 100px;">
     <div class="col-md-4 col-md-offset-4">
       <div class="card card-user">
         <div class="image">
@@ -22,9 +22,9 @@
               <label for="password">Password</label>
               <input type="password" class="form-control" name="password" placeholder="Password">
             </div>
-            <div class="form-group">
+            <div class="form-group" style="margin-left: 20px;">
               <label class="checkbox">
-                <input type="checkbox" value="" data-toggle="checkbox" id="remember" value="1" name="remember"> remember me
+                <input type="checkbox" value="" data-toggle="checkbox" id="remember" value="1" name="remember"> Remember me
               </label>
             </div>
             <button type="submit" class="btn btn-success">Login</button>

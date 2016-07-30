@@ -27,12 +27,16 @@
             Belancon Girl
           </div>
           <p class="profile-registered">
-            Author sejak 2015
+            Author sejak 12 Februari, 2015
           </p>
           <p>
-            <a class="btn-green-primary btn" href="#">Follow</a>
-            <a class="btn-red-primary btn" href="#">Followed</a>
-            <a class="btn" href="#">Kirim Pesan</a>
+            <a style="background: #3b5999;" class="no-shadow btn-green-primary btn" href="#"><i class="fa fa-facebook"></i></a>
+            <a style="background: #1da1f3;" class="no-shadow btn-green-primary btn" href="#"><i class="fa fa-twitter"></i></a>
+            <a style="background: #dc4e41;" class="no-shadow btn-green-primary btn" href="#"><i class="fa fa-google-plus"></i></a>
+            <a style="background: #202020;" class="no-shadow btn-green-primary btn" href="#"><i class="fa fa-globe"></i></a>
+            <a style="background: #de291e;" class="no-shadow btn-green-primary btn" href="#"><i class="fa fa-youtube fa-lg"></i></a>
+            <a style="background: #0083ff;" class="no-shadow btn-green-primary btn" href="#"><i class="fa fa-behance"></i></a>
+            <a style="background: #ea4c89;" class="no-shadow btn-green-primary btn" href="#"><i class="fa fa-dribbble"></i></a>
           </p>
         </div>
         <div class="pull-right profile-stats">
