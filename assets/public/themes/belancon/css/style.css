@@ -73,6 +73,23 @@ a {
   height: 80px;
   border-radius: 3px; }
 
+#author {
+  min-height: 700px; }
+  #author .profile {
+    margin-top: 10px;
+    padding-top: 20px;
+    padding-bottom: 20px;
+    border-bottom: 1px solid #eee; }
+    #author .profile .profile-info .profile-img {
+      height: 100px;
+      border-radius: 3px;
+      margin-right: 20px; }
+    #author .profile .profile-info .profile-name {
+      color: #3d3938;
+      font-size: 22px; }
+    #author .profile .profile-info .profile-registered {
+      color: #a7a7a7; }
+
 #header {
   background: #66ae53;
   background-image: url("../img/bg_header.png");
