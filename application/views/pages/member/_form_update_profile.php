@@ -2,10 +2,10 @@
 	<div class="col-md-2">
 		<?php $this->load->view('_parts/sidebar'); ?>
 	</div>
-	<div class="col-md-6">
+	<div class="col-md-10">
 
 		<h2>Ubah Profil</h2>
-
+		<hr>
 		<?php echo form_open('member/update_profile', array('id'=> 'form-change-profile')); ?>
 		<div class="form-group">
 			<label>Nama Depan</label>

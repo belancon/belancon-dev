@@ -2,7 +2,9 @@
 	<div class="col-md-2">
 		<?php $this->load->view('_parts/sidebar'); ?>
 	</div>
-	<div class="col-md-6">
+	<div class="col-md-10">
+		<h2>Tambah Icon</h2>
+		<hr>
 
 		<legend>Data Icon</legend>
 		<!-- Notif Error -->
@@ -23,7 +25,7 @@
 			<input type="text" name="tags" class="form-control" value="" />
 		</div>
 		<div class="form-group">
-			<label>Tipe</label> <br />
+			<label>Tipe <span class="text-danger">*</span></label> <br />
 			<label class="radio-inline">
 			 <input type="radio" name="type" id="free" value="free" checked> Free
 			</label>
@@ -36,7 +38,7 @@
 			<input type="text" name="price" class="form-control" value="0" />
 		</div>		
 		
-		<legend>File Icon</legend>
+		<legend>File Icon <span class="text-danger">*</span></legend>
 		<div class="form-group">
 			<input type="file" class="filestyle" data-buttonText="File PNG" data-buttonName="btn-info" data-buttonBefore="true" name="filepng">			
 		</div>

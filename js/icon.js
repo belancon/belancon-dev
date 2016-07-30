@@ -179,7 +179,7 @@ Icon = {
    * @param  {[type]} name [description]
    * @return {[type]}      [description]
    */
-  removeFromCart: function(id, name) {
+  removeFromCart: function(id, name, callback) {
     var self = this;
   
     //show alert warning before remove icon from cart
@@ -222,11 +222,16 @@ Icon = {
                 $('.download-icon[data-id="'+ id +'"]').append(result);    
              });             
 
-             Belancon.isPageDetailIcon(function(result) {
-                if(result === true) {                 
-                  window.location = window.location.href;
-                }
-             });
+            if(callback) {
+              callback(response);
+            }
+
+            //switch button action on page detail icon 
+            Belancon.isPageDetailIcon(function(result) {
+              if(result === true) {
+                self.setButtonAddToCartPageDetail(id, name);
+              }
+            });  
           } else {             
               /** Message Error */        
               var opts = {
@@ -246,7 +251,11 @@ Icon = {
              //toggle button action on icon item.           
              self.setBtnRemoveIcon(id, name, function(result) {
                 $('.download-icon[data-id="'+ id +'"]').append(result);             
-             });             
+             });     
+
+            if(callback) {
+              callback(response);
+            }
           }
 
           //refresh cart
@@ -503,4 +512,21 @@ Icon = {
      }
     });
   },
+  setButtonAddToCartPageDetail: function(id, name) {
+    console.log("setButtonAddToCartPageDetail")
+
+    $('#div-action-cart').html('');
+    var btnAdd = '<a href="#" class="btn-detail-add-cart" data-id="' + id + '" data-name="' + name + '">';
+    btnAdd += '<div class="col-md-12 btn-cart">Add to Cart</div>';
+    btnAdd += '</a>';
+
+    $('#div-action-cart').append(btnAdd);
+  },
+  setButtonRemoveFromCartPageDetail: function(id, name) {
+    $('#div-action-cart').html('');
+    var btnRemove = '<a href="#" class="btn-detail-remove-cart" data-id="' + id + '" data-name="' + name + '">';
+    btnRemove += '<div class="col-md-12 btn-cart">Remove from Cart</div>';
+    btnRemove += '</a>';
+    $('#div-action-cart').append(btnRemove);
+  }
 };

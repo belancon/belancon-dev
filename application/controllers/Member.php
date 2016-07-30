@@ -28,6 +28,18 @@ class Member extends MY_Controller
         $this->template->set_meta('keyword','Download free Icons, Download Icon Gratis, Flat Icon Gratis');
         $this->template->set_meta('description','Download gratis Icon untuk kebutuhan design website, design flyer, design print-out');
 
+        $breadcrumb = array(
+            array(
+                'name' => 'Home',
+                'path' => site_url()
+            ),
+            array(
+                'name' => 'Member',
+                'path' => null
+            )
+        );
+        $this->template->set_props('breadcrumb', $breadcrumb);
+
         $this->_loadcss();
         $this->_loadjs();
         $this->_loadpart();
@@ -45,6 +57,22 @@ class Member extends MY_Controller
         $this->template->set_meta('author','Angga Risky');
         $this->template->set_meta('keyword','Download free Icons, Download Icon Gratis, Flat Icon Gratis');
         $this->template->set_meta('description','Download gratis Icon untuk kebutuhan design website, design flyer, design print-out');
+
+        $breadcrumb = array(
+            array(
+                'name' => 'Home',
+                'path' => site_url()
+            ),
+            array(
+                'name' => 'Member',
+                'path' => site_url('member')
+            ),
+            array(
+                'name' => 'Icon',
+                'path' => null
+            ),
+        );
+        $this->template->set_props('breadcrumb', $breadcrumb);
 
         $this->_loadcss();
         $this->_loadjs();
@@ -64,8 +92,25 @@ class Member extends MY_Controller
         $this->template->set_meta('keyword','Download free Icons, Download Icon Gratis, Flat Icon Gratis');
         $this->template->set_meta('description','Download gratis Icon untuk kebutuhan design website, design flyer, design print-out');
 
-        $this->_loadcss();
-        $this->_loadjs();
+        $breadcrumb = array(
+            array(
+                'name' => 'Home',
+                'path' => site_url()
+            ),
+            array(
+                'name' => 'Member',
+                'path' => site_url('member')
+            ),
+            array(
+                'name' => 'Profil',
+                'path' => null
+            ),
+        );
+        $this->template->set_props('breadcrumb', $breadcrumb);
+
+        $this->_loadcss();       
+        $this->template->set_css('custom.css');
+        $this->_loadjs();     
         $this->_loadpart();
         $this->_loadscript();
         //set layout
@@ -81,6 +126,26 @@ class Member extends MY_Controller
         $this->template->set_meta('author','Angga Risky');
         $this->template->set_meta('keyword','Download free Icons, Download Icon Gratis, Flat Icon Gratis');
         $this->template->set_meta('description','Download gratis Icon untuk kebutuhan design website, design flyer, design print-out');
+
+        $breadcrumb = array(
+            array(
+                'name' => 'Home',
+                'path' => site_url()
+            ),
+            array(
+                'name' => 'Member',
+                'path' => site_url('member')
+            ),
+            array(
+                'name' => 'Icon',
+                'path' => site_url('member/icon')
+            ),
+            array(
+                'name' => 'Tambah',
+                'path' => null
+            ),
+        );
+        $this->template->set_props('breadcrumb', $breadcrumb);
 
         $this->_loadcss();
         $this->_loadjs();
@@ -102,6 +167,26 @@ class Member extends MY_Controller
         $this->template->set_meta('keyword','Download free Icons, Download Icon Gratis, Flat Icon Gratis');
         $this->template->set_meta('description','Download gratis Icon untuk kebutuhan design website, design flyer, design print-out');
 
+        $breadcrumb = array(
+            array(
+                'name' => 'Home',
+                'path' => site_url()
+            ),
+            array(
+                'name' => 'Member',
+                'path' => site_url('member')
+            ),
+            array(
+                'name' => 'Icon',
+                'path' => site_url('member/icon')
+            ),
+            array(
+                'name' => 'Ubah',
+                'path' => null
+            ),
+        );
+        $this->template->set_props('breadcrumb', $breadcrumb);
+
         $this->_loadcss();
         $this->_loadjs();
         $this->_loadpart();
@@ -120,6 +205,26 @@ class Member extends MY_Controller
         $this->template->set_meta('keyword','Download free Icons, Download Icon Gratis, Flat Icon Gratis');
         $this->template->set_meta('description','Download gratis Icon untuk kebutuhan design website, design flyer, design print-out');
 
+        $breadcrumb = array(
+            array(
+                'name' => 'Home',
+                'path' => site_url()
+            ),
+            array(
+                'name' => 'Member',
+                'path' => site_url('member')
+            ),
+            array(
+                'name' => 'Profil',
+                'path' => site_url('member/profile')
+            ),
+            array(
+                'name' => 'Ubah',
+                'path' => null
+            ),
+        );
+        $this->template->set_props('breadcrumb', $breadcrumb);
+
         $this->_loadcss();
         $this->_loadjs();
         $this->_loadpart();
@@ -130,7 +235,11 @@ class Member extends MY_Controller
         $this->template->render(); // terakhir render
     }
 
-    public function update_profile() {        
+    public function update_profile() {     
+
+        if(!$this->input->is_ajax_request()) {
+            redirect('/');
+        }   
      
         $id = user_login('id');
         $data = array(
@@ -157,6 +266,26 @@ class Member extends MY_Controller
         $this->template->set_meta('keyword','Download free Icons, Download Icon Gratis, Flat Icon Gratis');
         $this->template->set_meta('description','Download gratis Icon untuk kebutuhan design website, design flyer, design print-out');
 
+        $breadcrumb = array(
+            array(
+                'name' => 'Home',
+                'path' => site_url()
+            ),
+            array(
+                'name' => 'Member',
+                'path' => site_url('member')
+            ),
+            array(
+                'name' => 'Profil',
+                'path' => site_url('member/profile')
+            ),
+            array(
+                'name' => 'Ubah Password',
+                'path' => null
+            ),
+        );
+        $this->template->set_props('breadcrumb', $breadcrumb);
+
         $this->_loadcss();
         $this->_loadjs();
         $this->_loadpart();
@@ -168,6 +297,10 @@ class Member extends MY_Controller
     }
 
     public function update_password() {
+        if(!$this->input->is_ajax_request()) {
+            redirect('/');
+        }  
+
         $this->form_validation->set_rules('old', 'Password Lama', 'required');
         $this->form_validation->set_rules('new', 'Password Baru', 'required|min_length[' . $this->config->item('min_password_length', 'ion_auth') . ']|max_length[' . $this->config->item('max_password_length', 'ion_auth') . ']');
         $this->form_validation->set_rules('new_confirm', 'Konfirmasi Password Baru', 'required|matches[new]');
@@ -198,6 +331,83 @@ class Member extends MY_Controller
             $message = validation_errors();
             echo json_encode(array('status' => false, 'message' => $message)); 
         }            
+    }
+
+    public function change_picture() {
+        if(!$this->input->is_ajax_request()) {
+            redirect('/');
+        }  
+
+        $this->load->model('user_model');
+        //insert file png
+        $photo = 'photo';
+        $file = $_FILES[$photo];
+        $config = array(
+            'upload_path' => $this->config->item('upload_path')."member/",
+            'allowed_types' => 'png|jpeg|jpg',
+            'max_size' => '2000',
+            'encrypt_name' => TRUE
+        );
+
+        $upload = $this->_upload_file($photo, $file, $config);
+
+        if($upload['status'] === TRUE) {
+            $id = user_login('id');
+            $old_filename = $this->input->post('filename');
+            $data = array(
+                'profile_picture' => $upload['filename']
+            );
+
+            $where = array('id' => $id);
+            $result = $this->user_model->update($where, $data);
+            if($result) {
+                if($old_filename != null) {
+                    unlink($this->config->item('upload_path').'member/'.$old_filename);
+                }
+
+                $response = array('status' => TRUE, 'path' => cloud('member/'.$upload['filename']), 'filename'=> $upload['filename']);
+            } else {
+                $response = array('status' => FALSE, 'message' => 'Gagal Mengganti Foto Profil');
+            }
+
+            echo json_encode($response);
+        } else {
+            $response = array('status' => FALSE, 'message' => 'Gagal Upload Foto Profil');
+
+            echo json_encode($response);
+        }
+    }
+
+    protected function _upload_file($name, $file, $config) {
+        //process upload picture
+        $this->load->library('upload');
+        $this->upload->initialize($config);
+        //validation upload FALSE
+        if(!$this->upload->do_upload($name))
+        {
+            $response = array(
+                'status'  => FALSE,
+                'error' => $this->upload->display_errors()
+            );
+            
+            echo json_encode($response);
+        }
+        else//validation upload TRUE/success
+        {
+            $upload    = $this->upload->data();
+
+            $config = array(
+                'width'     => 210,
+                'height'    => 210,
+                'x_axis'    => '0',
+                'y_axis'    => '0',
+                'new_path'  => $this->config->item('upload_path')."member/"
+            );
+
+            $response = $this->_resize_image($config, $upload);
+
+            return $response;
+        }
     }
 
     protected function _loadpart() {

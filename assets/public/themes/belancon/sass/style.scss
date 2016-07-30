@@ -96,6 +96,30 @@ a {
 	}
 }
 
+#author {
+	min-height: 700px;
+	.profile {
+		margin-top: 10px;
+		padding-top: 20px;
+		padding-bottom: 20px;
+		border-bottom: 1px solid #eee;
+		.profile-info {
+			.profile-img {
+				height: 100px;
+				border-radius: 3px;
+				margin-right: 20px;
+			}
+			.profile-name {
+				color: $black-primary;
+				font-size: 22px;
+			}
+			.profile-registered {
+				color: #a7a7a7;
+			}
+		}
+	}
+}
+
 #header {
 	background: $green-primary;
 	background-image: url('../img/bg_header.png');
