@@ -237,7 +237,19 @@ class Icon extends MY_Controller {
 
                 } else {
                     //if upload files failed or error
-                    $message = $result_png['error']."<br />".$result_psd['error']."<br />".$result_ai['error'];
+                    $message = "";
+
+                    if($result_png['error'] != null) {
+                    	$message .= "File PNG Error : ".$result_png['error']."<br />";
+                    }
+
+                    if($result_psd['error'] != null) {
+                    	$message .= "File PSD Error : ".$result_psd['error']."<br />";
+                    }
+
+                    if($result_ai['error'] != null) {
+                    	$message .= "File AI Error : ".$result_ai['error']."<br />";
+                    }                 
 
                     echo json_encode(array('status' => FALSE, 'message' => $message));
                 }
