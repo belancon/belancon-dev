@@ -16,8 +16,14 @@
 .red-color {
   color: #e74c3c; }
 
+.white-color {
+  color: white !important; }
+
 a {
   color: #66ae53; }
+
+.no-shadow {
+  box-shadow: none !important; }
 
 .btn-persyaratan {
   background: none;
@@ -95,6 +101,7 @@ a {
   background-image: url("../img/bg_header.png");
   padding-bottom: 80px; }
   #header .navbar-default {
+    height: 40px;
     background: #3d3938;
     border: 0;
     border-radius: 0; }
@@ -102,6 +109,10 @@ a {
       margin-top: 8px; }
     #header .navbar-default .navbar-brand {
       color: white; }
+    #header .navbar-default .navbar-right .author-pic {
+      margin-top: -6px;
+      border-radius: 5px;
+      height: 30px; }
     #header .navbar-default .navbar-right .fa-shopping-basket {
       color: white; }
     #header .navbar-default .navbar-right .dropdown-toggle:focus, #header .navbar-default .navbar-right .dropdown-toggle:visited {
@@ -216,15 +227,15 @@ a {
     -moz-box-shadow: -1px 0px 20px -4px rgba(0, 0, 0, 0.75);
     box-shadow: -1px 0px 20px -4px rgba(0, 0, 0, 0.75); }
 
-.btn-green-primary, .btn-red-primary {
+.btn-green-primary, .btn-red-primary, .btn-yellow-primary {
   background: #66ae53;
-  color: white;
+  color: white !important;
   transition: all 1s;
   border: 0;
   -webkit-box-shadow: -1px 0px 20px -4px rgba(0, 0, 0, 0.75);
   -moz-box-shadow: -1px 0px 20px -4px rgba(0, 0, 0, 0.75);
   box-shadow: -1px 0px 20px -4px rgba(0, 0, 0, 0.75); }
-  .btn-green-primary:hover, .btn-red-primary:hover {
+  .btn-green-primary:hover, .btn-red-primary:hover, .btn-yellow-primary:hover {
     background: #3d3938;
     color: white;
     transition: all 1s; }
@@ -232,10 +243,15 @@ a {
 .btn-red-primary {
   background: #e74c3c; }
 
+.btn-yellow-primary {
+  background: #fdaa3e; }
+  .btn-yellow-primary:hover {
+    background: #66ae53 !important;
+    color: white;
+    transition: all 1s; }
+
 #about {
   margin-top: 50px;
-  padding-top: 50px;
-  padding-bottom: 50px;
   background: #f4f4f4; }
 
 #footer {
@@ -341,7 +357,7 @@ a {
 .details-icon .share-to {
   border-top: 1px solid #ddd;
   padding-top: 20px;
-  margin-top: 20px; }
+  margin-bottom: 10px; }
 .details-icon .item-lainnya {
   margin-top: 10px; }
 .details-icon .icon-item:hover .view-icon-detail {

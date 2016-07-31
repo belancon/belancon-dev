@@ -25,6 +25,18 @@
                 <img src="<?php echo cloud('png/'.$icon->filename);?>" class="img-detail" alt="" />
               </div>
             </div>
+
+            <div class="row">
+              <div class="col-md-12 share-to">
+                <p>
+                  Bagikan Icon pada: &nbsp;
+                  <a style="background: #3b5999;" class="no-shadow btn-green-primary btn" href="#"><i class="fa fa-facebook"></i></a>
+                  <a style="background: #1da1f3;" class="no-shadow btn-green-primary btn" href="#"><i class="fa fa-twitter"></i></a>
+                  <a style="background: #dc4e41;" class="no-shadow btn-green-primary btn" href="#"><i class="fa fa-google-plus"></i></a>
+                </p>
+              </div>
+            </div>
+
             <div class="row">
               <div class="share-to col-md-12">
                 <h4>Item lainnya dari Author:</h4>
