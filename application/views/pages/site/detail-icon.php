@@ -29,7 +29,7 @@
             <div class="row">
               <div class="col-md-12 share-to">
                 <p>
-                  Bagikan Icon pada: &nbsp;
+                  Bagikan Icon :&nbsp;
                   <a style="background: #3b5999;" class="no-shadow btn-green-primary btn" href="#"><i class="fa fa-facebook"></i></a>
                   <a style="background: #1da1f3;" class="no-shadow btn-green-primary btn" href="#"><i class="fa fa-twitter"></i></a>
                   <a style="background: #dc4e41;" class="no-shadow btn-green-primary btn" href="#"><i class="fa fa-google-plus"></i></a>
@@ -68,18 +68,19 @@
     </div>
     <div class="col-md-4">
       <h4 style="margin-top: 40px;">
-      About Author
+      Tentang Author
       </h4>
       
       <div class="col-md-12 author-icon">
-        <img src="<?php echo base_url('assets/public/themes/belancon');?>/img/author-1.jpg" class="img-profile" alt="">
+        <?php $picture = user($icon->created_by, 'profile_picture') == null ? 'belancon-user.jpg' : user($icon->created_by, 'profile_picture'); ?>
+        <img src="<?php echo cloud('member/'.$picture);?>" class="img-profile" alt="">
         <a href="#">
           <div class="author-name">
             <?php echo user($icon->created_by, 'first_name')." ".user($icon->created_by, 'last_name');?>
           </div>
         </a>
         <div class="author-follower">
-          <i class="fa fa-pencil"></i> 18,392 Icons
+          <i class="fa fa-pencil"></i> <?php echo icon_total_author($icon->created_by);?> Icons
         </div>
         <div class="clearfix">
         </div>
@@ -89,7 +90,7 @@
       </div>
       <a href="#" id="btn-detail-download" data-id="<?php echo $icon->id;?>">
         <div class="col-md-12 btn-icon">
-          Download Now
+          Download Sekarang
         </div>
       </a>
       <div id="div-action-cart" data-oncart="<?php echo $on_cart;?>">
@@ -123,8 +124,11 @@
           <?php 
           $tags = $icon->tags !== null ? explode(",",$icon->tags) : array(); 
           foreach($tags as $key => $value):
+            $searchText = str_replace(" ", "", $value);
           ?>
+          <a href="<?php echo site_url('result?search='.$searchText);?>">
           <span class="label label-success"><?php echo $value;?></span>
+          </a>
           <?php
           endforeach;
           ?>
@@ -281,7 +285,7 @@ var loadButtonDefault = function(onCart, iconId, iconName) {
 var loadButtonAddCart = function(id, name) {
   $('#div-action-cart').html('');
   var btnAdd = '<a href="#" class="btn-detail-add-cart" data-id="' + id + '" data-name="' + name + '">';
-  btnAdd += '<div class="col-md-12 btn-cart">Add to Cart</div>';
+  btnAdd += '<div class="col-md-12 btn-cart">Tambahkan ke keranjang</div>';
   btnAdd += '</a>';
 
   $('#div-action-cart').append(btnAdd);
@@ -290,7 +294,7 @@ var loadButtonAddCart = function(id, name) {
 var loadButtonRemoveCart = function(id, name) {
   $('#div-action-cart').html('');
   var btnRemove = '<a href="#" class="btn-detail-remove-cart" data-id="' + id + '" data-name="' + name + '">';
-  btnRemove += '<div class="col-md-12 btn-cart">Remove from Cart</div>';
+  btnRemove += '<div class="col-md-12 btn-cart">Hapus dari keranjang</div>';
   btnRemove += '</a>';
   $('#div-action-cart').append(btnRemove);
 };

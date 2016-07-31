@@ -25,18 +25,19 @@
               <?php if($this->ion_auth->logged_in()):?>
               <li class="dropdown">
                   <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">
-                    <img src="<?php echo base_url('assets/public/themes/belancon');?>/img/author-1.jpg" alt="" class="author-pic" /> <span class="white-color">anggariskys</span>
+                    <img src="<?php echo base_url('assets/public/themes/belancon');?>/img/author-1.jpg" alt="" class="author-pic" /> <span class="white-color"><?php echo user_login('username');?></span>
                   </a>
                   <ul class="dropdown-menu scrollable-menu">
-                      <li><a href="<?php echo site_url('member/icon');?>">My Icons</a></li> 
-                      <li><a href="<?php echo site_url('member/profile');?>">Profile</a></li> 
+                      <li><a href="<?php echo site_url('member/icon');?>">Iconku</a></li> 
+                      <li><a href="<?php echo site_url('member/profile');?>">Profil</a></li> 
                       <li><a href="<?php echo site_url('member/change-password');?>">Ubah Password</a></li>
                       <li><a href="<?php echo site_url('user/logout');?>">Logout</a></li>
                   </ul>
               </li>    
+              <?php else: ?>
+              <li><a href="<?php echo site_url('login');?>" class="btn-yellow-primary no-shadow">Masuk</a></li>
+              <!-- <li><a href="#" class="btn white-color">Register</a></li>    -->
               <?php endif; ?>
-              <li><a href="#" class="btn-yellow-primary no-shadow">Masuk</a></li>
-              <li><a href="#" class="btn white-color">Register</a></li>   
               <li class="dropdown">
                 <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">
                   <span class="total-icons-keranjang">

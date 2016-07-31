@@ -41,7 +41,7 @@
                 </div>
                 <div class="row center">
                   <p class="center white-text col s12">Tautan yang Anda ikuti mungkin telah rusak.</p>
-                  <p class="center s12"><button onclick="goBack()" class="btn waves-effect waves-light">Back</button> <a href="<?php echo config_item('base_url');?>" class="btn waves-effect waves-light">Homepage</a>
+                  <p class="center s12"><button onclick="goBack()" class="btn waves-effect waves-light">Kembali</button> <a href="<?php echo config_item('base_url');?>" class="btn waves-effect waves-light">Beranda</a>
                     <p>
                     </p>
                 </div>

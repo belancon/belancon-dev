@@ -146,6 +146,13 @@ class Icon_model extends CI_Model {
         return $this->db->count_all($this->table);
     }
 
+    public function get_total_author($author_id) {
+        $this->db->select('id');
+        $this->db->where('deleted', 0);
+        $this->db->where('created_by', $author_id);
+        return $this->db->get($this->table)->num_rows();
+    }
+
     public function get_by_user($user_id, $limit, $offset, $search) {        
         $where = "(created_by = ".$user_id.") AND (deleted = 0) AND ((name LIKE '%".$search."%') OR (category LIKE '%".$search."%') OR (tags LIKE '%".$search."%'))";
         $query = $this->db->select('id, name, default_image, type, category, created_by') 
