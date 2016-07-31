@@ -155,7 +155,7 @@ class Icon_model extends CI_Model {
 
     public function get_by_user($user_id, $limit, $offset, $search) {        
         $where = "(created_by = ".$user_id.") AND (deleted = 0) AND ((name LIKE '%".$search."%') OR (category LIKE '%".$search."%') OR (tags LIKE '%".$search."%'))";
-        $query = $this->db->select('id, name, default_image, type, category, created_by') 
+        $query = $this->db->select('id, name, default_image, type, url, category, created_by') 
                             ->order_by('created_at', 'DESC')                     
                             ->where($where)                      
                             ->get($this->table, $limit, $offset);

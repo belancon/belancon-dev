@@ -25,7 +25,8 @@
               <?php if($this->ion_auth->logged_in()):?>
               <li class="dropdown">
                   <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">
-                    <img src="<?php echo base_url('assets/public/themes/belancon');?>/img/author-1.jpg" alt="" class="author-pic" /> <span class="white-color"><?php echo user_login('username');?></span>
+                    <?php $picture = user_login('profile_picture') == null ? 'belancon-user.jpg' : user_login('profile_picture'); ?>
+                    <img src="<?php echo cloud('member/'.$picture);?>" alt="" class="author-pic" /> <span class="white-color"><?php echo user_login('username');?></span>
                   </a>
                   <ul class="dropdown-menu scrollable-menu">
                       <li><a href="<?php echo site_url('member/icon');?>">Iconku</a></li> 

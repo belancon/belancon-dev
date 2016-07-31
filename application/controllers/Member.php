@@ -236,25 +236,41 @@ class Member extends MY_Controller
     }
 
     public function update_profile() {     
+        $this->load->library('form_validation');
+
 
         if(!$this->input->is_ajax_request()) {
             redirect('/');
         }   
-     
-        $id = user_login('id');
-        $data = array(
-            'first_name' => $this->input->post('firstname'),
-            'last_name' => $this->input->post('lastname'),
-            'phone' => $this->input->post('phone'),
-        );
+        
+        $this->form_validation->set_rules('firstname', 'Nama Depan', 'required');
+        $this->form_validation->set_message('required', '{field} harus diisi');
+        $this->form_validation->set_error_delimiters('', '</br>');
 
-        $result = $this->ion_auth->update($id, $data);
-        if($result) {
-            $this->session->set_flashdata('success_message', $this->ion_auth->messages());
-            echo json_encode(array('status'=> true));
+        if($this->form_validation->run() === TRUE) {
+            $id = user_login('id');
+            $firstname = $this->input->post('firstname');
+            $lastname = $this->input->post('lastname');
+            $phone = $this->input->post('phone');
+            $random_number = mt_rand();
+            $url = strtolower($firstname)."_".$random_number;
+            $data = array(
+                'first_name' => $firstname,
+                'last_name' => $lastname,
+                'phone' => $phone,
+                'url' => $url
+            );
+
+            $result = $this->ion_auth->update($id, $data);
+            if($result) {
+                $this->session->set_flashdata('success_message', $this->ion_auth->messages());
+                echo json_encode(array('status'=> true));
+            } else {
+                $message = $this->ion_auth->errors();
+                echo json_encode(array('status' => false, 'message' => $message));
+            }
         } else {
-            $message = $this->ion_auth->errors();
-            echo json_encode(array('status' => false, 'message' => $message));
+            echo json_encode(array('status'=> FALSE, 'message'=> validation_errors()));
         }
     }
 

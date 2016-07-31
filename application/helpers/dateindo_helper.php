@@ -14,7 +14,7 @@ if ( ! function_exists('dateindo'))
         $tgl   = substr($date, 8, 2); // memisahkan format tanggal menggunakan substring
         $waktu = substr($date, 11); //memisahkan format waktu menggunakan substring
         
-        $result = $tgl . " " . $bulanindo[(int)$bulan-1] . " ". $tahun . " ". $waktu;
+        $result = $tgl . " " . $bulanindo[(int)$bulan-1] . " ". $tahun;
         return $result;
 }
 }

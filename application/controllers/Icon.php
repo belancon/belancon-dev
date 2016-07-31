@@ -83,7 +83,8 @@ class Icon extends MY_Controller {
 	{
 		if( $this->input->is_ajax_request() ) {
 			$icons = array();
-			$user_id = user_login('id');
+            $input_user_id = $this->input->post('userId');
+			$user_id = $input_user_id != null ? $input_user_id : user_login('id');
 			$page = (int)$this->input->post('page');			
 			$search = $this->input->post('search') ? $this->input->post('search') : "";
 			$offset = ($this->limit * $page) - $this->limit;
@@ -99,7 +100,8 @@ class Icon extends MY_Controller {
 					$icons[] = array(
 						'id' => $icon['id'],
 						'name' => $icon['name'],
-						'path' => $img_icon_folder."/".$icon['default_image'],						
+						'path' => $img_icon_folder."/".$icon['default_image'],	
+                        'url' => $icon['url'],			
 					);
 				}
 			}
