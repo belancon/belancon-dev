@@ -53,20 +53,20 @@
   <div class="col-md-12">
     <a href="javascript:void(0)" class="pull-right btn btn-primary btn-green-primary btn-download-icon" data-loading-text="<i class='fa fa-circle-o-notch fa-spin'></i> Loading...">Download Icons</a>
     <div class="pull-right" style="margin-right: 20px; margin-top: 5px;">
-      <label class="radio-inline">
-        <input type="radio" name="format-file-options" class="format-file-options" id="radio-psd" value="psd"> .PSD
+      <label class="checkbox-inline">
+        <input type="checkbox" name="format-file-options" class="format-file-options" id="checkbox-psd" value="psd"> .PSD
       </label>
-      <label class="radio-inline">
-        <input type="radio" name="format-file-options" class="format-file-options" id="radio-psd" value="ai"> .AI
+      <label class="checkbox-inline">
+        <input type="checkbox" name="format-file-options" class="format-file-options" id="checkbox-psd" value="ai"> .AI
       </label>
-      <label class="radio-inline">
-        <input type="radio" name="format-file-options" class="format-file-options" id="radio-psd" value="png"> .PNG
+      <label class="checkbox-inline">
+        <input type="checkbox" name="format-file-options" class="format-file-options" id="checkbox-psd" value="png"> .PNG
       </label>
-      <label class="radio-inline">
-        <input type="radio" name="format-file-options" class="format-file-options" id="radio-cdr" value="cdr"> .CDR
+      <label class="checkbox-inline">
+        <input type="checkbox" name="format-file-options" class="format-file-options" id="checkbox-cdr" value="cdr"> .CDR
       </label>
-      <label class="radio-inline">
-        <input type="radio" name="format-file-options" class="format-file-options" id="radio-svg" value="psd"> .SVG
+      <label class="checkbox-inline">
+        <input type="checkbox" name="format-file-options" class="format-file-options" id="checkbox-svg" value="psd"> .SVG
       </label>
     </div>
   </div>

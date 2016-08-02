@@ -30,7 +30,7 @@
               <div class="col-md-12 share-to">
                 <p>
                   Bagikan Icon :&nbsp;
-                  <a style="background: #3b5999;" class="no-shadow btn-green-primary btn" href="#"><i class="fa fa-facebook"></i></a>
+                  <a style="background: #3b5999;" class="no-shadow btn-green-primary btn" href="<?php echo share_url('facebook',  array('url'=> $page_url, 'text'=> $icon->name))?>"><i class="fa fa-facebook"></i></a>
                   <a style="background: #1da1f3;" class="no-shadow btn-green-primary btn" href="#"><i class="fa fa-twitter"></i></a>
                   <a style="background: #dc4e41;" class="no-shadow btn-green-primary btn" href="#"><i class="fa fa-google-plus"></i></a>
                 </p>
@@ -170,8 +170,8 @@
           <?php
           foreach($files as $file):
           ?>
-          <label class="radio-inline">
-            <input type="radio" name="type" value="<?php echo $file->type;?>"> <?php echo '.'.strtoupper($file->type);?>
+          <label class="checkbox-inline">
+            <input type="checkbox" name="type" value="<?php echo $file->type;?>"> <?php echo '.'.strtoupper($file->type);?>
           </label>
           <?php
           endforeach;
@@ -239,10 +239,13 @@ $(document).ready(function() {
     $('#form-download').submit(function(e) {
       e.preventDefault();
       $('#btn-download').button('loading');            
-      var id = $('input[name=id]').val();      
-      var type = $('input[type=radio]:checked').val();
+      var id = $('input[name=id]').val();         
+      var types = [];
+      $('input[type=checkbox]:checked').each(function() {
+          types.push($(this).val());
+      });
       
-      if(typeof type == 'undefined') {
+      if(types.length < 1) {
         $('#span-error-download').fadeIn();
       } else {
         //Ajax method
@@ -250,7 +253,7 @@ $(document).ready(function() {
          type: "post",
          url: $(this).attr('action'),
          cache: false,    
-         data: {id: id, type: type},
+         data: {id: id, types: types},
          success: function(response){        
             result = JSON.parse(response);
             //console.log(response.path);        

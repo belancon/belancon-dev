@@ -32,7 +32,7 @@ class Home extends CI_Controller
     }
 
     public function icons($icon_url) {
-        $this->load->helper(array('dateindo','form'));
+        $this->load->helper(array('dateindo','form', 'share'));
         $this->load->library('cart_belancon');
         $this->load->model(array('icon_model', 'file_model'));
 

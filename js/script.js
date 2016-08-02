@@ -116,73 +116,7 @@ $(document).ready(function () {
       var name = $(this).attr('data-name');
 
       Icon.removeFromCart(id, name);
-    });        
-
-    /**
-     * Action when button download icon clicked
-     */
-    $(document).on('click', '.btn-download-icon', function(){ 
-      $('.btn-download-icon').button('loading');
-      var type = $('input[name=format-file-options]:checked').val();
-
-      if(type) {       
-        //Ajax method
-        $.ajax({
-         type: "post",
-         url: BASE_URL + "icon/download_all",
-         cache: false,    
-         data: {type: type},
-         success: function(response){        
-            result = JSON.parse(response);
-            //console.log(response.path);        
-            if(result.status === true) {
-             window.location = result.path;                            
-             setTimeout(function(){ window.location = BASE_URL + "feedback"; }, 2000);
-            } else {
-              //console.log(result.message);
-              /** Message Error */
-              var opts = {
-                "debug": false,
-                "positionClass": "toast-top-right",
-                "onclick": null,
-                "showDuration": "100",
-                "hideDuration": "300",
-                "timeOut": "1000",
-                "extendedTimeOut": "300",
-                "showEasing": "swing",
-                "hideEasing": "linear",
-                "showMethod": "fadeIn",
-                "hideMethod": "fadeOut"
-              };
-              toastr.error(result.message, "Warning !", opts);        
-            }
-            
-            $('.btn-download-icon').button('reset');            
-         },
-         error: function(){      
-          alert('Error while request..');
-         }
-        });
-      } else {
-               
-        /** Message Error */
-        var opts = {
-          "debug": false,
-          "positionClass": "toast-top-right",
-          "onclick": null,
-          "showDuration": "100",
-          "hideDuration": "300",
-          "timeOut": "1000",
-          "extendedTimeOut": "300",
-          "showEasing": "swing",
-          "hideEasing": "linear",
-          "showMethod": "fadeIn",
-          "hideMethod": "fadeOut"
-        };
-        toastr.error("Silahkan pilih tipe file yang akan didownload.", "Warning !", opts);        
-        $('.btn-download-icon').button('reset');
-      }
-    });              
+    });                  
 });
 
 window.unload = function(e) {

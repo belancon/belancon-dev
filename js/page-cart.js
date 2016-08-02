@@ -21,15 +21,20 @@ $(document).ready(function () {
      */
     $(document).on('click', '.btn-download-icon', function(){ 
       $('.btn-download-icon').button('loading');
-      var type = $('input[name=format-file-options]:checked').val();
+     
+      var types = [];
+      $('input[name=format-file-options]:checked').each(function() {
+          types.push($(this).val());
+      });
 
-      if(type) {       
+
+      if(types.length > 0) {       
         //Ajax method
         $.ajax({
          type: "post",
          url: BASE_URL + "icon/download_all",
          cache: false,    
-         data: {type: type},
+         data: {types: types},
          success: function(response){        
             result = JSON.parse(response);
             //console.log(response.path);        

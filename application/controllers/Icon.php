@@ -689,7 +689,7 @@ class Icon extends MY_Controller {
      */
 	public function download_all() {
         //get file type selected
-		$type = $this->input->post('type');
+		$types = $this->input->post('types');
         //load helper file & download
 		$this->load->helper(array('file', 'download'));
         //load library zip
@@ -720,7 +720,7 @@ class Icon extends MY_Controller {
 			}
 
 			//get filename & path file icon from database
-			$result = $this->file_model->get_files($ids, 'icon_id', $type);
+			$result = $this->file_model->get_files($ids, 'icon_id', $types);
 			
 			if($result) {
 				$check = 0;
@@ -730,16 +730,16 @@ class Icon extends MY_Controller {
 					$name_string = strtolower($cart[$item->icon_id]['name']);
 					$name = str_replace(" ","-",$name_string)."_".$item->filename;
 					//get file
-					$path = $this->_get_folder($type)."/".$item->filename;		
+					$path = $this->_get_folder($item->type)."/".$item->filename;		
 					$data = read_file($path);			
 
 					if($data === FALSE) {
 						//if file not found
-						echo json_encode(array('status' => FALSE, 'message' => 'file '.$name_string.'.'.$type.' tidak ditemukan'));
+						echo json_encode(array('status' => FALSE, 'message' => 'file '.$name_string.'.'.$item->type.' tidak ditemukan'));
 						break;
 					} else {
 						//if file found
-						$this->zip->add_data($name, $data);
+						$this->zip->add_data($item->type.'/'.$name, $data);
 						$check++;
 					}
 				}
@@ -794,7 +794,7 @@ class Icon extends MY_Controller {
     public function download_single() {
         //get icon id & file type selected
         $id = $this->input->post('id');
-        $type = $this->input->post('type');
+        $types = $this->input->post('types');
         //load helper file & download
         $this->load->helper(array('file', 'download'));
         //load library zip
@@ -823,7 +823,7 @@ class Icon extends MY_Controller {
             $ids[] = $icon->id;
 
             //get filename & path file icon from database
-            $result = $this->file_model->get_files($ids, 'icon_id', $type);
+            $result = $this->file_model->get_files($ids, 'icon_id', $types);
             
             if($result) {
                 $check = 0;
@@ -833,16 +833,16 @@ class Icon extends MY_Controller {
                     $name_string = $icon->name;
                     $name = str_replace(" ","-",$name_string)."_".$item->filename;
                     //get file
-                    $path = $this->_get_folder($type)."/".$item->filename;      
+                    $path = $this->_get_folder($item->type)."/".$item->filename;      
                     $data = read_file($path);           
 
                     if($data === FALSE) {
                         //if file not found
-                        echo json_encode(array('status' => FALSE, 'message' => 'file '.$name_string.'.'.$type.' tidak ditemukan'));
+                        echo json_encode(array('status' => FALSE, 'message' => 'file '.$name_string.'.'.$item->type.' tidak ditemukan'));
                         break;
                     } else {
                         //if file found
-                        $this->zip->add_data($name, $data);
+                        $this->zip->add_data($item->type."/".$name, $data);
                         $check++;
                     }
                 }

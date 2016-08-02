@@ -9,13 +9,25 @@ class File_model extends CI_Model {
 	public function get_files($selectors, $field = NULL, $type= NULL) {
 		if(is_array($selectors)) {
 			if(isset($field)) {
-				$query = $this->db->where_in($field, $selectors)
-								  ->where('type', $type)
-								  ->get($this->table);
+				if(is_array($type)) {
+					$query = $this->db->where_in($field, $selectors)
+									  ->where_in('type', $type)
+									  ->get($this->table);
+				} else {
+					$query = $this->db->where_in($field, $selectors)
+									  ->where('type', $type)
+									  ->get($this->table);
+				}
 			} else {
-				$query = $this->db->where_in('id', $selectors)
-								  ->where('type', $type)
+				if(is_array($type)) {
+					$query = $this->db->where_in('id', $selectors)
+								  ->where_in('type', $type)
 								  ->get($this->table);				
+				} else {
+					$query = $this->db->where_in('id', $selectors)
+									  ->where('type', $type)
+									  ->get($this->table);				
+				}
 			}
 
 			if($query->num_rows() > 0) {
