@@ -60,7 +60,7 @@ class Home extends CI_Controller
             $this->template->set_meta('author','Angga Risky');
             $this->template->set_meta('keyword','Download free Icons, Download Icon Gratis, Flat Icon Gratis');
             $this->template->set_meta('description','Download gratis Icon untuk kebutuhan design website, design flyer, design print-out');
-            $this->template->set_meta_property('og:image', cloud('png/'.$icon->filename));
+            $this->template->set_meta_property('og:image', cloud_path('png/'.$icon->filename));
 
             $breadcrumb = array(
                 array(
