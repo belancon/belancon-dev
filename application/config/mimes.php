@@ -156,7 +156,7 @@ return array(
 	'ical'	=>	'text/calendar',
 	'zsh'	=>	'text/x-scriptzsh',
 	'7zip'	=>	array('application/x-compressed', 'application/x-zip-compressed', 'application/zip', 'multipart/x-zip'),
-	'cdr'	=>	array('application/cdr', 'application/coreldraw', 'application/x-cdr', 'application/x-coreldraw', 'image/cdr', 'image/x-cdr', 'zz-application/zz-winassoc-cdr'),
+	'cdr'	=>	array('application/cdr', 'application/coreldraw', 'application/x-cdr', 'application/x-coreldraw', 'image/cdr', 'image/x-cdr', 'zz-application/zz-winassoc-cdr', 'application/vnd.corel-draw'),
 	'wma'	=>	array('audio/x-ms-wma', 'video/x-ms-asf'),
 	'jar'	=>	array('application/java-archive', 'application/x-java-application', 'application/x-jar', 'application/x-compressed'),
 	'svg'	=>	array('image/svg+xml', 'application/xml', 'text/xml'),

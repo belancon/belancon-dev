@@ -3,6 +3,8 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 
 class Home extends CI_Controller
 {
+    private $_TYPE_FILES = array('png', 'psd', 'ai', 'cdr', 'svg');
+
     function __construct()
     {
         parent::__construct();
@@ -32,7 +34,7 @@ class Home extends CI_Controller
     public function icons($icon_url) {
         $this->load->helper(array('dateindo','form'));
         $this->load->library('cart_belancon');
-        $this->load->model('icon_model');
+        $this->load->model(array('icon_model', 'file_model'));
 
         if($icon_url == null) {
             redirect('/', 'refresh');
@@ -43,6 +45,7 @@ class Home extends CI_Controller
 
         if($result) {
             $icon = $result['icon'];
+            $data['files'] = $this->file_model->get_file($icon->id, 'icon_id', $this->_TYPE_FILES);
             $data['icon'] = $icon;
             $data['on_cart'] = isset($cart[$icon->id]) ? "true" : "false";
             $data['other_icons'] = $result['other_icons'];

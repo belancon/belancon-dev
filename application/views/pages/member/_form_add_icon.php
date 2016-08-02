@@ -17,8 +17,13 @@
 			<input type="text" name="name" class="form-control" value="" />
 		</div>
 		<div class="form-group">
-			<label>Kategori <span class="text-danger">*</span></label>
-			<input type="text" name="category" class="form-control" value="" />
+			<label>Kategori <span class="text-danger">*</span></label>			
+			<select class="form-control" name="category">
+				<option value="">-- Pilih Kategori --</option>
+				<?php foreach($categories as $category): ?>
+				<option value="<?php echo $category->name;?>"><?php echo $category->name;?></option>
+				<?php endforeach; ?>
+			</select>
 		</div>
 		<div class="form-group">
 			<label>Tags</label>
@@ -38,17 +43,27 @@
 			<input type="text" name="price" class="form-control" value="0" />
 		</div>		
 		
-		<legend>File Icon <span class="text-danger">*</span></legend>
+		<legend>File Icon</legend>
 		<div class="form-group">
+			<label>PNG <span class="text-danger">*</span></label>
 			<input type="file" class="filestyle" data-buttonText="File PNG" data-buttonName="btn-info" data-buttonBefore="true" name="filepng">			
 		</div>
 		<div class="form-group">
+			<label>PSD (Photoshop)</label>
 			<input type="file" class="filestyle" data-buttonText="File PSD" data-buttonName="btn-info" data-buttonBefore="true" name="filepsd">			
 		</div>
 		<div class="form-group">
+			<label>AI/EPS (Adobe Illustrator)</label>
 			<input type="file" class="filestyle" data-buttonText="File AI" data-buttonName="btn-info" data-buttonBefore="true" name="fileai">			
 		</div>
-
+		<div class="form-group">
+			<label>CDR (Corel Draw)</label>
+			<input type="file" class="filestyle" data-buttonText="File CDR" data-buttonName="btn-info" data-buttonBefore="true" name="filecdr">			
+		</div>
+		<div class="form-group">
+			<label>SVG</label>
+			<input type="file" class="filestyle" data-buttonText="File SVG" data-buttonName="btn-info" data-buttonBefore="true" name="filesvg">			
+		</div>		
 		<button class="btn btn-success btn-form" type="submit" data-loading-text="<i class='fa fa-circle-o-notch fa-spin'></i> Loading...">Submit</button>
 		<a href="<?php echo site_url('member/icon');?>" class="btn btn-default" type="submit">Kembali</a>
 		</form>
@@ -63,8 +78,7 @@ $(document).ready(function() {
                 minlength: 3,       
                 required: true
             },
-            category: {
-                minlength: 3,                
+            category: {                  
                 required: true
             },   
             price: {                
@@ -74,13 +88,17 @@ $(document).ready(function() {
             	required: true,
             	extension: 'png'
             },
-            filepsd: {
-            	required: true,
+            filepsd: {        
             	extension: 'psd'
             },
-            fileai: {
-            	required: true,
+            fileai: {          
             	extension: 'ai|eps'
+            },
+            filecdr: {        
+            	extension: 'cdr'
+            },
+            filesvg: {            	
+            	extension: 'svg'
             }
         },
         messages: {
@@ -102,12 +120,16 @@ $(document).ready(function() {
 				required: 'File Png harap dipilih',
 				extension: 'Tipe File tidak sesuai'
 			},
-			filepsd: {
-				required: 'File Psd harap dipilih',
+			filepsd: {				
 				extension: 'Tipe File tidak sesuai'
 			},
-			fileai: {
-				required: 'File Ai harap diisi',
+			fileai: {				
+				extension: 'Tipe File tidak sesuai'
+			},
+			filecdr: {				
+				extension: 'Tipe File tidak sesuai'
+			},
+			filesvg: {
 				extension: 'Tipe File tidak sesuai'
 			},
 		},

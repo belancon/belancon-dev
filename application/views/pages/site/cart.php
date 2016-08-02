@@ -17,21 +17,31 @@
     <table class="table-cart-icon table table-bordered text-center">
       <thead>
         <tr>
-          <td>
+          <th rowspan="2">
             Picture
-          </td>
-          <td>
+          </th>
+          <th  rowspan="2">
             Name
-          </td>
-          <td>
+          </th>
+          <th  rowspan="2">
             Kategori
-          </td>
-          <td>
+          </th>
+          <th  rowspan="2">
             Price
-          </td>
-          <td>
+          </th>
+          <th colspan="5" class="text-center">
+            Tipe File Yang Tersedia
+          </th>
+          <th  rowspan="2">
             Aksi
-          </td>
+          </th>
+        </tr>
+        <tr>
+          <th>PNG</th>
+          <th>PSD</th>          
+          <th>AI</th> 
+          <th>CDR</th>
+          <th>SVG</th>         
         </tr>
       </thead>
       <tbody id="table-body-cart">
@@ -51,6 +61,12 @@
       </label>
       <label class="radio-inline">
         <input type="radio" name="format-file-options" class="format-file-options" id="radio-psd" value="png"> .PNG
+      </label>
+      <label class="radio-inline">
+        <input type="radio" name="format-file-options" class="format-file-options" id="radio-cdr" value="cdr"> .CDR
+      </label>
+      <label class="radio-inline">
+        <input type="radio" name="format-file-options" class="format-file-options" id="radio-svg" value="psd"> .SVG
       </label>
     </div>
   </div>

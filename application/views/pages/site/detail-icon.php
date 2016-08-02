@@ -146,22 +146,36 @@
         <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
         <h4 class="modal-title">Download Icon Gratis</h4>
       </div>
-      <?php echo form_open('icon/download_single', array('id'=> 'form-download'));?>
-      <input type="hidden" name="id" value="<?php echo $icon->id;?>" />
+
+      
       <div class="modal-body">        
+        <h4>Bagaimana Memberikan kredit untuk Author?</h4>
+        <small>Silahkan cantumkan link dibawah ini pada web anda</small>
+        <div class="form-group">
+          <?php 
+            $author_name = user($icon->created_by, 'first_name')." ".user($icon->created_by, 'last_name'); 
+            $author_url = user($icon->created_by, 'url');
+            $credit = 'icon dibuat oleh <a target="_blank" href="'.site_url('author/'.$author_url).'">'.$author_name.'</a>';
+            $credit_string = htmlentities($credit);
+          ?>
+          <input type="text" name="credit" value="<?php echo $credit_string;?>" class="form-control" />
+        </div>
+        <hr>
+        <?php echo form_open('icon/download_single', array('id'=> 'form-download'));?>
+        <input type="hidden" name="id" value="<?php echo $icon->id;?>" />  
         <div class="form-group">
           <label>Pilih Tipe File</label>
         </div>
         <div class="radio">
+          <?php
+          foreach($files as $file):
+          ?>
           <label class="radio-inline">
-            <input type="radio" name="type" value="png"> PNG
+            <input type="radio" name="type" value="<?php echo $file->type;?>"> <?php echo '.'.strtoupper($file->type);?>
           </label>
-          <label class="radio-inline">
-            <input type="radio" name="type" value="psd"> PSD
-          </label>
-          <label class="radio-inline">
-            <input type="radio" name="type" value="ai"> AI
-          </label>
+          <?php
+          endforeach;
+          ?>
         </div> 
         <span class="text-danger" id="span-error-download" style="display:none;">Silahkan Pilih salah satu tipe file terlebih dahulu</span>         
       </div>

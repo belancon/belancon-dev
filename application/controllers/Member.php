@@ -131,6 +131,7 @@ class Member extends MY_Controller
     }
 
     public function add_icon() {
+        $this->load->model('category_model');
         //untuk menset title page
         $this->template->set_title('Belancon | Belanja Icon untuk Kebutuhan Desainmu');
         //set meta tag
@@ -162,14 +163,17 @@ class Member extends MY_Controller
         $this->_loadjs();
         $this->_loadpart();
         $this->_loadscript();
+
+        //get categories
+        $data['categories'] = $this->category_model->get_all();
         //set layout
         $this->template->set_layout('layouts/custom');
-        $this->template->set_content('pages/member/_form_add_icon'); // nama file page nya, tanpa extension php
+        $this->template->set_content('pages/member/_form_add_icon', $data); // nama file page nya, tanpa extension php
         $this->template->render(); // terakhir render
     }
 
     public function update_icon($id) {
-        $this->load->model('icon_model');
+        $this->load->model(array('icon_model', 'category_model'));
         $data['icon'] = $this->icon_model->get_one($id);
         //untuk menset title page
         $this->template->set_title('Belancon | Belanja Icon untuk Kebutuhan Desainmu');
@@ -202,6 +206,8 @@ class Member extends MY_Controller
         $this->_loadjs();
         $this->_loadpart();
         $this->_loadscript();
+        //get categories
+        $data['categories'] = $this->category_model->get_all();
         //set layout
         $this->template->set_layout('layouts/custom');
         $this->template->set_content('pages/member/_form_update_icon', $data); // nama file page nya, tanpa extension php
@@ -541,7 +547,7 @@ class Member extends MY_Controller
         $this->template->set_css('sweetalert.css');
         $this->template->set_css('toastr.css');
         $this->template->set_css('style.css');
-        $this->template->set_css('font-awesome.css');
+        $this->template->set_css('font-awesome.css');     
     }
 
     protected function _loadjs() {
@@ -551,7 +557,7 @@ class Member extends MY_Controller
         $this->template->set_js('toastr.js','footer');
         $this->template->set_js('bootstrap-filestyle.min.js','footer');
         $this->template->set_js('jquery.validate.min.js', 'footer');   
-        $this->template->set_js('additional-methods.min.js', 'footer');   
+        $this->template->set_js('additional-methods.min.js', 'footer');    
     }
 
     public function _loadscript() {

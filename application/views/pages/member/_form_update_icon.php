@@ -20,8 +20,17 @@
 			<input type="text" name="name" class="form-control" value="<?php echo $icon->name;?>" />
 		</div>
 		<div class="form-group">
-			<label>Kategori <span class="text-danger">*</span></label>
-			<input type="text" name="category" class="form-control" value="<?php echo $icon->category;?>" />
+			<label>Kategori <span class="text-danger">*</span></label>			
+			<select class="form-control" name="category">
+				<option value="">-- Pilih Kategori --</option>
+				<?php foreach($categories as $category): ?>
+				<?php if($category->name == $icon->category): ?>
+				<option value="<?php echo $category->name;?>" selected><?php echo $category->name;?></option>
+				<?php else: ?>
+				<option value="<?php echo $category->name;?>"><?php echo $category->name;?></option>
+				<?php endif; ?>
+				<?php endforeach; ?>
+			</select>
 		</div>
 		<div class="form-group">
 			<label>Tags</label>
@@ -71,8 +80,7 @@ $(document).ready(function() {
                 minlength: 3,       
                 required: true
             },
-            category: {
-                minlength: 3,                
+            category: {                
                 required: true
             },   
             price: {                

@@ -9,7 +9,7 @@ Cart = {
     $('#table-body-cart').html("");
 
     //set row if cart empty
-    var rowEmpty = '<tr><td colspan="5">No Items. Silahkan <a href="'+ BASE_URL +'">tambahkan Icon</a> pada Keranjang.</td></tr>';
+    var rowEmpty = '<tr><td colspan="10">No Items. Silahkan <a href="'+ BASE_URL +'">tambahkan Icon</a> pada Keranjang.</td></tr>';
 
     //Ajax method 
     $.ajax({
@@ -19,7 +19,7 @@ Cart = {
      data: {},
      success: function(response){        
         response = JSON.parse(response);
-        //console.log(response);
+        console.log(response.data);
         var items=[]; 
         var data = response.data;
 
@@ -67,6 +67,11 @@ Cart = {
     row += '<td>' + icon.name + '</td>';
     row += '<td><a href="' + BASE_URL + 'result?search='+ icon.category +'">'+ icon.category +'</a></td>';
     row += '<td> Rp. '+ icon.price +'</td>';
+    row += icon.availablePng === true ? '<td><i class="fa fa-check fa-2 text-success"></i></td>' : '<td><i class="fa fa-times fa-2 text-danger"></i></td>';
+    row += icon.availablePsd === true ? '<td><i class="fa fa-check fa-2 text-success"></i></td>' : '<td><i class="fa fa-times fa-2 text-danger"></i></td>';
+    row += icon.availableAi === true ? '<td><i class="fa fa-check fa-2 text-success"></i></td>' : '<td><i class="fa fa-times fa-2 text-danger"></i></td>';
+    row += icon.availableCdr === true ? '<td><i class="fa fa-check fa-2 text-success"></i></td>' : '<td><i class="fa fa-times fa-2 text-danger"></i></td>';
+    row += icon.availableSvg === true ? '<td><i class="fa fa-check fa-2 text-success"></i></td>' : '<td><i class="fa fa-times fa-2 text-danger"></i></td>';
     row += '<td> <button class="btn-remove-cart btn btn-xs btn-danger" data-id="'+icon.id+'" data-name="'+ icon.name +'"><i class="fa fa-trash"></i></button>';
     row += '</tr>';
 

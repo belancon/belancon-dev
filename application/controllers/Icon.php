@@ -10,6 +10,8 @@ class Icon extends MY_Controller {
 	protected $_folder_psd = "";
 	protected $_folder_ai = "";
 
+    private $_TYPE_FILES = array('png', 'psd', 'ai', 'cdr', 'svg');
+
 	function __construct()
     {
         parent::__construct();
@@ -168,14 +170,19 @@ class Icon extends MY_Controller {
             $png = 'filepng';
             $psd = 'filepsd';
             $ai = 'fileai';
+            $cdr = 'filecdr';
+            $svg = 'filesvg';
             $file_png = $_FILES[$png];
             $file_psd = $_FILES[$psd];
             $file_ai = $_FILES[$ai];
+            $file_cdr = $_FILES[$cdr];
+            $file_svg = $_FILES[$svg];
 
-            if($file_png['name'] == '' || $file_psd['name'] == '' || $file_ai['name'] == '') {
+            if($file_png['name'] == '') {
                 //if file not selected
-                echo json_encode(array('status'=> FALSE, 'message' => 'File PNG, PSD, and AI is required'));
+                echo json_encode(array('status'=> FALSE, 'message' => 'File PNG harap dipilih'));
             } else {
+
                 //====== UPLOAD FILE =====//
                 //insert file png
                 $config_png = array(
@@ -187,28 +194,78 @@ class Icon extends MY_Controller {
 
                 $result_png = $this->_upload_file($png, $file_png, $config_png);
                 //insert file psd
-                $config_psd = array(
-                    'upload_path' => $this->config->item('upload_path')."psd/",
-                    'allowed_types' => 'psd',
-                    'max_size' => '2000',
-                    'encrypt_name' => TRUE
-                );
-                $result_psd = $this->_upload_file($psd, $file_psd, $config_psd);
+                if($file_psd['name'] != '') {
+                    //insert file psd
+                    $config_psd = array(
+                        'upload_path' => $this->config->item('upload_path')."psd/",
+                        'allowed_types' => 'psd',
+                        'max_size' => '2000',
+                        'encrypt_name' => TRUE
+                    );
+                    $result_psd = $this->_upload_file($psd, $file_psd, $config_psd);
+                } else {
+                    $result_psd = array('status' => TRUE, 'filename' => NULL);
+                }
                 //insert file ai
-                $config_ai = array(
-                    'upload_path' => $this->config->item('upload_path')."ai/",
-                    'allowed_types' => 'ai|eps',
-                    'max_size' => '2000',
-                    'encrypt_name' => TRUE
-                );
-                $result_ai = $this->_upload_file($ai, $file_ai, $config_ai);
+                if($file_ai['name'] != '') {
+                    $config_ai = array(
+                        'upload_path' => $this->config->item('upload_path')."ai/",
+                        'allowed_types' => 'ai|eps',
+                        'max_size' => '2000',
+                        'encrypt_name' => TRUE
+                    );
+                    $result_ai = $this->_upload_file($ai, $file_ai, $config_ai);
+                } else {
+                    $result_ai = array('status' => TRUE, 'filename' => NULL);
+                }
+                //insert file cdr
+                if($file_cdr['name'] != '') {
+                    $config_cdr = array(
+                        'upload_path' => $this->config->item('upload_path')."cdr/",
+                        'allowed_types' => 'cdr',
+                        'max_size' => '2000',
+                        'encrypt_name' => TRUE
+                    );
+                    $result_cdr = $this->_upload_file($cdr, $file_cdr, $config_cdr);
+                } else {
+                    $result_cdr = array('status' => TRUE, 'filename' => NULL);
+                }
+                //insert file svg
+                if($file_svg['name'] != '') {
+                    $config_svg = array(
+                        'upload_path' => $this->config->item('upload_path')."svg/",
+                        'allowed_types' => 'svg',
+                        'max_size' => '2000',
+                        'encrypt_name' => TRUE
+                    );
+                    $result_svg = $this->_upload_file($svg, $file_svg, $config_svg);
+                } else {
+                    $result_svg = array('status' => TRUE, 'filename' => NULL);
+                }
                 //====== END UPLOAD FILE =====//
                 
                 //check upload file 
-                if($result_png['status'] === TRUE && $result_psd['status'] === TRUE && $result_ai['status'] === TRUE) {
+                if($result_png['status'] === TRUE && $result_psd['status'] === TRUE && $result_ai['status'] === TRUE && $result_cdr['status'] === TRUE && $result_svg['status'] === TRUE) {
                     //if upload files success
                     //get filenames
-                    $files = array($result_png['filename'], $result_psd['filename'], $result_ai['filename']);
+                    if($result_png['filename'] !== NULL) {
+                        $files[] = $result_png['filename'];
+                    }
+
+                    if($result_psd['filename'] !== NULL) {
+                        $files[] = $result_psd['filename'];
+                    }
+
+                    if($result_ai['filename'] !== NULL) {
+                        $files[] = $result_ai['filename'];
+                    }
+                    if($result_cdr['filename'] !== NULL) {
+                        $files[] = $result_cdr['filename'];
+                    }
+                    if($result_svg['filename'] !== NULL) {
+                        $files[] = $result_svg['filename'];
+                    }
+                    //=====================//
 
                     //===== INSERT ICON INTO TABLE =====//
                     $name = $this->input->post('name', TRUE);
@@ -567,16 +624,54 @@ class Icon extends MY_Controller {
 
             //check cart is empty or not
 			if(is_array($cart) && count($cart) > 0) {
-                //if not empty
+                //if not empty                
                 //append icons on cart to data
 				foreach($cart as $item) {
+                    $files = $this->file_model->get_file($item['id'], 'icon_id', $this->_TYPE_FILES);
+
+                    $available_png = FALSE;
+                    $available_psd = FALSE;
+                    $available_ai = FALSE;
+                    $available_cdr = FALSE;
+                    $available_svg = FALSE;
+
+                    if($files) {
+                        foreach($files as $file) {
+                            switch ($file->type) {
+                                case 'png':                                    
+                                    $available_png = TRUE;
+                                    break;
+                                case 'psd':                                    
+                                    $available_psd = TRUE;
+                                    break;
+                                case 'ai':                                    
+                                    $available_ai = TRUE;
+                                    break;
+                                case 'cdr':                                    
+                                    $available_cdr = TRUE;
+                                    break;
+                                case 'svg':                                    
+                                    $available_svg = TRUE;
+                                    break;
+                                default:
+                                    return TRUE;
+                                    break;
+                            }
+                        }  
+                    }
+
 					$data[] = array(
 						'id' => $item['id'],
 						'name' => $item['name'],
 						'category' => $item['category'],
 						'price' => $item['price'],
 						'type' => $item['type'],
-						'path' => $item['path_img']
+						'path' => $item['path_img'],
+                        'availablePng' => $available_png,
+                        'availablePsd' => $available_psd,
+                        'availableAi' => $available_ai,
+                        'availableCdr' => $available_cdr,
+                        'availableSvg' => $available_svg,
 					);
 				}
 			}
@@ -683,7 +778,9 @@ class Icon extends MY_Controller {
 						echo json_encode(array('status' => FALSE));				
 					}
 				}
-			}
+			} else {                
+                echo json_encode(array('status' => FALSE, 'message' => 'Maaf Icon dengan tipe file yang anda pilih belum tersedia'));    
+            }
 		} else {
 			$this->session->set_flashdata('error_message', 'Cart kosong.');
 			echo json_encode(array('status' => FALSE));

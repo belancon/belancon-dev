@@ -25,4 +25,35 @@ class File_model extends CI_Model {
 			}
 		}
 	}
+
+	public function get_file($selector, $field = NULL, $type= NULL) {
+	
+			if(isset($field)) {
+				if(is_array($type)) {
+					$query = $this->db->where($field, $selector)
+								  ->where_in('type', $type)
+								  ->get($this->table);
+				} else {
+					$query = $this->db->where($field, $selector)
+								  ->where('type', $type)
+								  ->get($this->table);
+				}
+			} else {
+				if(is_array($type)) {
+					$query = $this->db->where_in('id', $selector)
+								  ->where_in('type', $type)
+								  ->get($this->table);				
+				} else {
+					$query = $this->db->where_in('id', $selector)
+								  ->where('type', $type)
+								  ->get($this->table);				
+				}
+			}
+
+			if($query->num_rows() > 0) {
+				return $query->result();
+			} else {
+				return FALSE;
+			}
+	}
 }

@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Host: localhost
--- Generation Time: Aug 02, 2016 at 05:26 AM
+-- Generation Time: Aug 02, 2016 at 02:09 PM
 -- Server version: 5.6.26
 -- PHP Version: 5.6.12
 
@@ -33,6 +33,30 @@ CREATE TABLE IF NOT EXISTS `bugs` (
   `message` text NOT NULL,
   `created_at` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `categories`
+--
+
+CREATE TABLE IF NOT EXISTS `categories` (
+  `id` int(11) NOT NULL,
+  `name` varchar(100) NOT NULL,
+  `url` varchar(100) NOT NULL
+) ENGINE=InnoDB AUTO_INCREMENT=9 DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data for table `categories`
+--
+
+INSERT INTO `categories` (`id`, `name`, `url`) VALUES
+(3, 'Animal', 'animal'),
+(4, 'art', 'art'),
+(5, 'Arrow', 'arrow'),
+(6, 'Buildings', 'buildings'),
+(7, 'Business', 'business'),
+(8, 'Commerce', 'commerce');
 
 -- --------------------------------------------------------
 
@@ -83,7 +107,7 @@ CREATE TABLE IF NOT EXISTS `files` (
   `filename` varchar(255) NOT NULL,
   `created_at` datetime NOT NULL,
   `created_by` int(11) NOT NULL
-) ENGINE=InnoDB AUTO_INCREMENT=391 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=392 DEFAULT CHARSET=latin1;
 
 --
 -- Dumping data for table `files`
@@ -410,7 +434,8 @@ INSERT INTO `files` (`id`, `icon_id`, `type`, `filename`, `created_at`, `created
 (387, 131, 'ai', 'a0fd34143291e8957660402dc8e00479.ai', '2016-08-01 02:12:37', 10),
 (388, 132, 'png', 'c87703f2b9fdb2e0bd4bfe192aebe807.png', '2016-08-01 02:13:15', 10),
 (389, 132, 'psd', 'd7452482878da38c64e09a897c1828dd.psd', '2016-08-01 02:13:15', 10),
-(390, 132, 'ai', 'b8a4a63090910df2eb5bbf7e90d7794c.ai', '2016-08-01 02:13:15', 10);
+(390, 132, 'ai', 'b8a4a63090910df2eb5bbf7e90d7794c.ai', '2016-08-01 02:13:15', 10),
+(391, 133, 'png', 'fe6ef9525b9dfd6c4c770f1323e93019.png', '2016-08-02 05:54:48', 10);
 
 -- --------------------------------------------------------
 
@@ -452,7 +477,7 @@ CREATE TABLE IF NOT EXISTS `icons` (
   `views` int(11) NOT NULL DEFAULT '0',
   `downloads` int(11) NOT NULL,
   `deleted` tinyint(1) NOT NULL DEFAULT '0'
-) ENGINE=InnoDB AUTO_INCREMENT=133 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=134 DEFAULT CHARSET=latin1;
 
 --
 -- Dumping data for table `icons`
@@ -559,13 +584,14 @@ INSERT INTO `icons` (`id`, `name`, `category`, `tags`, `type`, `price`, `url`, `
 (98, 'Worldwide ', 'Business', 'worldwide, www, web, internet', 'free', '0', 'worldwide ', '2016-07-24 10:09:31', 1, 'worldwide.png', 0, 0, 0),
 (99, 'Wrench ', 'Business', 'wrench, setting, tools', 'free', '0', 'wrench ', '2016-07-24 10:09:31', 1, 'wrench.png', 0, 0, 0),
 (100, 'Wristwatch ', 'Business', 'wristwatch, watch', 'free', '0', 'wristwatch ', '2016-07-24 10:09:31', 1, 'wristwatch.png', 0, 0, 0),
-(126, 'Agenda', 'Line', 'agenda,note,catatan', 'free', '0', 'agenda_983046018', '2016-07-30 04:44:31', 10, '2ff79af856063741522bc40b12d26022.png', 0, 5, 0),
+(126, 'Agenda', 'Line', 'agenda,note,catatan', 'free', '0', 'agenda_983046018', '2016-07-30 04:44:31', 10, '2ff79af856063741522bc40b12d26022.png', 0, 6, 0),
 (127, 'test', 'tes', 'tes', 'free', '0', 'test_1503779199', '2016-07-30 07:43:02', 10, 'b27c4f5d223a99c5e5ce1acb1424adef.png', 0, 1, 0),
 (128, 'Alarm Clock', 'Line', 'alarm,clock', 'free', '0', 'alarm-clock_1920250727', '2016-07-30 07:43:35', 10, '1c16b468363a488139a1adb30178d0a2.png', 0, 3, 0),
 (129, 'test', 'test', 'tes', 'free', '0', 'test_1916709607', '2016-08-01 01:43:48', 10, 'fabe0a07169d98436788e204888cbcf1.png', 0, 0, 0),
 (130, 'User 3', 'user', 'user3', 'free', '0', 'user-3_1832578171', '2016-08-01 02:08:34', 10, 'e9a5c4792d5f640b95b18960c02f06f8.png', 0, 0, 0),
 (131, 'User 2', 'user2', 'user2', 'free', '0', 'user-2_1372760001', '2016-08-01 02:12:37', 10, '710e4d68490be83c1bd08fdadd45c194.png', 0, 0, 0),
-(132, 'User 4', 'user', 'user', 'free', '0', 'user-4_775168925', '2016-08-01 02:13:15', 10, 'c87703f2b9fdb2e0bd4bfe192aebe807.png', 0, 0, 0);
+(132, 'User 4', 'user', 'user', 'free', '0', 'user-4_775168925', '2016-08-01 02:13:15', 10, 'c87703f2b9fdb2e0bd4bfe192aebe807.png', 0, 0, 0),
+(133, 'Bluetooth', 'Arrow', 'bluetooth', 'free', '0', 'bluetooth_1761292057', '2016-08-02 05:54:48', 10, 'fe6ef9525b9dfd6c4c770f1323e93019.png', 0, 2, 0);
 
 -- --------------------------------------------------------
 
@@ -633,16 +659,21 @@ CREATE TABLE IF NOT EXISTS `users` (
   `url` varchar(255) NOT NULL,
   `join_date` date NOT NULL,
   `profile_picture` varchar(255) NOT NULL
-) ENGINE=InnoDB AUTO_INCREMENT=15 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=20 DEFAULT CHARSET=utf8;
 
 --
 -- Dumping data for table `users`
 --
 
 INSERT INTO `users` (`id`, `ip_address`, `username`, `password`, `salt`, `email`, `activation_code`, `forgotten_password_code`, `forgotten_password_time`, `remember_code`, `created_on`, `last_login`, `active`, `first_name`, `last_name`, `company`, `phone`, `url`, `join_date`, `profile_picture`) VALUES
-(1, '127.0.0.1', 'administrator', '$2a$07$SeBknntpZror9uyftVopmu61qg0ms8Qv1yV6FG.kQOSM.9QhmTo36', '', 'admin@admin.com', '', NULL, NULL, NULL, 1268889823, 1470044884, 1, 'Admin', 'Belancon', 'ADMIN', '0', 'administrator', '2016-07-15', ''),
-(10, '127.0.0.1', 'belancon', '$2y$08$41ZBLf55dduFcEeafBukRO3Te7.aqhR2gos9ugUlYBFwoZVCk7YQm', NULL, 'belancon.dev@gmail.com', NULL, NULL, NULL, NULL, 1469079323, 1470019192, 1, 'Belancon', 'Team', NULL, '', 'belancon', '2016-07-15', '99430a3e90469427fec7f8bc58e34cb2.jpg'),
-(14, '127.0.0.1', 'sayaphujan', '$2y$08$WXVQwJql1Z/x..GbAgj4fOruTZRmOnCFZIDWG/d6PGWlWP/nvYJ.m', NULL, 'shinta.setiawati@gmail.com', NULL, NULL, NULL, NULL, 1469959018, 1469959584, 1, 'Shinta', 'Setiawati', NULL, '', 'shinta_679137276', '2016-07-20', '');
+(1, '127.0.0.1', 'administrator', '$2a$07$SeBknntpZror9uyftVopmu61qg0ms8Qv1yV6FG.kQOSM.9QhmTo36', '', 'admin@admin.com', '', NULL, NULL, NULL, 1268889823, 1470139131, 1, 'Admin', 'Belancon', 'ADMIN', '0', 'admin_163431186', '2016-07-15', ''),
+(10, '127.0.0.1', 'belancon', '$2y$08$41ZBLf55dduFcEeafBukRO3Te7.aqhR2gos9ugUlYBFwoZVCk7YQm', NULL, 'belancon.dev@gmail.com', NULL, NULL, NULL, NULL, 1469079323, 1470121276, 1, 'Belancon', 'Team', NULL, '', 'belancon', '2016-07-15', '99430a3e90469427fec7f8bc58e34cb2.jpg'),
+(14, '127.0.0.1', 'sayaphujan', '$2y$08$WXVQwJql1Z/x..GbAgj4fOruTZRmOnCFZIDWG/d6PGWlWP/nvYJ.m', NULL, 'shinta.setiawati@gmail.com', NULL, NULL, NULL, NULL, 1469959018, 1469959584, 1, 'Shinta', 'Setiawati', NULL, '', 'shinta_679137276', '2016-07-20', ''),
+(15, '127.0.0.1', 'yoji212', '$2y$08$Y72WxoMlrD9fLGUv7.fOqe4NZMnGA2RllZZbThOglLtIoxbIfq/5a', NULL, 'yoji212@gmail.com', NULL, NULL, NULL, NULL, 1470139668, NULL, 1, 'Teguh', '', NULL, '', 'teguh_716586722', '0000-00-00', ''),
+(16, '127.0.0.1', 'maulayyacyber', '$2y$08$YW62/Qve6hMrGMrUrUvo7OlNy4NHfmWKwkKBi5mCwAu6N7criB1p6', NULL, 'maulayyacyber@gmail.com', NULL, NULL, NULL, NULL, 1470139684, NULL, 1, 'Fika', 'Ridaul Maulayya', NULL, '', 'fika_683673174', '0000-00-00', ''),
+(17, '127.0.0.1', 'superman123', '$2y$08$TjxM9yDb428LNhaahiWZv.cnAu2At74SyGnMYGc8hPPuq8VqjlwMC', NULL, 'superman123@gmail.com', NULL, NULL, NULL, NULL, 1470139709, NULL, 1, 'Angga', '', NULL, '', 'angga_387620281', '0000-00-00', ''),
+(18, '127.0.0.1', 'aimul', '$2y$08$ABdRGdSb2e/itx3fuecWR.Reh3rN//BcYS1vqX4t69.X7xsIBm/4i', NULL, 'aimul@gmail.com', NULL, NULL, NULL, NULL, 1470139724, NULL, 1, 'Aim', '', NULL, '', 'aim_1447878', '0000-00-00', ''),
+(19, '127.0.0.1', 'randi', '$2y$08$mi.6CDToVLvBVuNHhaZnTeInjihME6aZlZh836FjinRt./OtzFxFy', NULL, 'randi@gmail.com', NULL, NULL, NULL, NULL, 1470139742, NULL, 1, 'Randi', '', NULL, '', 'randi_942640746', '0000-00-00', '');
 
 -- --------------------------------------------------------
 
@@ -654,7 +685,7 @@ CREATE TABLE IF NOT EXISTS `users_groups` (
   `id` int(11) unsigned NOT NULL,
   `user_id` int(11) unsigned NOT NULL,
   `group_id` mediumint(8) unsigned NOT NULL
-) ENGINE=InnoDB AUTO_INCREMENT=16 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=21 DEFAULT CHARSET=utf8;
 
 --
 -- Dumping data for table `users_groups`
@@ -664,7 +695,12 @@ INSERT INTO `users_groups` (`id`, `user_id`, `group_id`) VALUES
 (1, 1, 1),
 (2, 1, 2),
 (11, 10, 1),
-(15, 14, 2);
+(15, 14, 2),
+(16, 15, 2),
+(17, 16, 2),
+(18, 17, 2),
+(19, 18, 2),
+(20, 19, 2);
 
 -- --------------------------------------------------------
 
@@ -700,6 +736,12 @@ INSERT INTO `user_socmeds` (`id`, `user_id`, `socmed_id`, `url`) VALUES
 -- Indexes for table `bugs`
 --
 ALTER TABLE `bugs`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Indexes for table `categories`
+--
+ALTER TABLE `categories`
   ADD PRIMARY KEY (`id`);
 
 --
@@ -776,6 +818,11 @@ ALTER TABLE `user_socmeds`
 ALTER TABLE `bugs`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
 --
+-- AUTO_INCREMENT for table `categories`
+--
+ALTER TABLE `categories`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=9;
+--
 -- AUTO_INCREMENT for table `contributors`
 --
 ALTER TABLE `contributors`
@@ -789,7 +836,7 @@ ALTER TABLE `feedbacks`
 -- AUTO_INCREMENT for table `files`
 --
 ALTER TABLE `files`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=391;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=392;
 --
 -- AUTO_INCREMENT for table `groups`
 --
@@ -799,7 +846,7 @@ ALTER TABLE `groups`
 -- AUTO_INCREMENT for table `icons`
 --
 ALTER TABLE `icons`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=133;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=134;
 --
 -- AUTO_INCREMENT for table `login_attempts`
 --
@@ -814,12 +861,12 @@ ALTER TABLE `socmeds`
 -- AUTO_INCREMENT for table `users`
 --
 ALTER TABLE `users`
-  MODIFY `id` int(11) unsigned NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=15;
+  MODIFY `id` int(11) unsigned NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=20;
 --
 -- AUTO_INCREMENT for table `users_groups`
 --
 ALTER TABLE `users_groups`
-  MODIFY `id` int(11) unsigned NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=16;
+  MODIFY `id` int(11) unsigned NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=21;
 --
 -- AUTO_INCREMENT for table `user_socmeds`
 --
