@@ -111,6 +111,17 @@ class Template
 	}
 
 	/**
+	 * Setting Meta Tags
+	 * @param $meta_name 	string	meta tag name
+	 * @param $meta_content string	meta tag content
+	 * @return void
+	 */
+	public function set_meta_property($meta_property, $meta_content)
+	{
+		$this->asset['header']['meta_property'][] = '<meta property="' . $meta_property . '" content="' . $meta_content . '">';
+	}
+
+	/**
 	 * Set Page Title
 	 * @param $title string
 	 * @return void
@@ -146,6 +157,15 @@ class Template
 	public function get_meta()
 	{
 		return $this->asset['header']['meta'];
+	}
+
+	/**
+	 * Get Meta Tags
+	 * @return array
+	 */
+	public function get_meta_property()
+	{
+		return $this->asset['header']['meta_property'];
 	}
 
 	/**

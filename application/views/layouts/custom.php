@@ -17,6 +17,13 @@
 			}
 		}
 
+		// Meta Tags
+		if(isset($theme['assets']['header']['meta_property'])) {
+			foreach($this->template->get_meta_property() as $meta_property) {
+				echo $meta_property . "\n";
+			}
+		}
+
 		// Custom CSS Files
 		if(isset($theme['assets']['header']['css'])) {
 			foreach($this->template->get_css() as $css_file) {
