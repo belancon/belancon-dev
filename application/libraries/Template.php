@@ -119,7 +119,7 @@ class Template
 	public function set_meta_property($meta_property, $meta_content, $data_dynamic= FALSE)
 	{
 		if($data_dynamic === TRUE) {
-			$this->asset['header']['meta_property'][] = '<meta property="' . $meta_property . '" content="' . $meta_content . ' data-dynamic="true">';
+			$this->asset['header']['meta_property'][] = '<meta property="' . $meta_property . '" content="' . $meta_content .'" data-dynamic="true">';
 		} else {
 			$this->asset['header']['meta_property'][] = '<meta property="' . $meta_property . '" content="' . $meta_content . '">';
 		}
