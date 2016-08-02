@@ -52,7 +52,10 @@ class Home extends CI_Controller
             $data['page_url'] = site_url().'icons/'.$icon->url;
             $data['page_identifier'] = $icon->url;
             $data['show_disqus'] = (ENVIRONMENT == 'production') ? TRUE : FALSE;
-        
+            $share_url = share_url('facebook',  array('url'=> $data['page_url'], 'text'=> $icon->name));
+            $data['share_url'] = "MyWindow=window.open('".$share_url."',
+            'MyWindow','width=600,height=300'); return false;";
+
             $this->template->set_title('Belancon | Belanja Icon untuk Kebutuhan Desainmu');
             $this->template->set_meta('author','Angga Risky');
             $this->template->set_meta('keyword','Download free Icons, Download Icon Gratis, Flat Icon Gratis');
