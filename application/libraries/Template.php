@@ -116,9 +116,13 @@ class Template
 	 * @param $meta_content string	meta tag content
 	 * @return void
 	 */
-	public function set_meta_property($meta_property, $meta_content)
+	public function set_meta_property($meta_property, $meta_content, $data_dynamic= FALSE)
 	{
-		$this->asset['header']['meta_property'][] = '<meta property="' . $meta_property . '" content="' . $meta_content . '">';
+		if($data_dynamic === TRUE) {
+			$this->asset['header']['meta_property'][] = '<meta property="' . $meta_property . '" content="' . $meta_content . ' data-dynamic="true">';
+		} else {
+			$this->asset['header']['meta_property'][] = '<meta property="' . $meta_property . '" content="' . $meta_content . '">';
+		}
 	}
 
 	/**
