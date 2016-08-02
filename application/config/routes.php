@@ -54,6 +54,7 @@ $route['result'] = "home/result";
 $route['how-to-download'] = "site/how_to_download";
 $route['privacy-policy'] = "site/privacy_policy";
 $route['term-of-service'] = "site/term_of_service";
+$route['page-404'] = "site/page_404";
 $route['login'] = "user/login";
 $route['icons'] = "home/icons";
 $route['icons/(:any)'] = "home/icons/$1";
