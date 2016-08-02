@@ -64,9 +64,7 @@ class Home extends CI_Controller
             $this->template->set_meta_property('og:site_name', 'Belancon', TRUE);
             $this->template->set_meta_property('og:description', 'Download gratis Icon untuk kebutuhan design website, design flyer, design print-out', TRUE);            
             $this->template->set_meta_property('og:image', cloud_path('png/'.$icon->filename), TRUE);
-            $this->template->set_meta_property('og:image:type', 'image/png', TRUE);
-            $this->template->set_meta_property('og:image:width', '1200', TRUE);
-            $this->template->set_meta_property('og:image:height', '630', TRUE);
+            $this->template->set_meta_property('og:image:type', 'image/png', TRUE);            
             $this->template->set_meta_property('article:author', 'https://www.facebook.com/belancondotcom', TRUE);
             $this->template->set_meta_property('article:publisher', 'https://www.facebook.com/belancondotcom', TRUE);
 
