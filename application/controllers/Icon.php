@@ -651,8 +651,8 @@ class Icon extends MY_Controller {
 
 				if($check === count($result)) {
 					//add file license into zip
-					$license= read_file(cloud_path('text/LICENSE.txt'));
-					$this->zip->add_data('LICENSE.txt', $license);
+					$license= read_file(cloud_path('text/License.pdf'));
+					$this->zip->add_data('License.pdf', $license);
 
 					//get file zip
 					$zip_content = $this->zip->get_zip();
@@ -752,8 +752,8 @@ class Icon extends MY_Controller {
 
                 if($check === count($result)) {
                     //add file license into zip
-                    $license= read_file(cloud_path('text/LICENSE.txt'));
-                    $this->zip->add_data('LICENSE.txt', $license);
+                    $license= read_file(cloud_path('text/License.pdf'));
+                    $this->zip->add_data('License.pdf', $license);
 
                     //get file zip
                     $zip_content = $this->zip->get_zip();

@@ -59,6 +59,7 @@ $route['icons'] = "home/icons";
 $route['icons/(:any)'] = "home/icons/$1";
 $route['member/change-profile'] = "member/change_profile";
 $route['member/change-password'] = "member/change_password";
+$route['member/setting-link-account'] = "member/setting_link_account";
 $route['member/add-icon'] = "member/add_icon";
 $route['member/update-icon/(:num)'] = "member/update_icon/$1";
 $route['author/(:any)'] = "author/index/$1";

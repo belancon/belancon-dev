@@ -126,7 +126,8 @@ $(document).ready(function() {
                 error.insertAfter(element);
             }
         },
-        submitHandler: function(form) {        	
+        submitHandler: function(form) {   
+        	showLoader();     	
         	var formData = new FormData($(form)[0]);
 
         	$.ajax({
@@ -136,6 +137,7 @@ $(document).ready(function() {
 	          data: formData,
 	          async: false,
 	          success: function (data) {
+	          	  hideLoader();
 	              if(data.status === true) {
 	                location.reload();
 	              } else {
@@ -143,12 +145,25 @@ $(document).ready(function() {
 	                showNotifError(data.message);
 	              }
 	          },
+	          error: function() {
+	          	hideLoader();
+	          },
 	          cache: false,
 	          contentType: false,
 	          processData: false
 	        });	    
         }
     });
+
+    var showLoader = function() {
+    	$('#loader').fadeIn();
+		$('.overlay-loader').fadeIn();
+    };
+
+    var hideLoader = function() {
+    	$('#loader').fadeOut(1000);
+		$('.overlay-loader').fadeOut(1000);
+    }
 
     var showNotifError = function(message) {
       $('.alert-danger').html('');      

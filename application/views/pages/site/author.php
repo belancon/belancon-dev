@@ -9,20 +9,22 @@
       Author sejak <?php echo dateindo($user->join_date); ?>
     </p>
     <p>
-      <a style="background: #3b5999;" class="no-shadow btn-green-primary btn" href="#"><i class="fa fa-facebook"></i></a>
-      <a style="background: #1da1f3;" class="no-shadow btn-green-primary btn" href="#"><i class="fa fa-twitter"></i></a>
-      <a style="background: #dc4e41;" class="no-shadow btn-green-primary btn" href="#"><i class="fa fa-google-plus"></i></a>
-      <a style="background: #202020;" class="no-shadow btn-green-primary btn" href="#"><i class="fa fa-globe"></i></a>
-      <a style="background: #de291e;" class="no-shadow btn-green-primary btn" href="#"><i class="fa fa-youtube fa-lg"></i></a>
-      <a style="background: #0083ff;" class="no-shadow btn-green-primary btn" href="#"><i class="fa fa-behance"></i></a>
-      <a style="background: #ea4c89;" class="no-shadow btn-green-primary btn" href="#"><i class="fa fa-dribbble"></i></a>
+      <?php 
+      if($socmeds):
+      foreach($socmeds as $socmed):
+      ?>
+      <a class="no-shadow btn-green-primary btn btn-<?php echo $socmed->name;?>" href="<?php echo $socmed->url;?>" target="_blank"><i class="fa <?php echo $socmed->icon;?>"></i></a>
+      <?php
+      endforeach;
+      endif;
+      ?>
     </p>
   </div>
   <div class="pull-right profile-stats">
   </div>
 </div>
 </div>
-<div class="row">
+<div class="row" id="home-icons">
 <div class="col-md-12">
   <div id="icon-list" style="margin-top:20px">
           
@@ -61,5 +63,26 @@
 
         Author.getIcon(authorId, page, search);            
       });
+
+      /**
+       * Action when button add cart clicked    
+       */
+      $(document).on('click', '.btn-add-cart', function(){ 
+        var id = $(this).attr('data-id');
+        var name = $(this).attr('data-name');
+
+        Icon.addToCart(id, name);
+      });    
+
+      /**
+       * Action when button remove cart clicked    
+       */
+      $(document).on('click', '.btn-remove-cart', function(){ 
+        var id = $(this).attr('data-id');
+        var name = $(this).attr('data-name');
+
+        Icon.removeFromCart(id, name);
+      });        
+
   });
 </script>

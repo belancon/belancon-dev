@@ -17,3 +17,26 @@
     cursor: inherit;
     display: block;
 }
+
+.btn-facebook {
+    background: #3b5999;
+}
+
+.btn-twitter {
+    background: #1da1f3;
+}
+.btn-youtube {
+    background: #de291e;
+}
+.btn-behance {
+    background: #0083ff;
+}
+.btn-dribble {
+    background: #ea4c89;
+}
+.btn-web {
+    background: #202020;
+}
+.btn-google-plus {
+    background: #dc4e41;
+}

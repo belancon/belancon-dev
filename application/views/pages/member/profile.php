@@ -45,6 +45,7 @@
 							
 							<a href="<?php echo site_url('member/change-profile');?>" class="btn btn-green-primary">ubah profil</a>
 							<a href="<?php echo site_url('member/change-password');?>" class="btn btn-green-primary">ubah password</a>
+							<a href="<?php echo site_url('member/setting-link-account');?>" class="btn btn-green-primary">setting link akun</a>
 						</div>
 			</div>
 	</div>

@@ -48,7 +48,7 @@
 		  },
 		  complete: function(){
 		    $('#loader').fadeOut(1000);
-		     $('.overlay-loader').fadeOut(1000);
+		    $('.overlay-loader').fadeOut(1000);
 		  },
 		  success: function() {}
 		});
