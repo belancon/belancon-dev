@@ -1,5 +1,6 @@
 // IMPORT SASS PARTIAL
 @import 'color';
+@import 'font';
 
 // SETTING GLOBAL COLORS
 .blue-color {
@@ -100,6 +101,23 @@ a {
 		width: 80px;
 		height: 80px;
 		border-radius: 3px;
+	}
+}
+
+.page-404 {
+	padding-top: 80px;
+	padding-bottom: 80px;
+	.text-404 {
+		font-size: 200px;
+		font-weight: bold;
+		color: $black-primary;
+		margin-bottom: -60px;
+		.roboto {
+			font-family: 'Roboto';
+		}
+		.mono {
+			font-family: 'PT Mono';
+		}
 	}
 }
 

@@ -38,6 +38,36 @@ class Site extends CI_Controller
                 $this->template->render(); // terakhir render
 	}
 
+        public function page_404() {
+                //untuk menset title page
+                $this->template->set_title('Belancon | Belanja Icon untuk Kebutuhan Desainmu');
+                //set meta tag
+                $this->template->set_meta('author','Angga Risky');
+                $this->template->set_meta('keyword','Download free Icons, Download Icon Gratis, Flat Icon Gratis');
+                $this->template->set_meta('description','Download gratis Icon untuk kebutuhan design website, design flyer, design print-out');
+                
+                // $breadcrumb = array(
+                //     array(
+                //         'name' => 'Home',
+                //         'path' => site_url()
+                //     ),
+                //     array(
+                //         'name' => 'Erorr 404',
+                //         'path' => null
+                //     )
+                // );
+                // $this->template->set_props('breadcrumb', $breadcrumb);
+               
+                $this->_loadcss();
+                $this->_loadjs();
+                $this->_loadpart();
+                $this->_loadscript();
+                //set layout
+                $this->template->set_layout('layouts/custom');
+                $this->template->set_content('pages/static/404'); // nama file page nya, tanpa extension php
+                $this->template->render(); // terakhir render
+        }
+
         public function privacy_policy() {
                 //untuk menset title page
                 $this->template->set_title('Belancon | Belanja Icon untuk Kebutuhan Desainmu');

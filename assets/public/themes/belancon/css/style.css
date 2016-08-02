@@ -1,3 +1,5 @@
+@import url(https://fonts.googleapis.com/css?family=PT+Mono|Open+Sans);
+@import url(https://fonts.googleapis.com/css?family=Roboto);
 .blue-color {
   color: #3498db; }
 
@@ -78,6 +80,19 @@ a {
   width: 80px;
   height: 80px;
   border-radius: 3px; }
+
+.page-404 {
+  padding-top: 80px;
+  padding-bottom: 80px; }
+  .page-404 .text-404 {
+    font-size: 200px;
+    font-weight: bold;
+    color: #3d3938;
+    margin-bottom: -60px; }
+    .page-404 .text-404 .roboto {
+      font-family: 'Roboto'; }
+    .page-404 .text-404 .mono {
+      font-family: 'PT Mono'; }
 
 #author {
   min-height: 700px; }
