@@ -51,8 +51,7 @@ class Bug extends CI_Controller
             
             $this->load->library('email', $config);
             $this->email->from($this->email_belancon);                        
-            $this->email->to($email);
-            $this->email->cc('belancon.dev@gmail.com');
+            $this->email->to('belancon.dev@gmail.com');            
             $this->email->subject($subject);
             $data = array( 'fullname' => $fullname, 'email' => $email, 'message' => $message);
 
