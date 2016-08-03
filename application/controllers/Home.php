@@ -65,8 +65,8 @@ class Home extends CI_Controller
             $this->template->set_meta_property('og:url', $data['page_url'], TRUE);
             $this->template->set_meta_property('og:description', 'Download gratis Icon untuk kebutuhan design website, design flyer, design print-out', TRUE);            
             $this->template->set_meta_property('og:image', cloud_path('png/'.$icon->filename), TRUE);
-            $this->template->set_meta_property('og:image:width', '450', TRUE);
-            $this->template->set_meta_property('og:image:height', '298', TRUE);
+            $this->template->set_meta_property('og:image:width', '560', TRUE);
+            $this->template->set_meta_property('og:image:height', '292', TRUE);
             $this->template->set_meta_property('og:image:type', 'image/png', TRUE);
             $this->template->set_meta_property('fb:app_id', '237152040017888', TRUE);
            
