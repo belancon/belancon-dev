@@ -58,9 +58,7 @@ class Contributor extends CI_Controller {
             $this->load->model('contributor_model');
             $this->load->library('email', $config);
             $this->email->from($this->email_belancon);                        
-            $this->email->to('anggariskysetiawan@gmail.com');
-            $this->email->cc('rizqimaulana.1988@gmail.com');
-            $this->email->cc('belancon.dev@gmail.com');
+            $this->email->to('belancon.dev@gmail.com');                    
             $this->email->subject($subject);
             $data = array( 'fullname' => $fullname, 'email' => $email, 'skill' => $skill, 'message' => $message);
 
