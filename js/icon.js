@@ -410,7 +410,7 @@ Icon = {
 
     if(more === true) {
       var btnLoadmore = document.createElement("a");
-      var textLoadmore = document.createTextNode("LOAD MORE");
+      var textLoadmore = document.createTextNode("SELANJUTNYA");
       btnLoadmore.setAttribute("class", "btn btn-primary btn-load-more");
       btnLoadmore.setAttribute("id", "btn-load-more");
       btnLoadmore.setAttribute("data-page", page);
