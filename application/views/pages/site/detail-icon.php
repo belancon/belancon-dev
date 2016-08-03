@@ -32,7 +32,7 @@
                   Bagikan Icon :&nbsp;
                   <a style="background: #3b5999;" class="no-shadow btn-green-primary btn" href="#" onClick="<?php echo $share_fb;?>"><i class="fa fa-facebook"></i></a>
                   <a onClick="<?php echo $share_twitter;?>" style="background: #1da1f3;" class="no-shadow btn-green-primary btn" href="#"><i class="fa fa-twitter"></i></a>
-                  <a style="background: #dc4e41;" class="no-shadow btn-green-primary btn" href="#"><i class="fa fa-google-plus"></i></a>
+                  <a onClick="<?php echo $share_gplus;?>" style="background: #dc4e41;" class="no-shadow btn-green-primary btn" href="#"><i class="fa fa-google-plus"></i></a>
                 </p>
               </div>
             </div>
@@ -74,7 +74,7 @@
       <div class="col-md-12 author-icon">
         <?php $picture = user($icon->created_by, 'profile_picture') == null ? 'belancon-user.jpg' : user($icon->created_by, 'profile_picture'); ?>
         <img src="<?php echo cloud('member/'.$picture);?>" class="img-profile" alt="">
-        <a href="#">
+        <a href="<?php echo site_url('author/'.user($icon->created_by, 'url'));?>">
           <div class="author-name">
             <?php echo user($icon->created_by, 'first_name')." ".user($icon->created_by, 'last_name');?>
           </div>

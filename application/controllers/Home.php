@@ -53,11 +53,14 @@ class Home extends CI_Controller
             $data['page_identifier'] = $icon->url;
             $data['show_disqus'] = (ENVIRONMENT == 'production') ? TRUE : FALSE;
             $share_fb = share_url('facebook',  array('url'=> $data['page_url'], 'text'=> $icon->name));
-            $share_twitter = share_url('twitter',  array('url'=> $data['page_url'], 'text'=> $icon->name.' untuk icon gratis didesain oleh belancon', 'original_referer'=> $data['page_url']));
+            $share_twitter = share_url('twitter',  array('url'=> $data['page_url'], 'text'=> $icon->name.' untuk icon gratis didesain oleh belancon '.$data['page_url'], 'original_referer'=> $data['page_url']));
             $data['share_fb'] = "MyWindow=window.open('".$share_fb."',
             'MyWindow','width=600,height=300'); return false;";            
             $data['share_twitter'] = "MyWindow=window.open('".$share_twitter."',
             'MyWindow','width=600,height=300'); return false;";
+            $share_gplus = share_url('google-plus',  array('url'=> $data['page_url']));
+            $data['share_gplus'] = "MyWindow=window.open('".$share_gplus."',
+            'MyWindow','width=600,height=300'); return false;";            
 
 
             $this->template->set_title('Belancon | Belanja Icon untuk Kebutuhan Desainmu');
@@ -68,8 +71,8 @@ class Home extends CI_Controller
 
             //set meta tags for share twitter
             $this->template->set_meta('twitter:card','summary_large_image');
-            $this->template->set_meta('twitter:site','@belancon');
-            $this->template->set_meta('twitter:creator','@belancon');
+            $this->template->set_meta('twitter:site','@belancondotcom');
+            $this->template->set_meta('twitter:creator','@belancondotcom');
             $this->template->set_meta('twitter:title', $icon->name." untuk icon gratis didesain oleh belancon");
             $this->template->set_meta('twitter:description','Download gratis Icon untuk kebutuhan design website, design flyer, design print-out');
             $this->template->set_meta('twitter:image', cloud_path('png/'.$icon->filename));

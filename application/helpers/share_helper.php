@@ -18,6 +18,7 @@ if( !function_exists('share_check') ){
 		$url = array(
 			'twitter'	=> 'https://twitter.com/intent/tweet',
 			'facebook'	=> 'http://facebook.com/sharer.php',
+			'google-plus' => 'https://plus.google.com/share',
 			'buzz'		=> 'http://www.google.com/buzz/post',
 			'vkontakte'	=> 'http://vkontakte.ru/share.php',
 		);
@@ -43,6 +44,10 @@ if( !function_exists('share_url') ){
 		$params = array();
 		if( $type == 'twitter' ){
 			foreach( explode(' ', 'url via text related count lang counturl original_referer') as $v ){
+				if( isset($args[$v]) ) $params[$v] = $args[$v];
+			}
+		}elseif( $type == 'google-plus') {
+			foreach( explode(' ', 'url h1') as $v ){
 				if( isset($args[$v]) ) $params[$v] = $args[$v];
 			}
 		}elseif( $type == 'facebook' ){
