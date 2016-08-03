@@ -1,14 +1,14 @@
 <div class="row" id="header-home-page">
   <div class="col-md-12">
     <h2 class="text-center green-color" style="margin-bottom: 20px;">
-    Icons untuk Kebutuhan Desain Anda
+    Icon untuk Kebutuhan Desain Anda
     </h2>
   </div>
 </div>
 <div class="row">
   <div class="col-md-6 col-md-offset-3">
     <p class="text-center black-color">
-      Anda bebas unduh semua Icons yang tersedia pada Belancon.com, anda juga bisa memilih antara jenis file yang akan anda unduh nantinya pada halaman Keranjang.
+      Anda bebas unduh semua Icon yang tersedia pada Belancon.com, anda juga bisa memilih antara jenis file yang akan anda unduh nantinya pada halaman Keranjang.
     </p>
   </div>
 </div>

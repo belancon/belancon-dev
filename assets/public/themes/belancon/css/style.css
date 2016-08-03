@@ -246,10 +246,7 @@ a {
   background: #66ae53;
   color: white !important;
   transition: all 1s;
-  border: 0;
-  -webkit-box-shadow: -1px 0px 20px -4px rgba(0, 0, 0, 0.75);
-  -moz-box-shadow: -1px 0px 20px -4px rgba(0, 0, 0, 0.75);
-  box-shadow: -1px 0px 20px -4px rgba(0, 0, 0, 0.75); }
+  border: 0; }
   .btn-green-primary:hover, .btn-red-primary:hover, .btn-yellow-primary:hover {
     background: #3d3938;
     color: white;

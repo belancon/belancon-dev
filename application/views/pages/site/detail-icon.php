@@ -80,7 +80,7 @@
           </div>
         </a>
         <div class="author-follower">
-          <i class="fa fa-pencil"></i> <?php echo icon_total_author($icon->created_by);?> Icons
+          <i class="fa fa-pencil"></i> <?php echo icon_total_author($icon->created_by);?> Icon
         </div>
         <div class="clearfix">
         </div>

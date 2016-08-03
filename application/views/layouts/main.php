@@ -121,8 +121,11 @@
 	        <p style="line-height: 1.6;">
 	          Belancon.com adalah sebuah website yang menyediakan icon-icon untuk kebutuhan desain website, aplikasi, print-out, dan lain-lain.
 	        </p>
+	        <p style="line-height: 1.6;">
+	        Di Belancon.com anda juga bisa menjadi Kontributor kami dalam proses pengembangan website Belancon.com menjadi lebih baik lagi ke depannya.
+	        </p>
 	        <p style="margin-top: 30px;">
-	          <a href="<?php echo site_url('contributor/join');?>" class="btn btn-primary btn-green-primary">Join as Contributor</a>
+	          <a href="<?php echo site_url('contributor/join');?>" class="btn btn-primary btn-green-primary">Bergabung sebagai Kontributor</a>
 	        </p>
 	      </div>
 	    </div>
