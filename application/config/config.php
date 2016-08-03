@@ -122,8 +122,15 @@ $config['subclass_prefix'] = 'MY_';
 |--------------------------------------------------------------------------
 */
 $config['cdn'] = ((ENVIRONMENT != 'production')?'//cdn.localhost/belancon/':'//cdn.belancon.com/belancon/');
-// $config['cloud'] = ((ENVIRONMENT != 'production')?'//cloud.localhost/belancon/':'//cloud.belancon.com/');
+// $config['cloud'] = ((ENVIRONMENT != 'production')?'//cloud.localhost/belancon/':'//cloud.belancon.com/belancon/');
+
+// $config['cloud'] = ((ENVIRONMENT != 'production') ? 'http://cloud-belancon/': '//cloud.belancon.com/belancon/');
+
 $config['cloud'] = ((ENVIRONMENT != 'production') ? 'http://localhost/cloud-belancon/': '//cloud.belancon.com/');
+
+//jika menggunakan vhost dg alamat http://cloud-belancon
+// $config['cloud_path'] = ((ENVIRONMENT != 'production') ? 'http://cloud-belancon/': 'http://cloud.belancon.com/');
+
 
 $config['cloud_path'] = ((ENVIRONMENT != 'production') ? 'http://localhost/cloud-belancon/': 'http://cloud.belancon.com/');
 
@@ -132,7 +139,7 @@ $config['cloud_path'] = ((ENVIRONMENT != 'production') ? 'http://localhost/cloud
 | Path upload cloud
 |--------------------------------------------------------------------------
 */
-$config['path'] = '../cloud/';
+$config['upload_path'] = (ENVIRONMENT == 'production') ? './cloud/' : '../cloud-belancon/';
 
 /*
 /*
@@ -462,7 +469,7 @@ $config['csrf_token_name'] = 'csrf_belancon';
 $config['csrf_cookie_name'] = 'csrf_belancon';
 $config['csrf_expire'] = 7200;
 $config['csrf_regenerate'] = FALSE;
-$config['csrf_exclude_uris'] = array('welcome/upload');
+$config['csrf_exclude_uris'] = array('icon/get_cart', 'icon/remove_from_cart');
 
 /*
 |--------------------------------------------------------------------------

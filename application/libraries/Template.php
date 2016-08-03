@@ -26,6 +26,15 @@ class Template
 	// Layout Selector
 	private $layout;
 
+	//parts of layout
+	private $_parts = array();
+
+	//main content of layout
+	private $_content;
+
+	//text on page
+	private $_props = array();
+
 	// Default Theme Selector
 	private $default_theme = 'default';
 
@@ -102,6 +111,21 @@ class Template
 	}
 
 	/**
+	 * Setting Meta Tags
+	 * @param $meta_name 	string	meta tag name
+	 * @param $meta_content string	meta tag content
+	 * @return void
+	 */
+	public function set_meta_property($meta_property, $meta_content, $data_dynamic= FALSE)
+	{
+		if($data_dynamic === TRUE) {
+			$this->asset['header']['meta_property'][] = '<meta property="' . $meta_property . '" content="' . $meta_content .'" data-dynamic="true">';
+		} else {
+			$this->asset['header']['meta_property'][] = '<meta property="' . $meta_property . '" content="' . $meta_content . '">';
+		}
+	}
+
+	/**
 	 * Set Page Title
 	 * @param $title string
 	 * @return void
@@ -137,6 +161,15 @@ class Template
 	public function get_meta()
 	{
 		return $this->asset['header']['meta'];
+	}
+
+	/**
+	 * Get Meta Tags
+	 * @return array
+	 */
+	public function get_meta_property()
+	{
+		return $this->asset['header']['meta_property'];
 	}
 
 	/**
@@ -222,8 +255,26 @@ class Template
 	public function render($data = array())
 	{
 		$data['theme']['assets'] = $this->asset;
+		$data['parts'] = $this->_parts;
+		$data['content'] = $this->_content;
 		$this->ci->load->view($this->layout, $data);
 	}
 
+	public function set_content($view, $data = array()) {
+		$this->_content = $this->ci->load->view($view, $data, TRUE);
+	}
 
+	public function set_part($name, $view) {
+		$parts = $this->_parts;
+		$data['theme']['assets'] = $this->asset;
+		$data['props'] = $this->_props;
+		$parts[$name] = $this->ci->load->view($view, $data, TRUE);
+		$this->_parts = $parts;		
+	}
+
+	public function set_props($name, $value) {
+		$props = $this->_props;
+		$props[$name] = $value;
+		$this->_props = $props;		
+	}
 }

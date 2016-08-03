@@ -10,4 +10,11 @@ if ( ! function_exists('icon_total'))
 
 		return $CI->icon_model->get_total();
 	}
+
+	function icon_total_author($author_id) {
+		$CI =& get_instance();
+		$CI->load->model('icon_model');
+
+		return $CI->icon_model->get_total_author($author_id);
+	}
 }

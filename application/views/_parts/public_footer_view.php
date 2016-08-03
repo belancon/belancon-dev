@@ -9,10 +9,10 @@
 ?>
 
 <!-- CUSTOM SCRIPT JS -->
-<script  src="<?php echo base_url();?>js/general.js" type="text/javascript"></script>
+<!-- <script  src="<?php echo base_url();?>js/general.js" type="text/javascript"></script>
 <script  src="<?php echo base_url();?>js/user.js" type="text/javascript"></script>
 <script  src="<?php echo base_url();?>js/icon.js" type="text/javascript"></script>
 <script  src="<?php echo base_url();?>js/cart.js" type="text/javascript"></script>
-<script  src="<?php echo base_url();?>js/script.js" type="text/javascript"></script>
+<script  src="<?php echo base_url();?>js/script.js" type="text/javascript"></script> -->
 </body>
 </html>

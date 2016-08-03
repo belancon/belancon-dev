@@ -110,7 +110,7 @@ Icon = {
    * @param {[type]} id   [description]
    * @param {[type]} name [description]
    */
-  addToCart: function(id, name) {
+  addToCart: function(id, name, callback) {
     var self = this;
     $('.download-icon[data-id="'+ id +'"]').html("");
     //Ajax method
@@ -142,6 +142,10 @@ Icon = {
           "hideMethod": "fadeOut"
           };
           toastr.success("Success ditambahkan ke keranjang.", name, "Success !", opts);           
+
+          if(callback) {
+            callback(response.status);
+          }
        }
      },
      error: function(){    
@@ -162,6 +166,10 @@ Icon = {
           "hideMethod": "fadeOut"
         };
         toastr.success("Terjadi kesalahan pada sistem.", "Oops...", opts);
+
+        if(callback) {
+          callback(response.status);
+        }
      }
     });
   },
@@ -171,7 +179,7 @@ Icon = {
    * @param  {[type]} name [description]
    * @return {[type]}      [description]
    */
-  removeFromCart: function(id, name) {
+  removeFromCart: function(id, name, callback) {
     var self = this;
   
     //show alert warning before remove icon from cart
@@ -213,6 +221,17 @@ Icon = {
              self.setBtnAddIcon(id, name, function(result) {
                 $('.download-icon[data-id="'+ id +'"]').append(result);    
              });             
+
+            if(callback) {
+              callback(response);
+            }
+
+            //switch button action on page detail icon 
+            Belancon.isPageDetailIcon(function(result) {
+              if(result === true) {
+                self.setButtonAddToCartPageDetail(id, name);
+              }
+            });  
           } else {             
               /** Message Error */        
               var opts = {
@@ -232,7 +251,11 @@ Icon = {
              //toggle button action on icon item.           
              self.setBtnRemoveIcon(id, name, function(result) {
                 $('.download-icon[data-id="'+ id +'"]').append(result);             
-             });             
+             });     
+
+            if(callback) {
+              callback(response);
+            }
           }
 
           //refresh cart
@@ -328,8 +351,7 @@ Icon = {
      imgIcon.setAttribute("id", icon.id);
      divImgIcon.appendChild(imgIcon);
 
-     btnView.setAttribute("data-id", icon.id);
-     btnView.setAttribute("href", "javascript:void(0)");
+     btnView.setAttribute("href", BASE_URL + "icons/" + icon.url);
      btnView.setAttribute("class", "fa fa-eye fa-lg btn-view-icon");
      spanViewIcon.appendChild(btnView);
 
@@ -388,7 +410,7 @@ Icon = {
 
     if(more === true) {
       var btnLoadmore = document.createElement("a");
-      var textLoadmore = document.createTextNode("LOAD MORE");
+      var textLoadmore = document.createTextNode("SELANJUTNYA");
       btnLoadmore.setAttribute("class", "btn btn-primary btn-load-more");
       btnLoadmore.setAttribute("id", "btn-load-more");
       btnLoadmore.setAttribute("data-page", page);
@@ -490,4 +512,21 @@ Icon = {
      }
     });
   },
+  setButtonAddToCartPageDetail: function(id, name) {
+    console.log("setButtonAddToCartPageDetail")
+
+    $('#div-action-cart').html('');
+    var btnAdd = '<a href="#" class="btn-detail-add-cart" data-id="' + id + '" data-name="' + name + '">';
+    btnAdd += '<div class="col-md-12 btn-cart">Add to Cart</div>';
+    btnAdd += '</a>';
+
+    $('#div-action-cart').append(btnAdd);
+  },
+  setButtonRemoveFromCartPageDetail: function(id, name) {
+    $('#div-action-cart').html('');
+    var btnRemove = '<a href="#" class="btn-detail-remove-cart" data-id="' + id + '" data-name="' + name + '">';
+    btnRemove += '<div class="col-md-12 btn-cart">Remove from Cart</div>';
+    btnRemove += '</a>';
+    $('#div-action-cart').append(btnRemove);
+  }
 };

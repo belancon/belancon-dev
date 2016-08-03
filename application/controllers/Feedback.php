@@ -34,7 +34,7 @@ class Feedback extends CI_Controller
         } else {
             $fullname = $this->input->post('fullname');
             $email = $this->input->post('email');            
-            $message = $this->input->post('message');
+            $message = strip_tags($this->input->post('message'));
 
             $config = array(
                 'protocol'  => 'smtp',
@@ -105,22 +105,63 @@ feedback : '.$message,
 
         $data['recaptcha_html'] = $this->recaptcha->render();
         $this->template->set_title('Belancon | Belanja Icon untuk Kebutuhan Desainmu');
-        $this->template->set_meta('author','Angga Risky');
+        $this->template->set_meta('author','Belancon Team');
         $this->template->set_meta('keyword','Download free Icons, Download Icon Gratis, Flat Icon Gratis');
         $this->template->set_meta('description','Download gratis Icon untuk kebutuhan design website, design flyer, design print-out');
 
+        $breadcrumb = array(
+            array(
+                'name' => 'Home',
+                'path' => site_url()
+            ),
+            array(
+                'name' => 'Feedback',
+                'path' => null
+            )
+        );
+        $this->template->set_props('breadcrumb', $breadcrumb);
+
+        $this->_loadcss();
+        $this->_loadjs();
+        $this->_loadpart();
+        $this->_loadscript();
+        $this->template->set_layout('layouts/custom');
+        
+        $data['recaptcha_html'] = $this->recaptcha->render();
+        $this->template->set_content('pages/form/give_feedback', $data);
+        $this->template->render();
+    }
+
+    protected function _loadcss() {
         $this->template->set_css('bootstrap.css');
-        $this->template->set_css('sweetalert.css');  
+        $this->template->set_css('sweetalert.css'); 
         $this->template->set_css('toastr.css');  
         $this->template->set_css('style.css');            
         $this->template->set_css('font-awesome.css');
+    }
+
+    protected function _loadjs() {
         $this->template->set_js('jquery-1.12.1.min.js','header');
         $this->template->set_js('bootstrap.js','footer');
-        $this->template->set_js('sweetalert.min.js','footer');
+        $this->template->set_js('sweetalert.min.js','footer');    
         $this->template->set_js('toastr.js','footer');
-        
-        $this->template->set_layout('give_feedback_view.php');
-        $this->template->render($data);
+    }
+
+    protected function _loadpart() {       
+        $this->template->set_part('navbar', '_parts/navbar'); 
+        $this->template->set_part('loader', '_parts/loader');
+        $this->template->set_part('notification', '_parts/notification');
+        $this->template->set_part('footer', '_parts/footer');
+    }
+
+    public function _loadscript() {
+        $path = base_url().'js/';
+
+        $this->template->set_js($path.'general.js','footer', 'remote');
+        $this->template->set_js($path.'user.js','footer', 'remote');
+        $this->template->set_js($path.'icon.js','footer', 'remote');
+        $this->template->set_js($path.'cart.js','footer', 'remote');
+        $this->template->set_js($path.'page-statis.js','footer', 'remote');
     }
 
     public function getResponseCaptcha($str){
