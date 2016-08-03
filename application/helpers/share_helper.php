@@ -42,7 +42,7 @@ if( !function_exists('share_url') ){
 
 		$params = array();
 		if( $type == 'twitter' ){
-			foreach( explode(' ', 'url via text related count lang counturl') as $v ){
+			foreach( explode(' ', 'url via text related count lang counturl original_referer') as $v ){
 				if( isset($args[$v]) ) $params[$v] = $args[$v];
 			}
 		}elseif( $type == 'facebook' ){
