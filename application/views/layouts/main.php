@@ -115,7 +115,7 @@
 	        <img src="<?php echo base_url('assets/public/themes/belancon');?>/img/about.png" class="img-responsive" alt="">
 	      </div>
 	      <div class="col-md-6">
-	        <h2 class="green-color" style="margin-top: 150px; margin-bottom: 30px;">
+	        <h2 class="green-color" style="margin-top: 110px; margin-bottom: 30px;">
 	        Apa itu Belancon.com ?
 	        </h2>
 	        <p style="line-height: 1.6;">

@@ -107,29 +107,6 @@
 	  </div>
 	</div>
 
-	<!-- About -->
-	<div id="about">
-	  <div class="container">
-	    <div class="row">
-	      <div class="col-md-6">
-	        <img src="<?php echo base_url('assets/public/themes/belancon');?>/img/about.png" class="img-responsive" alt="">
-	      </div>
-	      <div class="col-md-6">
-	        <h2 class="green-color" style="margin-top: 150px; margin-bottom: 30px;">
-	        Apa itu Belancon.com ?
-	        </h2>
-	        <p style="line-height: 1.6;">
-	          Belancon.com adalah sebuah website yang menyediakan icon-icon untuk kebutuhan desain website, aplikasi, print-out, dan lain-lain.
-	        </p>
-	        <p style="margin-top: 30px;">
-	          <a href="<?php echo site_url('contributor/join');?>" class="btn btn-primary btn-green-primary">Join as Contributor</a>
-	        </p>
-	      </div>
-	    </div>
-	  </div>
-	</div>
-	<!-- end About -->
-
 	<!-- Footer -->
 	<?php
         if(isset($parts['footer'])) {

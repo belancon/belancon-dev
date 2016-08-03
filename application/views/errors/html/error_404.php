@@ -120,7 +120,7 @@
       <form class="form-inline" style="margin-left: 10px; margin-top: 30px;" id="form-search">
         <div class="form-group col-md-12 col-sm-12 col-xs-12">
           <!-- <label for="exampleInputEmail2">Email</label> -->
-          <input type="text" style="width: 66% !important; margin-right: 5px;" class="col-xs-8 col-md-8 col-sm-8 form-control" placeholder="Kategori, tags, Nama icon" id="search">
+          <input type="text" style="width: 66% !important; margin-right: 5px;" class="col-xs-8 col-md-8 col-sm-8 form-control" placeholder="Kategori, Tags, Nama Icon" id="search">
           <button type="submit" style="width: 30%;" class="col-xs-4 col-md-4 btn col-sm-4 btn-default btn-green-primary no-shadow">Search</button>
           <div class="clearfix"></div>
           <p class="help-block">Temukan Icon dengan berbagai kategori.</p>

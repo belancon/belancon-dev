@@ -37,6 +37,9 @@ a {
 #li-cart-empty {
   margin-left: 20px; }
 
+.table-cart-icon thead tr th {
+  vertical-align: middle;
+  text-align: center; }
 .table-cart-icon td {
   vertical-align: middle !important; }
 
@@ -348,6 +351,8 @@ a {
   border: 1px solid #ddd;
   border-radius: 3px;
   padding-bottom: 15px; }
+  .details-icon .author-icon .icon-tags a {
+    text-decoration: none !important; }
   .details-icon .author-icon .img-profile {
     height: 60px;
     width: 60px;

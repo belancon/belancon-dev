@@ -7,6 +7,7 @@
                   <input type="text" class="form-control col-md-6" id="search-icon" placeholder="Search icon ...">
                 </div>
                 <button type="submit" id="submit-search-icon" class="btn btn-default"><i class="fa fa-search"></i></button>
+                <p style="margin-left: 10px;" class="text-left white-color help-block">Contoh: food, sport, character, social, dll.</p>
               </form>
             </div>
           </div>

@@ -46,6 +46,14 @@ a {
 }
 
 .table-cart-icon {
+	thead {
+		tr {
+			th {
+				vertical-align: middle;
+				text-align: center;
+			}
+		}
+	}
 	td {
 		vertical-align: middle !important;
 	}
@@ -463,6 +471,11 @@ a {
 		border: 1px solid #ddd;
 		border-radius: 3px;
 		padding-bottom: 15px;
+		.icon-tags {
+			a {
+				text-decoration: none !important;
+			}
+		}
 		.img-profile {
 			height: 60px;
 			width: 60px;

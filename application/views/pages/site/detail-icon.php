@@ -121,7 +121,7 @@
         <div class="col-md-3">
           <strong>Tags:</strong>
         </div>
-        <div class="col-md-9">
+        <div class="col-md-9 icon-tags">
           <?php 
           $tags = $icon->tags !== null ? explode(",",$icon->tags) : array(); 
           foreach($tags as $key => $value):
