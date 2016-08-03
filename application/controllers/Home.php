@@ -52,9 +52,13 @@ class Home extends CI_Controller
             $data['page_url'] = site_url().'icons/'.$icon->url;
             $data['page_identifier'] = $icon->url;
             $data['show_disqus'] = (ENVIRONMENT == 'production') ? TRUE : FALSE;
-            $share_url = share_url('facebook',  array('url'=> $data['page_url'], 'text'=> $icon->name));
-            $data['share_url'] = "MyWindow=window.open('".$share_url."',
+            $share_fb = share_url('facebook',  array('url'=> $data['page_url'], 'text'=> $icon->name));
+            $share_twitter = share_url('twitter',  array('url'=> $data['page_url'], 'text'=> $icon->name.' untuk icon gratis didesain oleh belancon', 'original_referer'=> $data['page_url']));
+            $data['share_fb'] = "MyWindow=window.open('".$share_fb."',
+            'MyWindow','width=600,height=300'); return false;";            
+            $data['share_twitter'] = "MyWindow=window.open('".$share_twitter."',
             'MyWindow','width=600,height=300'); return false;";
+
 
             $this->template->set_title('Belancon | Belanja Icon untuk Kebutuhan Desainmu');
             $this->template->set_meta('author','Belancon Team');
@@ -65,8 +69,8 @@ class Home extends CI_Controller
             $this->template->set_meta_property('og:url', $data['page_url'], TRUE);
             $this->template->set_meta_property('og:description', 'Download gratis Icon untuk kebutuhan design website, design flyer, design print-out', TRUE);            
             $this->template->set_meta_property('og:image', cloud_path('png/'.$icon->filename), TRUE);
-            $this->template->set_meta_property('og:image:width', '560', TRUE);
-            $this->template->set_meta_property('og:image:height', '292', TRUE);
+            $this->template->set_meta_property('og:image:width', '600', TRUE);
+            $this->template->set_meta_property('og:image:height', '315', TRUE);
             $this->template->set_meta_property('og:image:type', 'image/png', TRUE);
             $this->template->set_meta_property('fb:app_id', '237152040017888', TRUE);
            

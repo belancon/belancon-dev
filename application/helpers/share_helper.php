@@ -16,7 +16,7 @@ if( !function_exists('share_check') ){
 	 */
 	function share_check( $type='' ){
 		$url = array(
-			'twitter'	=> 'http://twitter.com/share',
+			'twitter'	=> 'https://twitter.com/intent/tweet',
 			'facebook'	=> 'http://facebook.com/sharer.php',
 			'buzz'		=> 'http://www.google.com/buzz/post',
 			'vkontakte'	=> 'http://vkontakte.ru/share.php',

@@ -30,8 +30,8 @@
               <div class="col-md-12 share-to">
                 <p>
                   Bagikan Icon :&nbsp;
-                  <a style="background: #3b5999;" class="no-shadow btn-green-primary btn" href="#" onClick="<?php echo $share_url;?>"><i class="fa fa-facebook"></i></a>
-                  <a style="background: #1da1f3;" class="no-shadow btn-green-primary btn" href="#"><i class="fa fa-twitter"></i></a>
+                  <a style="background: #3b5999;" class="no-shadow btn-green-primary btn" href="#" onClick="<?php echo $share_fb;?>"><i class="fa fa-facebook"></i></a>
+                  <a onClick="<?php echo $share_twitter;?>" style="background: #1da1f3;" class="no-shadow btn-green-primary btn" href="#"><i class="fa fa-twitter"></i></a>
                   <a style="background: #dc4e41;" class="no-shadow btn-green-primary btn" href="#"><i class="fa fa-google-plus"></i></a>
                 </p>
               </div>
