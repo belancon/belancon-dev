@@ -35,7 +35,7 @@ class Feedback extends CI_Controller
             $fullname = $this->input->post('fullname');
             $email = $this->input->post('email');            
             $message = strip_tags($this->input->post('message'));
-
+                        
             $config = array(
                 'protocol'  => 'smtp',
                 'smtp_host' => 'ssl://poseidon.hideserver.net',
@@ -44,13 +44,14 @@ class Feedback extends CI_Controller
                 'smtp_port' => 465,      
                 'mailtype'  => 'html',        
                 'charset'   => 'iso-8859-1',
-                'starttls'  => true,
-                'newline'   => "\r\n"
-            );
+                'starttls'  => true,               
+            );         
 
             $subject = "Feedback on Belancon";
             
-            $this->load->library('email', $config);
+            $this->load->library('email');
+            $this->email->initialize($config);  
+            $this->email->set_newline("\r\n"); 
             $this->email->from($this->email_belancon);                        
             $this->email->to('belancon.dev@gmail.com');            
             $this->email->subject($subject);

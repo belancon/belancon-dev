@@ -102,12 +102,13 @@
       <div class="col-md-12 info-icon">
         <i class="fa fa-eye"></i> 1,132 Dilihat
       </div>
+      <!--
       <div class="col-md-12 info-icon">
         <a href="">
           <i class="fa fa-comments"></i> 
           <span class="disqus-comment-count" data-disqus-identifier="<?php echo $page_identifier;?>"></span>
         </a>
-      </div>
+      </div> -->
       <div class="col-md-12 info-icon" style="font-weight: normal;">
         <div class="col-md-3">
           <strong>Date:</strong>

@@ -44,12 +44,13 @@ class Bug extends CI_Controller
                 'mailtype'  => 'html',        
                 'charset'   => 'iso-8859-1',
                 'starttls'  => true,
-                'newline'   => "\r\n"
             );
 
             $subject = "Bug on Belancon";
             
-            $this->load->library('email', $config);
+            $this->load->library('email');
+            $this->email->initialize($config);  
+            $this->email->set_newline("\r\n");
             $this->email->from($this->email_belancon);                        
             $this->email->to('belancon.dev@gmail.com');            
             $this->email->subject($subject);
