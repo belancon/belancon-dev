@@ -65,6 +65,17 @@ class Home extends CI_Controller
             $this->template->set_meta('keyword','Download free Icons, Download Icon Gratis, Flat Icon Gratis');
             $this->template->set_meta('description','Download gratis Icon untuk kebutuhan design website, design flyer, design print-out');            
             $this->template->set_meta_property('og:title', $icon->name." untuk icon gratis didesain oleh belancon", TRUE);
+
+            //set meta tags for share twitter
+            $this->template->set_meta('twitter:card','summary_large_image');
+            $this->template->set_meta('twitter:site','@belancon');
+            $this->template->set_meta('twitter:creator','@belancon');
+            $this->template->set_meta('twitter:title', $icon->name." untuk icon gratis didesain oleh belancon");
+            $this->template->set_meta('twitter:description','Download gratis Icon untuk kebutuhan design website, design flyer, design print-out');
+            $this->template->set_meta('twitter:image', cloud_path('png/'.$icon->filename));
+            $this->template->set_meta('twitter:domain', site_url());
+
+            //set meta property for share facebook
             $this->template->set_meta_property('og:site_name', 'Belancon', TRUE);
             $this->template->set_meta_property('og:url', $data['page_url'], TRUE);
             $this->template->set_meta_property('og:description', 'Download gratis Icon untuk kebutuhan design website, design flyer, design print-out', TRUE);            
