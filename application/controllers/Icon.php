@@ -939,6 +939,12 @@ class Icon extends MY_Controller {
 			case 'ai':
 				return cloud_path('ai');
 				break;
+            case 'cdr':
+                return cloud_path('cdr');
+                break;
+            case 'svg':
+                return cloud_path('svg');
+                break;
 			default:
 				return cloud_path('png');
 				break;
