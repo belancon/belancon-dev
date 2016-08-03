@@ -1,14 +1,14 @@
 <div class="row">
   <div class="col-md-12">
     <h2 class="text-center green-color" style="margin-bottom: 20px;">
-    Cara Mendownload Icons
+    Cara Mendownload Icon
     </h2>
   </div>
 </div>
 <div class="row">
   <div class="col-md-6 col-md-offset-3">
     <p class="text-center black-color">
-      Berikut kami akan memberikan tata cara bagaimana mendownload sebuah Icons dari website Belancon.com
+      Berikut kami akan memberikan tata cara bagaimana mendownload sebuah Icon dari website Belancon.com
     </p>
   </div>
 </div>
@@ -32,7 +32,7 @@
   <div class="col-md-8 col-md-offset-2">
     <img style="margin:0 auto; border: 1px solid #d0d0d0;" src="<?php echo base_url('assets/public/themes/belancon');?>/img/tata-download-3.png" class="text-center img-responsive" alt="">
     <h4 class="text-center" style="margin-top: 20px;">
-    3. Jika anda ingin melihat icon-icon terbaru atau terpopular, silahkan lihat halaman bawah pada website Belancon.com (tepat di bawah fitur search form).
+    3. Jika anda ingin melihat Icon-Icon terbaru atau terpopular, silahkan lihat halaman bawah pada website Belancon.com (tepat di bawah fitur search form).
     </h4>
   </div>
 </div>
@@ -56,7 +56,7 @@
   <div class="col-md-8 col-md-offset-2">
     <img style="margin:0 auto; border: 1px solid #d0d0d0;" src="<?php echo base_url('assets/public/themes/belancon');?>/img/tata-download-6.png" class="text-center img-responsive" alt="">
     <h4 class="text-center" style="margin-top: 20px;">
-    6. Untuk melihat Icon yang baru saja ditambahkan pada Keranjang, anda bisa klik menu bagian atas website (Icon Keranjang pada pojok kanan atas). <br>Lalu klik menu <span class="green-color">'Download Icons'</span>
+    6. Untuk melihat Icon yang baru saja ditambahkan pada Keranjang, anda bisa klik menu bagian atas website (Icon Keranjang pada pojok kanan atas). <br>Lalu klik menu <span class="green-color">'Download Icon'</span>
     </h4>
   </div>
 </div>

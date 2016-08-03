@@ -15,7 +15,7 @@
           <input type="email" style="width: 66% !important; margin-right: 5px;" class="col-md-8 form-control" id="" placeholder="Ketik di sini ...">
           <button type="submit" style="width: 30%;" class="col-md-4 btn btn-default btn-green-primary no-shadow">Search</button>
           <div class="clearfix"></div>
-          <p class="help-block">Temukan kategori icon, nama author, business, sport, food, etc.</p>
+          <p class="help-block">Temukan kategori icon, nama author, business, sport, food, dll.</p>
         </div>
       </form>
 
