@@ -13,7 +13,7 @@
             <li><a href="<?php echo site_url('privacy-policy');?>">
               Kebijakan Privasi
             </a></li>
-            <li><a href="<?php echo base_url('assets/public/themes/belancon');?>/about/LICENSE.txt" target="_blank">
+            <li><a href="<?php echo cloud_path('text/License.pdf');?>" target="_blank">
               Lisensi
             </a></li>
           </ul>
