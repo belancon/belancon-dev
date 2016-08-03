@@ -13,7 +13,7 @@ class Site extends CI_Controller
         	//untuk menset title page
         	$this->template->set_title('Belancon | Belanja Icon untuk Kebutuhan Desainmu');
         	//set meta tag
-                $this->template->set_meta('author','Angga Risky');
+                $this->template->set_meta('author','Belancon Team');
                 $this->template->set_meta('keyword','Download free Icons, Download Icon Gratis, Flat Icon Gratis');
                 $this->template->set_meta('description','Download gratis Icon untuk kebutuhan design website, design flyer, design print-out');
                 $breadcrumb = array(
@@ -42,7 +42,7 @@ class Site extends CI_Controller
                 //untuk menset title page
                 $this->template->set_title('Belancon | Belanja Icon untuk Kebutuhan Desainmu');
                 //set meta tag
-                $this->template->set_meta('author','Angga Risky');
+                $this->template->set_meta('author','Belancon Team');
                 $this->template->set_meta('keyword','Download free Icons, Download Icon Gratis, Flat Icon Gratis');
                 $this->template->set_meta('description','Download gratis Icon untuk kebutuhan design website, design flyer, design print-out');
                
@@ -60,7 +60,7 @@ class Site extends CI_Controller
                 //untuk menset title page
                 $this->template->set_title('Belancon | Belanja Icon untuk Kebutuhan Desainmu');
                 //set meta tag
-                $this->template->set_meta('author','Angga Risky');
+                $this->template->set_meta('author','Belancon Team');
                 $this->template->set_meta('keyword','Download free Icons, Download Icon Gratis, Flat Icon Gratis');
                 $this->template->set_meta('description','Download gratis Icon untuk kebutuhan design website, design flyer, design print-out');
                 
@@ -90,7 +90,7 @@ class Site extends CI_Controller
                 //untuk menset title page
                 $this->template->set_title('Belancon | Belanja Icon untuk Kebutuhan Desainmu');
                 //set meta tag
-                $this->template->set_meta('author','Angga Risky');
+                $this->template->set_meta('author','Belancon Team');
                 $this->template->set_meta('keyword','Download free Icons, Download Icon Gratis, Flat Icon Gratis');
                 $this->template->set_meta('description','Download gratis Icon untuk kebutuhan design website, design flyer, design print-out');
                 $breadcrumb = array(

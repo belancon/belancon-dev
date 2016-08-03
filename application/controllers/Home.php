@@ -17,7 +17,7 @@ class Home extends CI_Controller
     {       
 
         $this->template->set_title('Belancon | Belanja Icon untuk Kebutuhan Desainmu');
-        $this->template->set_meta('author','Angga Risky');
+        $this->template->set_meta('author','Belancon Team');
         $this->template->set_meta('keyword','Download free Icons, Download Icon Gratis, Flat Icon Gratis');
         $this->template->set_meta('description','Download gratis Icon untuk kebutuhan design website, design flyer, design print-out');
             
@@ -57,7 +57,7 @@ class Home extends CI_Controller
             'MyWindow','width=600,height=300'); return false;";
 
             $this->template->set_title('Belancon | Belanja Icon untuk Kebutuhan Desainmu');
-            $this->template->set_meta('author','Angga Risky');
+            $this->template->set_meta('author','Belancon Team');
             $this->template->set_meta('keyword','Download free Icons, Download Icon Gratis, Flat Icon Gratis');
             $this->template->set_meta('description','Download gratis Icon untuk kebutuhan design website, design flyer, design print-out');            
             $this->template->set_meta_property('og:title', $icon->name." untuk icon gratis didesain oleh belancon", TRUE);
@@ -103,7 +103,7 @@ class Home extends CI_Controller
         $data['searchText'] = $this->input->get('search', TRUE);
         
         $this->template->set_title('Belancon | Belanja Icon untuk Kebutuhan Desainmu');
-        $this->template->set_meta('author','Angga Risky');
+        $this->template->set_meta('author','Belancon Team');
         $this->template->set_meta('keyword','Download free Icons, Download Icon Gratis, Flat Icon Gratis');
         $this->template->set_meta('description','Download gratis Icon untuk kebutuhan design website, design flyer, design print-out');
 
