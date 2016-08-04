@@ -54,6 +54,7 @@ class Contributor extends CI_Controller {
                 }
 
                 $this->session->set_flashdata('success_message', 'Terima kasih telah mengirimkan permintaan gabung sebagai kontributor');
+                redirect('/', 'refresh');
             } else {
                 $this->session->set_flashdata('error_message', 'Maaf, ada kesalahan sistem. gagal mengirimkan pesan');
                 redirect('/', 'refresh');
