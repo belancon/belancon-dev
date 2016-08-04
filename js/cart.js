@@ -19,7 +19,7 @@ Cart = {
      data: {},
      success: function(response){        
         response = JSON.parse(response);
-        console.log(response.data);
+        //console.log(response.data);
         var items=[]; 
         var data = response.data;
 

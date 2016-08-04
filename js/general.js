@@ -1,3 +1,15 @@
+$.ajaxSetup({
+	beforeSend: function() {
+		$('#loader').fadeIn();
+		$('.overlay-loader').fadeIn();
+	},
+	complete: function() {
+		$('#loader').fadeOut(1000);
+		$('.overlay-loader').fadeOut(1000);
+	},
+	success: function() {}
+});
+
 Belancon = {
 	/**
 	 * Get Param from url

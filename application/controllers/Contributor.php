@@ -152,8 +152,7 @@ class Contributor extends CI_Controller {
     public function _loadscript() {
         $path = base_url().'js/';
 
-        $this->template->set_js($path.'general.js','footer', 'remote');
-        $this->template->set_js($path.'user.js','footer', 'remote');
+        $this->template->set_js($path.'general.js','footer', 'remote'); 
         $this->template->set_js($path.'icon.js','footer', 'remote');
         $this->template->set_js($path.'cart.js','footer', 'remote');
         $this->template->set_js($path.'page-statis.js','footer', 'remote');
