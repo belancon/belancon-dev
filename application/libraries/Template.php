@@ -264,7 +264,7 @@ class Template
 		$this->_content = $this->ci->load->view($view, $data, TRUE);
 	}
 
-	public function set_part($name, $view) {
+	public function set_part($name, $view, $data= array()) {
 		$parts = $this->_parts;
 		$data['theme']['assets'] = $this->asset;
 		$data['props'] = $this->_props;

@@ -48,26 +48,25 @@ class Cart extends CI_Controller
     }
 
     protected function _loadcss() {
-        $this->template->set_css('bootstrap.css');
-        $this->template->set_css('sweetalert.css'); 
-        $this->template->set_css('toastr.css');  
+        $this->template->set_css('bootstrap.min.css');
+        $this->template->set_css('sweetalert.min.css'); 
+        $this->template->set_css('toastr.min.css');  
         $this->template->set_css('style.css');            
-        $this->template->set_css('font-awesome.css');
+        $this->template->set_css('font-awesome.min.css');
     }
 
-    protected function _loadjs() {
-        $this->template->set_js('jquery-1.12.1.min.js','header');
-        $this->template->set_js('bootstrap.js','footer');
+    protected function _loadjs() {       
+        $this->template->set_js('bootstrap.min.js','footer');
         $this->template->set_js('sweetalert.min.js','footer');    
-        $this->template->set_js('toastr.js','footer');
+        $this->template->set_js('toastr.min.js','footer');
     }
 
 	public function _load_script() {
         $path = base_url().'js/';
 
         $this->template->set_js($path.'general.js','footer', 'remote');
-        $this->template->set_js($path.'icon.js','footer', 'remote');
-        $this->template->set_js($path.'cart.js','footer', 'remote');
+        $this->template->set_js($path.'icon.min.js','footer', 'remote');
+        $this->template->set_js($path.'cart.min.js','footer', 'remote');
         $this->template->set_js($path.'page-cart.js','footer', 'remote');
     }
 }

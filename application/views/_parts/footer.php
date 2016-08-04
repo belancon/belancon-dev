@@ -45,6 +45,8 @@
           <ul class="secondary-menus">
              <li><a href="https://www.facebook.com/belancondotcom/" target="_blank">
              Facebook</a></li>
+             <li><a href="https://twitter.com/belancondotcom" target="_blank">
+             Twitter</a></li>
            </ul> 
         </div>
         <div class="col-md-4 text-center">

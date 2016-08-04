@@ -32,27 +32,6 @@
 		}
 	?>
 
-	<script type="text/javascript">
-	    BASE_URL = "<?php echo base_url();?>";
-	    var csrfData = {};
-	    	csrfData['<?php echo (string) $this->security->get_csrf_token_name()?>'] = '<?php echo (string) $this->security->get_csrf_hash()?>';
-	    	$.ajaxSetup({
-	    		data: csrfData
-	    	});
-	    csrf_token_name = '<?php echo (string) $this->security->get_csrf_token_name()?>';
-
-	    $.ajaxSetup({
-		  beforeSend: function() {
-		     $('#loader').fadeIn();
-		     $('.overlay-loader').fadeIn();
-		  },
-		  complete: function(){
-		    $('#loader').fadeOut(1000);
-		    $('.overlay-loader').fadeOut(1000);
-		  },
-		  success: function() {}
-		});
-	</script>
 	<script>
 	  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
 	  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
@@ -114,7 +93,29 @@
         }
     ?>
     <!-- end Footer -->
+    <script type="text/javascript" src="<?php echo base_url('assets/public/themes/belancon/js/jquery-1.12.1.min.js');?>"></script>
+    <script type="text/javascript">
+	    BASE_URL = "<?php echo base_url();?>";
+	    var csrfData = {};
+	    	csrfData['<?php echo (string) $this->security->get_csrf_token_name()?>'] = '<?php echo (string) $this->security->get_csrf_hash()?>';
+	    	$.ajaxSetup({
+	    		data: csrfData
+	    	});
+	    csrf_token_name = '<?php echo (string) $this->security->get_csrf_token_name()?>';
 
+	    $.ajaxSetup({
+		  beforeSend: function() {
+		     $('#loader').fadeIn();
+		     $('.overlay-loader').fadeIn();
+		  },
+		  complete: function(){
+		    $('#loader').fadeOut(1000);
+		    $('.overlay-loader').fadeOut(1000);
+		  },
+		  success: function() {}
+		});
+	</script>
+	
 	<?php
         // Custom JS Files
         if(isset($theme['assets']['footer']['js'])) {

@@ -730,7 +730,7 @@ class Icon extends MY_Controller {
 					$name_string = strtolower($cart[$item->icon_id]['name']);
 					$name = str_replace(" ","-",$name_string)."_".$item->filename;
 					//get file
-					$path = $this->_get_folder($item->type)."/".$item->filename;		
+					$path = cloud_path($item->type)."/".$item->filename;		
 					$data = read_file($path);			
 
 					if($data === FALSE) {
@@ -833,7 +833,7 @@ class Icon extends MY_Controller {
                     $name_string = $icon->name;
                     $name = str_replace(" ","-",$name_string)."_".$item->filename;
                     //get file
-                    $path = $this->_get_folder($item->type)."/".$item->filename;      
+                    $path = cloud_path($item->type)."/".$item->filename;      
                     $data = read_file($path);           
 
                     if($data === FALSE) {
@@ -923,31 +923,4 @@ class Icon extends MY_Controller {
 		}
 	}
 
-    /**
-     * Get Folder Uploaded file icon
-     * @param  String $type file type
-     * @return Object       path folder icon
-     */
-	protected function _get_folder($type) {
-		switch ($type) {
-			case 'png':
-				return cloud_path('png');
-				break;
-			case 'psd':
-				return cloud_path('psd');
-				break;
-			case 'ai':
-				return cloud_path('ai');
-				break;
-            case 'cdr':
-                return cloud_path('cdr');
-                break;
-            case 'svg':
-                return cloud_path('svg');
-                break;
-			default:
-				return cloud_path('png');
-				break;
-		}
-	}
 }

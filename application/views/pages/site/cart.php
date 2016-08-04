@@ -66,7 +66,7 @@
         <input type="checkbox" name="format-file-options" class="format-file-options" id="checkbox-cdr" value="cdr"> .CDR
       </label>
       <label class="checkbox-inline">
-        <input type="checkbox" name="format-file-options" class="format-file-options" id="checkbox-svg" value="psd"> .SVG
+        <input type="checkbox" name="format-file-options" class="format-file-options" id="checkbox-svg" value="svg"> .SVG
       </label>
     </div>
   </div>

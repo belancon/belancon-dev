@@ -11,7 +11,7 @@ class Usersocmeds_model extends CI_Model {
 		if(count($data) > 0) {
 			for ($i=0; $i < count($data) ; $i++) { 
 				//get socmed id
-				$socmed = $this->db->select('id,name')->get_where($this->table_socmed, array('name'=> $data[$i]['label']))->row();
+				$socmed = $this->db->get_where($this->table_socmed, array('name'=> $data[$i]['label']))->row();
 				if($socmed) {
 					//get user socmed	
 					$user_socmed = $this->db->get_where($this->table, array('user_id'=>$user_id, 'socmed_id' => $socmed->id))->row(); 

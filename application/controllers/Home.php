@@ -106,7 +106,7 @@ class Home extends CI_Controller
 
             $this->_loadcss();
             $this->_loadjs();
-            $this->_loadpart();
+            $this->_loadpart_icons($data);
             $this->_load_script();
             
             $this->template->set_layout('layouts/custom');
@@ -150,6 +150,15 @@ class Home extends CI_Controller
         $this->template->set_part('loader', '_parts/loader');
         $this->template->set_part('notification', '_parts/notification');
         $this->template->set_part('footer', '_parts/footer');
+    }
+
+    protected function _loadpart_icons($data) {
+        $this->template->set_part('header', '_parts/header_result');  
+        $this->template->set_part('navbar', '_parts/navbar'); 
+        $this->template->set_part('loader', '_parts/loader');
+        $this->template->set_part('notification', '_parts/notification');
+        $this->template->set_part('footer', '_parts/footer');
+        $this->template->set_part('script', '_scripts/detail_icon', $data);
     }
 
     protected function _loadcss() {

@@ -517,7 +517,7 @@ Icon = {
 
     $('#div-action-cart').html('');
     var btnAdd = '<a href="#" class="btn-detail-add-cart" data-id="' + id + '" data-name="' + name + '">';
-    btnAdd += '<div class="col-md-12 btn-cart">Add to Cart</div>';
+    btnAdd += '<div class="col-md-12 btn-cart">Tambahkan ke keranjang</div>';
     btnAdd += '</a>';
 
     $('#div-action-cart').append(btnAdd);
