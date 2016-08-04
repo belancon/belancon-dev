@@ -35,32 +35,17 @@ class Bug extends CI_Controller
             $email = $this->input->post('email');            
             $message = strip_tags($this->input->post('message'));
 
-            $config = array(
-                'protocol'  => 'smtp',
-                'smtp_host' => 'ssl://poseidon.hideserver.net',
-                'smtp_user' => $this->email_belancon,
-                'smtp_pass' => 'belancon123a',
-                'smtp_port' => 465,      
-                'mailtype'  => 'html',        
-                'charset'   => 'iso-8859-1',
-                'starttls'  => true,
+            //insert data to table
+            $data = array(
+                'name' => $fullname,
+                'email' => $email,
+                'message' => $message,
+                'email_sent' => FALSE
             );
 
-            $subject = "Bug on Belancon";
-            
-            $this->load->library('email');
-            $this->email->initialize($config);  
-            $this->email->set_newline("\r\n");
-            $this->email->from($this->email_belancon);                        
-            $this->email->to('belancon.dev@gmail.com');            
-            $this->email->subject($subject);
-            $data = array( 'fullname' => $fullname, 'email' => $email, 'message' => $message);
+            $id = $this->bug_model->insert($data);
 
-            $body = $this->load->view('_templates/feedback_email', $data, TRUE);
-
-            $this->email->message( $body );
-
-            if ($this->email->send()) {
+            if($id) {
                 //send bug to trello card
                 $bug = array(
                     'name' => substr($message, 0, 30).'..',
@@ -74,26 +59,42 @@ bug : '.$message,
 
                 $list_id = $this->id_list_bug;
                 $this->trello_api->insert_card($list_id, $bug);
-                
-                $data = array(
-                    'name' => $fullname,
-                    'email' => $email,
-                    'message' => $message,                    
+
+                //config email
+                $config = array(
+                    'protocol'  => 'smtp',
+                    'smtp_host' => 'ssl://poseidon.hideserver.net',
+                    'smtp_user' => $this->email_belancon,
+                    'smtp_pass' => 'belancon123a',
+                    'smtp_port' => 465,      
+                    'mailtype'  => 'html',        
+                    'charset'   => 'iso-8859-1',
+                    'starttls'  => true,
                 );
 
-                $id = $this->bug_model->insert($data);             
+                $subject = "Bug on Belancon";            
+                $this->load->library('email');
+                $this->email->initialize($config);  
+                $this->email->set_newline("\r\n");
+                $this->email->from($this->email_belancon);                        
+                $this->email->to('belancon.dev@gmail.com');            
+                $this->email->subject($subject);
+                $data = array( 'fullname' => $fullname, 'email' => $email, 'message' => $message);
+                $body = $this->load->view('_templates/feedback_email', $data, TRUE);
+                $this->email->message( $body );
 
-                if($id) {
-                    $this->session->set_flashdata('success_message', 'Terimakasih telah melaporkan bug yang ada di web kami.');
-                } else {
-                    $this->session->set_flashdata('error_message', 'Error System');
+                //send email
+                if ($this->email->send()) {
+                    //if success
+                    $this->bug_model->set_email_sent($id);
                 }
 
+                //set success message & redirect
+                $this->session->set_flashdata('success_message', 'Terimakasih telah melaporkan bug yang ada di web kami.');
                 redirect('/');
             } else {
-                $this->session->set_flashdata('error_message', 'Failed send email');
-                redirect('/');
-                //show_error($this->email->print_debugger(), true);
+                $this->session->set_flashdata('error_message', 'Maaf, ada kesalahan sistem. gagal mengirimkan pesan');
+                redirect('/', 'refresh');
             }
         }
     }

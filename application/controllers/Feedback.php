@@ -35,33 +35,19 @@ class Feedback extends CI_Controller
             $fullname = $this->input->post('fullname');
             $email = $this->input->post('email');            
             $message = strip_tags($this->input->post('message'));
+
+            //insert data to table
+            $data = array(
+                'name' => $fullname,
+                'email' => $email,
+                'message' => $message,
+                'email_sent' => FALSE
+            );
+
+            $id = $this->feedback_model->insert($data);
                         
-            $config = array(
-                'protocol'  => 'smtp',
-                'smtp_host' => 'ssl://poseidon.hideserver.net',
-                'smtp_user' => $this->email_belancon,
-                'smtp_pass' => 'belancon123a',
-                'smtp_port' => 465,      
-                'mailtype'  => 'html',        
-                'charset'   => 'iso-8859-1',
-                'starttls'  => true,               
-            );         
 
-            $subject = "Feedback on Belancon";
-            
-            $this->load->library('email');
-            $this->email->initialize($config);  
-            $this->email->set_newline("\r\n"); 
-            $this->email->from($this->email_belancon);                        
-            $this->email->to('belancon.dev@gmail.com');            
-            $this->email->subject($subject);
-            $data = array( 'fullname' => $fullname, 'email' => $email, 'message' => $message);
-
-            $body = $this->load->view('_templates/feedback_email', $data, TRUE);
-
-            $this->email->message( $body );
-
-            if ($this->email->send()) {
+            if($id) {
                 //send feedback to trello card
                 $feedback = array(
                     'name' => substr($message, 0, 30).'..',
@@ -75,26 +61,43 @@ feedback : '.$message,
 
                 $list_id = $this->id_list_feedback;
                 $this->trello_api->insert_card($list_id, $feedback);
-                
-                $data = array(
-                    'name' => $fullname,
-                    'email' => $email,
-                    'message' => $message,                    
-                );
 
-                $id = $this->feedback_model->insert($data);             
+                //config email
+                $config = array(
+                    'protocol'  => 'smtp',
+                    'smtp_host' => 'ssl://poseidon.hideserver.net',
+                    'smtp_user' => $this->email_belancon,
+                    'smtp_pass' => 'belancon123a',
+                    'smtp_port' => 465,      
+                    'mailtype'  => 'html',        
+                    'charset'   => 'iso-8859-1',
+                    'starttls'  => true,               
+                );         
 
-                if($id) {
-                    $this->session->set_flashdata('success_message', 'Terima kasih feedback anda berhasil terkirim.');
-                } else {
-                    $this->session->set_flashdata('error_message', 'Error System');
+                $subject = "Feedback on Belancon";                
+                $this->load->library('email');
+                $this->email->initialize($config);  
+                $this->email->set_newline("\r\n"); 
+                $this->email->from($this->email_belancon);                        
+                $this->email->to('belancon.dev@gmail.com');            
+                $this->email->subject($subject);
+                $data = array( 'fullname' => $fullname, 'email' => $email, 'message' => $message);
+
+                $body = $this->load->view('_templates/feedback_email', $data, TRUE);
+                $this->email->message( $body );
+
+                //send email
+                if ($this->email->send()) {
+                    //if success
+                    $this->feedback_model->set_email_sent($id);
                 }
 
-                redirect('/');
+                //redirect
+                $this->session->set_flashdata('success_message', 'Terima kasih feedback anda berhasil terkirim.');
+                redirect('/', 'refresh');
             } else {
-                $this->session->set_flashdata('error_message', 'Failed send email');
+                $this->session->set_flashdata('error_message', 'Maaf, ada kesalahan sistem. gagal mengirim pesan');
                 redirect('/');
-                //show_error($this->email->print_debugger(), true);
             }
         }
     }

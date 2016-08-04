@@ -5,7 +5,7 @@ class Contributor extends CI_Controller {
 
     protected $email_belancon = "hello@belancon.com";
 
-	function __construct()
+    function __construct()
     {
         parent::__construct();
         $this->load->library(array('template','form_validation'));
@@ -15,7 +15,7 @@ class Contributor extends CI_Controller {
         $this->load->library('user_belancon');
     }
 
-    public function join() {    	
+    public function join() {        
         $this->form_validation->set_rules('fullname', 'Nama Lengkap', 'required');
         $this->form_validation->set_rules('email', 'Email', 'trim|required|valid_email');
         $this->form_validation->set_rules('skill', 'Keahlian', 'required');
@@ -35,8 +35,29 @@ class Contributor extends CI_Controller {
             $skill = $this->input->post('skill');
             $message = strip_tags($this->input->post('message'));
 
-            $this->_send_email($fullname, $email, $skill, $message);
-            //$this->_load_view('contributor_join_view');
+            $data = array(
+                'fullname' => $fullname,
+                'email' => $email,
+                'skill' => $skill,
+                'message' => $message, 
+                'email_sent' => FALSE
+            );
+
+            $id = $this->contributor_model->insert($data);
+
+            if($id) {
+                $result = $this->_send_email($fullname, $email, $skill, $message);
+
+                if($result) {
+                    $this->contributor_model->set_email_sent($id);
+                }
+
+                $this->session->set_flashdata('success_message', 'Terima kasih telah mengirimkan permintaan gabung sebagai kontributor');
+            } else {
+                $this->session->set_flashdata('error_message', 'Maaf, ada kesalahan sistem. gagal mengirimkan pesan');
+                redirect('/', 'refresh');
+            }
+            
         }
     }
 
@@ -68,27 +89,9 @@ class Contributor extends CI_Controller {
             $this->email->message( $body );
 
             if ($this->email->send()) {
-                
-                $data = array(
-                    'fullname' => $fullname,
-                    'email' => $email,
-                    'skill' => $skill,
-                    'message' => $message,                    
-                );
-
-                $id = $this->contributor_model->insert($data);             
-
-                if($id) {
-                    $this->session->set_flashdata('success_message', 'Terima kasih telah mengirimkan permintaan gabung sebagai kontributor');
-                } else {
-                    $this->session->set_flashdata('error_message', 'Error System');
-                }
-
-                redirect('/');
+                return TRUE;
             } else {
-                $this->session->set_flashdata('error_message', 'Failed send email');
-                redirect('/');
-                //show_error($this->email->print_debugger(), true);
+                return FALSE;
             }
     }
 
