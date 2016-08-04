@@ -12,7 +12,7 @@
             
           </div>
           <!-- end Notif Error -->
-          <?php echo form_open("user/do_login", array('id'=> 'form-login'));?>
+
             <div class="form-group">
               <label for="username">Username</label>
               <input type="text" class="form-control" value="" name="identity" placeholder="Username">
@@ -21,13 +21,11 @@
               <label for="password">Password</label>
               <input type="password" class="form-control" name="password" placeholder="Password">
             </div>
-            <div class="form-group" style="margin-left: 20px;">
-              <label class="checkbox">
-                <input type="checkbox" value="" data-toggle="checkbox" id="remember" value="1" name="remember"> Remember me
-              </label>
+            <div class="form-group">
+              <label for="email">Email</label>
+              <input type="text" class="form-control" value="" name="identity" placeholder="Email">
             </div>
-            <button type="submit" class="btn btn-success">Masuk</button>
-            <?php echo form_close();?>
+            <button type="submit" class="btn btn-success">Daftar</button>
         </div>
        
         <hr>
@@ -38,9 +36,9 @@
         </div>
 
         <hr>
-
+        
         <p class="text-center">
-          Belum punya Akun? <a href="<?php echo site_url('register');?>">Daftar Gratis</a>
+          Sudah punya Akun? <a href="<?php echo site_url('login');?>">Masuk</a>
         </p>
         
       </div>

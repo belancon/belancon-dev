@@ -12,7 +12,7 @@
             
           </div>
           <!-- end Notif Error -->
-
+          <?php echo form_open("user/do_login", array('id'=> 'form-login'));?>
             <div class="form-group">
               <label for="username">Username</label>
               <input type="text" class="form-control" value="" name="identity" placeholder="Username">
@@ -27,6 +27,7 @@
               </label>
             </div>
             <button type="submit" class="btn btn-success">Masuk</button>
+            <?php echo form_close();?>
         </div>
        
         <hr>
@@ -39,7 +40,7 @@
         <hr>
 
         <p class="text-center">
-          Belum punya Akun? <a href="<?php echo site_url('site/user_daftar');?>">Daftar Gratis</a>
+          Belum punya Akun? <a href="<?php echo site_url('register');?>">Daftar Gratis</a>
         </p>
         
       </div>
