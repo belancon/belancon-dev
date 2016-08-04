@@ -13,6 +13,7 @@ class Contributor extends CI_Controller {
         $this->template->set_platform('public');
         $this->template->set_theme('belancon');  
         $this->load->library('user_belancon');
+        $this->load->model('contributor_model');
     }
 
     public function join() {        
@@ -73,9 +74,7 @@ class Contributor extends CI_Controller {
             'starttls'  => true,
         );
 
-            $subject = "Request Join as Contributor";
-            
-            $this->load->model('contributor_model');
+            $subject = "Request Join as Contributor";            
             $this->load->library('email');
             $this->email->initialize($config);  
             $this->email->set_newline("\r\n"); 
