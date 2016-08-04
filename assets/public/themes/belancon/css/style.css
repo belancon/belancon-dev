@@ -1,5 +1,34 @@
 @import url(https://fonts.googleapis.com/css?family=PT+Mono|Open+Sans);
 @import url(https://fonts.googleapis.com/css?family=Roboto);
+@import url(https://fonts.googleapis.com/css?family=PT+Mono|Open+Sans);
+@import url(https://fonts.googleapis.com/css?family=Roboto);
+@media screen and (max-width: 425px) {
+  #search-icon {
+    width: 350px !important; }
+
+  #submit-search-icon {
+    margin-left: -10px !important; }
+
+  .form-search-icon h1 {
+    font-size: 26px !important; }
+
+  .download-icon,
+  .view-icon {
+    left: 45px !important; }
+
+  .belancon-logo {
+    margin-left: 10px !important; }
+
+  #about {
+    padding-bottom: 30px !important; }
+
+  #img-home-about {
+    margin-bottom: -70px !important; }
+
+  .navbar-default .navbar-toggle {
+    border: white !important 1px solid; }
+    .navbar-default .navbar-toggle .icon-bar {
+      background: white !important; } }
 .blue-color {
   color: #3498db; }
 
