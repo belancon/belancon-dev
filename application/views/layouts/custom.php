@@ -62,7 +62,7 @@
 	  <!-- Breadcumb -->
 	  <div class="container" style="margin-top: 30px;">
 	    <div class="row">
-	      <div class="col-md-4">
+	      <div class="col-md-3">
 	      	<?php if(isset($props['breadcrumb'])): ?>
 	        <ol class="breadcrumb">
 	          <?php	          	       	          

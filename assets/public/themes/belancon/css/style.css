@@ -4,7 +4,7 @@
   color: #3498db; }
 
 .green-color {
-  color: #66ae53; }
+  color: #66ae53 !important; }
 
 .black-color {
   color: #3d3938; }
@@ -119,7 +119,6 @@ a {
   background-image: url("../img/bg_header.png");
   padding-bottom: 80px; }
   #header .navbar-default {
-    height: 40px;
     background: #3d3938;
     border: 0;
     border-radius: 0; }

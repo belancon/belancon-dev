@@ -2,27 +2,57 @@
 
 class Site extends CI_Controller 
 {
-	function __construct() {
-        	parent::__construct();
-        	$this->load->library(array('template')); //load library template
-                $this->template->set_platform('public');
-                $this->template->set_theme('belancon');                
-	}
+    	function __construct() {
+            	parent::__construct();
+            	$this->load->library(array('template')); //load library template
+                    $this->template->set_platform('public');
+                    $this->template->set_theme('belancon');                
+    	}
 
-	public function how_to_download() {
-        	//untuk menset title page
-        	$this->template->set_title('Belancon | Belanja Icon untuk Kebutuhan Desainmu');
-        	//set meta tag
+    	public function how_to_download() {
+            	//untuk menset title page
+            	$this->template->set_title('Belancon | Belanja Icon untuk Kebutuhan Desainmu');
+            	//set meta tag
+                    $this->template->set_meta('author','Belancon Team');
+                    $this->template->set_meta('keyword','Download free Icons, Download Icon Gratis, Flat Icon Gratis');
+                    $this->template->set_meta('description','Download gratis Icon untuk kebutuhan design website, design flyer, design print-out');
+                    $breadcrumb = array(
+                        array(
+                            'name' => 'Home',
+                            'path' => site_url()
+                        ),
+                        array(
+                            'name' => 'Cara Download Icon',
+                            'path' => null
+                        )
+                    );
+                    $this->template->set_props('breadcrumb', $breadcrumb);
+                   
+                    $this->_loadcss();
+                    $this->_loadjs();
+                    $this->_loadpart();
+                    $this->_loadscript();
+                    //set layout
+                    $this->template->set_layout('layouts/custom');
+                    $this->template->set_content('pages/static/how_to_download'); // nama file page nya, tanpa extension php
+                    $this->template->render(); // terakhir render
+    	}
+
+        public function user_masuk() {
+                //untuk menset title page
+                $this->template->set_title('Belancon | Belanja Icon untuk Kebutuhan Desainmu');
+                //set meta tag
                 $this->template->set_meta('author','Belancon Team');
                 $this->template->set_meta('keyword','Download free Icons, Download Icon Gratis, Flat Icon Gratis');
                 $this->template->set_meta('description','Download gratis Icon untuk kebutuhan design website, design flyer, design print-out');
+                
                 $breadcrumb = array(
                     array(
                         'name' => 'Home',
                         'path' => site_url()
                     ),
                     array(
-                        'name' => 'Cara Download Icon',
+                        'name' => 'Masuk Akun',
                         'path' => null
                     )
                 );
@@ -34,9 +64,39 @@ class Site extends CI_Controller
                 $this->_loadscript();
                 //set layout
                 $this->template->set_layout('layouts/custom');
-                $this->template->set_content('pages/static/how_to_download'); // nama file page nya, tanpa extension php
+                $this->template->set_content('pages/static/user_masuk'); // nama file page nya, tanpa extension php
                 $this->template->render(); // terakhir render
-	}
+        }
+
+        public function user_daftar() {
+                //untuk menset title page
+                $this->template->set_title('Belancon | Belanja Icon untuk Kebutuhan Desainmu');
+                //set meta tag
+                $this->template->set_meta('author','Belancon Team');
+                $this->template->set_meta('keyword','Download free Icons, Download Icon Gratis, Flat Icon Gratis');
+                $this->template->set_meta('description','Download gratis Icon untuk kebutuhan design website, design flyer, design print-out');
+                
+                $breadcrumb = array(
+                    array(
+                        'name' => 'Home',
+                        'path' => site_url()
+                    ),
+                    array(
+                        'name' => 'Daftar Akun',
+                        'path' => null
+                    )
+                );
+                $this->template->set_props('breadcrumb', $breadcrumb);
+               
+                $this->_loadcss();
+                $this->_loadjs();
+                $this->_loadpart();
+                $this->_loadscript();
+                //set layout
+                $this->template->set_layout('layouts/custom');
+                $this->template->set_content('pages/static/user_daftar'); // nama file page nya, tanpa extension php
+                $this->template->render(); // terakhir render
+        }
 
         public function page_404() {
                 //untuk menset title page

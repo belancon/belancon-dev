@@ -7,7 +7,7 @@
 	color: $blue-primary;
 }
 .green-color {
-	color: $green-primary;
+	color: $green-primary !important;
 }
 .black-color {
 	color: $black-primary;
@@ -158,7 +158,7 @@ a {
 	background-image: url('../img/bg_header.png');
 	padding-bottom: 80px;
 	.navbar-default {
-		height: 40px;
+		// height: 40px;
 		.navbar-header {
 			.belancon-logo {
 				margin-top: 8px;
