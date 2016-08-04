@@ -37,7 +37,7 @@
               </li>    
               <?php else: ?>
               <li><a href="<?php echo site_url('site/user_daftar');?>" class="btn-yellow-primary no-shadow">Register</a></li>
-              <li><a href="<?php echo site_url('site/user_masuk');?>" class="btn white-color">Masuk</a></li>   
+              <li><a href="<?php echo site_url('site/user_masuk');?>" class="btn white-color" style="text-align: left !important;">Masuk</a></li>   
               <?php endif; ?>
               <li class="dropdown">
                 <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">

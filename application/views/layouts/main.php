@@ -90,7 +90,7 @@
 	  <div class="container">
 	    <div class="row">
 	      <div class="col-md-6">
-	        <img src="<?php echo base_url('assets/public/themes/belancon');?>/img/about.png" class="img-responsive" alt="">
+	        <img id="img-home-about" src="<?php echo base_url('assets/public/themes/belancon');?>/img/about.png" class="img-responsive" alt="">
 	      </div>
 	      <div class="col-md-6">
 	        <h2 class="green-color" style="margin-top: 110px; margin-bottom: 30px;">

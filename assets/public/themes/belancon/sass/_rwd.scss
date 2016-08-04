@@ -1,0 +1,38 @@
+// IMPORT SASS PARTIAL
+@import 'color';
+@import 'font';
+
+@media screen and (max-width: 425px) {
+    #search-icon {
+    	width: 350px !important;
+    }
+    #submit-search-icon {
+    	margin-left: -10px !important;
+    }
+    .form-search-icon {
+    	h1 {
+    		font-size: 26px !important;
+    	}
+    }
+    .download-icon,
+    .view-icon {
+    	left: 45px !important;
+    }
+    .belancon-logo {
+    	margin-left: 10px !important;
+    }
+    #about {
+    	padding-bottom: 30px !important;
+    }
+    #img-home-about {
+    	margin-bottom: -70px !important;
+    }
+    .navbar-default {
+    	.navbar-toggle {
+    		border: white !important 1px solid;
+    		.icon-bar {
+    			background: white !important;
+    		}
+    	}
+    }
+}
