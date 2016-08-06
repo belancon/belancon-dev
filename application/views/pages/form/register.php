@@ -13,19 +13,25 @@
           </div>
           <!-- end Notif Error -->
 
+            <?php echo form_open('user/do_register', array('id'=> 'form-register')); ?>
             <div class="form-group">
               <label for="username">Username</label>
               <input type="text" class="form-control" value="" name="identity" placeholder="Username">
             </div>
             <div class="form-group">
-              <label for="password">Password</label>
-              <input type="password" class="form-control" name="password" placeholder="Password">
+              <label for="email">Email</label>
+              <input type="email" class="form-control" value="" name="email" placeholder="Email">
             </div>
             <div class="form-group">
-              <label for="email">Email</label>
-              <input type="text" class="form-control" value="" name="identity" placeholder="Email">
-            </div>
-            <button type="submit" class="btn btn-success">Daftar</button>
+              <label for="password">Password</label>
+              <input type="password" class="form-control" name="password" placeholder="Password">
+            </div> 
+            <div class="form-group">
+              <label for="password">Konfirm Password</label>
+              <input type="password" class="form-control" name="password_confirm" placeholder="Konfirm Password">
+            </div>            
+            <button type="submit" class="btn btn-success btn-form" data-loading-text="<i class='fa fa-circle-o-notch fa-spin'></i> Loading...">Daftar</button>
+            <?php echo form_close(); ?>
         </div>
        
         <hr>

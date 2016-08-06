@@ -1,6 +1,6 @@
 <script type="text/javascript">
 $(document).ready(function(){
-    $("#form-login").submit(function(event){
+    $("#form-register").submit(function(event){
         event.preventDefault();    
         //hide notif error
         hideNotifError();

@@ -19,15 +19,6 @@ class User extends CI_Controller {
         if($this->ion_auth->logged_in()) {
             redirect('/');
         } else {
-            // $this->template->set_title('Belancon | Login');
-            // $this->_loadcss();
-            // $this->_loadjs();        
-            // //set layout
-            // $this->template->set_layout('layouts/basic');
-            // //set content/page
-            // $this->template->set_content('pages/form/login');
-            // $this->template->render();
-
             //untuk menset title page
             $this->template->set_title('Belancon | Masuk');
             //set meta tag
@@ -86,7 +77,8 @@ class User extends CI_Controller {
 
             $this->_loadcss();
             $this->_loadjs();
-            $this->_loadpart();            
+            $this->_loadpart();     
+            $this->template->set_part('script', '_scripts/register.php');       
             $this->_loadscript();
             //set layout
             $this->template->set_layout('layouts/custom');
@@ -126,6 +118,45 @@ class User extends CI_Controller {
             
             echo json_encode(array('status' => false, 'message' => $message));
         }
+    }
+
+    public function do_register() {
+        $tables = $this->config->item('tables','ion_auth');
+        $identity_column = $this->config->item('identity','ion_auth');     
+
+        /** validate form input **/
+        if($identity_column!=='email') {
+            $this->form_validation->set_rules('identity', 'Username','required|is_unique['.$tables['users'].'.'.$identity_column.']');
+            $this->form_validation->set_rules('email', 'Email', 'required|valid_email');
+        } else {
+            $this->form_validation->set_rules('email', 'Email', 'required|valid_email|is_unique[' . $tables['users'] . '.email]');
+        }
+
+        $this->form_validation->set_rules('password', 'Password', 'required|min_length[' . $this->config->item('min_password_length', 'ion_auth') . ']|max_length[' . $this->config->item('max_password_length', 'ion_auth') . ']|matches[password_confirm]');
+        $this->form_validation->set_rules('password_confirm', 'Konfirmasi Password', 'required');
+        /** eof validate form input **/
+        //set message
+        $this->form_validation->set_message('required', '{field} harus diisi');
+
+        if ($this->form_validation->run() === true) {
+            $email    = strtolower($this->input->post('email'));
+            $identity = ($identity_column==='email') ? $email : $this->input->post('identity');
+            $password = $this->input->post('password');
+            $grup = array('2');
+
+            $result = $this->ion_auth->register($identity, $password, $email, array(), $grup);
+
+            if($result) {
+                $this->session->set_flashdata('success_message', $this->ion_auth->messages());
+                echo json_encode(array('status' => true));                
+            } else {
+                echo json_encode(array('status' => false, 'message' => $this->ion_auth->errors()));
+            }
+        } else {
+            $message = validation_errors();            
+            echo json_encode(array('status' => false, 'message' => $message));
+        }
+
     }
 
     // log the user out
