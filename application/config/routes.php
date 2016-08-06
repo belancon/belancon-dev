@@ -64,6 +64,7 @@ $route['member/change-password'] = "member/change_password";
 $route['member/setting-link-account'] = "member/setting_link_account";
 $route['member/add-icon'] = "member/add_icon";
 $route['member/update-icon/(:num)'] = "member/update_icon/$1";
+$route['auth/activate/(:num)/(:any)'] = "user/activate/$1/$2";
 $route['author/(:any)'] = "author/index/$1";
 $route['404_override'] = '';
 $route['translate_uri_dashes'] = FALSE;
