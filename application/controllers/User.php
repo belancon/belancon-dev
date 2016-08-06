@@ -185,6 +185,11 @@ class User extends CI_Controller {
         }
     }
 
+    function loginfacebook()
+    {
+          $this->facebook_ion_auth->login();
+    }
+
     // log the user out
     public function logout()
     {

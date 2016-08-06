@@ -37,7 +37,8 @@
         <hr>
 
         <div class="text-center">
-          <a href="#" class="btn-green-primary btn" style="background: #3b5999;"><i class="fa fa-facebook"></i> Masuk via Facebook</a>
+          <a href="<?php echo site_url('user/loginfacebook');?>" class="btn-green-primary btn" style="background: #3b5999;" onclick="MyWindow=window.open(this.href,
+            'MyWindow','width=600,height=300'); return false;"><i class="fa fa-facebook"></i> Masuk via Facebook</a>
           <a href="#" class="btn-green-primary btn" style="background: #dc4e41;"><i class="fa fa-google-plus"></i> Masuk via Google+</a>
         </div>
 
