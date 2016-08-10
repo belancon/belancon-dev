@@ -13,8 +13,20 @@ class Home extends CI_Controller
         $this->template->set_theme('belancon');        
     }
 
-    public function index()
+    public function index($type=null)
     {       
+    	if (isset($_GET['code']))
+	 {
+	     $this->facebook_ion_auth->login();
+	     /**
+	     $this->facebook_ion_auth->login();
+	     if (!$this->ion_auth->logged_in() || !$this->ion_auth->is_admin())
+	     {
+	          $this->facebook_ion_auth->login();
+	     }
+	
+	     header('Location:/'); **/
+	 }
 
         $this->template->set_title('Belancon | Belanja Icon untuk Kebutuhan Desainmu');
         $this->template->set_meta('author','Belancon Team');

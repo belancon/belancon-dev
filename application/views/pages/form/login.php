@@ -33,8 +33,8 @@
         <hr>
 
         <div class="text-center">
-          <a href="#" class="btn-green-primary btn" style="background: #3b5999;"><i class="fa fa-facebook"></i> Masuk via Facebook</a>
-          <a href="#" class="btn-green-primary btn" style="background: #dc4e41;"><i class="fa fa-google-plus"></i> Masuk via Google+</a>
+          <a href="<?php echo $this->facebook->login_url(); ?>" class="btn-green-primary btn" style="background: #3b5999;"><i class="fa fa-facebook"></i> Masuk via Facebook</a>
+          <a href="<?php echo $this->google->login_url(); ?>" class="btn-green-primary btn" style="background: #dc4e41;"><i class="fa fa-google-plus"></i> Masuk via Google+</a>
         </div>
 
         <hr>

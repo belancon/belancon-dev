@@ -104,7 +104,9 @@ class User extends CI_Controller {
                 //if the login is successful
                 //redirect them back to the home page
                 $this->session->set_flashdata('success_message', $this->ion_auth->messages());
-                echo json_encode(array('status' => true));
+                $url_redirect = user_login('first_name') != '' ? site_url('') : site_url('member/change-profile');
+                
+                echo json_encode(array('status' => true, 'url'=>$url_redirect));
             }
             else
             {
@@ -127,7 +129,7 @@ class User extends CI_Controller {
         /** validate form input **/
         if($identity_column!=='email') {
             $this->form_validation->set_rules('identity', 'Username','required|is_unique['.$tables['users'].'.'.$identity_column.']');
-            $this->form_validation->set_rules('email', 'Email', 'required|valid_email');
+            $this->form_validation->set_rules('email', 'Email', 'required|valid_email|is_unique['.$tables['users'].'.email]');
         } else {
             $this->form_validation->set_rules('email', 'Email', 'required|valid_email|is_unique[' . $tables['users'] . '.email]');
         }
@@ -137,6 +139,7 @@ class User extends CI_Controller {
         /** eof validate form input **/
         //set message
         $this->form_validation->set_message('required', '{field} harus diisi');
+        $this->form_validation->set_message('is_unique', '{field} sudah terpakai. silahkan pakai {field} yang lain');
 
         if ($this->form_validation->run() === true) {
             $email    = strtolower($this->input->post('email'));
@@ -174,8 +177,8 @@ class User extends CI_Controller {
         if ($activation)
         {
             // redirect them to the auth page
-            $this->session->set_flashdata('success_message', $this->ion_auth->messages());
-            redirect("/", 'refresh');
+            $this->session->set_flashdata('success_message', $this->ion_auth->messages()." Silahkan login");
+            redirect("/login", 'refresh');
         }
         else
         {
@@ -187,8 +190,145 @@ class User extends CI_Controller {
 
     function loginfacebook()
     {
-          $this->facebook_ion_auth->login();
+    	$this->load->model('ion_auth_model');
+	$this->config->load('ion_auth', TRUE);
+	$this->config->set_item('email_activation', FALSE);
+        
+        $user_data = array();
+
+		// Check if user is logged in
+		if ($this->facebook->is_authenticated())
+		{
+			// User logged in, get user details
+			$user = $this->facebook->request('get', '/me?fields=id,name,email');
+			if (!isset($user['error']))
+			{
+				$user_data = $user;
+			}
+			
+		    // check if this user is already registered
+            if(!$this->ion_auth->identity_check($user_data['id'])) {
+                $join_date = date("Y-m-d");
+                $username = $user_data['id'];
+                $email = $user_data['email'];
+                $name = explode(" ", $user_data['name']);
+                $grup = array('2');
+                $random_number = mt_rand();
+                $url = strtolower($name[0])."_".$random_number;
+
+                $additional_data = array('first_name' => $name[0], 'last_name' => $name[1], 'url'=> $url, 'join_date' => $join_date);
+
+                $register = $this->ion_auth_model->register($username, 'facebookdoesnothavepass123^&*%', $email, $additional_data, $grup );
+
+                if($register) {
+                    
+                        $login = $this->ion_auth->login($user_data['id'], 'facebookdoesnothavepass123^&*%', 1);
+
+	                if($login) {
+	                    $this->session->set_flashdata('success_message', $this->ion_auth->messages());
+	                    redirect('/','refresh');
+	                } else {
+	                    $this->session->set_flashdata('error_message', $this->ion_auth->errors());
+	                    redirect('login','refresh');
+	                }
+                                
+                } else {
+                    $this->session->set_flashdata('error_message', $this->ion_auth->errors());
+                    redirect('/','refresh');
+                }
+
+            } else {
+                $login = $this->ion_auth->login($user_data['id'], 'facebookdoesnothavepass123^&*%', 1);
+
+                if($login) {
+                    $this->session->set_flashdata('success_message', $this->ion_auth->messages());
+                    redirect('/','refresh');
+                } else {
+                    $this->session->set_flashdata('error_message', $this->ion_auth->errors());
+                    redirect('login','refresh');
+                }
+            }
+
+		} else {
+		   redirect('login','refresh');
+		}
     }
+    
+    public function logingoogle() {
+		$this->load->config('google');
+	 	$redirect_uri = $this->config->item('google_redirect_url');
+	 	$client = $this->google->getClient();
+	    // Send Client Request
+		$objOAuthService = new Google_Service_Oauth2($client);
+		
+		// Add Access Token to Session
+		if (isset($_GET['code'])) {
+			$client->authenticate($_GET['code']);
+			$_SESSION['access_token'] = $client->getAccessToken();
+			header('Location: ' . filter_var($redirect_uri, FILTER_SANITIZE_URL));
+		}
+		
+		// Set Access Token to make Request
+		if (isset($_SESSION['access_token']) && $_SESSION['access_token']) {
+			$client->setAccessToken($_SESSION['access_token']);
+		}
+		
+		// Get User Data from Google and store them in $data
+		if ($client->getAccessToken()) {
+			$userData = $objOAuthService->userinfo->get();
+			
+		    $this->load->model('ion_auth_model');
+	            if(!$this->ion_auth->identity_check($userData->id)) {
+	                $join_date = date("Y-m-d");
+	                $username = $userData->id;
+	                $email = $userData->email;
+	                $email_arr = explode("@", $email);
+	
+	                //get firstname & lastname
+	                $first_name = $userData->given_name != '' ? $userData->given_name : $email_arr[0];
+	                $last_name = $userData->family_name != '' ? $userData->family_name : '';
+	                //set grup
+	                $grup = array('2');
+	                //get slug/url
+	                $random_number = mt_rand();
+	                $url = strtolower($first_name)."_".$random_number;
+	
+	                $additional_data = array('first_name' => $first_name, 'last_name' => $last_name, 'url'=> $url, 'join_date' => $join_date);
+	
+	                $register = $this->ion_auth_model->register($username, 'googledoesnothavepass123^&*%', $email, $additional_data, $grup );
+	
+	                if($register) {                    
+	                    $login = $this->ion_auth->login($userData->id, 'googledoesnothavepass123^&*%', 1);
+	
+		                if($login) {
+		                    $this->session->set_flashdata('success_message', $this->ion_auth->messages());
+		                    redirect('/','refresh');
+		                } else {
+		                    $this->session->set_flashdata('error_message', $this->ion_auth->errors());
+		                    redirect('login','refresh');
+		                }
+	                                
+	                } else {
+	                    $this->session->set_flashdata('error_message', $this->ion_auth->errors());
+	                    redirect('/','refresh');
+	                }
+	
+	            } else {
+	                $login = $this->ion_auth->login($userData->id, 'googledoesnothavepass123^&*%', 1);
+	
+	                if($login) {
+	                    $this->session->set_flashdata('success_message', $this->ion_auth->messages());
+	                    redirect('/','refresh');
+	                } else {
+	                    $this->session->set_flashdata('error_message', $this->ion_auth->errors());
+	                    redirect('login','refresh');
+	                }
+	            }
+		} else {
+			redirect('/login','refresh');
+		}
+		
+	}
 
     // log the user out
     public function logout()

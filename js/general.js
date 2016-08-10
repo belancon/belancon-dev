@@ -29,7 +29,7 @@ Belancon = {
 		var path = window.location.pathname;
     	var test = path.split("/");
 
-    	if(test[2] === "icons") {
+    	if(test[1] === "icons") {
     		callback(true);
     	} else {
     		callback(false);

@@ -26,7 +26,7 @@
               <li class="dropdown">
                   <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">
                     <?php $picture = user_login('profile_picture') == null ? 'belancon-user.jpg' : user_login('profile_picture'); ?>
-                    <img src="<?php echo cloud('member/'.$picture);?>" alt="" class="author-pic" /> <span class="white-color"><?php echo user_login('username');?></span>
+                    <img src="<?php echo cloud('member/'.$picture);?>" alt="" class="author-pic" /> <span class="white-color"><?php echo user_login('first_name');?></span>
                   </a>
                   <ul class="dropdown-menu scrollable-menu">
                       <li><a href="<?php echo site_url('member/icon');?>">Iconku</a></li> 
@@ -36,8 +36,8 @@
                   </ul>
               </li>    
               <?php else: ?>
-              <li><a href="<?php echo site_url('register');?>" class="btn-yellow-primary no-shadow">Daftar</a></li>
-              <li><a href="<?php echo site_url('login');?>" class="btn white-color" style="text-align: left !important;">Masuk</a></li>   
+              <li><a href="<?php echo site_url('register');?>" class="<?php echo menu_active('register') == TRUE ? 'btn-yellow-primary no-shadow' : 'btn white-color';?>">Daftar</a></li>
+              <li><a href="<?php echo site_url('login');?>" class="<?php echo menu_active('login') == TRUE ? 'btn-yellow-primary no-shadow' : 'btn white-color';?>" style="text-align: left !important;">Masuk</a></li>   
               <?php endif; ?>
               <li class="dropdown">
                 <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">

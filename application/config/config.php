@@ -139,7 +139,8 @@ $config['cloud_path'] = ((ENVIRONMENT != 'production') ? 'http://localhost/cloud
 | Path upload cloud
 |--------------------------------------------------------------------------
 */
-$config['upload_path'] = (ENVIRONMENT == 'production') ? './cloud/' : '../cloud-belancon/';
+$config['upload_path'] = (ENVIRONMENT == 'production') ? '../cloud/' : 
+'../cloud-belancon/';
 
 /*
 /*
@@ -162,7 +163,7 @@ $config['upload_path'] = (ENVIRONMENT == 'production') ? './cloud/' : '../cloud-
 | Note: This will NOT disable or override the CodeIgniter-specific
 |	autoloading (application/config/autoload.php)
 */
-$config['composer_autoload'] = FALSE;
+$config['composer_autoload'] = TRUE;
 
 /*
 |--------------------------------------------------------------------------

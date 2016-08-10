@@ -14,7 +14,7 @@ $(document).ready(function(){
           async: false,
           success: function (data) {
               if(data.status === true) {
-                location.reload();
+                window.location = data.url;
               } else {
                 showNotifError(data.message);
                 //console.log(data);
