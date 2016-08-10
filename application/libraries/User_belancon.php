@@ -35,10 +35,11 @@ class User_belancon {
 		$ipaddress = $this->get_client_ip();
 
 		if($ipaddress !== 'UNKNOWN') {			
-			$token = $this->_encrypt_decrypt('encrypt', $ipaddress);
+			$random_num = mt_rand();
+			$token = $this->_encrypt_decrypt('encrypt', $ipaddress.$random_num);
 
 			//set session
-			$this->ci->session->set_userdata('token', $token);
+			//$this->ci->session->set_userdata('token', $token);
 
 			return array('ipaddress' => $ipaddress, 'token' => $token);
 		} else {

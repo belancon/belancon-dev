@@ -4,8 +4,7 @@ User = {
    */
   setToken: function() {
     this.checkTokenIsExist(function(result) {
-      if(result === false) {      
-        Cart.setDefaultCart();
+      if(result === false) {        
         //Ajax method
         $.ajax({
            type: "post",
@@ -14,7 +13,7 @@ User = {
            data: {},
            success: function(response){        
               response = JSON.parse(response);
-              sessionStorage.setItem('userNotRegistered', response.token);          
+              sessionStorage.setItem('userIdTemp', response.token);          
            },
            error: function(){      
             alert('Error while request..');
@@ -29,7 +28,7 @@ User = {
    * @return {[type]}            [description]
    */
   checkTokenIsExist: function(callback) {
-    if(sessionStorage.getItem('userNotRegistered')) {
+    if(sessionStorage.getItem('userIdTemp')) {
       callback(true);
     } else {      
       callback(false);

@@ -13,6 +13,8 @@ Icon = {
   getAll: function(page, by, search) {
     var self = this;
     var search = search ? search : "";
+
+    this.hideAlertReload();
     
     //Ajax method
     $.ajax({
@@ -44,10 +46,30 @@ Icon = {
         //set button loadmore
         self.setLoadMore(response.more, response.page);        
      },
-     error: function(){      
-      alert('Error while request..');
+     error: function(){     
+       var alert = '<div class="alert alert-warning alert-reload" role="alert"> <strong>Error While Request!</strong> <span id="alert-reload-counter">Automatically reload after 10 seconds</span> , or reload manually click <a id="btn-load-more" data-page="'+ page +'" href="javascript:void(0)">here</a> </div>';
+       $('.notification').append(alert);
+       var counter = 10;
+       var id;
+       var newElement = document.getElementById('alert-reload-counter');
+
+        id = setInterval(function() {
+            counter--;
+            if(counter < 0) {
+                self.hideAlertReload();
+                self.getAll(page, by, search);
+                clearInterval(id);          
+            } else {
+                newElement.innerHTML = "Automatically reload after " + counter.toString() +" seconds ";
+                //console.log(counter.toString() + " seconds.");
+            }
+        }, 1000);
+
      }
     });
+  },
+  hideAlertReload: function() {
+    $('.notification').html("");
   },
   /**
    * get all icon on cart
@@ -101,7 +123,24 @@ Icon = {
         $('.dropdown-keranjang').append.apply($('.dropdown-keranjang'), items);
      },
      error: function(){      
-      alert('Error while request..');
+      //alert('Error while request..');
+      var alert = '<div class="alert alert-warning alert-reload" role="alert"> <strong>Error While Request Cart!</strong> <span id="alert-reload-counter">Automatically reload after 10 seconds</span></div>';
+       $('.notification').append(alert);
+       var counter = 10;
+       var id;
+       var newElement = document.getElementById('alert-reload-counter');
+
+        id = setInterval(function() {
+            counter--;
+            if(counter < 0) {
+                self.hideAlertReload();
+                self.getCart();
+                clearInterval(id);          
+            } else {
+                newElement.innerHTML = "Automatically reload after " + counter.toString() +" seconds ";
+                //console.log(counter.toString() + " seconds.");
+            }
+        }, 1000);
      }
     });
   },

@@ -68,11 +68,13 @@
 	<div id="home-icons" class="home-icons-loaded" style="padding-top: 50px;">
 	  <div class="container">
 	  	<!-- Notifications -->
+	  	<div class="notification">
 	    <?php
 	    if(isset($parts['notification'])) {
             echo $parts['notification'];
         }
         ?>
+        </div>
         <!-- End Notifications -->
 	    
 	    <!-- MAIN CONTENT -->
