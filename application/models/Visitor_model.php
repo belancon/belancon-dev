@@ -13,7 +13,7 @@ class Visitor_model extends CI_Model {
 	}
 
 	public function increase_view_icon($icon_id, $token) {
-		$query = $this->db->get_where($this->table, array('token' => $token));
+		$query = $this->db->get_where($this->table, array('token' => $token, 'icon_id'=> $icon_id));
 
 		if(!$query->row()) {
 			$query_icon = $this->db->get_where($this->_table_icon, array('id'=>$icon_id));
@@ -22,7 +22,7 @@ class Visitor_model extends CI_Model {
 				$icon = $query_icon->row();
 				$views_total = $icon->views + 1;
 				$this->db->update($this->_table_icon, array('views'=> $views_total), array('id'=>$icon_id));
-				$this->insert(array('token'=> $token));
+				$this->insert(array('token'=> $token, 'icon_id'=>$icon_id));
 			}
 		}
 	}
