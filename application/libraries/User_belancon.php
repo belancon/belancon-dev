@@ -54,14 +54,21 @@ class User_belancon {
 		$ipaddress = $this->get_client_ip();
 		$visit_token = $this->ci->input->cookie('visit_token');
 
-		return $ipaddress.$visit_token;
+		if($ip_address !== 'UNKNOWN' && $visit_token) {
+			return $ipaddress.$visit_token;
+		} else {
+			return FALSE;
+		}
 	}
 
 	public function increase_page_view_icon($icon_id) {
 		$this->ci->load->model('visitor_model');
 
 		$token = $this->get_token();
-		$this->ci->visitor_model->increase_view_icon($icon_id, $token);
+
+		if($token) {
+			$this->ci->visitor_model->increase_view_icon($icon_id, $token);
+		}
 	}
 
 	public function random_string($action, $string) {

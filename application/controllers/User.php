@@ -51,6 +51,42 @@ class User extends CI_Controller {
         }
     }
 
+    public function complete_registration_facebook() {
+        if($this->ion_auth->logged_in()) {
+            redirect('/');
+        } else {
+            //untuk menset title page
+            $this->template->set_title('Belancon | Complete Registration');
+            //set meta tag
+            $this->template->set_meta('author','Belancon Team');
+            $this->template->set_meta('keyword','Download free Icons, Download Icon Gratis, Flat Icon Gratis');
+            $this->template->set_meta('description','Download gratis Icon untuk kebutuhan design website, design flyer, design print-out');
+
+            $breadcrumb = array(
+                array(
+                    'name' => 'Home',
+                    'path' => site_url()
+                ),
+                array(
+                    'name' => 'Masuk',
+                    'path' => null
+                )
+            );
+
+            $this->template->set_props('breadcrumb', $breadcrumb);
+
+            $this->_loadcss();
+            $this->_loadjs();
+            $this->_loadpart();
+       
+            $this->_loadscript();
+            //set layout
+            $this->template->set_layout('layouts/custom');
+            $this->template->set_content('pages/form/complete_registration_facebook'); // nama file page nya, tanpa extension php
+            $this->template->render(); // terakhir render
+        }
+    }
+
     public function register() {
         if($this->ion_auth->logged_in()) {
             redirect('/');
@@ -89,7 +125,7 @@ class User extends CI_Controller {
 
     public function do_login() {
         //validate form input
-        $this->form_validation->set_rules('identity', str_replace(':', '', $this->lang->line('login_identity_label')), 'required');
+        $this->form_validation->set_rules('identity', 'Username', 'required');
         $this->form_validation->set_rules('password', str_replace(':', '', $this->lang->line('login_password_label')), 'required');
         //set message
         $this->form_validation->set_message('required', '{field} harus diisi');
