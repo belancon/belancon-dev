@@ -205,47 +205,54 @@ class User extends CI_Controller {
 			{
 				$user_data = $user;
 			}
-			
-		    // check if this user is already registered
-            if(!$this->ion_auth->identity_check($user_data['id'])) {
-                $join_date = date("Y-m-d");
-                $username = $user_data['id'];
-                $email = $user_data['email'];
-                $name = explode(" ", $user_data['name']);
-                $grup = array('2');
-                $random_number = mt_rand();
-                $url = strtolower($name[0])."_".$random_number;
 
-                $additional_data = array('first_name' => $name[0], 'last_name' => $name[1], 'url'=> $url, 'join_date' => $join_date);
 
-                $register = $this->ion_auth_model->register($username, 'facebookdoesnothavepass123^&*%', $email, $additional_data, $grup );
-
-                if($register) {
-                    
-                        $login = $this->ion_auth->login($user_data['id'], 'facebookdoesnothavepass123^&*%', 1);
-
-	                if($login) {
-	                    $this->session->set_flashdata('success_message', $this->ion_auth->messages());
-	                    redirect('/','refresh');
-	                } else {
-	                    $this->session->set_flashdata('error_message', $this->ion_auth->errors());
-	                    redirect('login','refresh');
-	                }
-                                
-                } else {
-                    $this->session->set_flashdata('error_message', $this->ion_auth->errors());
-                    redirect('/','refresh');
-                }
-
+            if($this->ion_auth->email_check($user_data['email'])) {
+                $this->session->set_flashdata('error_message', 'Alamat email telah terdaftar di Belancon.com! Silahkan login dengan akun Belancon anda.');
+                redirect('/login','refresh');
             } else {
-                $login = $this->ion_auth->login($user_data['id'], 'facebookdoesnothavepass123^&*%', 1);
+			
+    		    // check if this user is already registered
+                if(!$this->ion_auth->identity_check($user_data['id'])) {
+                    $join_date = date("Y-m-d");
+                    $username = $user_data['id'];
+                    $email = $user_data['email'];
+                    $name = explode(" ", $user_data['name']);
+                    $grup = array('2');
+                    $random_number = mt_rand();
+                    $url = strtolower($name[0])."_".$random_number;
 
-                if($login) {
-                    $this->session->set_flashdata('success_message', $this->ion_auth->messages());
-                    redirect('/','refresh');
+                    $additional_data = array('first_name' => $name[0], 'last_name' => $name[1], 'url'=> $url, 'join_date' => $join_date);
+
+                    $register = $this->ion_auth_model->register($username, 'facebookdoesnothavepass123^&*%', $email, $additional_data, $grup );
+
+                    if($register) {
+                        
+                            $login = $this->ion_auth->login($user_data['id'], 'facebookdoesnothavepass123^&*%', 1);
+
+    	                if($login) {
+    	                    $this->session->set_flashdata('success_message', $this->ion_auth->messages());
+    	                    redirect('/','refresh');
+    	                } else {
+    	                    $this->session->set_flashdata('error_message', $this->ion_auth->errors());
+    	                    redirect('login','refresh');
+    	                }
+                                    
+                    } else {
+                        $this->session->set_flashdata('error_message', $this->ion_auth->errors());
+                        redirect('/','refresh');
+                    }
+
                 } else {
-                    $this->session->set_flashdata('error_message', $this->ion_auth->errors());
-                    redirect('login','refresh');
+                    $login = $this->ion_auth->login($user_data['id'], 'facebookdoesnothavepass123^&*%', 1);
+
+                    if($login) {
+                        $this->session->set_flashdata('success_message', $this->ion_auth->messages());
+                        redirect('/','refresh');
+                    } else {
+                        $this->session->set_flashdata('error_message', $this->ion_auth->errors());
+                        redirect('login','refresh');
+                    }
                 }
             }
 
@@ -277,7 +284,12 @@ class User extends CI_Controller {
 		if ($client->getAccessToken()) {
 			$userData = $objOAuthService->userinfo->get();
 			
-		    $this->load->model('ion_auth_model');
+            if($this->ion_auth->email_check($userData->email)) {
+                $this->session->set_flashdata('error_message', 'Alamat email telah terdaftar di Belancon.com! Silahkan login dengan akun Belancon anda.');
+                redirect('/login','refresh');
+            } else {
+
+		        $this->load->model('ion_auth_model');
 	            if(!$this->ion_auth->identity_check($userData->id)) {
 	                $join_date = date("Y-m-d");
 	                $username = $userData->id;
@@ -324,6 +336,7 @@ class User extends CI_Controller {
 	                    redirect('login','refresh');
 	                }
 	            }
+            }
 		} else {
 			redirect('/login','refresh');
 		}
