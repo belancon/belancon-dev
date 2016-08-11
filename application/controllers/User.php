@@ -384,8 +384,6 @@ class User extends CI_Controller {
     }
 
     public function set_token() {    	
-    	$result = $this->user_belancon->generate_token();
-    	
-    	echo json_encode(array('ipaddress' => $result['ipaddress'], 'token'=> $result['token']));	
+    	$this->user_belancon->generate_token();
     }
 }

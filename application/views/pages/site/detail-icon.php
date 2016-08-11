@@ -100,7 +100,7 @@
         <i class="fa fa-download"></i> <?php echo $icon->downloads;?> Diunduh
       </div>
       <div class="col-md-12 info-icon">
-        <i class="fa fa-eye"></i> 1,132 Dilihat
+        <i class="fa fa-eye"></i> <?php echo $icon->views;?> Dilihat
       </div>
       <!--
       <div class="col-md-12 info-icon">
