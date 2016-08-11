@@ -209,7 +209,7 @@ class User extends CI_Controller {
 
 
             if($this->user_model->email_check_login_socmed($user_data['email'])) {
-                $this->session->set_flashdata('error_message', 'Alamat email telah terdaftar di Belancon.com! Silahkan login dengan akun Belancon anda.');
+                $this->session->set_flashdata('error_message', 'Alamat email '.$user_data['email'].' telah terdaftar di Belancon.com! Silahkan login dengan akun Belancon anda.');
                 redirect('/login','refresh');
             } else {
 			
@@ -287,7 +287,7 @@ class User extends CI_Controller {
             $this->load->model(array('ion_auth_model', 'user_model'));
 			
             if($this->user_model->email_check_login_socmed($userData->email)) {
-                $this->session->set_flashdata('error_message', 'Alamat email telah terdaftar di Belancon.com! Silahkan login dengan akun Belancon anda.');
+                $this->session->set_flashdata('error_message', 'Alamat email '.$userData->email.' telah terdaftar di Belancon.com! Silahkan login dengan akun Belancon anda.');
                 redirect('/login','refresh');
             } else {		        
 	            if(!$this->ion_auth->identity_check($userData->id)) {
