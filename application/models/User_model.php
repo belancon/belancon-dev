@@ -19,4 +19,15 @@ class User_model extends CI_Model {
 
 		return $result;
 	}
+
+	public function email_check_login_socmed($email) {
+		$where = "(email = '".$email."') AND (register_type != 'facebook' OR register_type != 'google')";
+		$query = $this->db->where($where)->get($this->table);
+
+		if($query->row()) {
+			return TRUE;
+		} else {
+			return FALSE;
+		}
+	}
 }

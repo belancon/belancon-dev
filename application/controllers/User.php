@@ -145,9 +145,10 @@ class User extends CI_Controller {
             $email    = strtolower($this->input->post('email'));
             $identity = ($identity_column==='email') ? $email : $this->input->post('identity');
             $password = $this->input->post('password');
+            $additional_data = array('register_type' => 'manual');
             $grup = array('2');
 
-            $result = $this->ion_auth->register($identity, $password, $email, array(), $grup);
+            $result = $this->ion_auth->register($identity, $password, $email, $additional_data, $grup);
 
             if($result) {
                 $this->session->set_flashdata('success_message', $this->ion_auth->messages());
@@ -190,9 +191,9 @@ class User extends CI_Controller {
 
     function loginfacebook()
     {
-    	$this->load->model('ion_auth_model');
-	$this->config->load('ion_auth', TRUE);
-	$this->config->set_item('email_activation', FALSE);
+        $this->load->model(array('ion_auth_model', 'user_model'));
+	    $this->config->load('ion_auth', TRUE);
+	    $this->config->set_item('email_activation', FALSE);
         
         $user_data = array();
 
@@ -207,7 +208,7 @@ class User extends CI_Controller {
 			}
 
 
-            if($this->ion_auth->email_check($user_data['email'])) {
+            if($this->user_model->email_check_login_socmed($user_data['email'])) {
                 $this->session->set_flashdata('error_message', 'Alamat email telah terdaftar di Belancon.com! Silahkan login dengan akun Belancon anda.');
                 redirect('/login','refresh');
             } else {
@@ -222,7 +223,7 @@ class User extends CI_Controller {
                     $random_number = mt_rand();
                     $url = strtolower($name[0])."_".$random_number;
 
-                    $additional_data = array('first_name' => $name[0], 'last_name' => $name[1], 'url'=> $url, 'join_date' => $join_date);
+                    $additional_data = array('first_name' => $name[0], 'last_name' => $name[1], 'url'=> $url, 'join_date' => $join_date, 'register_type'=> 'facebook');
 
                     $register = $this->ion_auth_model->register($username, 'facebookdoesnothavepass123^&*%', $email, $additional_data, $grup );
 
@@ -283,13 +284,12 @@ class User extends CI_Controller {
 		// Get User Data from Google and store them in $data
 		if ($client->getAccessToken()) {
 			$userData = $objOAuthService->userinfo->get();
+            $this->load->model(array('ion_auth_model', 'user_model'));
 			
-            if($this->ion_auth->email_check($userData->email)) {
+            if($this->user_model->email_check_login_socmed($userData->email)) {
                 $this->session->set_flashdata('error_message', 'Alamat email telah terdaftar di Belancon.com! Silahkan login dengan akun Belancon anda.');
                 redirect('/login','refresh');
-            } else {
-
-		        $this->load->model('ion_auth_model');
+            } else {		        
 	            if(!$this->ion_auth->identity_check($userData->id)) {
 	                $join_date = date("Y-m-d");
 	                $username = $userData->id;
@@ -305,7 +305,7 @@ class User extends CI_Controller {
 	                $random_number = mt_rand();
 	                $url = strtolower($first_name)."_".$random_number;
 	
-	                $additional_data = array('first_name' => $first_name, 'last_name' => $last_name, 'url'=> $url, 'join_date' => $join_date);
+	                $additional_data = array('first_name' => $first_name, 'last_name' => $last_name, 'url'=> $url, 'join_date' => $join_date, 'register_type'=> 'google');
 	
 	                $register = $this->ion_auth_model->register($username, 'googledoesnothavepass123^&*%', $email, $additional_data, $grup );
 	
