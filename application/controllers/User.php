@@ -12,7 +12,7 @@ class User extends CI_Controller {
         $this->template->set_platform('public');
         $this->template->set_theme('belancon'); 
 
-        $this->lang->load('auth');
+        $this->
         $this->form_validation->set_error_delimiters('', '</br>');
     }
 
@@ -125,6 +125,9 @@ class User extends CI_Controller {
         {
             show_404();
         } else {
+            $this->lang->load('auth', 'indonesian');
+            $this->lang->load('ion_auth', 'indonesian');
+
             $data['code'] = $code;
             $this->template->set_title('Belancon | Reset Password');
             //set meta tag
