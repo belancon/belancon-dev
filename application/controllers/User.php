@@ -185,6 +185,7 @@ class User extends CI_Controller {
                 $change = $this->ion_auth->reset_password($identity, $new_password);
 
                 if ($change) {
+                    $this->ion_auth->forgotten_password_complete($code);
                     // if the password was successfully changed
                     $this->session->set_flashdata('success_message', $this->ion_auth->messages());
                     echo json_encode(array('status' => TRUE, 'url' => site_url('login')));
