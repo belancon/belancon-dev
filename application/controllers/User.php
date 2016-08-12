@@ -124,9 +124,6 @@ class User extends CI_Controller {
         {
             show_404();
         } else {
-            $this->lang->load('auth', 'indonesian');
-            $this->lang->load('ion_auth', 'indonesian');
-
             $data['code'] = $code;
             $this->template->set_title('Belancon | Reset Password');
             //set meta tag
@@ -163,6 +160,9 @@ class User extends CI_Controller {
         if(!$this->input->is_ajax_request()) {
             redirect('/','refresh');
         }
+
+        $this->lang->load('auth', 'indonesian');
+        $this->lang->load('ion_auth', 'indonesian');
 
         $this->form_validation->set_rules('code', 'Kode', 'required');
         $this->form_validation->set_rules('new', $this->lang->line('reset_password_validation_new_password_label'), 'required|min_length[' . $this->config->item('min_password_length', 'ion_auth') . ']|max_length[' . $this->config->item('max_password_length', 'ion_auth') . ']|matches[new_confirm]');
