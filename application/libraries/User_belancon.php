@@ -51,7 +51,7 @@ class User_belancon {
 	}
 
 	public function get_token() {
-		$ipaddress = $this->get_client_ip();
+		$ip_address = $this->get_client_ip();
 		$visit_token = $this->ci->input->cookie('visit_token');
 
 		if($ip_address !== 'UNKNOWN' && $visit_token) {
