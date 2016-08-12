@@ -51,12 +51,12 @@ class User extends CI_Controller {
         }
     }
 
-    public function complete_registration_facebook() {
+    public function forgot_password() {
         if($this->ion_auth->logged_in()) {
             redirect('/');
         } else {
             //untuk menset title page
-            $this->template->set_title('Belancon | Complete Registration');
+            $this->template->set_title('Belancon | Lupas Password');
             //set meta tag
             $this->template->set_meta('author','Belancon Team');
             $this->template->set_meta('keyword','Download free Icons, Download Icon Gratis, Flat Icon Gratis');
@@ -68,7 +68,7 @@ class User extends CI_Controller {
                     'path' => site_url()
                 ),
                 array(
-                    'name' => 'Masuk',
+                    'name' => 'Lupa Password',
                     'path' => null
                 )
             );
@@ -78,12 +78,45 @@ class User extends CI_Controller {
             $this->_loadcss();
             $this->_loadjs();
             $this->_loadpart();
-       
+            $this->template->set_part('script', '_scripts/forgot_password');
             $this->_loadscript();
             //set layout
             $this->template->set_layout('layouts/custom');
-            $this->template->set_content('pages/form/complete_registration_facebook'); // nama file page nya, tanpa extension php
+            $this->template->set_content('pages/form/forgot_password'); // nama file page nya, tanpa extension php
             $this->template->render(); // terakhir render
+        }
+    }
+
+    public function do_forgot_password() {
+        if(!$this->input->is_ajax_request()) {
+            redirect('/','refresh');
+        }
+
+        $this->form_validation->set_rules('username', 'Username', 'required');
+
+        $this->form_validation->set_message('required', '{field} harus diisi');
+
+        if($this->form_validation->run() === TRUE) {
+            $username = $this->input->post('username', TRUE);
+            $check_user = $this->ion_auth->identity_check($username);
+
+            if($check_user) {
+                //run the forgotten password method to email an activation code to the user
+                $forgotten = $this->ion_auth->forgotten_password($username);
+
+                if ($forgotten) { //if there were no errors
+                    $this->session->set_flashdata('message', $this->ion_auth->messages());
+                    redirect("login", 'refresh'); //we should display a confirmation page here instead of the login page
+                }
+                else {
+                    $this->session->set_flashdata('message', $this->ion_auth->errors());
+                    redirect("forgot-password", 'refresh');
+                }
+            } else {
+                echo json_encode(array('status'=>FALSE, 'message'=> 'Username tidak terdaftar'));    
+            }
+        } else {
+            echo json_encode(array('status'=>FALSE, 'message'=> validation_errors()));
         }
     }
 
