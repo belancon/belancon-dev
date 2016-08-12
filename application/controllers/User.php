@@ -12,7 +12,6 @@ class User extends CI_Controller {
         $this->template->set_platform('public');
         $this->template->set_theme('belancon'); 
 
-        $this->
         $this->form_validation->set_error_delimiters('', '</br>');
     }
 
