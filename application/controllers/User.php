@@ -93,7 +93,6 @@ class User extends CI_Controller {
         }
 
         $this->form_validation->set_rules('username', 'Username', 'required');
-
         $this->form_validation->set_message('required', '{field} harus diisi');
 
         if($this->form_validation->run() === TRUE) {
@@ -105,12 +104,12 @@ class User extends CI_Controller {
                 $forgotten = $this->ion_auth->forgotten_password($username);
 
                 if ($forgotten) { //if there were no errors
-                    $this->session->set_flashdata('message', $this->ion_auth->messages());
-                    redirect("login", 'refresh'); //we should display a confirmation page here instead of the login page
+                    $this->session->set_flashdata('success_message', $this->ion_auth->messages());
+                    echo json_encode(array('status' => TRUE));
                 }
                 else {
-                    $this->session->set_flashdata('message', $this->ion_auth->errors());
-                    redirect("forgot-password", 'refresh');
+                    $this->session->set_flashdata('error_message', $this->ion_auth->errors());
+                    echo json_encode(array('status' => TRUE));
                 }
             } else {
                 echo json_encode(array('status'=>FALSE, 'message'=> 'Username tidak terdaftar'));    
@@ -118,6 +117,85 @@ class User extends CI_Controller {
         } else {
             echo json_encode(array('status'=>FALSE, 'message'=> validation_errors()));
         }
+    }
+
+    public function reset_password($code) {
+        if (!$code)
+        {
+            show_404();
+        } else {
+            $data['code'] = $code;
+            $this->template->set_title('Belancon | Reset Password');
+            //set meta tag
+            $this->template->set_meta('author','Belancon Team');
+            $this->template->set_meta('keyword','Download free Icons, Download Icon Gratis, Flat Icon Gratis');
+            $this->template->set_meta('description','Download gratis Icon untuk kebutuhan design website, design flyer, design print-out');
+
+            $breadcrumb = array(
+                array(
+                    'name' => 'Home',
+                    'path' => site_url()
+                ),
+                array(
+                    'name' => 'Reset Password',
+                    'path' => null
+                )
+            );
+
+            $this->template->set_props('breadcrumb', $breadcrumb);
+
+            $this->_loadcss();
+            $this->_loadjs();
+            $this->_loadpart();
+            $this->template->set_part('script', '_scripts/reset_password');
+            $this->_loadscript();
+            //set layout
+            $this->template->set_layout('layouts/custom');
+            $this->template->set_content('pages/form/reset_password', $data); // nama file page nya, tanpa extension php
+            $this->template->render(); // terakhir render
+        }
+    }
+
+    public function do_reset_password() {
+        if(!$this->input->is_ajax_request()) {
+            redirect('/','refresh');
+        }
+
+        $this->form_validation->set_rules('code', 'Kode', 'required');
+        $this->form_validation->set_rules('new', $this->lang->line('reset_password_validation_new_password_label'), 'required|min_length[' . $this->config->item('min_password_length', 'ion_auth') . ']|max_length[' . $this->config->item('max_password_length', 'ion_auth') . ']|matches[new_confirm]');
+        $this->form_validation->set_rules('new_confirm', $this->lang->line('reset_password_validation_new_password_confirm_label'), 'required');
+
+        $this->form_validation->set_message('required', '{field} harus diisi');
+        $this->form_validation->set_message('min_length', '{field} tidak boleh kurang dari {param} karakter.');
+        $this->form_validation->set_message('max_length', '{field} tidak boleh lebih dari {param} karakter.');
+
+        if($this->form_validation->run() === TRUE) {
+            $code = $this->input->post('code', TRUE);
+            $new_password = $this->input->post('new', TRUE);
+
+            $user = $this->ion_auth->forgotten_password_check($code);
+
+            if($user) {
+                // finally change the password
+                $identity = $user->{$this->config->item('identity', 'ion_auth')};
+                $change = $this->ion_auth->reset_password($identity, $new_password);
+
+                if ($change) {
+                    // if the password was successfully changed
+                    $this->session->set_flashdata('success_message', $this->ion_auth->messages());
+                    echo json_encode(array('status' => TRUE));
+                } else {
+                    $this->session->set_flashdata('error_message', $this->ion_auth->errors());
+                    echo json_encode(array('status' => TRUE));
+                }
+            } else {
+                $this->session->set_flashdata('error_message', $this->ion_auth->errors());
+                echo json_encode(array('status'=> TRUE));
+            }
+        } else {
+            echo json_encode(array('status'=> FALSE, 'message' => validation_errors()));
+        }
+
     }
 
     public function register() {
