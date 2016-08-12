@@ -1,6 +1,6 @@
 <script type="text/javascript">
 $(document).ready(function(){
-    $("#form-forgot-password").submit(function(event){
+    $("#form-reset-password").submit(function(event){
         event.preventDefault();    
         //hide notif error
         hideNotifError();
