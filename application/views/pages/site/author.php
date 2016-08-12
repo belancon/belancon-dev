@@ -1,7 +1,8 @@
 <div class="row">
 <div class="profile col-md-12">
   <div class="profile-info">
-    <img src="<?php echo base_url('assets/public/themes/belancon');?>/img/author-1.jpg" alt="" class="pull-left profile-img">
+    <?php $picture = user($user->id, 'profile_picture') == null ? 'belancon-user.jpg' : user($user->id, 'profile_picture'); ?>
+    <img src="<?php echo cloud('member/'.$picture);?>" alt="" class="pull-left profile-img">
     <div class="profile-name">
       <?php echo $user->first_name." ".$user->last_name; ?>
     </div>
