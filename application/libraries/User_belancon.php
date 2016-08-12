@@ -55,7 +55,7 @@ class User_belancon {
 		$visit_token = $this->ci->input->cookie('visit_token');
 
 		if($ip_address !== 'UNKNOWN' && $visit_token) {
-			return $ipaddress.$visit_token;
+			return $ip_address.$visit_token;
 		} else {
 			return FALSE;
 		}
