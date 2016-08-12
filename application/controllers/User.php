@@ -8,10 +8,11 @@ class User extends CI_Controller {
         parent::__construct();
         
         $this->load->library(array('user_belancon','template', 'form_validation'));
-        $this->load->helper('form');
+        $this->load->helper(array('form', 'language'));
         $this->template->set_platform('public');
         $this->template->set_theme('belancon'); 
 
+        $this->lang->load('auth');
         $this->form_validation->set_error_delimiters('', '</br>');
     }
 
