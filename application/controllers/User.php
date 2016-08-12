@@ -161,16 +161,17 @@ class User extends CI_Controller {
             redirect('/','refresh');
         }
 
-        $this->lang->load('auth', 'indonesian');
-        $this->lang->load('ion_auth', 'indonesian');
+        //$this->lang->load('auth', 'indonesian');
+        //$this->lang->load('ion_auth', 'indonesian');
 
         $this->form_validation->set_rules('code', 'Kode', 'required');
-        $this->form_validation->set_rules('new', $this->lang->line('reset_password_validation_new_password_label'), 'required|min_length[' . $this->config->item('min_password_length', 'ion_auth') . ']|max_length[' . $this->config->item('max_password_length', 'ion_auth') . ']|matches[new_confirm]');
-        $this->form_validation->set_rules('new_confirm', $this->lang->line('reset_password_validation_new_password_confirm_label'), 'required');
+        $this->form_validation->set_rules('new', 'Password Baru', 'required|min_length[' . $this->config->item('min_password_length', 'ion_auth') . ']|max_length[' . $this->config->item('max_password_length', 'ion_auth') . ']');
+        $this->form_validation->set_rules('new_confirm', 'Konfirmasi Password baru', 'required|matches[new]');
 
         $this->form_validation->set_message('required', '{field} harus diisi');
         $this->form_validation->set_message('min_length', '{field} tidak boleh kurang dari {param} karakter.');
         $this->form_validation->set_message('max_length', '{field} tidak boleh lebih dari {param} karakter.');
+        $this->form_validation->set_message('matches', 'Konfirmasi Password Baru tidak sesuai');
 
         if($this->form_validation->run() === TRUE) {
             $code = $this->input->post('code', TRUE);
@@ -186,10 +187,10 @@ class User extends CI_Controller {
                 if ($change) {
                     // if the password was successfully changed
                     $this->session->set_flashdata('success_message', $this->ion_auth->messages());
-                    echo json_encode(array('status' => TRUE));
+                    echo json_encode(array('status' => TRUE, 'url' => site_url('login')));
                 } else {
                     $this->session->set_flashdata('error_message', $this->ion_auth->errors());
-                    echo json_encode(array('status' => TRUE));
+                    echo json_encode(array('status' => TRUE, 'url'=> site_url('user/reset_password/'.$code)));
                 }
             } else {
                 $this->session->set_flashdata('error_message', $this->ion_auth->errors());
