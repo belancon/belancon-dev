@@ -386,6 +386,7 @@ Icon = {
      divImgIcon.setAttribute("class", "text-center img-icon");
      imgIcon.setAttribute("src", icon.path);
      imgIcon.setAttribute("height", "80");
+     imgIcon.setAttribute("width", "80");
      imgIcon.setAttribute("data-icon-type", "cc");
      imgIcon.setAttribute("id", icon.id);
      divImgIcon.appendChild(imgIcon);
