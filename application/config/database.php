@@ -79,7 +79,7 @@ if(ENVIRONMENT === 'production') {
 		'hostname' => 'localhost',
 		'username' => 'belancon_admin',
 		'password' => 'anggarizqi123',
-		'database' => 'belancon_dev',
+		'database' => 'belancon_prod',
 		'dbdriver' => 'mysqli',
 		'dbprefix' => '',
 		'pconnect' => FALSE,

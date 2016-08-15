@@ -139,7 +139,7 @@ $config['cloud_path'] = ((ENVIRONMENT != 'production') ? 'http://localhost/cloud
 | Path upload cloud
 |--------------------------------------------------------------------------
 */
-$config['upload_path'] = (ENVIRONMENT == 'production') ? '../cloud/' : 
+$config['upload_path'] = (ENVIRONMENT == 'production') ? './cloud/' : 
 '../cloud-belancon/';
 
 /*

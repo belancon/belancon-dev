@@ -11,8 +11,8 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 |
 */
 
-$config['google_client_id']              = '527464997144-e3cjjlcmmbvhjosfnpqks7u6impc8du6.apps.googleusercontent.com';
-$config['google_client_secret']          = '2A6O1-1UyxsiKbMBW8LjkoZc';
-$config['google_server_key']             = 'AIzaSyApqyUxREaC-yNy40Hkm-w5G7414Sw_4LA';
-$config['google_redirect_url']           = 'http://dev.belancon.com/user/logingoogle';
-$config['google_logout_redirect_url']    = 'http://dev.belancon.com';
+$config['google_client_id']              = '381921360893-8km48kfate514qklc7tj9mmts1e4ecvu.apps.googleusercontent.com';
+$config['google_client_secret']          = 'AZJBJWl57-d7IitFaSl_HilP';
+$config['google_server_key']             = 'AIzaSyBc6VBB3N-Tdwu-24FlL0fmm2NGsE3eWkw';
+$config['google_redirect_url']           = 'http://belancon.com/user/logingoogle';
+$config['google_logout_redirect_url']    = 'http://belancon.com';
