@@ -468,7 +468,7 @@ $config['global_xss_filtering'] = FALSE;
 $config['csrf_protection'] = TRUE;
 $config['csrf_token_name'] = 'csrf_belancon';
 $config['csrf_cookie_name'] = 'csrf_belancon';
-$config['csrf_expire'] = 7200;
+$config['csrf_expire'] = 86400;
 $config['csrf_regenerate'] = FALSE;
 $config['csrf_exclude_uris'] = array('icon/get_cart', 'icon/remove_from_cart');
 

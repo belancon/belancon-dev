@@ -302,7 +302,7 @@ class User extends CI_Controller {
 
             $result = $this->ion_auth->register($identity, $password, $email, $additional_data, $grup);
             
-            $this->session->set_flashdata('success_message', 'Pendaftaran Akun berhasil. Email untuk Aktivasi Telah Dikirim');
+            $this->session->set_flashdata('success_message', 'Pendaftaran Akun berhasil. Email untuk Aktivasi Telah Dikirim. Periksa Spam jika email link aktivasi tidak masuk pada inbox email anda');
             echo json_encode(array('status' => true));
             // if($result) {
             //     $this->session->set_flashdata('success_message', $this->ion_auth->messages());
