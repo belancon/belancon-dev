@@ -43,3 +43,6 @@
 [10-Aug-2016 04:08:06 UTC] PHP Fatal error:  Call to undefined function GuzzleHttp\Handler\curl_reset() in /home/belancon/public_html/dev/application/vendor/guzzlehttp/guzzle/src/Handler/CurlFactory.php on line 78
 [10-Aug-2016 04:26:57 UTC] PHP Parse error:  syntax error, unexpected '{' in /home/belancon/public_html/dev/application/controllers/User.php on line 281
 [10-Aug-2016 04:27:41 UTC] PHP Parse error:  syntax error, unexpected ';' in /home/belancon/public_html/dev/application/controllers/User.php on line 294
+[11-Aug-2016 02:44:20 UTC] PHP Fatal error:  Call to a member function row() on a non-object in /home/belancon/public_html/dev/application/models/User_model.php on line 27
+[11-Aug-2016 02:45:52 UTC] PHP Fatal error:  Call to a member function num_rows() on a non-object in /home/belancon/public_html/dev/application/models/User_model.php on line 27
+[12-Aug-2016 10:00:34 UTC] PHP Fatal error:  Call to a member function set_error_delimiters() on a non-object in /home/belancon/public_html/dev/application/controllers/User.php on line 16

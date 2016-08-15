@@ -31,25 +31,44 @@ class User_belancon {
 
 	public function generate_token() {		
 		$this->ci->load->library('session');
+		$this->ci->load->helper('cookie');
 
 		$ipaddress = $this->get_client_ip();
 
 		if($ipaddress !== 'UNKNOWN') {			
 			$random_num = mt_rand();
-			$token = $this->_encrypt_decrypt('encrypt', $ipaddress.$random_num);
-
+			//$token = $this->_encrypt_decrypt('encrypt', $ipaddress.$random_num);
+			
+			if(!$this->ci->input->cookie('visit_token'))
+				$this->ci->input->set_cookie('visit_token', $random_num, 86400);
 			//set session
 			//$this->ci->session->set_userdata('token', $token);
 
-			return array('ipaddress' => $ipaddress, 'token' => $token);
+			//return array('ipaddress' => $ipaddress, 'token' => $token);
 		} else {
 			return false;
 		}
 	}
 
 	public function get_token() {
-		$this->ci->load->library('session');
-		return $this->ci->session->userdata('token');
+		$ip_address = $this->get_client_ip();
+		$visit_token = $this->ci->input->cookie('visit_token');
+
+		if($ip_address !== 'UNKNOWN' && $visit_token) {
+			return $ip_address.$visit_token;
+		} else {
+			return FALSE;
+		}
+	}
+
+	public function increase_page_view_icon($icon_id) {
+		$this->ci->load->model('visitor_model');
+
+		$token = $this->get_token();
+
+		if($token) {
+			$this->ci->visitor_model->increase_view_icon($icon_id, $token);
+		}
 	}
 
 	public function random_string($action, $string) {

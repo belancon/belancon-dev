@@ -15,18 +15,21 @@ class Home extends CI_Controller
 
     public function index($type=null)
     {       
+        $this->load->library('user_belancon');
+        $this->user_belancon->generate_token();
+
     	if (isset($_GET['code']))
-	 {
-	     $this->facebook_ion_auth->login();
-	     /**
-	     $this->facebook_ion_auth->login();
-	     if (!$this->ion_auth->logged_in() || !$this->ion_auth->is_admin())
-	     {
-	          $this->facebook_ion_auth->login();
-	     }
-	
-	     header('Location:/'); **/
-	 }
+    	 {
+    	     $this->facebook_ion_auth->login();
+    	     /**
+    	     $this->facebook_ion_auth->login();
+    	     if (!$this->ion_auth->logged_in() || !$this->ion_auth->is_admin())
+    	     {
+    	          $this->facebook_ion_auth->login();
+    	     }
+    	
+    	     header('Location:/'); **/
+    	 }
 
         $this->template->set_title('Belancon | Belanja Icon untuk Kebutuhan Desainmu');
         $this->template->set_meta('author','Belancon Team');
@@ -57,6 +60,11 @@ class Home extends CI_Controller
 
         if($result) {
             $icon = $result['icon'];
+            //increase page views
+            $this->load->library('user_belancon');
+            $this->user_belancon->increase_page_view_icon($icon->id);
+
+            
             $data['files'] = $this->file_model->get_file($icon->id, 'icon_id', $this->_TYPE_FILES);
             $data['icon'] = $icon;
             $data['on_cart'] = isset($cart[$icon->id]) ? "true" : "false";
@@ -191,8 +199,7 @@ class Home extends CI_Controller
         $path = base_url().'js/';
 
         $this->template->set_js($path.'general.js','footer', 'remote');      
-        $this->template->set_js($path.'icon.js','footer', 'remote');
-        $this->template->set_js($path.'user.js','footer', 'remote');
+        $this->template->set_js($path.'icon.js','footer', 'remote');   
         $this->template->set_js($path.'cart.min.js','footer', 'remote');
         $this->template->set_js($path.'script.js','footer', 'remote');
     }

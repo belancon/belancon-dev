@@ -2,25 +2,21 @@ User = {
   /**
    * Set token first user open or visit belancon site
    */
-  setToken: function() {
-    this.checkTokenIsExist(function(result) {
-      if(result === false) {        
-        //Ajax method
-        $.ajax({
-           type: "post",
-           url: BASE_URL + "user/set_token",
-           cache: false,    
-           data: {},
-           success: function(response){        
-              response = JSON.parse(response);
-              sessionStorage.setItem('userIdTemp', response.token);          
-           },
-           error: function(){      
-            alert('Error while request..');
-           }
-        });
-      }
-    });
+  setToken: function() {      
+        // //Ajax method
+        // $.ajax({
+        //    type: "post",
+        //    url: BASE_URL + "user/set_token",
+        //    cache: false,    
+        //    data: {},
+        //    success: function(response){        
+        //       //response = JSON.parse(response);
+        //       //sessionStorage.setItem('userIdTemp', response.token);          
+        //    },
+        //    error: function(){      
+        //     alert('Error while request..');
+        //    }
+        // });
   },
   /**
    * check whether the token has the generated

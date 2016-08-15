@@ -8,10 +8,7 @@ $(document).ready(function () {
     var by = paramBy ? paramBy : "newest";
     var paramSearch = Belancon.getUrlParameter('search') ? Belancon.getUrlParameter('search') : null;
     var search = paramSearch ? paramSearch : "";
-    
-    //set token user
-    User.setToken();
-
+ 
     //call method to get icon lists
     Icon.getAll(1, by, search);
 

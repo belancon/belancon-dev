@@ -29,6 +29,19 @@ class Author extends CI_Controller
             $this->template->set_meta('author','Belancon Team');
             $this->template->set_meta('keyword','Download free Icons, Download Icon Gratis, Flat Icon Gratis');
             $this->template->set_meta('description','Download gratis Icon untuk kebutuhan design website, design flyer, design print-out');
+
+            $breadcrumb = array(
+                array(
+                    'name' => 'Home',
+                    'path' => site_url()
+                ),
+                array(
+                    'name' => 'Author',
+                    'path' => null
+                )
+            );
+            $this->template->set_props('breadcrumb', $breadcrumb);
+
             $this->_loadcss();
             $this->_loadjs();
             $this->_loadscript();

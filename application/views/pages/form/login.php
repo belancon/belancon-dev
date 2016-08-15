@@ -29,7 +29,8 @@
             <button type="submit" class="btn btn-success">Masuk</button>
             <?php echo form_close();?>
         </div>
-       
+        <br />
+        <p>Lupa Password? <a href="<?php echo site_url('forgot-password');?>">Reset password Anda</a></p>
         <hr>
 
         <div class="text-center">

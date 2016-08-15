@@ -8,7 +8,7 @@ class User extends CI_Controller {
         parent::__construct();
         
         $this->load->library(array('user_belancon','template', 'form_validation'));
-        $this->load->helper('form');
+        $this->load->helper(array('form', 'language'));
         $this->template->set_platform('public');
         $this->template->set_theme('belancon'); 
 
@@ -51,6 +51,158 @@ class User extends CI_Controller {
         }
     }
 
+    public function forgot_password() {
+        if($this->ion_auth->logged_in()) {
+            redirect('/');
+        } else {
+            //untuk menset title page
+            $this->template->set_title('Belancon | Lupa Password');
+            //set meta tag
+            $this->template->set_meta('author','Belancon Team');
+            $this->template->set_meta('keyword','Download free Icons, Download Icon Gratis, Flat Icon Gratis');
+            $this->template->set_meta('description','Download gratis Icon untuk kebutuhan design website, design flyer, design print-out');
+
+            $breadcrumb = array(
+                array(
+                    'name' => 'Home',
+                    'path' => site_url()
+                ),
+                array(
+                    'name' => 'Lupa Password',
+                    'path' => null
+                )
+            );
+
+            $this->template->set_props('breadcrumb', $breadcrumb);
+
+            $this->_loadcss();
+            $this->_loadjs();
+            $this->_loadpart();
+            $this->template->set_part('script', '_scripts/forgot_password');
+            $this->_loadscript();
+            //set layout
+            $this->template->set_layout('layouts/custom');
+            $this->template->set_content('pages/form/forgot_password'); // nama file page nya, tanpa extension php
+            $this->template->render(); // terakhir render
+        }
+    }
+
+    public function do_forgot_password() {
+        if(!$this->input->is_ajax_request()) {
+            redirect('/','refresh');
+        }
+
+        $this->form_validation->set_rules('username', 'Username', 'required');
+        $this->form_validation->set_message('required', '{field} harus diisi');
+
+        if($this->form_validation->run() === TRUE) {
+            $username = $this->input->post('username', TRUE);
+            $check_user = $this->ion_auth->identity_check($username);
+
+            if($check_user) {
+                //run the forgotten password method to email an activation code to the user
+                $forgotten = $this->ion_auth->forgotten_password($username);
+
+                if ($forgotten) { //if there were no errors
+                    $this->session->set_flashdata('success_message', $this->ion_auth->messages());
+                    echo json_encode(array('status' => TRUE));
+                }
+                else {
+                    $this->session->set_flashdata('error_message', $this->ion_auth->errors());
+                    echo json_encode(array('status' => TRUE));
+                }
+            } else {
+                echo json_encode(array('status'=>FALSE, 'message'=> 'Username tidak terdaftar'));    
+            }
+        } else {
+            echo json_encode(array('status'=>FALSE, 'message'=> validation_errors()));
+        }
+    }
+
+    public function reset_password($code) {
+        if (!$code)
+        {
+            show_404();
+        } else {
+            $data['code'] = $code;
+            $this->template->set_title('Belancon | Reset Password');
+            //set meta tag
+            $this->template->set_meta('author','Belancon Team');
+            $this->template->set_meta('keyword','Download free Icons, Download Icon Gratis, Flat Icon Gratis');
+            $this->template->set_meta('description','Download gratis Icon untuk kebutuhan design website, design flyer, design print-out');
+
+            $breadcrumb = array(
+                array(
+                    'name' => 'Home',
+                    'path' => site_url()
+                ),
+                array(
+                    'name' => 'Reset Password',
+                    'path' => null
+                )
+            );
+
+            $this->template->set_props('breadcrumb', $breadcrumb);
+
+            $this->_loadcss();
+            $this->_loadjs();
+            $this->_loadpart();
+            $this->template->set_part('script', '_scripts/reset_password');
+            $this->_loadscript();
+            //set layout
+            $this->template->set_layout('layouts/custom');
+            $this->template->set_content('pages/form/reset_password', $data); // nama file page nya, tanpa extension php
+            $this->template->render(); // terakhir render
+        }
+    }
+
+    public function do_reset_password() {
+        if(!$this->input->is_ajax_request()) {
+            redirect('/','refresh');
+        }
+
+        //$this->lang->load('auth', 'indonesian');
+        //$this->lang->load('ion_auth', 'indonesian');
+
+        $this->form_validation->set_rules('code', 'Kode', 'required');
+        $this->form_validation->set_rules('new', 'Password Baru', 'required|min_length[' . $this->config->item('min_password_length', 'ion_auth') . ']|max_length[' . $this->config->item('max_password_length', 'ion_auth') . ']');
+        $this->form_validation->set_rules('new_confirm', 'Konfirmasi Password baru', 'required|matches[new]');
+
+        $this->form_validation->set_message('required', '{field} harus diisi');
+        $this->form_validation->set_message('min_length', '{field} tidak boleh kurang dari {param} karakter.');
+        $this->form_validation->set_message('max_length', '{field} tidak boleh lebih dari {param} karakter.');
+        $this->form_validation->set_message('matches', 'Konfirmasi Password Baru tidak sesuai');
+
+        if($this->form_validation->run() === TRUE) {
+            $code = $this->input->post('code', TRUE);
+            $new_password = $this->input->post('new', TRUE);
+
+            $user = $this->ion_auth->forgotten_password_check($code);
+
+            if($user) {
+                // finally change the password
+                $identity = $user->{$this->config->item('identity', 'ion_auth')};
+                $change = $this->ion_auth->reset_password($identity, $new_password);
+
+                if ($change) {
+                    $this->ion_auth->forgotten_password_complete($code);
+                    // if the password was successfully changed
+                    $this->session->set_flashdata('success_message', $this->ion_auth->messages());
+                    echo json_encode(array('status' => TRUE, 'url' => site_url('login')));
+                } else {
+                    $this->session->set_flashdata('error_message', $this->ion_auth->errors());
+                    echo json_encode(array('status' => TRUE, 'url'=> site_url('user/reset_password/'.$code)));
+                }
+            } else {
+                $this->session->set_flashdata('error_message', $this->ion_auth->errors());
+                echo json_encode(array('status'=> TRUE));
+            }
+        } else {
+            echo json_encode(array('status'=> FALSE, 'message' => validation_errors()));
+        }
+
+    }
+
     public function register() {
         if($this->ion_auth->logged_in()) {
             redirect('/');
@@ -89,7 +241,7 @@ class User extends CI_Controller {
 
     public function do_login() {
         //validate form input
-        $this->form_validation->set_rules('identity', str_replace(':', '', $this->lang->line('login_identity_label')), 'required');
+        $this->form_validation->set_rules('identity', 'Username', 'required');
         $this->form_validation->set_rules('password', str_replace(':', '', $this->lang->line('login_password_label')), 'required');
         //set message
         $this->form_validation->set_message('required', '{field} harus diisi');
@@ -145,16 +297,19 @@ class User extends CI_Controller {
             $email    = strtolower($this->input->post('email'));
             $identity = ($identity_column==='email') ? $email : $this->input->post('identity');
             $password = $this->input->post('password');
+            $additional_data = array('register_type' => 'manual');
             $grup = array('2');
 
-            $result = $this->ion_auth->register($identity, $password, $email, array(), $grup);
-
-            if($result) {
-                $this->session->set_flashdata('success_message', $this->ion_auth->messages());
-                echo json_encode(array('status' => true));                
-            } else {
-                echo json_encode(array('status' => false, 'message' => $this->ion_auth->errors()));
-            }
+            $result = $this->ion_auth->register($identity, $password, $email, $additional_data, $grup);
+            
+            $this->session->set_flashdata('success_message', 'Pendaftaran Akun berhasil. Email untuk Aktivasi Telah Dikirim. Periksa Spam jika email link aktivasi tidak masuk pada inbox email anda');
+            echo json_encode(array('status' => true));
+            // if($result) {
+            //     $this->session->set_flashdata('success_message', $this->ion_auth->messages());
+            //     echo json_encode(array('status' => true));                
+            // } else {
+            //     echo json_encode(array('status' => false, 'message' => $this->ion_auth->errors()));
+            // }
         } else {
             $message = validation_errors();            
             echo json_encode(array('status' => false, 'message' => $message));
@@ -190,9 +345,9 @@ class User extends CI_Controller {
 
     function loginfacebook()
     {
-    	$this->load->model('ion_auth_model');
-	$this->config->load('ion_auth', TRUE);
-	$this->config->set_item('email_activation', FALSE);
+        $this->load->model(array('ion_auth_model', 'user_model'));
+	    $this->config->load('ion_auth', TRUE);
+	    $this->config->set_item('email_activation', FALSE);
         
         $user_data = array();
 
@@ -205,47 +360,54 @@ class User extends CI_Controller {
 			{
 				$user_data = $user;
 			}
-			
-		    // check if this user is already registered
-            if(!$this->ion_auth->identity_check($user_data['id'])) {
-                $join_date = date("Y-m-d");
-                $username = $user_data['id'];
-                $email = $user_data['email'];
-                $name = explode(" ", $user_data['name']);
-                $grup = array('2');
-                $random_number = mt_rand();
-                $url = strtolower($name[0])."_".$random_number;
 
-                $additional_data = array('first_name' => $name[0], 'last_name' => $name[1], 'url'=> $url, 'join_date' => $join_date);
 
-                $register = $this->ion_auth_model->register($username, 'facebookdoesnothavepass123^&*%', $email, $additional_data, $grup );
-
-                if($register) {
-                    
-                        $login = $this->ion_auth->login($user_data['id'], 'facebookdoesnothavepass123^&*%', 1);
-
-	                if($login) {
-	                    $this->session->set_flashdata('success_message', $this->ion_auth->messages());
-	                    redirect('/','refresh');
-	                } else {
-	                    $this->session->set_flashdata('error_message', $this->ion_auth->errors());
-	                    redirect('login','refresh');
-	                }
-                                
-                } else {
-                    $this->session->set_flashdata('error_message', $this->ion_auth->errors());
-                    redirect('/','refresh');
-                }
-
+            if($this->user_model->email_check_login_socmed($user_data['email'])) {
+                $this->session->set_flashdata('error_message', 'Alamat email '.$user_data['email'].' telah terdaftar di Belancon.com! Silahkan login dengan akun Belancon anda.');
+                redirect('/login','refresh');
             } else {
-                $login = $this->ion_auth->login($user_data['id'], 'facebookdoesnothavepass123^&*%', 1);
+			
+    		    // check if this user is already registered
+                if(!$this->ion_auth->identity_check($user_data['id'])) {
+                    $join_date = date("Y-m-d");
+                    $username = $user_data['id'];
+                    $email = $user_data['email'];
+                    $name = explode(" ", $user_data['name']);
+                    $grup = array('2');
+                    $random_number = mt_rand();
+                    $url = strtolower($name[0])."_".$random_number;
 
-                if($login) {
-                    $this->session->set_flashdata('success_message', $this->ion_auth->messages());
-                    redirect('/','refresh');
+                    $additional_data = array('first_name' => $name[0], 'last_name' => $name[1], 'url'=> $url, 'join_date' => $join_date, 'register_type'=> 'facebook');
+
+                    $register = $this->ion_auth_model->register($username, 'facebookdoesnothavepass123^&*%', $email, $additional_data, $grup );
+
+                    if($register) {
+                        
+                            $login = $this->ion_auth->login($user_data['id'], 'facebookdoesnothavepass123^&*%', 1);
+
+    	                if($login) {
+    	                    $this->session->set_flashdata('success_message', $this->ion_auth->messages());
+    	                    redirect('/','refresh');
+    	                } else {
+    	                    $this->session->set_flashdata('error_message', $this->ion_auth->errors());
+    	                    redirect('login','refresh');
+    	                }
+                                    
+                    } else {
+                        $this->session->set_flashdata('error_message', $this->ion_auth->errors());
+                        redirect('/','refresh');
+                    }
+
                 } else {
-                    $this->session->set_flashdata('error_message', $this->ion_auth->errors());
-                    redirect('login','refresh');
+                    $login = $this->ion_auth->login($user_data['id'], 'facebookdoesnothavepass123^&*%', 1);
+
+                    if($login) {
+                        $this->session->set_flashdata('success_message', $this->ion_auth->messages());
+                        redirect('/','refresh');
+                    } else {
+                        $this->session->set_flashdata('error_message', $this->ion_auth->errors());
+                        redirect('login','refresh');
+                    }
                 }
             }
 
@@ -276,8 +438,12 @@ class User extends CI_Controller {
 		// Get User Data from Google and store them in $data
 		if ($client->getAccessToken()) {
 			$userData = $objOAuthService->userinfo->get();
+            $this->load->model(array('ion_auth_model', 'user_model'));
 			
-		    $this->load->model('ion_auth_model');
+            if($this->user_model->email_check_login_socmed($userData->email)) {
+                $this->session->set_flashdata('error_message', 'Alamat email '.$userData->email.' telah terdaftar di Belancon.com! Silahkan login dengan akun Belancon anda.');
+                redirect('/login','refresh');
+            } else {		        
 	            if(!$this->ion_auth->identity_check($userData->id)) {
 	                $join_date = date("Y-m-d");
 	                $username = $userData->id;
@@ -293,7 +459,7 @@ class User extends CI_Controller {
 	                $random_number = mt_rand();
 	                $url = strtolower($first_name)."_".$random_number;
 	
-	                $additional_data = array('first_name' => $first_name, 'last_name' => $last_name, 'url'=> $url, 'join_date' => $join_date);
+	                $additional_data = array('first_name' => $first_name, 'last_name' => $last_name, 'url'=> $url, 'join_date' => $join_date, 'register_type'=> 'google');
 	
 	                $register = $this->ion_auth_model->register($username, 'googledoesnothavepass123^&*%', $email, $additional_data, $grup );
 	
@@ -324,6 +490,7 @@ class User extends CI_Controller {
 	                    redirect('login','refresh');
 	                }
 	            }
+            }
 		} else {
 			redirect('/login','refresh');
 		}
@@ -371,8 +538,6 @@ class User extends CI_Controller {
     }
 
     public function set_token() {    	
-    	$result = $this->user_belancon->generate_token();
-    	
-    	echo json_encode(array('ipaddress' => $result['ipaddress'], 'token'=> $result['token']));	
+    	$this->user_belancon->generate_token();
     }
 }

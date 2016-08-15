@@ -268,9 +268,11 @@ class Icon extends MY_Controller {
                     //=====================//
 
                     //===== INSERT ICON INTO TABLE =====//
-                    $name = $this->input->post('name', TRUE);
+                    $input_name = $this->input->post('name', TRUE);
+                    $name = ucwords($input_name);
+
                     $random_number = mt_rand();
-                    $url = url_title($name)."_".$random_number;
+                    $url = url_title(strtolower($input_name))."_".$random_number;
                     $category = $this->input->post('category', TRUE);
                     $tags = $this->input->post('tags', TRUE);
                     $type = $this->input->post('type', TRUE);
@@ -415,10 +417,12 @@ class Icon extends MY_Controller {
                	}
 
 	        	//===== UPDATE ICON INTO TABLE =====//
-	        	$id = $this->input->post('id', TRUE);
-				$name = $this->input->post('name', TRUE);
-				$random_number = mt_rand();
-				$url = url_title($name)."_".$random_number;
+	        	$id = $this->input->post('id', TRUE);				
+                $input_name = $this->input->post('name', TRUE);
+                $name = ucwords($input_name);
+				
+                $random_number = mt_rand();
+				$url = url_title(strtolower($input_name))."_".$random_number;
 				$category = $this->input->post('category', TRUE);
 				$tags = $this->input->post('tags', TRUE);
 				$type = $this->input->post('type', TRUE);

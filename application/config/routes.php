@@ -57,6 +57,7 @@ $route['term-of-service'] = "site/term_of_service";
 $route['page-404'] = "site/page_404";
 $route['login'] = "user/login";
 $route['register'] = "user/register";
+$route['forgot-password'] = "user/forgot_password";
 $route['icons'] = "home/icons";
 $route['icons/(:any)'] = "home/icons/$1";
 $route['member/change-profile'] = "member/change_profile";
