@@ -56,7 +56,7 @@ class User extends CI_Controller {
             redirect('/');
         } else {
             //untuk menset title page
-            $this->template->set_title('Belancon | Lupas Password');
+            $this->template->set_title('Belancon | Lupa Password');
             //set meta tag
             $this->template->set_meta('author','Belancon Team');
             $this->template->set_meta('keyword','Download free Icons, Download Icon Gratis, Flat Icon Gratis');
@@ -297,18 +297,19 @@ class User extends CI_Controller {
             $email    = strtolower($this->input->post('email'));
             $identity = ($identity_column==='email') ? $email : $this->input->post('identity');
             $password = $this->input->post('password');
-            $join_date = date('Y-m-d');
-            $additional_data = array('register_type' => 'manual', 'join_date'=> $join_date);
+            $additional_data = array('register_type' => 'manual');
             $grup = array('2');
 
             $result = $this->ion_auth->register($identity, $password, $email, $additional_data, $grup);
-
-            if($result) {
-                $this->session->set_flashdata('success_message', $this->ion_auth->messages());
-                echo json_encode(array('status' => true));                
-            } else {
-                echo json_encode(array('status' => false, 'message' => $this->ion_auth->errors()));
-            }
+            
+            $this->session->set_flashdata('success_message', 'Pendaftaran Akun berhasil. Email untuk Aktivasi Telah Dikirim');
+            echo json_encode(array('status' => true));
+            // if($result) {
+            //     $this->session->set_flashdata('success_message', $this->ion_auth->messages());
+            //     echo json_encode(array('status' => true));                
+            // } else {
+            //     echo json_encode(array('status' => false, 'message' => $this->ion_auth->errors()));
+            // }
         } else {
             $message = validation_errors();            
             echo json_encode(array('status' => false, 'message' => $message));
