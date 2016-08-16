@@ -47,13 +47,14 @@ class Contributor extends CI_Controller {
             $id = $this->contributor_model->insert($data);
 
             if($id) {
+                $this->session->set_flashdata('success_message', 'Terima kasih telah mengirimkan permintaan gabung sebagai kontributor');
+
                 $result = $this->_send_email($fullname, $email, $skill, $message);
 
                 if($result) {
                     $this->contributor_model->set_email_sent($id);
                 }
-
-                $this->session->set_flashdata('success_message', 'Terima kasih telah mengirimkan permintaan gabung sebagai kontributor');
+                
                 redirect('/', 'refresh');
             } else {
                 $this->session->set_flashdata('error_message', 'Maaf, ada kesalahan sistem. gagal mengirimkan pesan');
