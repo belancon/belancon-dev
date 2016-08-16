@@ -117,6 +117,7 @@ class Icon_model extends CI_Model {
                                         ->limit(4)
                                         ->order_by('id', 'RANDOM')
                                         ->where('created_by', $created_user)
+                                        ->where('deleted', 0)
                                         ->where_not_in('id', $ids)
                                         ->get($this->table);
           $other_icons = $query_other_icons->num_rows() > 0 ? $query_other_icons->result() : array();

@@ -311,11 +311,11 @@ class Member extends MY_Controller
 
         if($this->form_validation->run() === TRUE) {
             $id = user_login('id');
-            $firstname = $this->input->post('firstname');
+            $firstname = $this->input->post('firstname');       
             $lastname = $this->input->post('lastname');
             $phone = $this->input->post('phone');
             $random_number = mt_rand();
-            $url = strtolower($firstname)."_".$random_number;
+            $url = strtolower(str_replace(" ","-",$firstname))."_".$random_number;
             $data = array(
                 'first_name' => $firstname,
                 'last_name' => $lastname,
