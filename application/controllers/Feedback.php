@@ -77,14 +77,15 @@ feedback : '.$message,
                 $body = $this->load->view('_templates/feedback_email', $data, TRUE);
                 $this->email->message( $body );
 
+                //redirect
+                $this->session->set_flashdata('success_message', 'Terima kasih feedback anda berhasil terkirim.');
+
                 //send email
                 if ($this->email->send()) {
                     //if success
                     $this->feedback_model->set_email_sent($id);
                 }
 
-                //redirect
-                $this->session->set_flashdata('success_message', 'Terima kasih feedback anda berhasil terkirim.');
                 redirect('/', 'refresh');
             } else {
                 $this->session->set_flashdata('error_message', 'Maaf, ada kesalahan sistem. gagal mengirim pesan');

@@ -74,14 +74,15 @@ bug : '.$message,
                 $body = $this->load->view('_templates/feedback_email', $data, TRUE);
                 $this->email->message( $body );
 
+                //set success message & redirect
+                $this->session->set_flashdata('success_message', 'Terimakasih telah melaporkan bug yang ada di web kami.');
+                
                 //send email
                 if ($this->email->send()) {
                     //if success
                     $this->bug_model->set_email_sent($id);
                 }
-
-                //set success message & redirect
-                $this->session->set_flashdata('success_message', 'Terimakasih telah melaporkan bug yang ada di web kami.');
+                
                 redirect('/');
             } else {
                 $this->session->set_flashdata('error_message', 'Maaf, ada kesalahan sistem. gagal mengirimkan pesan');
