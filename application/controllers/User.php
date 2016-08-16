@@ -297,7 +297,8 @@ class User extends CI_Controller {
             $email    = strtolower($this->input->post('email'));
             $identity = ($identity_column==='email') ? $email : $this->input->post('identity');
             $password = $this->input->post('password');
-            $additional_data = array('register_type' => 'manual');
+            $join_date = date("Y-m-d");
+            $additional_data = array('register_type' => 'manual', 'join_date'=> $join_date);
             $grup = array('2');
 
             $result = $this->ion_auth->register($identity, $password, $email, $additional_data, $grup);
