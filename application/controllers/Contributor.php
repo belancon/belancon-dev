@@ -64,16 +64,7 @@ class Contributor extends CI_Controller {
     }
 
     protected function _send_email($fullname, $email, $skill, $message) {        
-        $config = array(
-            'protocol'  => 'smtp',
-            'smtp_host' => 'ssl://poseidon.hideserver.net',
-            'smtp_user' => $this->email_belancon,
-            'smtp_pass' => 'belancon123a',
-            'smtp_port' => 465,      
-            'mailtype'  => 'html',        
-            'charset'   => 'iso-8859-1',
-            'starttls'  => true,
-        );
+            $config = $this->config->item('sendgrid', 'email');
 
             $subject = "Request Join as Contributor";            
             $this->load->library('email');
