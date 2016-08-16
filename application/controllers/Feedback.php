@@ -63,16 +63,7 @@ feedback : '.$message,
                 $this->trello_api->insert_card($list_id, $feedback);
 
                 //config email
-                $config = array(
-                    'protocol'  => 'smtp',
-                    'smtp_host' => 'ssl://poseidon.hideserver.net',
-                    'smtp_user' => $this->email_belancon,
-                    'smtp_pass' => 'belancon123a',
-                    'smtp_port' => 465,      
-                    'mailtype'  => 'html',        
-                    'charset'   => 'iso-8859-1',
-                    'starttls'  => true,               
-                );         
+                $config = $this->config->item('sendgrid', 'email');       
 
                 $subject = "Feedback on Belancon";                
                 $this->load->library('email');
