@@ -23,6 +23,10 @@
             </form> -->
             <ul class="nav navbar-nav navbar-right">
               <?php if($this->ion_auth->logged_in()):?>
+              <li>
+                <a href="<?php echo site_url('member/add-icon');?>" class="btn-yellow-primary no-shadow"><i class="fa fa-pencil-square-o"></i> Add Icon</a>
+              </li>
+
               <li class="dropdown">
                   <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">
                     <?php $picture = user_login('profile_picture') == null ? 'belancon-user.jpg' : user_login('profile_picture'); ?>
