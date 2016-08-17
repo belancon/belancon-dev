@@ -22,7 +22,7 @@
           <div role="tabpanel" class="tab-pane active" id="icon-detail">
             <div class="row">
               <div class="col-md-12 text-center">
-                <img src="<?php echo cloud('png/'.$icon->filename);?>" class="img-detail" alt="" />
+                <img src="<?php echo cloud('png/'.$icon->filename);?>" class="img-detail" alt="<?php echo $icon->name.' '.$icon->category;?>" />
               </div>
             </div>
 
