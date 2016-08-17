@@ -432,4 +432,47 @@ a {
   top: 50%;
   z-index: 100; }
 
+#menu-float {
+  padding: 20px;
+  color: white;
+  background: #66ae53;
+  border-radius: 100%;
+  position: absolute;
+  position: fixed;
+  right: 3%;
+  bottom: 4%;
+  z-index: 999;
+  -webkit-box-shadow: 0px -1px 12px -2px #8f8f8f;
+  -moz-box-shadow: 0px -1px 12px -2px #8f8f8f;
+  box-shadow: 0px -1px 12px -2px #8f8f8f;
+  -webkit-animation-name: floatchange;
+  /* Chrome, Safari, Opera */
+  -webkit-animation-duration: 3s;
+  /* Chrome, Safari, Opera */
+  animation-name: floatchange;
+  animation-duration: 3s;
+  -webkit-animation-iteration-count: infinite;
+  animation-iteration-count: infinite; }
+
+/* Chrome, Safari, Opera */
+@-webkit-keyframes floatchange {
+  0% {
+    background-color: #66ae53; }
+  25% {
+    background-color: #3d3938; }
+  50% {
+    background-color: #fdaa3e; }
+  100% {
+    background-color: #66ae53; } }
+/* Standard syntax */
+@keyframes floatchange {
+  0% {
+    background-color: #66ae53; }
+  25% {
+    background-color: #3d3938; }
+  50% {
+    background-color: #fdaa3e; }
+  100% {
+    background-color: #66ae53; } }
+
 /*# sourceMappingURL=style.css.map */

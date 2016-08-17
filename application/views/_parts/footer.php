@@ -74,3 +74,13 @@
     </div>
   </div>
 </div>
+
+<a href="<?php echo site_url('member/add-icon');?>">
+  <div id="menu-float">
+    <i class="fa fa-plus fa-lg"></i>
+  </div><!-- menu float -->
+</a>
+
+
+
+
