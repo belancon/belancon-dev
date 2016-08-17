@@ -24,7 +24,7 @@
             <ul class="nav navbar-nav navbar-right">
               <?php if($this->ion_auth->logged_in()):?>
               <li>
-                <a href="<?php echo site_url('member/add-icon');?>" class="btn-yellow-primary no-shadow"><i class="fa fa-pencil-square-o"></i> Add Icon</a>
+                <a href="<?php echo site_url('member/add-icon');?>" class="btn-yellow-primary no-shadow"><i class="fa fa-pencil-square-o"></i> Upload Icon</a>
               </li>
 
               <li class="dropdown">
