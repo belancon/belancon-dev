@@ -23,7 +23,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 | a PHP script and you can easily do that on your own.
 |
 */
-$config['base_url']	= "http://".$_SERVER['HTTP_HOST'].
+$config['base_url']	= "https://".$_SERVER['HTTP_HOST'].
 str_replace(basename($_SERVER['SCRIPT_NAME']),"",$_SERVER['SCRIPT_NAME']);
 
 /*
@@ -124,15 +124,15 @@ $config['subclass_prefix'] = 'MY_';
 $config['cdn'] = ((ENVIRONMENT != 'production')?'//cdn.localhost/belancon/':'//cdn.belancon.com/belancon/');
 // $config['cloud'] = ((ENVIRONMENT != 'production')?'//cloud.localhost/belancon/':'//cloud.belancon.com/belancon/');
 
-// $config['cloud'] = ((ENVIRONMENT != 'production') ? 'http://cloud-belancon/': '//cloud.belancon.com/belancon/');
+// $config['cloud'] = ((ENVIRONMENT != 'production') ? 'http://cloud-belancon/': 'http://cloud.belancon.com/belancon/');
 
-$config['cloud'] = ((ENVIRONMENT != 'production') ? 'http://localhost/cloud-belancon/': '//cloud.belancon.com/');
+$config['cloud'] = ((ENVIRONMENT != 'production') ? 'http://localhost/cloud-belancon/': 'https://belancon.com/cloud/');
 
 //jika menggunakan vhost dg alamat http://cloud-belancon
 // $config['cloud_path'] = ((ENVIRONMENT != 'production') ? 'http://cloud-belancon/': 'http://cloud.belancon.com/');
 
 
-$config['cloud_path'] = ((ENVIRONMENT != 'production') ? 'http://localhost/cloud-belancon/': 'http://cloud.belancon.com/');
+$config['cloud_path'] = ((ENVIRONMENT != 'production') ? 'http://localhost/cloud-belancon/': 'https://belancon.com/cloud/');
 
 /*
 |--------------------------------------------------------------------------

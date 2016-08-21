@@ -11,6 +11,7 @@
             <a class="" href="<?php echo site_url('/');?>">
               <img class="belancon-logo" src="<?php echo base_url();?>assets/public/themes/belancon/img/logo-belancon.png" height="30" alt="logo belancon.com" />
             </a>
+            <span class="green-color"><strong> BETA </strong></span>
           </div>
 
           <!-- Collect the nav links, forms, and other content for toggling -->

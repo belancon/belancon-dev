@@ -7,9 +7,9 @@
         </div>
         <div class="text-center">
           <ul class="primary-menus">
-            <li><a href="<?php echo site_url('term-of-service');?>">
+            <!-- <li><a href="<?php echo site_url('term-of-service');?>">
               Syarat & Ketentuan
-            </a></li>
+            </a></li> -->
             <li><a href="<?php echo site_url('privacy-policy');?>">
               Kebijakan Privasi
             </a></li>

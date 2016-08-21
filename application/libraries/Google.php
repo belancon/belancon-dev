@@ -15,7 +15,7 @@ class Google {
         
        if(!$this->client) {
        	   $this->client = new Google_Client();
-       	   $this->client->setApplicationName("Demo Dev Belancon");
+       	   $this->client->setApplicationName("Belancon");
 	   $this->client->setClientId($ci->config->item('google_client_id'));
 	   $this->client->setClientSecret($ci->config->item('google_client_secret'));
 	   $this->client->setRedirectUri($ci->config->item('google_redirect_url'));

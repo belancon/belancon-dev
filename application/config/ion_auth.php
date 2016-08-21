@@ -121,13 +121,15 @@ $config['identity_cookie_name'] = 'identity';
 $config['use_ci_email'] = TRUE; // Send Email using the builtin CI email class, if false it will return the code and the identity
 $config['email_config'] = array(
 	'protocol'  => 'smtp',
-	'smtp_host' => 'ssl://poseidon.hideserver.net',
-	'smtp_user' => 'hello@belancon.com',
-	'smtp_pass' => 'belancon123a',
-	'smtp_port' => 465,
+	'smtp_host' => 'smtp.sendgrid.net',
+	'smtp_user' => 'belancon',
+	'smtp_pass' => 'anggarizqi123',
+	'smtp_port' => 587,
 	'mailtype'  => 'html',
 	'charset'   => 'iso-8859-1',
 	'starttls'  => true,
+	'crlf'      => "\r\n",
+        'newline'   => "\r\n"
 );
 
 /*
