@@ -25,7 +25,7 @@
             <ul class="nav navbar-nav navbar-right">
               <?php if($this->ion_auth->logged_in()):?>
               <li>
-                <a href="<?php echo site_url('member/add-icon');?>" class="btn-yellow-primary no-shadow"><i class="fa fa-pencil-square-o"></i> Upload Icon</a>
+                <a style="height: 53px;" href="<?php echo site_url('member/add-icon');?>" class="btn-yellow-primary no-shadow"><i class="fa fa-pencil-square-o"></i> Upload Icon</a>
               </li>
 
               <li class="dropdown">
@@ -41,7 +41,7 @@
                   </ul>
               </li>    
               <?php else: ?>
-              <li><a href="<?php echo site_url('register');?>" class="btn-yellow-primary no-shadow">Daftar</a></li>
+              <li><a style="height: 53px;" href="<?php echo site_url('register');?>" class="btn-yellow-primary no-shadow">Daftar</a></li>
               <li><a href="<?php echo site_url('login');?>" class="btn white-color" style="text-align: left !important;">Masuk</a></li>   
               <?php endif; ?>
               <li class="dropdown">
