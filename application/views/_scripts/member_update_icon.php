@@ -70,7 +70,7 @@ $(document).ready(function() {
 	          type: 'POST',
 	          dataType: 'json',
 	          data: formData,
-	          async: false,
+	          async: true,
 	          success: function (data) {
 	              if(data.status === true) {
 	                location.reload();

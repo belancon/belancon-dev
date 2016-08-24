@@ -47,7 +47,7 @@ Icon = {
         self.setLoadMore(response.more, response.page);        
      },
      error: function(){     
-       var alert = '<div class="alert alert-warning alert-reload" role="alert"> <strong>Error While Request!</strong> <span id="alert-reload-counter">Automatically reload after 10 seconds</span> , or reload manually click <a id="btn-load-more" data-page="'+ page +'" href="javascript:void(0)">here</a> </div>';
+       var alert = '<div class="alert alert-warning alert-reload" role="alert"> <strong>Error While Request!</strong> <span id="alert-reload-counter">Automatically reload after 10 seconds</span> , or reload manually click <a onclick="window.location.reload(true);" data-page="'+ page +'" href="#">here</a> </div>';
        $('.notification').append(alert);
        var counter = 10;
        var id;
@@ -57,7 +57,8 @@ Icon = {
             counter--;
             if(counter < 0) {
                 self.hideAlertReload();
-                self.getAll(page, by, search);
+                //self.getAll(page, by, search);
+                location.reload();
                 clearInterval(id);          
             } else {
                 newElement.innerHTML = "Automatically reload after " + counter.toString() +" seconds ";

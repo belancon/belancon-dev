@@ -144,7 +144,7 @@ class Icon_model extends CI_Model {
     }
 
     public function get_total() {
-        return $this->db->count_all($this->table);
+        return $this->db->where('deleted', 0)->get($this->table)->num_rows();
     }
 
     public function get_total_author($author_id) {

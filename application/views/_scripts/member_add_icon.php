@@ -85,7 +85,7 @@ $(document).ready(function() {
 	          type: 'POST',
 	          dataType: 'json',
 	          data: formData,
-	          async: false,
+	          async: true,
 	          success: function (data) {
 	          	  hideLoader();
 	              if(data.status === true) {

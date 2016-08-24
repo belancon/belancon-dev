@@ -65,7 +65,7 @@ class Cart extends CI_Controller
         $path = base_url().'js/';
 
         $this->template->set_js($path.'general.js','footer', 'remote');
-        $this->template->set_js($path.'icon.min.js','footer', 'remote');
+        $this->template->set_js($path.'icon.js','footer', 'remote');
         $this->template->set_js($path.'cart.min.js','footer', 'remote');
         $this->template->set_js($path.'page-cart.js','footer', 'remote');
     }

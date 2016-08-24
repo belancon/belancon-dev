@@ -22,7 +22,7 @@
     </div>
     <div class="row" style="margin-top: 30px;">
       <div class="col-md-8 col-md-offset-2">
-        <div class="col-md-4 text-center">
+        <div class="col-md-3 text-center">
           <h4>
             Help
           </h4>
@@ -38,7 +38,7 @@
              </a></li>
            </ul> 
         </div>
-        <div class="col-md-4 text-center">
+        <div class="col-md-3 text-center">
           <h4>
             Contact
           </h4>
@@ -49,13 +49,23 @@
              Twitter</a></li>
            </ul> 
         </div>
-        <div class="col-md-4 text-center">
+        <div class="col-md-3 text-center">
           <h4>
             Guide
           </h4>
           <ul class="secondary-menus">
              <li><a href="<?php echo site_url('how-to-download');?>">
                Cara Mendownload
+             </a></li>
+           </ul> 
+        </div>
+        <div class="col-md-3 text-center">
+          <h4>
+            Company
+          </h4>
+          <ul class="secondary-menus">
+             <li><a href="https://blog.belancon.com">
+               Blog
              </a></li>
            </ul> 
         </div>
