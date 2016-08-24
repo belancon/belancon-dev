@@ -563,7 +563,8 @@ class Member extends MY_Controller
         $this->template->set_js('toastr.min.js','footer');
         $this->template->set_js('bootstrap-filestyle.min.js','footer');
         $this->template->set_js('jquery.validate.min.js', 'footer');   
-        $this->template->set_js('additional-methods.min.js', 'footer');    
+        $this->template->set_js('additional-methods.min.js', 'footer');
+        $this->template->set_js('navscroll.js','footer');    
     }
 
     public function _loadscript() {

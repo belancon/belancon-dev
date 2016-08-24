@@ -70,6 +70,7 @@ class Author extends CI_Controller
         $this->template->set_js('bootstrap.js','footer');
         $this->template->set_js('sweetalert.min.js','footer');
         $this->template->set_js('toastr.js','footer');
+        $this->template->set_js('navscroll.js','footer');
     }
 
     public function _loadscript() {

@@ -131,6 +131,7 @@ class Contributor extends CI_Controller {
         $this->template->set_js('bootstrap.min.js','footer');
         $this->template->set_js('sweetalert.min.js','footer');    
         $this->template->set_js('toastr.min.js','footer');
+        $this->template->set_js('navscroll.js','footer');
     }
 
     protected function _loadpart() {       
