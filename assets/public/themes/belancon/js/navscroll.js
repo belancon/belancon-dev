@@ -2,6 +2,7 @@
   $(document).ready(function(){
 
     // fade in .navbar
+    $('#search-form-icon').hide();
     $(function () {
 
         $(window).scroll(function() {    
@@ -12,6 +13,13 @@
             }
             else {
                 $("#navscroll").removeClass("navbar-fixed-top");
+            }
+
+            if (scroll >= 250) {
+                $('#search-form-icon').fadeIn();
+            }
+            else {
+                $('#search-form-icon').hide();
             }
             
         });

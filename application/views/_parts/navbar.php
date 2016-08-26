@@ -16,12 +16,14 @@
 
           <!-- Collect the nav links, forms, and other content for toggling -->
           <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
-            <!-- <form class="navbar-form navbar-left" role="search">
+
+            <form class="navbar-form navbar-left" role="search" id="search-form-icon">
               <div class="form-group">
-                <input type="text" class="form-control" placeholder="Search icon">
+                <input type="text" class="input-search form-control" placeholder="Icon apa yang kamu butuhkan?">
               </div>
-              <button type="submit" class="btn btn-default">Find</button>
-            </form> -->
+              <button type="submit" class="btn btn-default btn-cari">Cari</button>
+            </form>
+
             <ul class="nav navbar-nav navbar-right">
               <?php if($this->ion_auth->logged_in()):?>
               <li>
