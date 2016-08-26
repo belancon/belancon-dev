@@ -7,10 +7,7 @@ Cart = {
     var self = this;
     //clear table
     $('#table-body-cart').html("");
-
-    //set row if cart empty
-    var rowEmpty = '<tr><td colspan="10">No Items. Silahkan <a href="'+ BASE_URL +'">tambahkan Icon</a> pada Keranjang.</td></tr>';
-
+  
     //Ajax method 
     $.ajax({
      type: "post",
@@ -21,7 +18,11 @@ Cart = {
         response = JSON.parse(response);
         //console.log(response.data);
         var items=[]; 
+        var totalPrice = 0;
         var data = response.data;
+
+        //set row if cart empty
+    var rowEmpty = '<tr><td colspan="10"><a href="'+ BASE_URL +'"> ' + response.txtRowEmpty + ' </a>.</td></tr>';
 
         //populate data
         if(data.length > 0) {
@@ -29,14 +30,19 @@ Cart = {
             //push data to content html
             var item = self.setRow(data[i]);
             items.push(item);
+            totalPrice += parseInt(data[i].price);
           } 
         } else {
           items.push(rowEmpty);
           $('#row-download-icon').hide();
+          $('#table-foot-cart').hide();
         }
+
+        var tfootPrice = 'Rp. ' + totalPrice;
 
         //and append all icons to display in cart page
         $('#table-body-cart').append.apply($('#table-body-cart'), items);
+        $('#total-price').append(tfootPrice);        
         
      },
      error: function(){      
@@ -65,13 +71,13 @@ Cart = {
     var row = '<tr>';
     row += '<td><img src="'+ icon.path +'" /></td>';
     row += '<td>' + icon.name + '</td>';
-    row += '<td><a href="' + BASE_URL + 'result?search='+ icon.category +'">'+ icon.category +'</a></td>';
-    row += '<td> Rp. '+ icon.price +'</td>';
+    row += '<td><a href="' + BASE_URL + 'result?search='+ icon.category +'">'+ icon.category +'</a></td>';    
     row += icon.availablePng === true ? '<td><i class="fa fa-check fa-2 text-success"></i></td>' : '<td><i class="fa fa-times fa-2 text-danger"></i></td>';
     row += icon.availablePsd === true ? '<td><i class="fa fa-check fa-2 text-success"></i></td>' : '<td><i class="fa fa-times fa-2 text-danger"></i></td>';
     row += icon.availableAi === true ? '<td><i class="fa fa-check fa-2 text-success"></i></td>' : '<td><i class="fa fa-times fa-2 text-danger"></i></td>';
     row += icon.availableCdr === true ? '<td><i class="fa fa-check fa-2 text-success"></i></td>' : '<td><i class="fa fa-times fa-2 text-danger"></i></td>';
     row += icon.availableSvg === true ? '<td><i class="fa fa-check fa-2 text-success"></i></td>' : '<td><i class="fa fa-times fa-2 text-danger"></i></td>';
+    row += '<td> Rp. '+ icon.price +'</td>';
     row += '<td> <button class="btn-remove-cart btn btn-xs btn-danger" data-id="'+icon.id+'" data-name="'+ icon.name +'"><i class="fa fa-trash"></i></button>';
     row += '</tr>';
 

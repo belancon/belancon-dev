@@ -3,34 +3,41 @@
 		<?php $this->load->view('_parts/sidebar'); ?>
 	</div>
 	<div class="col-md-10">
-		<h2>Tambah Icon</h2>
+		<h2><?php echo setting_lang('member_addicon_heading');?></h2>
 		<hr>
 
-		<legend>Data Icon</legend>
+		<legend><?php echo setting_lang('member_addicon_subheading_1');?></legend>
 		<!-- Notif Error -->
         <div class="alert alert-danger" role="alert" style="display:none">
         </div>
+        <?php
+        $lbl_name = setting_lang('member_addicon_form_label_name');
+        $lbl_category = setting_lang('member_addicon_form_label_category');
+        $lbl_tags = setting_lang('member_addicon_form_label_tags');
+        $lbl_type = setting_lang('member_addicon_form_label_type');
+        $lbl_price = setting_lang('member_addicon_form_label_price');
+        ?>
         <!-- end Notif Error -->
 		<?php echo form_open('icon/add', array('id' => 'form-add-icon'));?>
 		<div class="form-group">
-			<label>Nama <span class="text-danger">*</span></label>
+			<label><?php echo $lbl_name;?> <span class="text-danger">*</span></label>
 			<input type="text" name="name" class="form-control" value="" />
 		</div>
 		<div class="form-group">
-			<label>Kategori <span class="text-danger">*</span></label>			
+			<label><?php echo $lbl_category;?> <span class="text-danger">*</span></label>			
 			<select class="form-control" name="category">
-				<option value="">-- Pilih Kategori --</option>
+				<option value="">-- <?php echo setting_lang('lbl_choose_category');?> --</option>
 				<?php foreach($categories as $category): ?>
 				<option value="<?php echo $category->name;?>"><?php echo $category->name;?></option>
 				<?php endforeach; ?>
 			</select>
 		</div>
 		<div class="form-group">
-			<label>Tags</label>
+			<label><?php echo $lbl_tags;?></label>
 			<input type="text" name="tags" class="form-control" value="" />
 		</div>
 		<div class="form-group">
-			<label>Tipe <span class="text-danger">*</span></label> <br />
+			<label><?php echo $lbl_type;?> <span class="text-danger">*</span></label> <br />
 			<label class="radio-inline">
 			 <input type="radio" name="type" id="free" value="free" checked> Free
 			</label>
@@ -39,11 +46,11 @@
 			</label>
 		</div>
 		<div class="form-group">
-			<label>Price</label>
+			<label><?php echo $lbl_price;?></label>
 			<input type="text" name="price" class="form-control" value="0" />
 		</div>		
 		
-		<legend>File Icon</legend>
+		<legend><?php echo setting_lang('member_addicon_subheading_2');?></legend>
 		<div class="form-group">
 			<label>PNG <span class="text-danger">*</span></label>
 			<input type="file" class="filestyle" data-buttonText="File PNG" data-buttonName="btn-info" data-buttonBefore="true" name="filepng">			
@@ -64,8 +71,8 @@
 			<label>SVG</label>
 			<input type="file" class="filestyle" data-buttonText="File SVG" data-buttonName="btn-info" data-buttonBefore="true" name="filesvg">			
 		</div>		
-		<button class="btn btn-success btn-form" type="submit" data-loading-text="<i class='fa fa-circle-o-notch fa-spin'></i> Loading...">Submit</button>
-		<a href="<?php echo site_url('member/icon');?>" class="btn btn-default" type="submit">Kembali</a>
+		<button class="btn btn-success btn-form" type="submit" data-loading-text="<i class='fa fa-circle-o-notch fa-spin'></i> Loading..."><?php echo setting_lang('member_addicon_btn_submit');?></button>
+		<a href="<?php echo site_url('member/icon');?>" class="btn btn-default" type="submit"><?php echo setting_lang('member_addicon_btn_back');?></a>
 		</form>
 	</div>
 </div>

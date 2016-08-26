@@ -542,4 +542,5 @@ class User extends CI_Controller {
     public function set_token() {    	
     	$this->user_belancon->generate_token();
     }
+
 }

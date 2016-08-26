@@ -4,7 +4,7 @@
 	</div>
 	<div class="col-md-10">
 
-		<h2>Ubah Password</h2>
+		<h2><?php echo setting_lang('member_changepassword_heading');?></h2>
     <hr>
 		    <!-- Notif Error -->
         <div class="alert alert-danger" role="alert" style="display:none">
@@ -13,19 +13,19 @@
 
 		<?php echo form_open('member/update_password', array('id'=> 'form-change-password')); ?>
 		<div class="form-group">
-			<label>Password Lama</label>
+			<label><?php echo setting_lang('member_changepassword_form_label_oldpassword');?></label>
 			<input type="password" name="old" class="form-control" />
 		</div>
 		<div class="form-group">
-			<label>Password Baru</label>
+			<label><?php echo setting_lang('member_changepassword_form_label_newpassword');?></label>
 			<input type="password" name="new" class="form-control" id="new" />
 		</div>
 		<div class="form-group">
-			<label>Konfirmasi Password Baru</label>
+			<label><?php echo setting_lang('member_changepassword_form_label_confirmnewpassword');?></label>
 			<input type="password" name="new_confirm" class="form-control" />
 		</div>
-		<button class="btn btn-success btn-form" type="submit" data-loading-text="<i class='fa fa-circle-o-notch fa-spin'></i> Loading...">Submit</button>
-		<a href="<?php echo site_url('member/profile');?>" class="btn btn-default" type="submit">Kembali ke Profil</a>
+		<button class="btn btn-success btn-form" type="submit" data-loading-text="<i class='fa fa-circle-o-notch fa-spin'></i> Loading..."><?php echo setting_lang('member_changepassword_btn_submit');?></button>
+		<a href="<?php echo site_url('member/profile');?>" class="btn btn-default" type="submit"><?php echo setting_lang('member_changepassword_btn_back');?></a>
 		<?php echo form_close(); ?>
 	</div>
 </div>

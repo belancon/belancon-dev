@@ -38,13 +38,13 @@ Icon = {
             });            
           }
         } else {
-          items.push('<h2 class="text-center" style="color: #3d3938;">Maaf, Icon tidak ditemukan</h2>');
+          items.push('<h2 class="text-center" style="color: #3d3938;">' + result.txtSearchNotFound + '</h2>');
         }
 
         //and append all icons to display in page html
         $('#icon-list').append.apply($('#icon-list'), items);
         //set button loadmore
-        self.setLoadMore(response.more, response.page);        
+        self.setLoadMore(response.textBtnLoadMore, response.more, response.page);        
      },
      error: function(){     
        var alert = '<div class="alert alert-warning alert-reload" role="alert"> <strong>Error While Request!</strong> <span id="alert-reload-counter">Automatically reload after 10 seconds</span> , or reload manually click <a onclick="window.location.reload(true);" data-page="'+ page +'" href="#">here</a> </div>';
@@ -80,12 +80,6 @@ Icon = {
     var self = this;
     //clear list cart on page
     $('.dropdown-keranjang').html("");
-
-    //set button download element
-    var liDownload = '<li class="divider"></li>';
-    liDownload += '<li style="padding-top: 20px; padding-bottom: 30px;" id="btn-download-cart">';
-    liDownload += '<a href="'+ BASE_URL +'cart">';
-    liDownload += '<span class="green-color glyphicon glyphicon-save" aria-hidden="true"></span> Download all Icons </a> </li>';
                                   
     //set list element if cart empty  
     var liEmpty = '<li style="padding-top: 20px; padding-bottom: 30px;" id="li-cart-empty">Cart Empty</li>';
@@ -103,11 +97,17 @@ Icon = {
         var data = response.data;
         var limit = data.length < 3 ? data.length : 3; //limit only 3 icon show on cart
 
+        //set button download element
+    var liDownload = '<li class="divider"></li>';
+    liDownload += '<li style="padding-top: 20px; padding-bottom: 30px;" id="btn-download-cart">';
+    liDownload += '<a href="'+ BASE_URL +'cart">';
+    liDownload += '<span class="green-color glyphicon glyphicon-save" aria-hidden="true"></span> ' + response.txtBtnDownload + ' </a> </li>';
+
         //populate data
         if(data.length > 0) {
           for(var i=0; i < limit; i++) {
             //push data to content html
-            var item = self.setSingleItemOnCart(data[i], function(result) {
+            var item = self.setSingleItemOnCart(data[i], {txtBtnRemove : response.txtBtnRemove}, function(result) {
               items.push(result);  
             });
             
@@ -181,11 +181,31 @@ Icon = {
           "showMethod": "fadeIn",
           "hideMethod": "fadeOut"
           };
-          toastr.success("Success ditambahkan ke keranjang.", name, "Success !", opts);           
+          toastr.success(name + " " + response.message, "Success !", opts);           
 
           if(callback) {
             callback(response.status);
           }
+       } else {
+          /** Message Error */        
+                var opts = {
+                  "debug": false,
+                  "positionClass": "toast-top-right",
+                  "onclick": null,
+                  "showDuration": "100",
+                  "hideDuration": "300",
+                  "timeOut": "1000",
+                  "extendedTimeOut": "300",
+                  "showEasing": "swing",
+                  "hideEasing": "linear",
+                  "showMethod": "fadeIn",
+                  "hideMethod": "fadeOut"
+                };
+                toastr.error(response.error, "Warning !", opts);          
+               //toggle button action on icon item.           
+               self.setBtnAddIcon(id, name, function(result) {
+                  $('.download-icon[data-id="'+ id +'"]').append(result);             
+               });     
        }
      },
      error: function(){    
@@ -205,7 +225,7 @@ Icon = {
           "showMethod": "fadeIn",
           "hideMethod": "fadeOut"
         };
-        toastr.success("Terjadi kesalahan pada sistem.", "Oops...", opts);
+        toastr.error("Terjadi kesalahan pada sistem.", "Oops...", opts);
 
         if(callback) {
           callback(response.status);
@@ -222,57 +242,92 @@ Icon = {
   removeFromCart: function(id, name, callback) {
     var self = this;
   
-    //show alert warning before remove icon from cart
-    swal({
-      title: "Hapus Icon",
-      text: "Ingin menghapus icon " + name + " dari cart?",
-      type: "warning",
-      showCancelButton: true,
-      closeOnConfirm: true,
-      showLoaderOnConfirm: true
-    }, function () {
-         $('.download-icon[data-id="'+ id +'"]').html("");
-        //if clicked confirmation, call method to remove icon from cart
-        $.ajax({
-         type: "post",
-         url: BASE_URL + "icon/remove_from_cart",
-         cache: false,    
-         data: {id: id},
-         success: function(response){        
-           response  = JSON.parse(response);
-           // console.log(response);
-           
-           if(response.status === true) {          
-            var opts = {
-              "debug": false,
-              "positionClass": "toast-top-right",
-              "onclick": null,
-              "showDuration": "100",
-              "hideDuration": "300",
-              "timeOut": "1000",
-              "extendedTimeOut": "300",
-              "showEasing": "swing",
-              "hideEasing": "linear",
-              "showMethod": "fadeIn",
-              "hideMethod": "fadeOut"
-            };
-            toastr.success("Success dihapus dari keranjang.", name,  "Terhapus !", opts);                        
-             //toggle button action on icon item.           
-             self.setBtnAddIcon(id, name, function(result) {
-                $('.download-icon[data-id="'+ id +'"]').append(result);    
-             });             
+    this.getSettingLanguage('confirm_remove_from_cart', function(result) {
+      var text = result.replace("{val}", name);
+      //show alert warning before remove icon from cart
+      swal({
+        title: "Hapus Icon",
+        text: text,
+        type: "warning",
+        showCancelButton: true,
+        closeOnConfirm: true,
+        showLoaderOnConfirm: true
+      }, function () {
+           $('.download-icon[data-id="'+ id +'"]').html("");
+          //if clicked confirmation, call method to remove icon from cart
+          $.ajax({
+           type: "post",
+           url: BASE_URL + "icon/remove_from_cart",
+           cache: false,    
+           data: {id: id},
+           success: function(response){        
+             response  = JSON.parse(response);
+             // console.log(response);
+             
+             if(response.status === true) {          
+              var opts = {
+                "debug": false,
+                "positionClass": "toast-top-right",
+                "onclick": null,
+                "showDuration": "100",
+                "hideDuration": "300",
+                "timeOut": "1000",
+                "extendedTimeOut": "300",
+                "showEasing": "swing",
+                "hideEasing": "linear",
+                "showMethod": "fadeIn",
+                "hideMethod": "fadeOut"
+              };
+              toastr.success(name + " " + response.message,  "Terhapus !", opts);                        
+               //toggle button action on icon item.           
+               self.setBtnAddIcon(id, name, function(result) {
+                  $('.download-icon[data-id="'+ id +'"]').append(result);    
+               });             
 
-            if(callback) {
-              callback(response);
+              if(callback) {
+                callback(response);
+              }
+
+              //switch button action on page detail icon 
+              Belancon.isPageDetailIcon(function(result) {
+                if(result === true) {
+                  self.setButtonAddToCartPageDetail(id, name);
+                }
+              });  
+            } else {             
+                /** Message Error */        
+                var opts = {
+                  "debug": false,
+                  "positionClass": "toast-top-right",
+                  "onclick": null,
+                  "showDuration": "100",
+                  "hideDuration": "300",
+                  "timeOut": "1000",
+                  "extendedTimeOut": "300",
+                  "showEasing": "swing",
+                  "hideEasing": "linear",
+                  "showMethod": "fadeIn",
+                  "hideMethod": "fadeOut"
+                };
+                toastr.error(response.error, "Warning !", opts);          
+               //toggle button action on icon item.           
+               self.setBtnRemoveIcon(id, name, function(result) {
+                  $('.download-icon[data-id="'+ id +'"]').append(result);             
+               });     
+
+              if(callback) {
+                callback(response);
+              }
             }
 
-            //switch button action on page detail icon 
-            Belancon.isPageDetailIcon(function(result) {
-              if(result === true) {
-                self.setButtonAddToCartPageDetail(id, name);
-              }
-            });  
-          } else {             
+            //refresh cart
+            Icon.getCart();
+            Cart.getAll();
+           },
+           error: function(){      
+            self.setBtnRemoveIcon(id, name, function(result) {
+              $('.download-icon[data-id="'+ id +'"]').append(result);
+            });          
               /** Message Error */        
               var opts = {
                 "debug": false,
@@ -287,55 +342,23 @@ Icon = {
                 "showMethod": "fadeIn",
                 "hideMethod": "fadeOut"
               };
-              toastr.error("Icons gagal dihapus dari keranjang..", "Warning !", opts);          
-             //toggle button action on icon item.           
-             self.setBtnRemoveIcon(id, name, function(result) {
-                $('.download-icon[data-id="'+ id +'"]').append(result);             
-             });     
-
-            if(callback) {
-              callback(response);
-            }
-          }
-
-          //refresh cart
-          Icon.getCart();
-          Cart.getAll();
-         },
-         error: function(){      
-          self.setBtnRemoveIcon(id, name, function(result) {
-            $('.download-icon[data-id="'+ id +'"]').append(result);
-          });          
-            /** Message Error */        
-            var opts = {
-              "debug": false,
-              "positionClass": "toast-top-right",
-              "onclick": null,
-              "showDuration": "100",
-              "hideDuration": "300",
-              "timeOut": "1000",
-              "extendedTimeOut": "300",
-              "showEasing": "swing",
-              "hideEasing": "linear",
-              "showMethod": "fadeIn",
-              "hideMethod": "fadeOut"
-            };
-            toastr.error("Terjadi kesalahan pada sistem.", "Warning !", opts);
-         }
-        }); 
-    });   
+              toastr.error("Terjadi kesalahan pada sistem.", "Warning !", opts);
+           }
+          }); 
+      });   
+    });    
   },
   /**
    * set element html for single item on cart list
    * @param {[type]} icon [description]
    */
-  setSingleItemOnCart: function(icon, callback) {
+  setSingleItemOnCart: function(icon, options, callback) {
     var liCart = document.createElement("li");
     var imgCart = document.createElement("img");
     var spanCart = document.createElement("span");
     var btnRemove = document.createElement("a");
     var iconRemove = document.createElement("i");
-    var textRemove = document.createTextNode(" Hapus");
+    var textRemove = document.createTextNode(" " + options.txtBtnRemove);
 
     btnRemove.setAttribute("class", "black-color btn-remove-cart");
     btnRemove.setAttribute("data-id", icon.id);
@@ -446,12 +469,12 @@ Icon = {
    * @param {[type]} more [description]
    * @param {[type]} page [description]
    */
-  setLoadMore: function(more, page) {
+  setLoadMore: function(text, more, page) {
     $('#content-loadmore').html('');
 
     if(more === true) {
       var btnLoadmore = document.createElement("a");
-      var textLoadmore = document.createTextNode("SELANJUTNYA");
+      var textLoadmore = document.createTextNode(text);
       btnLoadmore.setAttribute("class", "btn btn-primary btn-load-more");
       btnLoadmore.setAttribute("id", "btn-load-more");
       btnLoadmore.setAttribute("data-page", page);
@@ -556,18 +579,37 @@ Icon = {
   setButtonAddToCartPageDetail: function(id, name) {
     console.log("setButtonAddToCartPageDetail")
 
-    $('#div-action-cart').html('');
-    var btnAdd = '<a href="#" class="btn-detail-add-cart" data-id="' + id + '" data-name="' + name + '">';
-    btnAdd += '<div class="col-md-12 btn-cart">Tambahkan ke keranjang</div>';
-    btnAdd += '</a>';
+    this.getSettingLanguage('btn_single_add_to_cart', function(result) {
+      $('#div-action-cart').html('');
+      var btnAdd = '<a href="#" class="btn-detail-add-cart" data-id="' + id + '" data-name="' + name + '">';
+      btnAdd += '<div class="col-md-12 btn-cart">'+ result +'</div>';
+      btnAdd += '</a>';
 
-    $('#div-action-cart').append(btnAdd);
+      $('#div-action-cart').append(btnAdd);
+    });
   },
   setButtonRemoveFromCartPageDetail: function(id, name) {
-    $('#div-action-cart').html('');
-    var btnRemove = '<a href="#" class="btn-detail-remove-cart" data-id="' + id + '" data-name="' + name + '">';
-    btnRemove += '<div class="col-md-12 btn-cart">Remove from Cart</div>';
-    btnRemove += '</a>';
-    $('#div-action-cart').append(btnRemove);
+    this.getSettingLanguage('btn_single_remove_from_cart', function(result) {
+      $('#div-action-cart').html('');
+      var btnRemove = '<a href="#" class="btn-detail-remove-cart" data-id="' + id + '" data-name="' + name + '">';
+      btnRemove += '<div class="col-md-12 btn-cart">'+ result +'</div>';
+      btnRemove += '</a>';
+      $('#div-action-cart').append(btnRemove);
+    });
+  },
+  getSettingLanguage: function(name, callback) {
+     $.ajax({
+           type: "post",
+           url: BASE_URL + "api/get_setting_language",
+           cache: false,    
+           data: {name: name},
+           success: function(response){        
+              callback(response);
+           },
+           error: function(){      
+            callback(false);
+            //alert('Error while request..');
+           }
+        });
   }
 };

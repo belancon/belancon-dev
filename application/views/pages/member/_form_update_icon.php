@@ -4,10 +4,16 @@
 	</div>
 	<div class="col-md-10">
 
-		<h2>Ubah Icon</h2>
+		<h2><?php echo setting_lang('member_updateicon_heading');?></h2>
 		<hr>
-
-		<legend>Data Icon</legend>
+		<?php
+		$lbl_name = setting_lang('member_addicon_form_label_name');
+        $lbl_category = setting_lang('member_addicon_form_label_category');
+        $lbl_tags = setting_lang('member_addicon_form_label_tags');
+        $lbl_type = setting_lang('member_addicon_form_label_type');
+        $lbl_price = setting_lang('member_addicon_form_label_price');
+        ?>
+		<legend><?php echo setting_lang('member_addicon_subheading_1');?></legend>
 		<!-- Notif Error -->
         <div class="alert alert-danger" role="alert" style="display:none">
         </div>
@@ -16,13 +22,13 @@
 		<input type="hidden" name="id" value="<?php echo $icon->id;?>" />
 		<input type="hidden" name="default-image" value="<?php echo $icon->default_image;?>" />
 		<div class="form-group">
-			<label>Nama <span class="text-danger">*</span></label>
+			<label><?php echo $lbl_name;?> <span class="text-danger"> <span class="text-danger">*</span></label>
 			<input type="text" name="name" class="form-control" value="<?php echo $icon->name;?>" />
 		</div>
 		<div class="form-group">
-			<label>Kategori <span class="text-danger">*</span></label>			
+			<label><?php echo $lbl_category;?> <span class="text-danger">*</span></label>			
 			<select class="form-control" name="category">
-				<option value="">-- Pilih Kategori --</option>
+				<option value="">-- <?php echo setting_lang('lbl_choose_category');?> --</option>
 				<?php foreach($categories as $category): ?>
 				<?php if($category->name == $icon->category): ?>
 				<option value="<?php echo $category->name;?>" selected><?php echo $category->name;?></option>
@@ -33,11 +39,11 @@
 			</select>
 		</div>
 		<div class="form-group">
-			<label>Tags</label>
+			<label><?php echo $lbl_tags;?></label>
 			<input type="text" name="tags" class="form-control" value="<?php echo $icon->tags;?>" />
 		</div>
 		<div class="form-group">
-			<label>Tipe <span class="text-danger">*</span></label> <br />
+			<label><?php echo $lbl_type;?> <span class="text-danger">*</span></label> <br />
 			<label class="radio-inline">
 			 <?php $checked_free = $icon->type === 'free' ? 'checked' : '' ; ?>
 			 <input type="radio" name="type" id="free" value="free" <?php echo $checked_free;?>> Free
@@ -48,12 +54,12 @@
 			</label>
 		</div>
 		<div class="form-group">
-			<label>Price</label>
+			<label><?php echo $lbl_price;?></label>
 			<input type="text" name="price" class="form-control" value="<?php echo $icon->price;?>" />
 		</div>		
 		
-		<legend>File Icon </legend> 
-		<small>(Jika tidak ada perubahan pada file, tidak perlu mengupload file-filenya)</small>
+		<legend><?php echo setting_lang('member_addicon_subheading_2');?> </legend> 
+		<small>(<?php echo setting_lang('member_updateicon_form_note_fileicon');?>)</small>
 		<br />
 		<br />
 		<div class="form-group">

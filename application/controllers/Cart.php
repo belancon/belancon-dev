@@ -9,7 +9,10 @@ class Cart extends CI_Controller
         parent::__construct();
         $this->load->library('template');
         $this->template->set_platform('public');
-        $this->template->set_theme('belancon');        
+        $this->template->set_theme('belancon');    
+
+         //set default language
+        $this->user_belancon->set_default_language();    
     }
 
     public function index() {		
@@ -67,7 +70,7 @@ class Cart extends CI_Controller
 
         $this->template->set_js($path.'general.js','footer', 'remote');
         $this->template->set_js($path.'icon.js','footer', 'remote');
-        $this->template->set_js($path.'cart.min.js','footer', 'remote');
+        $this->template->set_js($path.'cart.js','footer', 'remote');
         $this->template->set_js($path.'page-cart.js','footer', 'remote');
     }
 }

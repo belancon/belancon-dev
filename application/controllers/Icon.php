@@ -40,6 +40,7 @@ class Icon extends MY_Controller {
 			$data = $this->get_data($page, $by, $search);
 			$cart = $this->cart_belancon->contents();
 			$more = count($data) < $this->limit ? FALSE : TRUE;
+            $text_load_more = setting_lang('btn_load_more');
 
 			if(count($data) > 0) {
 				
@@ -56,7 +57,7 @@ class Icon extends MY_Controller {
 				}
 			}
 
-			echo json_encode(array('data' => $icons, 'page' => $page + 1, 'more' => $more, 'by'=> $by, 'search'=> $search));
+			echo json_encode(array('data' => $icons, 'page' => $page + 1, 'more' => $more, 'by'=> $by, 'search'=> $search, 'textBtnLoadMore'=> $text_load_more, 'txtSearchNotFound'=> setting_lang('notif_search_not_found')));
 		} else {
 			redirect('/');
 		}
@@ -108,7 +109,7 @@ class Icon extends MY_Controller {
 				}
 			}
 
-			echo json_encode(array('data' => $icons, 'page' => $page + 1, 'more' => $more, 'search'=> $search));
+			echo json_encode(array('data' => $icons, 'page' => $page + 1, 'more' => $more, 'search'=> $search, 'txtSearchNotFound' => setting_lang('notif_search_not_found')));
 		} else {
 			redirect('/');
 		}
@@ -476,15 +477,15 @@ class Icon extends MY_Controller {
 
 	    	if($result) {
                 //if success delete
-	    		$this->session->set_flashdata('success_message', "Sukses Menghapus Icon ".$name);
+	    		$this->session->set_flashdata('success_message',  setting_lang('notif_success_remove_icon') + " ".$name);
 	    		$response = array('status' => TRUE);
 	    	} else {
                 //failed deleted
-	    		$response = array('status' => FALSE, 'message' => 'Gagal Menghapus Icon' );
+	    		$response = array('status' => FALSE, 'error' => setting_lang('notif_error_remove_icon') );
 	    	}
     	} else {
             //id not found
-    		$response = array('status' => FALSE, 'message' => 'Terjadi Kesalahan sistem' );
+    		$response = array('status' => FALSE, 'error' => setting_lang('notif_error_remove_icon') );
     	}
 
     	echo json_encode($response);
@@ -571,15 +572,16 @@ class Icon extends MY_Controller {
                     //if success added to cart
 					$icon->path = $img_icon_folder."/".$icon->default_image;
 					$result = array(
-						'status' => TRUE,						
+						'status' => TRUE,			
+                        'message' => setting_lang('notif_success_add_to_cart')
 					);
 				} else {
                     //failed added to cart
-					$result = array('status'=> FALSE, 'error' => 'failed added item to cart');	
+					$result = array('status'=> FALSE, 'error' => setting_lang('notif_error_add_to_cart'));	
 				}
 			} else {
                 //icon not found
-				$result = array('status'=> FALSE, 'error' => 'icon not found');
+				$result = array('status'=> FALSE, 'error' => setting_lang('notif_error_add_to_cart'));
 			}
 
 			echo json_encode($result);
@@ -602,10 +604,10 @@ class Icon extends MY_Controller {
 
 			if($deleted) {
                 //if success deleted from cart
-				$result = array('status'=> TRUE);	
+				$result = array('status'=> TRUE, 'message' => setting_lang('notif_success_remove_from_cart'));	
 			} else {
                 //failed deleted from cart
-				$result = array('status'=> FALSE, 'error' => 'failed deleted item from cart');
+				$result = array('status'=> FALSE, 'error' => setting_lang('notif_error_remove_from_cart'));
 			}			
 
 			echo json_encode($result);
@@ -680,8 +682,12 @@ class Icon extends MY_Controller {
 				}
 			}
 
+            $txt_btn_remove = setting_lang('link_remove_from_cart');
+            $txt_btn_download = setting_lang('link_download_all');
+            $txt_row_empty = setting_lang('row_empty_cart');
+
             //return data
-			echo json_encode(array('data' => $data));
+			echo json_encode(array('data' => $data, 'txtBtnRemove' => $txt_btn_remove, 'txtBtnDownload' => $txt_btn_download, 'txtRowEmpty'=> $txt_row_empty));
 		} else {
 			redirect('/');
 		}

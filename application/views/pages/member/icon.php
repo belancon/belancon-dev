@@ -3,9 +3,9 @@
 		<?php $this->load->view('_parts/sidebar'); ?>
 	</div>
 	<div class="col-md-10">
-		<h2>Icon Member</h2>		
+		<h2><?php echo setting_lang('member_icon_heading');?></h2>		
 		<hr>
-		<a href="<?php echo site_url('member/add-icon');?>" class="btn btn-green-primary"><i class="fa fa-plus"></i> Tambah icon</a>
+		<a href="<?php echo site_url('member/add-icon');?>" class="btn btn-green-primary"><i class="fa fa-plus"></i> <?php echo setting_lang('member_icon_btn_add');?></a>
 		
 		<br />
 

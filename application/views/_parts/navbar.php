@@ -33,16 +33,20 @@
                     <?php $picture = user_login('profile_picture') == null ? 'belancon-user.jpg' : user_login('profile_picture'); ?>
                     <img src="<?php echo cloud('member/'.$picture);?>" alt="" class="author-pic" /> <span class="white-color"><?php echo user_login('first_name');?></span>
                   </a>
+                  <?php
+                  $menu_member = setting_lang('menu_navbar_dropdown_member');
+                  $menu_member = explode(",", $menu_member);
+                  ?>
                   <ul class="dropdown-menu scrollable-menu">
-                      <li><a href="<?php echo site_url('member/icon');?>">Iconku</a></li> 
-                      <li><a href="<?php echo site_url('member/profile');?>">Profil</a></li> 
-                      <li><a href="<?php echo site_url('member/change-password');?>">Ubah Password</a></li>
-                      <li><a href="<?php echo site_url('user/logout');?>">Logout</a></li>
+                      <li><a href="<?php echo site_url('member/icon');?>"><?php echo $menu_member[0];?></a></li> 
+                      <li><a href="<?php echo site_url('member/profile');?>"><?php echo $menu_member[1];?></a></li> 
+                      <li><a href="<?php echo site_url('member/change-password');?>"><?php echo $menu_member[2];?></a></li>
+                      <li><a href="<?php echo site_url('user/logout');?>"><?php echo $menu_member[3];?></a></li>
                   </ul>
               </li>    
               <?php else: ?>
-              <li><a style="height: 53px;" href="<?php echo site_url('register');?>" class="btn-yellow-primary no-shadow">Daftar</a></li>
-              <li><a href="<?php echo site_url('login');?>" class="btn white-color" style="text-align: left !important;">Masuk</a></li>   
+              <li><a style="height: 53px;" href="<?php echo site_url('register');?>" class="btn-yellow-primary no-shadow"><?php echo setting_lang('menu_navbar_register');?></a></li>
+              <li><a href="<?php echo site_url('login');?>" class="btn white-color" style="text-align: left !important;"><?php echo setting_lang('menu_navbar_login');?></a></li>   
               <?php endif; ?>
               <li class="dropdown">
                 <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">

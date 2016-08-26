@@ -58,7 +58,7 @@ $autoload['packages'] = array();
 |
 |	$autoload['libraries'] = array('user_agent' => 'ua');
 */
-$autoload['libraries'] = array('database', 'cart_belancon', 'session', 'ion_auth', 'facebook', 'google');
+$autoload['libraries'] = array('database', 'cart_belancon', 'session', 'ion_auth', 'facebook', 'google', 'user_belancon');
 
 /*
 | -------------------------------------------------------------------
@@ -89,7 +89,7 @@ $autoload['drivers'] = array();
 |
 |	$autoload['helper'] = array('url', 'file');
 */
-$autoload['helper'] = array('url', 'icon','asset', 'user', 'menu');
+$autoload['helper'] = array('url', 'icon','asset', 'user', 'menu', 'setting_language');
 
 /*
 | -------------------------------------------------------------------
@@ -132,4 +132,4 @@ $autoload['language'] = array();
 |
 |	$autoload['model'] = array('first_model' => 'first');
 */
-$autoload['model'] = array();
+$autoload['model'] = array('');

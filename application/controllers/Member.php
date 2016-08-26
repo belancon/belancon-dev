@@ -1,4 +1,4 @@
-<?php
+<?php defined('BASEPATH') OR exit('No direct script access allowed');
 
 class Member extends MY_Controller 
 {
@@ -77,11 +77,7 @@ class Member extends MY_Controller
             array(
                 'name' => 'Member',
                 'path' => site_url('member')
-            ),
-            array(
-                'name' => 'Icon',
-                'path' => null
-            ),
+            )            
         );
         $this->template->set_props('breadcrumb', $breadcrumb);
 
@@ -113,15 +109,7 @@ class Member extends MY_Controller
             array(
                 'name' => 'Member',
                 'path' => site_url('member')
-            ),
-            array(
-                'name' => 'Icon',
-                'path' => site_url('member/icon')
-            ),
-            array(
-                'name' => 'Tambah',
-                'path' => null
-            ),
+            )            
         );
         $this->template->set_props('breadcrumb', $breadcrumb);
 
@@ -157,15 +145,7 @@ class Member extends MY_Controller
             array(
                 'name' => 'Member',
                 'path' => site_url('member')
-            ),
-            array(
-                'name' => 'Icon',
-                'path' => site_url('member/icon')
-            ),
-            array(
-                'name' => 'Ubah',
-                'path' => null
-            ),
+            )
         );
         $this->template->set_props('breadcrumb', $breadcrumb);
 
@@ -198,11 +178,7 @@ class Member extends MY_Controller
             array(
                 'name' => 'Member',
                 'path' => site_url('member')
-            ),
-            array(
-                'name' => 'Profil',
-                'path' => null
-            ),
+            )
         );
         $this->template->set_props('breadcrumb', $breadcrumb);
 
@@ -234,15 +210,7 @@ class Member extends MY_Controller
             array(
                 'name' => 'Member',
                 'path' => site_url('member')
-            ),
-            array(
-                'name' => 'Profil',
-                'path' => site_url('member/profile')
-            ),
-            array(
-                'name' => 'Ubah',
-                'path' => null
-            ),
+            )
         );
         $this->template->set_props('breadcrumb', $breadcrumb);
 
@@ -273,15 +241,7 @@ class Member extends MY_Controller
             array(
                 'name' => 'Member',
                 'path' => site_url('member')
-            ),
-            array(
-                'name' => 'Profil',
-                'path' => site_url('member/profile')
-            ),
-            array(
-                'name' => 'Setting Link Akun',
-                'path' => null
-            ),
+            )
         );
         $this->template->set_props('breadcrumb', $breadcrumb);
 
@@ -405,15 +365,7 @@ class Member extends MY_Controller
             array(
                 'name' => 'Member',
                 'path' => site_url('member')
-            ),
-            array(
-                'name' => 'Profil',
-                'path' => site_url('member/profile')
-            ),
-            array(
-                'name' => 'Ubah Password',
-                'path' => null
-            ),
+            )
         );
         $this->template->set_props('breadcrumb', $breadcrumb);
 

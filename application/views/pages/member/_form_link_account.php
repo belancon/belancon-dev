@@ -4,7 +4,7 @@
 	</div>
 	<div class="col-md-10">
 
-		<h2>Setting Link Akun</h2>
+		<h2><?php echo setting_lang('member_settingaccount_heading');?></h2>
 		<hr>
 		<!-- Notif Error -->
         <div class="alert alert-danger" role="alert" style="display:none">
@@ -40,8 +40,8 @@
       <input type="text" name="web" class="form-control" value="<?php echo user_socmed('web', 'url');?>" />
     </div>
 		<div class="form-group">		
-		<button class="btn btn-success btn-form" type="submit" data-loading-text="<i class='fa fa-circle-o-notch fa-spin'></i> Loading...">Submit</button>
-		<a href="<?php echo site_url('member/profile');?>" class="btn btn-default" type="submit">Kembali ke Profil</a>
+		<button class="btn btn-success btn-form" type="submit" data-loading-text="<i class='fa fa-circle-o-notch fa-spin'></i> Loading..."><?php echo setting_lang('member_settingaccount_btn_submit');?></button>
+		<a href="<?php echo site_url('member/profile');?>" class="btn btn-default" type="submit"><?php echo setting_lang('member_settingaccount_btn_back');?></a>
 		<?php echo form_close(); ?>
 	</div>
 </div>

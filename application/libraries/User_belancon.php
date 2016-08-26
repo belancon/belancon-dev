@@ -6,6 +6,7 @@ class User_belancon {
 	function __construct()
 	{
 		$this->ci =& get_instance();
+		$this->ci->load->helper('cookie');
 	}
 
 	// Function to get the client ip address
@@ -30,9 +31,6 @@ class User_belancon {
 	}
 
 	public function generate_token() {		
-		$this->ci->load->library('session');
-		$this->ci->load->helper('cookie');
-
 		$ipaddress = $this->get_client_ip();
 
 		if($ipaddress !== 'UNKNOWN') {			
@@ -97,5 +95,41 @@ class User_belancon {
 	    }
 
 	    return $output;
+	}
+
+	public function set_language($lang) {
+		if($lang) {
+			$this->ci->input->set_cookie('default_lang', $lang, 86400);
+		}
+	}
+
+	public function set_default_language() {
+		$country = $this->get_user_country();
+		if(!$this->ci->input->cookie('default_lang')) {
+			//$this->ci->load->model('setting_generals_model');
+			//$row = $this->ci->setting_generals_model->where('name','default_language')->get();
+
+			if($country) {				
+				$lang = $country == 'ID' ? 'id' : 'en';
+				$this->ci->input->set_cookie('default_lang', $lang, 86400);				
+			}
+		}
+	}
+
+	public function get_language() {
+
+		if(!$this->ci->input->cookie('default_lang')) {
+			$country = $this->get_user_country();
+			return $country == 'ID' ? 'id' : 'en';
+		} else {
+			return $this->ci->input->cookie('default_lang');
+		}
+	}
+
+	public function get_user_country() {
+		$ip = $_SERVER['REMOTE_ADDR'];
+        $geo = json_decode(file_get_contents("http://ipinfo.io"));
+            
+        return $geo->country;
 	}
 }
