@@ -146,7 +146,25 @@ a {
 #header {
   background: #66ae53;
   background-image: url("../img/bg_header.png");
-  padding-bottom: 80px; }
+  animation-name: example;
+  animation-duration: 10s;
+  animation-iteration-count: infinite;
+  -webkit-animation-name: example;
+  -webkit-animation-duration: 10s;
+  -webkit-animation-iteration-count: infinite;
+  padding-bottom: 80px;
+  /* The animation code */ }
+@keyframes example {
+  0% {
+    background-position: 30% 20%; }
+  25% {
+    background-position: 50% 60%; }
+  50% {
+    background-position: 80% 90%; }
+  75% {
+    background-position: 50% 60%; }
+  100% {
+    background-position: 30% 20%; } }
   #header .navbar-default {
     background: #3d3938;
     border: 0;
