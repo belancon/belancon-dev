@@ -158,7 +158,7 @@ class Icon extends MY_Controller {
         //set form validation rules
         $this->form_validation->set_rules('name', 'Nama', 'required|min_length[3]');
         $this->form_validation->set_rules('category', 'Kategori', 'required|min_length[3]');
-        $this->form_validation->set_rules('type', 'Tipe', 'required');
+        //$this->form_validation->set_rules('type', 'Tipe', 'required');
         $this->form_validation->set_rules('price', 'Harga', 'integer');
         //set custom error validation
         $this->form_validation->set_message('required', '{field} harap diisi');
@@ -276,7 +276,7 @@ class Icon extends MY_Controller {
                     $url = url_title(strtolower($input_name))."_".$random_number;
                     $category = $this->input->post('category', TRUE);
                     $tags = $this->input->post('tags', TRUE);
-                    $type = $this->input->post('type', TRUE);
+                    $type = 'free';//$this->input->post('type', TRUE);
                     $price = $this->input->post('price', TRUE);
 
                     $data = array(
@@ -341,7 +341,7 @@ class Icon extends MY_Controller {
     	//Form Validation rules
     	$this->form_validation->set_rules('name', 'Nama', 'required|min_length[3]');
         $this->form_validation->set_rules('category', 'Kategori', 'required|min_length[3]');
-        $this->form_validation->set_rules('type', 'Tipe', 'required');
+        //$this->form_validation->set_rules('type', 'Tipe', 'required');
         $this->form_validation->set_rules('price', 'Harga', 'integer');
         //set custom error validation
         $this->form_validation->set_message('required', '{field} harap diisi');
@@ -353,9 +353,14 @@ class Icon extends MY_Controller {
             $png = 'filepng';
             $psd = 'filepsd';
             $ai = 'fileai';
+            $cdr = 'filecdr';
+            $svg = 'filesvg';
+
             $file_png = $_FILES[$png];
             $file_psd = $_FILES[$psd];
             $file_ai = $_FILES[$ai];
+            $file_cdr = $_FILES[$cdr];
+            $file_svg = $_FILES[$svg];
 			
 
             //check validation upload file PNG
@@ -401,8 +406,35 @@ class Icon extends MY_Controller {
 				$result_ai = array('status' => TRUE, 'filename' => NULL);
 			}
 
+            //check validation upload file CDR
+            //insert file cdr
+                if($file_cdr['name'] != '') {
+                    $config_cdr = array(
+                        'upload_path' => $this->config->item('upload_path')."cdr/",
+                        'allowed_types' => 'cdr',
+                        'max_size' => '2000',
+                        'encrypt_name' => TRUE
+                    );
+                    $result_cdr = $this->_upload_file($cdr, $file_cdr, $config_cdr);
+                } else {
+                    $result_cdr = array('status' => TRUE, 'filename' => NULL);
+                }
+
+            //check validation upload file SVG
+            if($file_svg['name'] != '') {
+                    $config_svg = array(
+                        'upload_path' => $this->config->item('upload_path')."svg/",
+                        'allowed_types' => 'svg',
+                        'max_size' => '2000',
+                        'encrypt_name' => TRUE
+                    );
+                    $result_svg = $this->_upload_file($svg, $file_svg, $config_svg);
+                } else {
+                    $result_svg = array('status' => TRUE, 'filename' => NULL);
+                }
+
 			//check upload file 
-            if($result_png['status'] === TRUE && $result_psd['status'] === TRUE && $result_ai['status'] === TRUE) {
+            if($result_png['status'] === TRUE && $result_psd['status'] === TRUE && $result_ai['status'] === TRUE && $result_cdr['status'] === TRUE && $result_svg['status'] === TRUE) {
             	$files = array();
             	//get filenames
                	if($result_png['filename'] !== NULL) {
@@ -416,6 +448,14 @@ class Icon extends MY_Controller {
                	if($result_ai['filename'] !== NULL) {
                		$files[] = $result_ai['filename'];
                	}
+
+                if($result_cdr['filename'] !== NULL) {
+                    $files[] = $result_cdr['filename'];
+                }
+
+                if($result_svg['filename'] !== NULL) {
+                    $files[] = $result_svg['filename'];
+                }
 
 	        	//===== UPDATE ICON INTO TABLE =====//
 	        	$id = $this->input->post('id', TRUE);				
@@ -434,7 +474,7 @@ class Icon extends MY_Controller {
 					'name' => $name,
 					'category' => $category,
 					'tags' =>  str_replace(" ","",$tags),
-					'type' => $type,
+					'type' => 'free',//$type,
 					'price' => $price,
 					'url' => strtolower($url),				
 					'default_image' => $default_image

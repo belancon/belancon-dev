@@ -17,11 +17,11 @@
           <!-- Collect the nav links, forms, and other content for toggling -->
           <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
 
-            <form class="navbar-form navbar-left" role="search" id="search-form-icon">
+            <form class="navbar-form navbar-left" role="search" id="form-search-icon">
               <div class="form-group">
-                <input type="text" class="input-search form-control" placeholder="Icon apa yang kamu butuhkan?">
+                <input type="text" class="input-search form-control" placeholder="<?php echo setting_lang('ph_input_search');?>" id="search-icon">
               </div>
-              <button type="submit" class="btn btn-default btn-cari">Cari</button>
+              <button type="submit" class="btn btn-default btn-cari" id="submit-search-icon">Cari</button>
             </form>
 
             <ul class="nav navbar-nav navbar-right">
