@@ -126,13 +126,13 @@ $config['cdn'] = ((ENVIRONMENT != 'production')?'//cdn.localhost/belancon/':'//c
 
 // $config['cloud'] = ((ENVIRONMENT != 'production') ? 'http://cloud-belancon/': 'http://cloud.belancon.com/belancon/');
 
-$config['cloud'] = ((ENVIRONMENT != 'production') ? 'http://localhost/cloud-belancon/': 'https://belancon.com/cloud/');
+$config['cloud'] = ((ENVIRONMENT != 'production') ? 'http://localhost/cloud-belancon/': 'https://dev.belancon.com/cloud/');
 
 //jika menggunakan vhost dg alamat http://cloud-belancon
 // $config['cloud_path'] = ((ENVIRONMENT != 'production') ? 'http://cloud-belancon/': 'http://cloud.belancon.com/');
 
 
-$config['cloud_path'] = ((ENVIRONMENT != 'production') ? 'http://localhost/cloud-belancon/': 'https://belancon.com/cloud/');
+$config['cloud_path'] = ((ENVIRONMENT != 'production') ? 'http://localhost/cloud-belancon/': 'https://dev.belancon.com/cloud/');
 
 /*
 |--------------------------------------------------------------------------
@@ -470,7 +470,7 @@ $config['csrf_token_name'] = 'csrf_belancon';
 $config['csrf_cookie_name'] = 'csrf_belancon';
 $config['csrf_expire'] = 86400;
 $config['csrf_regenerate'] = FALSE;
-$config['csrf_exclude_uris'] = array('icon/get_cart', 'icon/remove_from_cart');
+$config['csrf_exclude_uris'] = array('icon/get_cart', 'icon/remove_from_cart', 'payment/vtweb_checkout');
 
 /*
 |--------------------------------------------------------------------------
