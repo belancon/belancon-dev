@@ -1,4 +1,4 @@
-<?php
+<?php defined('BASEPATH') OR exit('No direct script access allowed');
 
 class Author extends CI_Controller 
 {
@@ -9,6 +9,9 @@ class Author extends CI_Controller
         $this->template->set_theme('belancon');
         $this->load->model(array('user_model','usersocmeds_model'));
         $this->load->helper('dateindo');
+
+        //set default language
+        $this->user_belancon->set_default_language();
 	}
 
 	public function index($url) {
@@ -70,6 +73,7 @@ class Author extends CI_Controller
         $this->template->set_js('bootstrap.js','footer');
         $this->template->set_js('sweetalert.min.js','footer');
         $this->template->set_js('toastr.js','footer');
+        $this->template->set_js('navscroll.js','footer');
     }
 
     public function _loadscript() {

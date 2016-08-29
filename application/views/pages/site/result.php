@@ -1,7 +1,7 @@
 <div class="row" id="header-search-page">
   <div class="col-md-12">
     <h2 class="text-center green-color" style="margin-bottom: 20px;">
-    Hasil Pencarian Untuk : <span style="color: #3d3938;">" <?php echo $searchText; ?> "</span>
+    <?php echo setting_lang('heading_result');?> : <span style="color: #3d3938;">" <?php echo $searchText; ?> "</span>
     </h2>
   </div>
 </div>
@@ -11,9 +11,13 @@
       <div class="row" style="margin-bottom: 50px;">
         <div class="col-md-4 col-md-offset-4">
           <!-- Nav tabs -->
+          <?php
+          $text = setting_lang('tab_icon');
+          $tab =explode(",", $text);
+          ?>
           <ul class="nav nav-tabs" role="tablist">
-            <li role="presentation" class="active"><a href="#terbaru" aria-controls="terbaru" role="tab" data-toggle="tab" data-filter="newest" class="btn-filter">Terbaru</a></li>
-            <li role="presentation"><a href="#popular" aria-controls="popular" role="tab" data-toggle="tab" data-filter="popular" class="btn-filter">Popular</a></li>
+            <li role="presentation" class="active"><a href="#terbaru" aria-controls="terbaru" role="tab" data-toggle="tab" data-filter="newest" class="btn-filter"><?php echo $tab[0];?></a></li>
+            <li role="presentation"><a href="#popular" aria-controls="popular" role="tab" data-toggle="tab" data-filter="popular" class="btn-filter"><?php echo $tab[1];?></a></li>
           </ul>
         </div>
       </div>

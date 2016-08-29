@@ -146,11 +146,35 @@ a {
 #header {
   background: #66ae53;
   background-image: url("../img/bg_header.png");
-  padding-bottom: 80px; }
+  animation-name: example;
+  animation-duration: 10s;
+  animation-iteration-count: infinite;
+  -webkit-animation-name: example;
+  -webkit-animation-duration: 10s;
+  -webkit-animation-iteration-count: infinite;
+  padding-bottom: 80px;
+  /* The animation code */ }
+@keyframes example {
+  0% {
+    background-position: 30% 20%; }
+  25% {
+    background-position: 50% 60%; }
+  50% {
+    background-position: 80% 90%; }
+  75% {
+    background-position: 50% 60%; }
+  100% {
+    background-position: 30% 20%; } }
   #header .navbar-default {
     background: #3d3938;
     border: 0;
     border-radius: 0; }
+    #header .navbar-default .navbar-left .input-search {
+      width: 400px; }
+    #header .navbar-default .navbar-left .btn-cari {
+      color: white;
+      background: #fdaa3e;
+      border: 0; }
     #header .navbar-default .navbar-header .belancon-logo {
       margin-top: 8px; }
     #header .navbar-default .navbar-brand {

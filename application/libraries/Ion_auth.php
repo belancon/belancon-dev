@@ -396,14 +396,20 @@ class Ion_auth
 
 		$identity = $this->config->item('identity', 'ion_auth');
 
-                if (substr(CI_VERSION, 0, 1) == '2')
+        if (substr(CI_VERSION, 0, 1) == '2')
 		{
 			$this->session->unset_userdata( array($identity => '', 'id' => '', 'user_id' => '') );
-                }
-                else
-                {
-                	$this->session->unset_userdata( array($identity, 'id', 'user_id') );
-                }
+        }
+        else
+        {
+        	// unset($_SESSION[$identity]);
+        	unset($_SESSION['identity']);
+        	unset($_SESSION['username']);
+        	unset($_SESSION['email']);
+        	unset($_SESSION['id']);
+        	unset($_SESSION['user_id']);
+            //$this->session->unset_userdata( array($identity, 'id', 'user_id') );
+        }
 
 		// delete the remember me cookies if they exist
 		if (get_cookie($this->config->item('identity_cookie_name', 'ion_auth')))
@@ -415,8 +421,12 @@ class Ion_auth
 			delete_cookie($this->config->item('remember_cookie_name', 'ion_auth'));
 		}
 
+		/**
+		 * disabled it because it is destroy all session, so bad :(
+		 */
+
 		// Destroy the session
-		$this->session->sess_destroy();
+		//$this->session->sess_destroy();
 
 		//Recreate the session
 		if (substr(CI_VERSION, 0, 1) == '2')

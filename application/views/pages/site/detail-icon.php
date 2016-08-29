@@ -14,8 +14,8 @@
       <div>
         <!-- Nav tabs -->
         <ul class="nav nav-tabs" role="tablist">
-          <li role="presentation" class="active"><a href="#icon-detail" aria-controls="icon-detail" role="tab" data-toggle="tab">Icon Preview</a></li>
-          <li role="presentation" class=""><a href="#komentar" aria-controls="komentar" role="tab" data-toggle="tab">Komentar</a></li>
+          <li role="presentation" class="active"><a href="#icon-detail" aria-controls="icon-detail" role="tab" data-toggle="tab"><?php echo setting_lang('tab_preview');?></a></li>
+          <li role="presentation" class=""><a href="#komentar" aria-controls="komentar" role="tab" data-toggle="tab"><?php echo setting_lang('tab_comment');?></a></li>
         </ul>
         <!-- Tab panes -->
         <div class="tab-content">
@@ -29,7 +29,7 @@
             <div class="row">
               <div class="col-md-12 share-to">
                 <p>
-                  Bagikan Icon :&nbsp;
+                  <?php echo setting_lang('label_share_icon');?> :&nbsp;
                   <a style="background: #3b5999;" class="no-shadow btn-green-primary btn" href="#" onClick="<?php echo $share_fb;?>"><i class="fa fa-facebook"></i></a>
                   <a onClick="<?php echo $share_twitter;?>" style="background: #1da1f3;" class="no-shadow btn-green-primary btn" href="#"><i class="fa fa-twitter"></i></a>
                   <a onClick="<?php echo $share_gplus;?>" style="background: #dc4e41;" class="no-shadow btn-green-primary btn" href="#"><i class="fa fa-google-plus"></i></a>
@@ -39,7 +39,7 @@
 
             <div class="row">
               <div class="share-to col-md-12">
-                <h4>Item lainnya dari Author:</h4>
+                <h4><?php echo setting_lang('label_other_icon');?> :</h4>
               </div>
             </div>
             <div class="row item-lainnya">
@@ -68,7 +68,7 @@
     </div>
     <div class="col-md-4">
       <h4 style="margin-top: 40px;">
-      Tentang Author
+      <?php echo setting_lang('heading_about_author');?>
       </h4>
       
       <div class="col-md-12 author-icon">
@@ -88,19 +88,29 @@
           <!-- <a href="<?php echo site_url('contributor/join');?>" style="box-shadow: none; width: 100%;" class="btn btn-primary btn-green-primary">Visit Profile</a> -->
         </div>
       </div>
+      <?php
+      if($icon->type == 'free'): ?>
       <a href="#" id="btn-detail-download" data-id="<?php echo $icon->id;?>">
         <div class="col-md-12 btn-icon">
-          Download Sekarang
+          <?php echo setting_lang('btn_single_download');?>
         </div>
       </a>
+      <?php else: ?>
+      <a href="#" id="btn-detail-buy" data-id="<?php echo $icon->id;?>">
+        <div class="col-md-12 btn-icon">
+          Buy Now
+        </div>
+      </a>
+      <?php endif; ?>
+
       <div id="div-action-cart" data-oncart="<?php echo $on_cart;?>">
       
       </div>
       <div class="col-md-12 info-icon">
-        <i class="fa fa-download"></i> <?php echo $icon->downloads;?> Diunduh
+        <i class="fa fa-download"></i> <?php echo $icon->downloads." ".setting_lang('label_count_download');?>
       </div>
       <div class="col-md-12 info-icon">
-        <i class="fa fa-eye"></i> <?php echo $icon->views;?> Dilihat
+        <i class="fa fa-eye"></i> <?php echo $icon->views." ".setting_lang('label_count_view');?>
       </div>
       <!--
       <div class="col-md-12 info-icon">
@@ -110,10 +120,10 @@
         </a>
       </div> -->
       <div class="col-md-12 info-icon" style="font-weight: normal;">
-        <div class="col-md-3">
-          <strong>Date:</strong>
+        <div class="col-md-4">
+          <strong><?php echo setting_lang('label_date_icon');?></strong>
         </div>
-        <div class="col-md-9">
+        <div class="col-md-8">
           <?php echo dateindo2($icon->created_at, 'date')." ".dateindo2($icon->created_at, 'month')." ".dateindo2($icon->created_at, 'year');  ?>
         </div>
         <div class="clearfix">

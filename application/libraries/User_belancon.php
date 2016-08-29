@@ -6,6 +6,7 @@ class User_belancon {
 	function __construct()
 	{
 		$this->ci =& get_instance();
+		$this->ci->load->helper('cookie');
 	}
 
 	// Function to get the client ip address
@@ -30,9 +31,6 @@ class User_belancon {
 	}
 
 	public function generate_token() {		
-		$this->ci->load->library('session');
-		$this->ci->load->helper('cookie');
-
 		$ipaddress = $this->get_client_ip();
 
 		if($ipaddress !== 'UNKNOWN') {			
@@ -97,5 +95,62 @@ class User_belancon {
 	    }
 
 	    return $output;
+	}
+
+	public function set_language($lang) {
+		if($lang) {
+			$this->ci->input->set_cookie('default_lang', $lang, 86400);
+		}
+	}
+
+	public function set_default_language() {
+		$country = $this->get_user_country();
+		if(!$this->ci->input->cookie('default_lang')) {
+			//$this->ci->load->model('setting_generals_model');
+			//$row = $this->ci->setting_generals_model->where('name','default_language')->get();
+
+			if($country) {				
+				$lang = $country == 'ID' ? 'id' : 'en';
+				$this->ci->input->set_cookie('default_lang', $lang, 86400);				
+			}
+		}
+	}
+
+	public function get_language() {
+
+		if(!$this->ci->input->cookie('default_lang')) {
+			$country = $this->get_user_country();
+			return $country == 'ID' ? 'id' : 'en';
+		} else {
+			return $this->ci->input->cookie('default_lang');
+		}
+	}
+	
+	public function get_client_ip_address() {
+		//Just get the headers if we can or else use the SERVER global
+		if ( function_exists( 'apache_request_headers' ) ) {
+			$headers = apache_request_headers();
+		} else {
+			$headers = $_SERVER;
+		}
+		//Get the forwarded IP if it exists
+		if ( array_key_exists( 'X-Forwarded-For', $headers ) && filter_var( $headers['X-Forwarded-For'], FILTER_VALIDATE_IP, FILTER_FLAG_IPV4 ) ) {
+			$the_ip = $headers['X-Forwarded-For'];
+		} elseif ( array_key_exists( 'HTTP_X_FORWARDED_FOR', $headers ) && filter_var( $headers['HTTP_X_FORWARDED_FOR'], FILTER_VALIDATE_IP, FILTER_FLAG_IPV4 )
+		) {
+			$the_ip = $headers['HTTP_X_FORWARDED_FOR'];
+		} else {
+			
+			$the_ip = filter_var( $_SERVER['REMOTE_ADDR'], FILTER_VALIDATE_IP, FILTER_FLAG_IPV4 );
+		}
+		
+		return $the_ip;
+	}
+
+	public function get_user_country() {
+		$ip = $this->get_client_ip_address();
+        	$geo = json_decode(file_get_contents("http://ipinfo.io/".$ip));
+            
+        	return $geo->country;
 	}
 }

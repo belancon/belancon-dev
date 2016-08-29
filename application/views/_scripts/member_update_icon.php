@@ -30,10 +30,7 @@ $(document).ready(function() {
 			category: {
 				required: 'Kategori icon harap diisi',
 				minlength: 'Kategori icon tidak boleh kurang dari 3 karakter'
-			},
-			type: {
-				required: 'Tipe icon harap diisi'
-			},
+			},			
 			price: {
 				required: 'Harga harus berupa angka desimal'
 			},

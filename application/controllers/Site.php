@@ -1,4 +1,4 @@
-<?php
+<?php defined('BASEPATH') OR exit('No direct script access allowed');
 
 class Site extends CI_Controller 
 {
@@ -117,6 +117,7 @@ class Site extends CI_Controller
             $this->template->set_js('bootstrap.min.js','footer');
             $this->template->set_js('sweetalert.min.js','footer');    
             $this->template->set_js('toastr.min.js','footer');
+            $this->template->set_js('navscroll.js','footer');
         }
 
         public function _loadscript() {
@@ -127,4 +128,6 @@ class Site extends CI_Controller
             $this->template->set_js($path.'cart.min.js','footer', 'remote');
             $this->template->set_js($path.'page-statis.js','footer', 'remote');
         }
+        
+        
 }

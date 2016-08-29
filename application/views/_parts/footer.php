@@ -8,13 +8,13 @@
         <div class="text-center">
           <ul class="primary-menus">
             <!-- <li><a href="<?php echo site_url('term-of-service');?>">
-              Syarat & Ketentuan
+              <?php echo setting_lang('link_term_of_service');?>
             </a></li> -->
             <li><a href="<?php echo site_url('privacy-policy');?>">
-              Kebijakan Privasi
+              <?php echo setting_lang('link_privacy_policy');?>
             </a></li>
             <li><a href="<?php echo cloud_path('text/License.pdf');?>" target="_blank">
-              Lisensi
+              <?php echo setting_lang('link_license');?>
             </a></li>
           </ul>
         </div>
@@ -28,13 +28,13 @@
           </h4>
           <ul class="secondary-menus">
              <li><a href="<?php echo site_url('feedback');?>">
-               Berikan Saran
+               <?php echo setting_lang('link_give_feedback');?>
              </a></li>
              <li><a href="<?php echo site_url('contributor/join');?>">
-               Jadi Kontributor
+               <?php echo setting_lang('link_join_contributor');?>
              </a></li>
              <li><a href="<?php echo site_url('bug');?>">
-               Laporkan Bug
+              <?php echo setting_lang('link_report_bug');?>
              </a></li>
            </ul> 
         </div>
@@ -55,7 +55,7 @@
           </h4>
           <ul class="secondary-menus">
              <li><a href="<?php echo site_url('how-to-download');?>">
-               Cara Mendownload
+               <?php echo setting_lang('link_how_to_download');?>
              </a></li>
            </ul> 
         </div>

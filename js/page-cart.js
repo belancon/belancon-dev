@@ -1,3 +1,21 @@
+var Model = {
+  getSettingLanguage: function(name, callback) {
+     $.ajax({
+           type: "post",
+           url: BASE_URL + "api/get_setting_language",
+           cache: false,    
+           data: {name: name},
+           success: function(response){        
+              callback(response);
+           },
+           error: function(){      
+            callback(false);
+            //alert('Error while request..');
+           }
+        });
+  }
+};
+
 /**
  * Get Icon Lists from ajax function, and append into element html
  * @return {[type]} [description]
@@ -82,8 +100,14 @@ $(document).ready(function () {
           "showMethod": "fadeIn",
           "hideMethod": "fadeOut"
         };
-        toastr.error("Silahkan pilih tipe file yang akan didownload.", "Warning !", opts);        
-        $('.btn-download-icon').button('reset');
+
+        Model.getSettingLanguage('notif_error_cart_download', function(result) {
+          if(result) {
+            toastr.error(result, "Warning !", opts);        
+            $('.btn-download-icon').button('reset');
+          }
+        });
+        
       }
     });        
 });

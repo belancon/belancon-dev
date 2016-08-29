@@ -528,6 +528,7 @@ class User extends CI_Controller {
         $this->template->set_js('bootstrap.min.js','footer');
         $this->template->set_js('sweetalert.min.js','footer');
         $this->template->set_js('toastr.min.js','footer');
+        $this->template->set_js('navscroll.js','footer');
     }
 
     public function _loadscript() {
@@ -541,4 +542,5 @@ class User extends CI_Controller {
     public function set_token() {    	
     	$this->user_belancon->generate_token();
     }
+
 }

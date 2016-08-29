@@ -62,6 +62,38 @@ $(document).ready(function () {
         window.location = url;
       }      
     });
+    
+    /**
+     * Action When Search Form Submitted
+     */
+    $('#form-search-icon-navbar').submit(function(e) {
+      e.preventDefault();
+      var search = $('#search-icon-navbar').val().trim();
+
+      if(search.length < 3) {
+        
+        /** Message Error */
+        
+        var opts = {
+          "debug": false,
+          "positionClass": "toast-top-right",
+          "onclick": null,
+          "showDuration": "100",
+          "hideDuration": "300",
+          "timeOut": "1000",
+          "extendedTimeOut": "300",
+          "showEasing": "swing",
+          "hideEasing": "linear",
+          "showMethod": "fadeIn",
+          "hideMethod": "fadeOut"
+        };
+        toastr.error("Gunakan minimal 3 karakter dalam pencarian Icon.", "Warning !", opts);
+        
+      } else {
+        var url = BASE_URL + "result?search=" + search;
+        window.location = url;
+      }      
+    });
 
     /**
      * Action when tab panel clicked

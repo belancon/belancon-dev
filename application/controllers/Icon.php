@@ -40,6 +40,7 @@ class Icon extends MY_Controller {
 			$data = $this->get_data($page, $by, $search);
 			$cart = $this->cart_belancon->contents();
 			$more = count($data) < $this->limit ? FALSE : TRUE;
+            $text_load_more = setting_lang('btn_load_more');
 
 			if(count($data) > 0) {
 				
@@ -56,7 +57,7 @@ class Icon extends MY_Controller {
 				}
 			}
 
-			echo json_encode(array('data' => $icons, 'page' => $page + 1, 'more' => $more, 'by'=> $by, 'search'=> $search));
+			echo json_encode(array('data' => $icons, 'page' => $page + 1, 'more' => $more, 'by'=> $by, 'search'=> $search, 'textBtnLoadMore'=> $text_load_more, 'txtSearchNotFound'=> setting_lang('notif_search_not_found')));
 		} else {
 			redirect('/');
 		}
@@ -108,7 +109,7 @@ class Icon extends MY_Controller {
 				}
 			}
 
-			echo json_encode(array('data' => $icons, 'page' => $page + 1, 'more' => $more, 'search'=> $search));
+			echo json_encode(array('data' => $icons, 'page' => $page + 1, 'more' => $more, 'search'=> $search, 'txtSearchNotFound' => setting_lang('notif_search_not_found')));
 		} else {
 			redirect('/');
 		}
@@ -157,7 +158,7 @@ class Icon extends MY_Controller {
         //set form validation rules
         $this->form_validation->set_rules('name', 'Nama', 'required|min_length[3]');
         $this->form_validation->set_rules('category', 'Kategori', 'required|min_length[3]');
-        $this->form_validation->set_rules('type', 'Tipe', 'required');
+        //$this->form_validation->set_rules('type', 'Tipe', 'required');
         $this->form_validation->set_rules('price', 'Harga', 'integer');
         //set custom error validation
         $this->form_validation->set_message('required', '{field} harap diisi');
@@ -275,7 +276,7 @@ class Icon extends MY_Controller {
                     $url = url_title(strtolower($input_name))."_".$random_number;
                     $category = $this->input->post('category', TRUE);
                     $tags = $this->input->post('tags', TRUE);
-                    $type = $this->input->post('type', TRUE);
+                    $type = 'free';//$this->input->post('type', TRUE);
                     $price = $this->input->post('price', TRUE);
 
                     $data = array(
@@ -340,7 +341,7 @@ class Icon extends MY_Controller {
     	//Form Validation rules
     	$this->form_validation->set_rules('name', 'Nama', 'required|min_length[3]');
         $this->form_validation->set_rules('category', 'Kategori', 'required|min_length[3]');
-        $this->form_validation->set_rules('type', 'Tipe', 'required');
+        //$this->form_validation->set_rules('type', 'Tipe', 'required');
         $this->form_validation->set_rules('price', 'Harga', 'integer');
         //set custom error validation
         $this->form_validation->set_message('required', '{field} harap diisi');
@@ -352,9 +353,14 @@ class Icon extends MY_Controller {
             $png = 'filepng';
             $psd = 'filepsd';
             $ai = 'fileai';
+            $cdr = 'filecdr';
+            $svg = 'filesvg';
+
             $file_png = $_FILES[$png];
             $file_psd = $_FILES[$psd];
             $file_ai = $_FILES[$ai];
+            $file_cdr = $_FILES[$cdr];
+            $file_svg = $_FILES[$svg];
 			
 
             //check validation upload file PNG
@@ -400,8 +406,35 @@ class Icon extends MY_Controller {
 				$result_ai = array('status' => TRUE, 'filename' => NULL);
 			}
 
+            //check validation upload file CDR
+            //insert file cdr
+                if($file_cdr['name'] != '') {
+                    $config_cdr = array(
+                        'upload_path' => $this->config->item('upload_path')."cdr/",
+                        'allowed_types' => 'cdr',
+                        'max_size' => '2000',
+                        'encrypt_name' => TRUE
+                    );
+                    $result_cdr = $this->_upload_file($cdr, $file_cdr, $config_cdr);
+                } else {
+                    $result_cdr = array('status' => TRUE, 'filename' => NULL);
+                }
+
+            //check validation upload file SVG
+            if($file_svg['name'] != '') {
+                    $config_svg = array(
+                        'upload_path' => $this->config->item('upload_path')."svg/",
+                        'allowed_types' => 'svg',
+                        'max_size' => '2000',
+                        'encrypt_name' => TRUE
+                    );
+                    $result_svg = $this->_upload_file($svg, $file_svg, $config_svg);
+                } else {
+                    $result_svg = array('status' => TRUE, 'filename' => NULL);
+                }
+
 			//check upload file 
-            if($result_png['status'] === TRUE && $result_psd['status'] === TRUE && $result_ai['status'] === TRUE) {
+            if($result_png['status'] === TRUE && $result_psd['status'] === TRUE && $result_ai['status'] === TRUE && $result_cdr['status'] === TRUE && $result_svg['status'] === TRUE) {
             	$files = array();
             	//get filenames
                	if($result_png['filename'] !== NULL) {
@@ -415,6 +448,14 @@ class Icon extends MY_Controller {
                	if($result_ai['filename'] !== NULL) {
                		$files[] = $result_ai['filename'];
                	}
+
+                if($result_cdr['filename'] !== NULL) {
+                    $files[] = $result_cdr['filename'];
+                }
+
+                if($result_svg['filename'] !== NULL) {
+                    $files[] = $result_svg['filename'];
+                }
 
 	        	//===== UPDATE ICON INTO TABLE =====//
 	        	$id = $this->input->post('id', TRUE);				
@@ -433,7 +474,7 @@ class Icon extends MY_Controller {
 					'name' => $name,
 					'category' => $category,
 					'tags' =>  str_replace(" ","",$tags),
-					'type' => $type,
+					'type' => 'free',//$type,
 					'price' => $price,
 					'url' => strtolower($url),				
 					'default_image' => $default_image
@@ -476,15 +517,15 @@ class Icon extends MY_Controller {
 
 	    	if($result) {
                 //if success delete
-	    		$this->session->set_flashdata('success_message', "Sukses Menghapus Icon ".$name);
+	    		$this->session->set_flashdata('success_message',  setting_lang('notif_success_remove_icon') + " ".$name);
 	    		$response = array('status' => TRUE);
 	    	} else {
                 //failed deleted
-	    		$response = array('status' => FALSE, 'message' => 'Gagal Menghapus Icon' );
+	    		$response = array('status' => FALSE, 'error' => setting_lang('notif_error_remove_icon') );
 	    	}
     	} else {
             //id not found
-    		$response = array('status' => FALSE, 'message' => 'Terjadi Kesalahan sistem' );
+    		$response = array('status' => FALSE, 'error' => setting_lang('notif_error_remove_icon') );
     	}
 
     	echo json_encode($response);
@@ -571,15 +612,16 @@ class Icon extends MY_Controller {
                     //if success added to cart
 					$icon->path = $img_icon_folder."/".$icon->default_image;
 					$result = array(
-						'status' => TRUE,						
+						'status' => TRUE,			
+                        'message' => setting_lang('notif_success_add_to_cart')
 					);
 				} else {
                     //failed added to cart
-					$result = array('status'=> FALSE, 'error' => 'failed added item to cart');	
+					$result = array('status'=> FALSE, 'error' => setting_lang('notif_error_add_to_cart'));	
 				}
 			} else {
                 //icon not found
-				$result = array('status'=> FALSE, 'error' => 'icon not found');
+				$result = array('status'=> FALSE, 'error' => setting_lang('notif_error_add_to_cart'));
 			}
 
 			echo json_encode($result);
@@ -602,10 +644,10 @@ class Icon extends MY_Controller {
 
 			if($deleted) {
                 //if success deleted from cart
-				$result = array('status'=> TRUE);	
+				$result = array('status'=> TRUE, 'message' => setting_lang('notif_success_remove_from_cart'));	
 			} else {
                 //failed deleted from cart
-				$result = array('status'=> FALSE, 'error' => 'failed deleted item from cart');
+				$result = array('status'=> FALSE, 'error' => setting_lang('notif_error_remove_from_cart'));
 			}			
 
 			echo json_encode($result);
@@ -680,8 +722,12 @@ class Icon extends MY_Controller {
 				}
 			}
 
+            $txt_btn_remove = setting_lang('link_remove_from_cart');
+            $txt_btn_download = setting_lang('link_download_all');
+            $txt_row_empty = setting_lang('row_empty_cart');
+
             //return data
-			echo json_encode(array('data' => $data));
+			echo json_encode(array('data' => $data, 'txtBtnRemove' => $txt_btn_remove, 'txtBtnDownload' => $txt_btn_download, 'txtRowEmpty'=> $txt_row_empty));
 		} else {
 			redirect('/');
 		}

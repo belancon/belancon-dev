@@ -11,3 +11,10 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 |	https://codeigniter.com/user_guide/general/hooks.html
 |
 */
+
+$hook['post_controller_constructor'] = array(
+	'class' => 'User_belancon',
+	'function' => 'set_default_language',
+	'filename' => 'User_belancon.php',
+	'filepath' => 'libraries'
+);

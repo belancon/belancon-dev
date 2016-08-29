@@ -38,7 +38,7 @@ Member = {
             });            
           }
         } else {
-          items.push('<h2 class="text-center" style="color: #3d3938;">Maaf, Icon tidak ditemukan</h2>');
+          items.push('<h2 class="text-center" style="color: #3d3938;">' + result.txtSearchNotFound + '</h2>');
         }
 
         //and append all icons to display in page html
@@ -123,29 +123,33 @@ Member = {
   removeIcon: function(id, name) {
     var self = this;
   
-    //show alert warning before remove icon from cart
-    swal({
-      title: "Hapus Icon",
-      text: "Yakin Ingin menghapus icon " + name + "?",
-      type: "warning",
-      showCancelButton: true,
-      closeOnConfirm: true,
-      showLoaderOnConfirm: true
-    }, function () {        
+    this.getSettingLanguage('confirm_remove_icon', function(result) {
+        //show alert warning before remove icon from cart
+      swal({
+        title: "Hapus Icon",
+        text: result + " " + name + "?",
+        type: "warning",
+        showCancelButton: true,
+        closeOnConfirm: true,
+        showLoaderOnConfirm: true
+      }, function() {
         //if clicked confirmation, call method to remove icon from cart
         $.ajax({
-         type: "post",
-         url: BASE_URL + "icon/delete",
-         cache: false,    
-         data: {id: id, name: name},
-         success: function(response){        
-           response  = JSON.parse(response);
-           // console.log(response);
-           
-          if(response.status === true) {          
-            location.reload();                         
-          } else {             
-              /** Message Error */        
+          type: "post",
+          url: BASE_URL + "icon/delete",
+          cache: false,
+          data: {
+            id: id,
+            name: name
+          },
+          success: function(response) {
+            response = JSON.parse(response);
+            // console.log(response);
+
+            if (response.status === true) {
+              location.reload();
+            } else {
+              /** Message Error */
               var opts = {
                 "debug": false,
                 "positionClass": "toast-top-right",
@@ -159,12 +163,12 @@ Member = {
                 "showMethod": "fadeIn",
                 "hideMethod": "fadeOut"
               };
-              toastr.error("Icons gagal dihapus dari keranjang..", "Warning !", opts);     
-          }          
-         },
-         error: function(){      
-                  
-            /** Message Error */        
+              toastr.error(response.error, "Warning !", opts);
+            }
+          },
+          error: function() {
+
+            /** Message Error */
             var opts = {
               "debug": false,
               "positionClass": "toast-top-right",
@@ -178,9 +182,25 @@ Member = {
               "showMethod": "fadeIn",
               "hideMethod": "fadeOut"
             };
-            toastr.error("Terjadi kesalahan pada sistem.", "Warning !", opts);
-         }
-        }); 
-    });   
+            toastr.error("Error while request.", "Warning !", opts);
+          }
+        });
+      });
+    });
+  },
+  getSettingLanguage: function(name, callback) {
+     $.ajax({
+           type: "post",
+           url: BASE_URL + "api/get_setting_language",
+           cache: false,    
+           data: {name: name},
+           success: function(response){        
+              callback(response);
+           },
+           error: function(){      
+            callback(false);
+            //alert('Error while request..');
+           }
+        });
   }
 }

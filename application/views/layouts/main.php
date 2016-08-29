@@ -43,6 +43,8 @@
 
 	  ga('create', 'UA-80819561-1', 'auto');
 	  ga('send', 'pageview');
+	  
+	 	
 
 	</script>	
 </head>
@@ -96,20 +98,24 @@
 	  <div class="container">
 	    <div class="row">
 	      <div class="col-md-6">
-	        <img id="img-home-about" src="<?php echo base_url('assets/public/themes/belancon');?>/img/about.png" class="img-responsive" alt="">
+	        <img id="img-home-about" src="<?php echo base_url('assets/public/themes/belancon');?>/img/about-2.png" class="img-responsive" alt="">
 	      </div>
 	      <div class="col-md-6">
 	        <h2 class="green-color" style="margin-top: 110px; margin-bottom: 30px;">
-	        Apa itu Belancon.com ?
+	        <?php echo setting_lang('heading_introduction');?>
 	        </h2>
+	        <?php
+	        $desc = setting_lang('desc_introduction');
+	        $desc = explode(".", $desc, 3);
+	        ?>
 	        <p style="line-height: 1.6;">
-	          Belancon.com adalah sebuah website yang menyediakan icon-icon untuk kebutuhan desain website, aplikasi, print-out, dan lain-lain.
+	         <?php echo $desc[0].".".$desc[1];?>
 	        </p>
 	        <p style="line-height: 1.6;">
-	        Di Belancon.com anda juga bisa menjadi Kontributor kami dalam proses pengembangan website Belancon.com menjadi lebih baik lagi ke depannya.
+	          <?php echo $desc[2];?>
 	        </p>
 	        <p style="margin-top: 30px;">
-	          <a href="<?php echo site_url('contributor/join');?>" class="btn btn-primary btn-green-primary">Bergabung sebagai Kontributor</a>
+	          <a href="<?php echo site_url('contributor/join');?>" class="btn btn-primary btn-green-primary"><?php echo setting_lang('btn_join_contributor');?></a>
 	        </p>
 	      </div>
 	    </div>
@@ -147,6 +153,7 @@
 		  },
 		  success: function() {}
 		});
+	     
 	</script>
 
 	<?php

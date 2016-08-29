@@ -12,8 +12,7 @@ $(document).ready(function () {
       var name = $(this).attr('data-name');
 
       Icon.removeFromCart(id, name);
-    });        
-  
+    });          
 });
 
 window.unload = function(e) {

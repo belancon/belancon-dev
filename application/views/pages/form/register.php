@@ -3,7 +3,7 @@
     <div class="col-md-4 col-md-offset-4">
       <div class="card card-user">
         <div class="image">
-          <h4 class="text-center" style="color:#66ae53">AUTHOR BELANCON</h4>
+          <h4 class="text-center" style="color:#66ae53"><?php echo setting_lang('form_login_heading');?></h4>
           <hr>
         </div>
         <div class="content">        
@@ -13,22 +13,28 @@
           </div>
           <!-- end Notif Error -->
 
+            <?php
+            $lbl_username= setting_lang('form_login_label_username');
+            $lbl_password = setting_lang('form_login_label_password');
+            $lbl_email = setting_lang('form_login_label_email');
+            $lbl_confirm_password = setting_lang('form_login_label_confirm_password');
+            ?>
             <?php echo form_open('user/do_register', array('id'=> 'form-register')); ?>
             <div class="form-group">
-              <label for="username">Username</label>
-              <input type="text" class="form-control" value="" name="identity" placeholder="Username">
+              <label for="username"><?php echo $lbl_username;?></label>
+              <input type="text" class="form-control" value="" name="identity" placeholder="<?php echo $lbl_username;?>">
             </div>
             <div class="form-group">
-              <label for="email">Email</label>
-              <input type="email" class="form-control" value="" name="email" placeholder="Email">
+              <label for="email"><?php echo $lbl_email;?></label>
+              <input type="email" class="form-control" value="" name="email" placeholder="<?php echo $lbl_email;?>">
             </div>
             <div class="form-group">
-              <label for="password">Password</label>
-              <input type="password" class="form-control" name="password" placeholder="Password">
+              <label for="password"><?php echo $lbl_password;?></label>
+              <input type="password" class="form-control" name="password" placeholder="<?php echo $lbl_password;?>">
             </div> 
             <div class="form-group">
-              <label for="password">Konfirm Password</label>
-              <input type="password" class="form-control" name="password_confirm" placeholder="Konfirm Password">
+              <label for="password"><?php echo $lbl_confirm_password;?></label>
+              <input type="password" class="form-control" name="password_confirm" placeholder="<?php echo $lbl_confirm_password;?>">
             </div>            
             <button type="submit" class="btn btn-success btn-form" data-loading-text="<i class='fa fa-circle-o-notch fa-spin'></i> Loading...">Daftar</button>
             <?php echo form_close(); ?>
@@ -37,14 +43,17 @@
         <hr>
 
         <div class="text-center">
-          <a href="<?php echo $this->facebook->login_url(); ?>" class="btn-green-primary btn" style="background: #3b5999;"><i class="fa fa-facebook"></i> Masuk via Facebook</a>
-          <a href="<?php echo $this->google->login_url(); ?>" class="btn-green-primary btn" style="background: #dc4e41;"><i class="fa fa-google-plus"></i> Masuk via Google+</a>
+          <a href="<?php echo $this->facebook->login_url(); ?>" class="btn-green-primary btn" style="background: #3b5999;"><i class="fa fa-facebook"></i> <?php echo setting_lang('label_login_facebook');?></a>
+          <a href="<?php echo $this->google->login_url(); ?>" class="btn-green-primary btn" style="background: #dc4e41;"><i class="fa fa-google-plus"></i> <?php echo setting_lang('label_login_google');?></a>
         </div>
 
         <hr>
-        
+        <?php
+        $lbl_have_account = setting_lang("label_have_account");
+        $lbl_have_account = explode("?", $lbl_have_account);
+        ?>
         <p class="text-center">
-          Sudah punya Akun? <a href="<?php echo site_url('login');?>">Masuk</a>
+          <?php echo $lbl_have_account[0];?>? <a href="<?php echo site_url('login');?>"><?php echo $lbl_have_account[1];?></a>
         </p>
         
       </div>

@@ -64,8 +64,20 @@ class Contributor extends CI_Controller {
         }
     }
 
-    protected function _send_email($fullname, $email, $skill, $message) {        
-            $config = $this->config->item('sendgrid', 'email');
+    protected function _send_email($fullname, $email, $skill, $message) {    
+            $config = array(
+			'protocol'  => 'smtp',
+			'smtp_host' => 'ssl://smtp.googlemail.com',
+			'smtp_user' => 'belancon.dev@gmail.com',
+			'smtp_pass' => 'mohokuoso',
+			'smtp_port' => 465,
+			'mailtype'  => 'html',
+			'charset'   => 'iso-8859-1',
+			'starttls'  => true,
+			'crlf'      => "\r\n",
+			'wordwrap' => TRUE,
+		        'newline'   => "\r\n"
+		);
 
             $subject = "Request Join as Contributor";            
             $this->load->library('email');
@@ -83,6 +95,7 @@ class Contributor extends CI_Controller {
             if ($this->email->send()) {
                 return TRUE;
             } else {
+                show_error($this->email->print_debugger());
                 return FALSE;
             }
     }
@@ -131,6 +144,7 @@ class Contributor extends CI_Controller {
         $this->template->set_js('bootstrap.min.js','footer');
         $this->template->set_js('sweetalert.min.js','footer');    
         $this->template->set_js('toastr.min.js','footer');
+        $this->template->set_js('navscroll.js','footer');
     }
 
     protected function _loadpart() {       

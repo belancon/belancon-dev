@@ -2,3 +2,8 @@
 [24-Aug-2016 06:03:36 UTC] 
 [24-Aug-2016 06:05:15 UTC] 
 [24-Aug-2016 06:34:57 UTC] 
+[26-Aug-2016 10:13:44 UTC] PHP Parse error:  syntax error, unexpected '<<' (T_SL), expecting ')' in /home/belancon/public_html/dev/application/config/database.php on line 80
+[26-Aug-2016 10:14:19 UTC] PHP Fatal error:  Call to a member function num_rows() on a non-object in /home/belancon/public_html/dev/application/core/MY_Model.php on line 897
+[26-Aug-2016 10:14:26 UTC] PHP Fatal error:  Call to a member function num_rows() on a non-object in /home/belancon/public_html/dev/application/core/MY_Model.php on line 897
+[26-Aug-2016 10:14:28 UTC] PHP Fatal error:  Call to a member function num_rows() on a non-object in /home/belancon/public_html/dev/application/core/MY_Model.php on line 897
+[28-Aug-2016 10:43:08 UTC] PHP Parse error:  syntax error, unexpected ''newline'' (T_CONSTANT_ENCAPSED_STRING), expecting ')' in /home/belancon/public_html/dev/application/config/email.php on line 28

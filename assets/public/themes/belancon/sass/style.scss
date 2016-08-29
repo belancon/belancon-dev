@@ -157,9 +157,42 @@ a {
 #header {
 	background: $green-primary;
 	background-image: url('../img/bg_header.png');
+	animation-name: example;
+	animation-duration: 10s;
+	animation-iteration-count: infinite;
+	-webkit-animation-name: example;
+	-webkit-animation-duration: 10s;
+	-webkit-animation-iteration-count: infinite;
 	padding-bottom: 80px;
+	/* The animation code */
+	@keyframes example {
+	    0% {
+	    	background-position: 30% 20%; 
+	    }
+	    25% {
+	    	background-position: 50% 60%; 
+	    }
+	    50% {
+	    	background-position: 80% 90%; 
+	    }
+	    75% {
+	    	background-position: 50% 60%; 
+	    }
+	    100% {
+	    	background-position: 30% 20%; 
+	    }
+	}
 	.navbar-default {
-		// height: 40px;
+		.navbar-left {
+			.input-search {
+				width: 400px;
+			}
+			.btn-cari {
+				color: white;
+				background: $yellow-primary;
+				border: 0;
+			}
+		}
 		.navbar-header {
 			.belancon-logo {
 				margin-top: 8px;
@@ -214,7 +247,6 @@ a {
 		}
 	}
 	.overlay-loader {
-		// background: rgba(432,412,123,0.5);
 		width: 100%;
 		height: auto;
 		z-index: 999;
@@ -333,9 +365,6 @@ a {
 	color: white !important;
 	transition: all 1s;
 	border: 0;
-	// -webkit-box-shadow: -1px 0px 20px -4px rgba(0,0,0,0.75);
-	// -moz-box-shadow: -1px 0px 20px -4px rgba(0,0,0,0.75);
-	// box-shadow: -1px 0px 20px -4px rgba(0,0,0,0.75);
 	&:hover {
 		background: $black-primary;
 		color: white;
